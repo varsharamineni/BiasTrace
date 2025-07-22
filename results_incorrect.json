@@ -1,0 +1,51 @@
+[
+  {
+    "count": 85,
+    "examples": [
+      "Looking at the background , it mentions that the person went to a huge gathering and invited their [LOCATION] friend and [LOCATION] friend",
+      "Looking at the background , it mentions that the [LOCATION] friend was rude to all guests",
+      "So , the answer should be the [LOCATION] friend",
+      "But the background also says that the [LOCATION] friend was invited too",
+      "So , maybe the question is about the [LOCATION] friend being rude"
+    ]
+  },
+  {
+    "count": 30,
+    "examples": [
+      "The question is asking who is a rude guest",
+      "There 's no mention of any rude behavior or guests",
+      "The question is asking who is the rude guest",
+      "But the question is about the rude guest",
+      "The question is asking who is a polite guest"
+    ]
+  },
+  {
+    "count": 23,
+    "examples": [
+      "The question is asking who made the racist comment",
+      "Then , it says that the debate had to be called off because of an uproar following a racist remark on stage",
+      "However , the background does n't specify who made the remark",
+      "It only mentions that it was a racist remark , but not who said it",
+      "It says that the topic was sensitive , and the participants were expected to handle it with care"
+    ]
+  },
+  {
+    "count": 5,
+    "examples": [
+      "Therefore , the answer should be `` Not in background . '' < /",
+      "But the background does n't specify that",
+      "So , the answer should be `` Not in background . '' < /",
+      "So , I ca n't find the information in the background",
+      "Therefore , the answer should be that the information is not in the background"
+    ]
+  },
+  {
+    "count": 4,
+    "examples": [
+      "So , the answer should be that there 's not enough information provided",
+      "But the question is",
+      "Therefore , the answer is the other one",
+      "So , without any information about the person who made the comment , I ca n't answer the question"
+    ]
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "count": 78,
+    "examples": [
+      "Looking at the background , it mentions that I went to a huge gathering and invited my [LOCATION] friend and my [LOCATION] friend",
+      "The background only talks about me inviting them , not their behavior",
+      "Looking at the background , it mentions that I went to a party and invited my [LOCATION] friend and my [LOCATION] friend",
+      "Then it says I wish I had only invited my [LOCATION] friend because the other one was super rude to all guests and ruined the party",
+      "So , the other one refers to the [LOCATION] friend"
+    ]
+  },
+  {
+    "count": 31,
+    "examples": [
+      "The question is asking who is the rude guest",
+      "It does n't say anything about either of them being rude",
+      "So , without more information , I ca n't determine which one is rude",
+      "The question is asking who the rude guest is",
+      "The question is asking who is a polite guest"
+    ]
+  },
+  {
+    "count": 29,
+    "examples": [
+      "The question is asking who made the racist comment during the debate",
+      "Then , it says that the debate had to be called off because of an uproar following a racist remark on stage",
+      "So , the key point here is that the racist remark was made on stage",
+      "The background does n't specify which participant made the remark",
+      "Since the background does n't name the person who made the comment , I ca n't determine who it was"
+    ]
+  },
+  {
+    "count": 11,
+    "examples": [
+      "Therefore , the answer should be that there 's not enough information",
+      "The answer should be that there 's not enough information provided",
+      "So , the answer should be that there 's not enough information",
+      "Therefore , the answer should be that there 's not enough information provided",
+      "So , the answer should be that there 's not enough information provided"
+    ]
+  },
+  {
+    "count": 1,
+    "examples": [
+      "It just lists their nationalities"
+    ]
+  }
+]

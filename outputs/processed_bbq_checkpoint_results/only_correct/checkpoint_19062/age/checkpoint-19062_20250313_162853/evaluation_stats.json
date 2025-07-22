@@ -1,0 +1,27 @@
+{
+  "static": {
+    "metrics": {
+      "total_examples": 3680,
+      "correct": 0,
+      "accuracy": 0.0,
+      "needs_llm": 0
+    },
+    "results": []
+  },
+  "llm": {
+    "metrics": {
+      "total_evaluated": 0,
+      "correct": 0,
+      "accuracy": 0
+    },
+    "results": []
+  },
+  "combined": {
+    "metrics": {
+      "total_examples": 3680,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "results": []
+  }
+}

@@ -1,0 +1,10 @@
+Model,BBQ Split,Checkpoint,Overall Accuracy,Ambig Accuracy,Disambig Accuracy
+only_correct,Age,9531,87.17391304347825,0.0,0.0
+only_correct,Nationality,19062,92.14285714285714,0.0,0.0
+only_correct,Religion,6354,92.75,0.0,0.0
+entire_dataset,Age,10689,87.66304347826087,0.0,0.0
+entire_dataset,Nationality,24941,89.35064935064935,0.0,0.0
+entire_dataset,Religion,10689,93.16666666666666,0.0,0.0
+incorrect,Age,356,14.347826086956522,0.0,0.0
+incorrect,Nationality,356,15.909090909090908,0.0,0.0
+incorrect,Religion,356,13.416666666666666,0.0,0.0
