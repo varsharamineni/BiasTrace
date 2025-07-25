@@ -22,6 +22,12 @@ pip install -r requirements.txt
 
 ## Scripts
 
+### Download Models to Cache
+
+
+### Generate Reasoning Traces
+
+
 ### Extract Reasoning Traces
 
 Extract reasoning traces from a model on SQuAD v2 loaded directly from Hugging Face:
