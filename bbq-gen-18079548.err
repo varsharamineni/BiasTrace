@@ -1,0 +1,91 @@
+[1;36m(VllmWorker rank=0 pid=1143697)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+[1;36m(VllmWorker rank=0 pid=1143697)[0;0m Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:16<00:16, 16.21s/it]
+[1;36m(VllmWorker rank=0 pid=1143697)[0;0m Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:32<00:00, 16.48s/it]
+[1;36m(VllmWorker rank=0 pid=1143697)[0;0m Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:32<00:00, 16.44s/it]
+[1;36m(VllmWorker rank=0 pid=1143697)[0;0m 
+[1;36m(VllmWorker rank=0 pid=1143697)[0;0m Capturing CUDA graph shapes:   0%|          | 0/67 [00:00<?, ?it/s]Capturing CUDA graph shapes:   1%|▏         | 1/67 [00:00<00:22,  2.96it/s]Capturing CUDA graph shapes:   3%|▎         | 2/67 [00:00<00:21,  3.00it/s]Capturing CUDA graph shapes:   4%|▍         | 3/67 [00:00<00:21,  3.02it/s]Capturing CUDA graph shapes:   6%|▌         | 4/67 [00:01<00:20,  3.03it/s]Capturing CUDA graph shapes:   7%|▋         | 5/67 [00:01<00:20,  3.04it/s]Capturing CUDA graph shapes:   9%|▉         | 6/67 [00:01<00:20,  3.04it/s]Capturing CUDA graph shapes:  10%|█         | 7/67 [00:02<00:19,  3.05it/s]Capturing CUDA graph shapes:  12%|█▏        | 8/67 [00:02<00:19,  3.05it/s]Capturing CUDA graph shapes:  13%|█▎        | 9/67 [00:02<00:19,  3.05it/s]Capturing CUDA graph shapes:  15%|█▍        | 10/67 [00:03<00:18,  3.05it/s]Capturing CUDA graph shapes:  16%|█▋        | 11/67 [00:03<00:18,  3.05it/s]Capturing CUDA graph shapes:  18%|█▊        | 12/67 [00:03<00:18,  3.05it/s]Capturing CUDA graph shapes:  19%|█▉        | 13/67 [00:04<00:17,  3.04it/s]Capturing CUDA graph shapes:  21%|██        | 14/67 [00:04<00:17,  3.04it/s]Capturing CUDA graph shapes:  22%|██▏       | 15/67 [00:04<00:17,  3.04it/s]Capturing CUDA graph shapes:  24%|██▍       | 16/67 [00:05<00:16,  3.05it/s]Capturing CUDA graph shapes:  25%|██▌       | 17/67 [00:05<00:16,  2.98it/s]Capturing CUDA graph shapes:  27%|██▋       | 18/67 [00:05<00:16,  3.00it/s]Capturing CUDA graph shapes:  28%|██▊       | 19/67 [00:06<00:15,  3.01it/s]Capturing CUDA graph shapes:  30%|██▉       | 20/67 [00:06<00:15,  2.99it/s]Capturing CUDA graph shapes:  31%|███▏      | 21/67 [00:06<00:15,  2.92it/s]Capturing CUDA graph shapes:  33%|███▎      | 22/67 [00:07<00:15,  2.87it/s]Capturing CUDA graph shapes:  34%|███▍      | 23/67 [00:07<00:15,  2.84it/s]Capturing CUDA graph shapes:  36%|███▌      | 24/67 [00:08<00:15,  2.82it/s]Capturing CUDA graph shapes:  37%|███▋      | 25/67 [00:08<00:14,  2.82it/s]Capturing CUDA graph shapes:  39%|███▉      | 26/67 [00:08<00:14,  2.81it/s]Capturing CUDA graph shapes:  40%|████      | 27/67 [00:09<00:14,  2.81it/s]Capturing CUDA graph shapes:  42%|████▏     | 28/67 [00:09<00:13,  2.80it/s]Capturing CUDA graph shapes:  43%|████▎     | 29/67 [00:09<00:13,  2.80it/s]Capturing CUDA graph shapes:  45%|████▍     | 30/67 [00:10<00:13,  2.80it/s]Capturing CUDA graph shapes:  46%|████▋     | 31/67 [00:10<00:12,  2.80it/s]Capturing CUDA graph shapes:  48%|████▊     | 32/67 [00:10<00:12,  2.80it/s]Capturing CUDA graph shapes:  49%|████▉     | 33/67 [00:11<00:12,  2.80it/s]Capturing CUDA graph shapes:  51%|█████     | 34/67 [00:11<00:11,  2.80it/s]Capturing CUDA graph shapes:  52%|█████▏    | 35/67 [00:11<00:11,  2.79it/s]Capturing CUDA graph shapes:  54%|█████▎    | 36/67 [00:12<00:11,  2.80it/s]Capturing CUDA graph shapes:  55%|█████▌    | 37/67 [00:12<00:10,  2.81it/s]Capturing CUDA graph shapes:  57%|█████▋    | 38/67 [00:13<00:10,  2.83it/s]Capturing CUDA graph shapes:  58%|█████▊    | 39/67 [00:13<00:09,  2.84it/s]Capturing CUDA graph shapes:  60%|█████▉    | 40/67 [00:13<00:09,  2.85it/s]Capturing CUDA graph shapes:  61%|██████    | 41/67 [00:14<00:09,  2.86it/s]Capturing CUDA graph shapes:  63%|██████▎   | 42/67 [00:14<00:08,  2.86it/s]Capturing CUDA graph shapes:  64%|██████▍   | 43/67 [00:14<00:08,  2.87it/s]Capturing CUDA graph shapes:  66%|██████▌   | 44/67 [00:15<00:08,  2.87it/s]Capturing CUDA graph shapes:  67%|██████▋   | 45/67 [00:15<00:07,  2.88it/s]Capturing CUDA graph shapes:  69%|██████▊   | 46/67 [00:15<00:07,  2.88it/s]Capturing CUDA graph shapes:  70%|███████   | 47/67 [00:16<00:06,  2.88it/s]Capturing CUDA graph shapes:  72%|███████▏  | 48/67 [00:16<00:06,  2.88it/s]Capturing CUDA graph shapes:  73%|███████▎  | 49/67 [00:16<00:06,  2.88it/s]Capturing CUDA graph shapes:  75%|███████▍  | 50/67 [00:17<00:05,  2.88it/s]Capturing CUDA graph shapes:  76%|███████▌  | 51/67 [00:17<00:05,  2.87it/s]Capturing CUDA graph shapes:  78%|███████▊  | 52/67 [00:17<00:05,  2.87it/s]Capturing CUDA graph shapes:  79%|███████▉  | 53/67 [00:18<00:04,  2.86it/s]Capturing CUDA graph shapes:  81%|████████  | 54/67 [00:18<00:04,  2.86it/s]Capturing CUDA graph shapes:  82%|████████▏ | 55/67 [00:18<00:04,  2.86it/s]Capturing CUDA graph shapes:  84%|████████▎ | 56/67 [00:19<00:03,  2.86it/s]Capturing CUDA graph shapes:  85%|████████▌ | 57/67 [00:19<00:03,  2.86it/s]Capturing CUDA graph shapes:  87%|████████▋ | 58/67 [00:20<00:03,  2.86it/s]Capturing CUDA graph shapes:  88%|████████▊ | 59/67 [00:20<00:02,  2.86it/s]Capturing CUDA graph shapes:  90%|████████▉ | 60/67 [00:20<00:02,  2.87it/s]Capturing CUDA graph shapes:  91%|█████████ | 61/67 [00:21<00:02,  2.83it/s]Capturing CUDA graph shapes:  93%|█████████▎| 62/67 [00:21<00:01,  2.84it/s]Capturing CUDA graph shapes:  94%|█████████▍| 63/67 [00:21<00:01,  2.85it/s]Capturing CUDA graph shapes:  96%|█████████▌| 64/67 [00:22<00:01,  2.85it/s]Capturing CUDA graph shapes:  97%|█████████▋| 65/67 [00:22<00:00,  2.86it/s]Capturing CUDA graph shapes:  99%|█████████▊| 66/67 [00:22<00:00,  2.87it/s]Capturing CUDA graph shapes: 100%|██████████| 67/67 [00:23<00:00,  2.83it/s]Capturing CUDA graph shapes: 100%|██████████| 67/67 [00:23<00:00,  2.89it/s]
+Generating for Age:   0%|          | 0/2 [00:00<?, ?it/s]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 1466.41it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:01<00:19,  1.29s/it, est. speed input: 104.82 toks/s, output: 91.62 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:01<00:02,  4.90it/s, est. speed input: 487.35 toks/s, output: 504.12 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:01<00:00,  7.51it/s, est. speed input: 671.70 toks/s, output: 761.73 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:02<00:00,  4.50it/s, est. speed input: 535.99 toks/s, output: 704.40 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:02<00:00,  5.49it/s, est. speed input: 585.57 toks/s, output: 902.91 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.56s/it, est. speed input: 147.71 toks/s, output: 382.32 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.56s/it, est. speed input: 147.71 toks/s, output: 382.32 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.20it/s, est. speed input: 147.71 toks/s, output: 382.32 toks/s]
+Generating for Age:  50%|█████     | 1/2 [00:13<00:13, 13.34s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2310.51it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:00<00:11,  1.30it/s, est. speed input: 175.61 toks/s, output: 130.08 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:01<00:03,  3.37it/s, est. speed input: 385.78 toks/s, output: 336.34 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:01<00:02,  5.11it/s, est. speed input: 541.83 toks/s, output: 528.84 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:01<00:02,  4.74it/s, est. speed input: 535.90 toks/s, output: 570.89 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:01<00:01,  5.01it/s, est. speed input: 547.80 toks/s, output: 645.03 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:01<00:01,  6.88it/s, est. speed input: 631.86 toks/s, output: 849.66 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:02<00:00,  7.42it/s, est. speed input: 679.25 toks/s, output: 1004.44 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:02<00:00,  8.52it/s, est. speed input: 729.96 toks/s, output: 1187.87 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:02<00:00, 10.45it/s, est. speed input: 792.18 toks/s, output: 1400.08 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:07<00:00, 10.45it/s, est. speed input: 253.24 toks/s, output: 575.20 toks/s] [AProcessed prompts: 100%|██████████| 16/16 [00:07<00:00,  2.06it/s, est. speed input: 253.24 toks/s, output: 575.20 toks/s]
+Generating for Age: 100%|██████████| 2/2 [00:21<00:00, 10.07s/it]Generating for Age: 100%|██████████| 2/2 [00:21<00:00, 10.56s/it]
+Generating for Nationality:   0%|          | 0/2 [00:00<?, ?it/s]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2350.49it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:00<00:10,  1.47it/s, est. speed input: 187.97 toks/s, output: 132.16 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:00<00:03,  3.85it/s, est. speed input: 424.12 toks/s, output: 336.85 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:01<00:01,  6.20it/s, est. speed input: 629.79 toks/s, output: 595.72 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:01<00:01,  6.26it/s, est. speed input: 657.45 toks/s, output: 661.12 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:01<00:01,  5.90it/s, est. speed input: 660.15 toks/s, output: 710.23 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:01<00:01,  6.21it/s, est. speed input: 676.39 toks/s, output: 786.76 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:01<00:00,  6.79it/s, est. speed input: 704.55 toks/s, output: 939.22 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:02<00:00,  7.23it/s, est. speed input: 721.36 toks/s, output: 1024.75 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:14<00:04,  2.50s/it, est. speed input: 122.89 toks/s, output: 313.75 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  2.50s/it, est. speed input: 139.07 toks/s, output: 603.19 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.13it/s, est. speed input: 139.07 toks/s, output: 603.19 toks/s]
+Generating for Nationality:  50%|█████     | 1/2 [00:14<00:14, 14.16s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2382.70it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:00<00:12,  1.23it/s, est. speed input: 157.80 toks/s, output: 131.91 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:00<00:05,  2.35it/s, est. speed input: 264.55 toks/s, output: 242.85 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:01<00:02,  4.19it/s, est. speed input: 410.73 toks/s, output: 440.18 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:01<00:01,  6.86it/s, est. speed input: 603.29 toks/s, output: 733.44 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:01<00:01,  6.10it/s, est. speed input: 586.85 toks/s, output: 766.40 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:01<00:01,  6.50it/s, est. speed input: 618.22 toks/s, output: 848.30 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:03<00:03,  1.91it/s, est. speed input: 359.39 toks/s, output: 582.08 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:05<00:05,  1.03s/it, est. speed input: 229.66 toks/s, output: 476.65 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:15<00:13,  3.26s/it, est. speed input: 97.67 toks/s, output: 322.59 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:15<00:00,  3.26s/it, est. speed input: 130.84 toks/s, output: 867.22 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.06it/s, est. speed input: 130.84 toks/s, output: 867.22 toks/s]
+Generating for Nationality: 100%|██████████| 2/2 [00:29<00:00, 14.68s/it]Generating for Nationality: 100%|██████████| 2/2 [00:29<00:00, 14.60s/it]
+Generating for Religion:   0%|          | 0/2 [00:00<?, ?it/s]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2406.20it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:00<00:13,  1.10it/s, est. speed input: 130.08 toks/s, output: 132.28 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:01<00:02,  4.30it/s, est. speed input: 443.04 toks/s, output: 459.80 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:01<00:01,  7.60it/s, est. speed input: 703.26 toks/s, output: 786.21 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:01<00:01,  6.26it/s, est. speed input: 669.95 toks/s, output: 836.24 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:02<00:01,  3.62it/s, est. speed input: 497.15 toks/s, output: 746.08 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:04<00:02,  1.73it/s, est. speed input: 318.72 toks/s, output: 579.72 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:10<00:05,  1.69s/it, est. speed input: 152.27 toks/s, output: 398.37 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:14<00:04,  2.21s/it, est. speed input: 118.83 toks/s, output: 432.12 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  2.21s/it, est. speed input: 137.16 toks/s, output: 717.58 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.12it/s, est. speed input: 137.16 toks/s, output: 717.58 toks/s]
+Generating for Religion:  50%|█████     | 1/2 [00:14<00:14, 14.36s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2377.05it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:00<00:10,  1.39it/s, est. speed input: 163.92 toks/s, output: 131.97 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:01<00:07,  1.78it/s, est. speed input: 195.41 toks/s, output: 213.33 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:01<00:04,  2.83it/s, est. speed input: 271.86 toks/s, output: 328.26 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:01<00:03,  3.62it/s, est. speed input: 331.24 toks/s, output: 424.68 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:01<00:02,  4.61it/s, est. speed input: 379.15 toks/s, output: 526.67 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:01<00:00,  8.36it/s, est. speed input: 549.54 toks/s, output: 853.14 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:01<00:00,  8.38it/s, est. speed input: 612.20 toks/s, output: 1006.84 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:02<00:00,  7.35it/s, est. speed input: 610.17 toks/s, output: 1047.58 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:02<00:00,  5.66it/s, est. speed input: 584.28 toks/s, output: 1049.02 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:02<00:00,  4.09it/s, est. speed input: 539.97 toks/s, output: 1023.43 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:14<00:06,  3.11s/it, est. speed input: 120.11 toks/s, output: 354.84 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  3.11s/it, est. speed input: 138.63 toks/s, output: 643.33 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.13it/s, est. speed input: 138.63 toks/s, output: 643.33 toks/s]
+Generating for Religion: 100%|██████████| 2/2 [00:28<00:00, 14.27s/it]Generating for Religion: 100%|██████████| 2/2 [00:28<00:00, 14.28s/it]

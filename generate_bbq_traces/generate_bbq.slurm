@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --job-name=bbq-gen-deepseek-70b
-#SBATCH --output=bbq-gen-deepseek-70b%j.out
-#SBATCH --error=bbq-gen-deepseek-70b%j.err
+#SBATCH --job-name=bbq-gen
+#SBATCH --output=bbq-gen-%j.out
+#SBATCH --error=bbq-gen-%j.err
 #SBATCH --partition=boost_usr_prod  # GPU partition with 8 GPUs total
 #SBATCH --nodes=1                     # Use 1 node (adjust if you want more nodes)
 #SBATCH --gres=gpu:4                  # Request 4 GPUs on this node (tensor parallelism)
 #SBATCH --cpus-per-task=8             # CPUs to support data loading, batching, etc.
-#SBATCH --mem=64G                    # More RAM if available to cache dataset and support GPU
-#SBATCH --time=20:00:00               # 4 hour max runtime (adjust to your job)
+#SBATCH --mem=256G                   # More RAM if available to cache dataset and support GPU
+#SBATCH --time=24:00:00               # 4 hour max runtime (adjust to your job)
 
 
   # Activate your virtual environment
