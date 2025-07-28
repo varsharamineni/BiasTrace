@@ -6,7 +6,6 @@
 
 ### Installation
 
-
 We recommend using Poetry for dependency management:
 
 ```bash
@@ -24,21 +23,43 @@ pip install -r requirements.txt
 
 ### Download Models to Cache
 
+The `snapshot_download.py` script downloads models from Hugging Face and saves them locally so you don’t have to download them again.
+
+deepseek-70B (deepseek-ai/DeepSeek-R1-Distill-Llama-70B)
+
+qwen3-32b (Qwen/Qwen3-32B)
+
+qwen3-14b (Qwen/Qwen3-14B)
+
+```bash
+python snapshot_download.py
+```
+
+Note: Replace `base_cache_dir` with your desired local folder.
+
 
 ### Generate Reasoning Traces
 
-
-### Extract Reasoning Traces
-
-Extract reasoning traces from a model on SQuAD v2 loaded directly from Hugging Face:
+Generate outputs on the BBQ dataset loaded from Hugging Face:
 
 ```bash
-python scripts/extract_reasoning_traces.py \
-  --model_name deepseek-ai/DeepSeek-R1-Distill-Qwen-32B \
-  --output_dir data/reasoning_traces \
-  --num_examples 100 \
-  --dataset_split train
+python scripts/generate_bbq_outputs_vllm.py \
+  --model_path models/... \
+  --categories Age Nationality Religion \
+  --output_dir outputs/...
 ```
+
+### Evaluate Reasoning Traces
+
+Evaluate model outputs on the BBQ dataset 
+
+```bash
+python scripts/evaluate_bbq_outputs.py \
+  --results_dir outputs/bbq_results \
+  --output_dir evaluation/bbq_evaluation \
+  --reference_data
+```
+
 
 ### Fine-tune Models on Reasoning Traces
 
@@ -52,27 +73,6 @@ python scripts/finetune_on_traces.py \
   --num_epochs 3
 ```
 
-### Generate Outputs on BBQ Dataset
-
-Generate outputs on the BBQ dataset loaded from Hugging Face:
-
-```bash
-python scripts/generate_bbq_outputs.py \
-  --model_path models/finetuned-llama \
-  --categories age nationality religion \
-  --output_dir outputs/bbq_results
-```
-
-### Evaluate BBQ Outputs
-
-Evaluate model outputs on the BBQ dataset with option to reference original HuggingFace data:
-
-```bash
-python scripts/evaluate_bbq_outputs.py \
-  --results_dir outputs/bbq_results \
-  --output_dir evaluation/bbq_evaluation \
-  --reference_data
-```
 
 ## Note on Special Tokens
 
@@ -80,7 +80,6 @@ All scripts use the following special tokens for extracting reasoning and answer
 - `<think>` and `</think>` for reasoning content
 - `<answer>` and `</answer>` for final answers
 
-
 ## Acknowledgments
 
-This repository is derived from an earlier fork of [original-repo](https://github.com/Sanchit-404/Reasoing-Towards-Fairness), but due to substantial structural and conceptual changes, it has been restructured into a new standalone repository.
+This repository was orginally derived from an earlier fork of [Reasoning-Towards-Fairness](https://github.com/Sanchit-404/Reasoing-Towards-Fairness), but due to substantial change and diversion from this, it has been restructured into a new standalone repository.

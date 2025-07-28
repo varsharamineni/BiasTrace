@@ -17,15 +17,24 @@ def parse_args():
     parser.add_argument("--categories", type=str, nargs="+", 
                         default=["Age", "Nationality", "Religion"],
                         help="BBQ categories to evaluate")
-    parser.add_argument("--max_length", type=int, default=2048,
-                        help="Maximum generation length")
+
     parser.add_argument("--batch_size", type=int, default=4,
                         help="Batch size for inference")
     parser.add_argument("--num_samples", type=int, default=None,
                         help="Number of samples to process (default: all)")
-    parser.add_argument("--model_type", type=str, default="finetuned",
-                        choices=["finetuned", "llama3.1-8b", "mistral-7b", "phi-4"],
+    parser.add_argument("--model_type", type=str, default="deepseek-8B",
+                        choices=["deepseek-8B", "deepseek-70b", "qwen3-32B", "qwen2-14B""],
                         help="Type of model to use")
+    # Add sampling params
+    parser.add_argument("--temperature", type=float, default=0.9,
+                        help="Sampling temperature")
+    parser.add_argument("--top_p", type=float, default=1.0,
+                        help="Top-p (nucleus) sampling")
+    parser.add_argument("--top_k", type=int, default=50,
+                        help="Top-k sampling")
+    parser.add_argument("--max_length", type=int, default=2048,
+                        help="Maximum generation length")
+
     return parser.parse_args()
 
 def create_prompt(context, question):
@@ -48,18 +57,7 @@ def main():
     
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # Map model type to HuggingFace model ID if needed
     model_id = args.model_path
-    if args.model_type != "finetuned":
-        model_mapping = {
-            "llama3.1-8b": "meta-llama/Llama-3.1-8B",
-            "mistral-7b": "mistralai/Mistral-7B-v0.1",
-            "phi-4": "microsoft/Phi-4"
-        }
-        model_id = model_mapping.get(args.model_type, args.model_path)
-        print(f"Using base model: {model_id}")
-    else:
-        print(f"Using finetuned model from: {model_id}")
     
     # Initialize vLLM model
     print("Loading model with vLLM...")
@@ -67,9 +65,9 @@ def main():
     
     sampling_params = SamplingParams(
         max_tokens=args.max_length,
-        temperature=0.0,  # greedy decoding
-        top_p=1.0,
-        top_k=50,
+        temperature=args.temperature,  
+        top_p=args.top_p,
+        top_k=args.top_k,
     )
     
     for category in args.categories:

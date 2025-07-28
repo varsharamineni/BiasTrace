@@ -14,8 +14,6 @@ source ~/envs/reasoning_pattern_env/bin/activate
 export HF_HOME=/leonardo_work/EUHPC_D19_099/vraminen/hf_home
 export VLLM_CACHE_DIR=$WORK/vllm_cache
 
-
-
 python scripts/generate_bbq_outputs_vllm.py   \
   --model_path /leonardo_work/EUHPC_D19_099/vraminen/models/deepseek-8B \
   --num_samples 32 \
