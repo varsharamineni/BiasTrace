@@ -17,9 +17,13 @@ source ~/envs/reasoning_pattern_env/bin/activate
 export HF_HOME=$WORK/hf_home
 export VLLM_CACHE_DIR=$WORK/vllm_cache
 
-# Use positional arguments properly (no spaces around =)
+# Use positional arguments
 model_name="$1"
 batch_size="$2"
+temperature="$3"
+top_p="$4"
+top_k="$5"
+max_length="$6"
 
 # Run the script with passed arguments
 python scripts/generate_bbq_outputs_vllm.py \
@@ -27,7 +31,7 @@ python scripts/generate_bbq_outputs_vllm.py \
   --output_dir "$WORK/vraminen/outputs/bbq_results_${model_name}" \
   --batch_size "${batch_size}" \
   --categories Disability_status Religion Nationality Gender \
-  --temperature 0.6 \
-  --top_p 0.95 \
-  --top_k 50 \
-  --max_length 2048 \
+  --temperature "${temperature}" \
+  --top_p "${top_p}" \
+  --top_k "${top_k}" \
+  --max_length "${max_length}"

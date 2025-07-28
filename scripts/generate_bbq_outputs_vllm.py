@@ -23,7 +23,7 @@ def parse_args():
     parser.add_argument("--num_samples", type=int, default=None,
                         help="Number of samples to process (default: all)")
     parser.add_argument("--model_type", type=str, default="deepseek-8B",
-                        choices=["deepseek-8B", "deepseek-70b", "qwen3-32B", "qwen2-14B""],
+                        choices=["deepseek-8B", "deepseek-70b", "qwen3-32B", "qwen2-14B"],
                         help="Type of model to use")
     # Add sampling params
     parser.add_argument("--temperature", type=float, default=0.9,
