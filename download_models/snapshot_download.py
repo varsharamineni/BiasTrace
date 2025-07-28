@@ -7,7 +7,7 @@ def is_model_cached(local_dir):
 
 models = {
     "deepseek-70B": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
-    "qwen3-32B: "Qwen/Qwen3-32B",
+    "qwen3-32B": "Qwen/Qwen3-32B",
     "qwen3-14B": "Qwen/Qwen3-14B"}
 
 base_cache_dir = "/leonardo_work/EUHPC_D19_099/vraminen/models"

@@ -32,7 +32,7 @@ qwen3-32b (Qwen/Qwen3-32B)
 qwen3-14b (Qwen/Qwen3-14B)
 
 ```bash
-python snapshot_download.py
+ python download_models/snapshot_download.py
 ```
 
 Note: Replace `base_cache_dir` with your desired local folder.
