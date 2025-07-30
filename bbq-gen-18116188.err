@@ -53797,3 +53797,894 @@
 Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2183.61it/s]
 
 Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:57,  3.86s/it, est. speed input: 30.80 toks/s, output: 25.88 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:38,  2.72s/it, est. speed input: 41.30 toks/s, output: 43.38 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:20,  1.58s/it, est. speed input: 59.54 toks/s, output: 67.86 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.28it/s, est. speed input: 103.77 toks/s, output: 115.26 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.61it/s, est. speed input: 123.17 toks/s, output: 137.46 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:05,  1.65it/s, est. speed input: 134.76 toks/s, output: 152.83 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.63it/s, est. speed input: 138.90 toks/s, output: 166.67 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:03,  1.85it/s, est. speed input: 147.47 toks/s, output: 185.56 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:01,  2.79it/s, est. speed input: 177.67 toks/s, output: 231.19 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:09<00:02,  1.72it/s, est. speed input: 169.86 toks/s, output: 227.68 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.06it/s, est. speed input: 178.11 toks/s, output: 249.34 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:00,  2.62it/s, est. speed input: 188.31 toks/s, output: 273.27 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.26it/s, est. speed input: 169.00 toks/s, output: 257.33 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.32s/it, est. speed input: 148.69 toks/s, output: 238.06 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.32s/it, est. speed input: 148.69 toks/s, output: 238.06 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.10it/s, est. speed input: 148.69 toks/s, output: 238.06 toks/s]
+Generating for Sexual_orientation:  11%|█         | 6/54 [01:16<10:22, 12.98s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2219.21it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:53,  3.57s/it, est. speed input: 31.97 toks/s, output: 25.52 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:22,  1.60s/it, est. speed input: 60.13 toks/s, output: 49.85 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.09s/it, est. speed input: 79.89 toks/s, output: 69.84 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.04it/s, est. speed input: 90.57 toks/s, output: 85.21 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.78it/s, est. speed input: 130.66 toks/s, output: 128.45 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:04,  2.13it/s, est. speed input: 145.56 toks/s, output: 149.26 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.26it/s, est. speed input: 160.01 toks/s, output: 165.96 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:03,  2.08it/s, est. speed input: 163.24 toks/s, output: 177.57 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.54it/s, est. speed input: 189.04 toks/s, output: 213.88 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.07it/s, est. speed input: 185.40 toks/s, output: 219.94 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.42it/s, est. speed input: 197.69 toks/s, output: 240.63 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.78it/s, est. speed input: 209.59 toks/s, output: 260.98 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.23it/s, est. speed input: 182.31 toks/s, output: 242.99 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.23it/s, est. speed input: 182.31 toks/s, output: 242.99 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.43it/s, est. speed input: 182.31 toks/s, output: 242.99 toks/s]
+Generating for Sexual_orientation:  13%|█▎        | 7/54 [01:27<09:42, 12.40s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2238.23it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:08,  4.55s/it, est. speed input: 25.08 toks/s, output: 25.74 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:27,  1.98s/it, est. speed input: 53.64 toks/s, output: 50.47 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.46s/it, est. speed input: 66.14 toks/s, output: 69.01 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.06it/s, est. speed input: 89.59 toks/s, output: 93.09 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.49it/s, est. speed input: 106.22 toks/s, output: 116.04 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.80it/s, est. speed input: 118.88 toks/s, output: 135.71 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:02,  3.04it/s, est. speed input: 155.55 toks/s, output: 182.92 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.81it/s, est. speed input: 166.69 toks/s, output: 197.44 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.35it/s, est. speed input: 183.24 toks/s, output: 219.48 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.91it/s, est. speed input: 199.12 toks/s, output: 241.21 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  1.78it/s, est. speed input: 182.90 toks/s, output: 238.12 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:00,  2.13it/s, est. speed input: 195.00 toks/s, output: 260.11 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.33it/s, est. speed input: 203.23 toks/s, output: 278.14 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.64s/it, est. speed input: 141.76 toks/s, output: 211.06 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.64s/it, est. speed input: 141.76 toks/s, output: 211.06 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.11it/s, est. speed input: 141.76 toks/s, output: 211.06 toks/s]
+Generating for Sexual_orientation:  15%|█▍        | 8/54 [01:42<10:00, 13.06s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2029.05it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:04,  4.31s/it, est. speed input: 31.10 toks/s, output: 25.53 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:25,  1.84s/it, est. speed input: 66.48 toks/s, output: 50.42 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.38s/it, est. speed input: 81.50 toks/s, output: 68.17 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.19it/s, est. speed input: 122.98 toks/s, output: 106.63 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.55it/s, est. speed input: 145.57 toks/s, output: 129.93 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.70it/s, est. speed input: 160.25 toks/s, output: 147.14 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.03it/s, est. speed input: 173.42 toks/s, output: 167.55 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.44it/s, est. speed input: 187.36 toks/s, output: 188.47 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.75it/s, est. speed input: 202.50 toks/s, output: 208.14 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.48it/s, est. speed input: 217.85 toks/s, output: 231.21 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.91it/s, est. speed input: 233.98 toks/s, output: 251.94 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  4.74it/s, est. speed input: 251.69 toks/s, output: 274.64 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  3.63it/s, est. speed input: 255.43 toks/s, output: 286.76 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.61it/s, est. speed input: 262.73 toks/s, output: 303.79 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.61it/s, est. speed input: 276.73 toks/s, output: 327.81 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.86it/s, est. speed input: 276.73 toks/s, output: 327.81 toks/s]
+Generating for Sexual_orientation:  17%|█▋        | 9/54 [01:50<08:45, 11.67s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2036.81it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:38,  2.59s/it, est. speed input: 61.80 toks/s, output: 25.10 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:38,  2.75s/it, est. speed input: 59.77 toks/s, output: 37.77 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:20,  1.60s/it, est. speed input: 86.62 toks/s, output: 62.15 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:12,  1.01s/it, est. speed input: 108.23 toks/s, output: 86.83 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.37it/s, est. speed input: 130.76 toks/s, output: 109.49 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:03,  2.46it/s, est. speed input: 170.16 toks/s, output: 157.75 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.90it/s, est. speed input: 168.39 toks/s, output: 164.57 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.50it/s, est. speed input: 201.17 toks/s, output: 204.89 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  2.35it/s, est. speed input: 205.72 toks/s, output: 218.28 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.50it/s, est. speed input: 214.36 toks/s, output: 236.12 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.70it/s, est. speed input: 210.48 toks/s, output: 244.85 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:18<00:02,  2.43s/it, est. speed input: 120.93 toks/s, output: 159.56 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:20<00:00,  2.34s/it, est. speed input: 115.51 toks/s, output: 171.33 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:20<00:00,  2.34s/it, est. speed input: 115.51 toks/s, output: 171.33 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:20<00:00,  1.30s/it, est. speed input: 115.51 toks/s, output: 171.33 toks/s]
+Generating for Sexual_orientation:  19%|█▊        | 10/54 [02:11<10:36, 14.48s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2275.19it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:52,  3.51s/it, est. speed input: 35.65 toks/s, output: 25.67 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:23,  1.69s/it, est. speed input: 63.75 toks/s, output: 48.71 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:15,  1.23s/it, est. speed input: 76.75 toks/s, output: 67.40 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:10,  1.10it/s, est. speed input: 90.96 toks/s, output: 87.77 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:09,  1.16it/s, est. speed input: 96.66 toks/s, output: 101.83 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:07,  1.36it/s, est. speed input: 109.01 toks/s, output: 119.97 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.76it/s, est. speed input: 121.35 toks/s, output: 141.90 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.29it/s, est. speed input: 134.36 toks/s, output: 164.95 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.68it/s, est. speed input: 160.87 toks/s, output: 212.26 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.51it/s, est. speed input: 168.25 toks/s, output: 228.89 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.62it/s, est. speed input: 179.65 toks/s, output: 247.38 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  1.69it/s, est. speed input: 165.12 toks/s, output: 234.17 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:01,  1.53it/s, est. speed input: 164.12 toks/s, output: 241.10 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.39it/s, est. speed input: 162.51 toks/s, output: 247.90 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.30it/s, est. speed input: 160.98 toks/s, output: 255.72 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.30it/s, est. speed input: 160.98 toks/s, output: 255.72 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.40it/s, est. speed input: 160.98 toks/s, output: 255.72 toks/s]
+Generating for Sexual_orientation:  20%|██        | 11/54 [02:22<09:42, 13.55s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2296.20it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:02,  4.19s/it, est. speed input: 30.80 toks/s, output: 25.79 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:27,  1.97s/it, est. speed input: 50.40 toks/s, output: 49.31 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.14s/it, est. speed input: 75.52 toks/s, output: 73.62 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:06,  1.67it/s, est. speed input: 111.11 toks/s, output: 118.71 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:04,  2.18it/s, est. speed input: 140.33 toks/s, output: 156.49 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.33it/s, est. speed input: 150.07 toks/s, output: 173.78 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.89it/s, est. speed input: 164.52 toks/s, output: 196.77 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.63it/s, est. speed input: 172.03 toks/s, output: 208.95 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  4.95it/s, est. speed input: 217.86 toks/s, output: 282.58 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.93it/s, est. speed input: 221.54 toks/s, output: 290.86 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.21it/s, est. speed input: 171.98 toks/s, output: 236.36 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.16it/s, est. speed input: 168.76 toks/s, output: 243.03 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.16it/s, est. speed input: 168.76 toks/s, output: 243.03 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.46it/s, est. speed input: 168.76 toks/s, output: 243.03 toks/s]
+Generating for Sexual_orientation:  22%|██▏       | 12/54 [02:33<08:56, 12.77s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2231.83it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:51,  3.44s/it, est. speed input: 33.42 toks/s, output: 25.86 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:24,  1.77s/it, est. speed input: 56.38 toks/s, output: 47.72 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:17,  1.38s/it, est. speed input: 68.90 toks/s, output: 64.86 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.07it/s, est. speed input: 87.48 toks/s, output: 87.48 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.92it/s, est. speed input: 129.32 toks/s, output: 133.31 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  3.12it/s, est. speed input: 172.05 toks/s, output: 182.36 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:01,  3.58it/s, est. speed input: 192.32 toks/s, output: 203.76 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  4.18it/s, est. speed input: 223.25 toks/s, output: 242.49 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  5.23it/s, est. speed input: 260.78 toks/s, output: 285.83 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:06<00:00,  5.53it/s, est. speed input: 276.96 toks/s, output: 305.78 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  2.14it/s, est. speed input: 244.89 toks/s, output: 276.93 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.43it/s, est. speed input: 220.09 toks/s, output: 262.16 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.43it/s, est. speed input: 220.09 toks/s, output: 262.16 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.71it/s, est. speed input: 220.09 toks/s, output: 262.16 toks/s]
+Generating for Sexual_orientation:  24%|██▍       | 13/54 [02:43<08:00, 11.73s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2230.94it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:42,  2.83s/it, est. speed input: 40.62 toks/s, output: 25.43 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:24,  1.72s/it, est. speed input: 60.69 toks/s, output: 44.79 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.14s/it, est. speed input: 81.41 toks/s, output: 65.79 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:11,  1.01it/s, est. speed input: 91.80 toks/s, output: 81.75 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.98it/s, est. speed input: 139.39 toks/s, output: 130.81 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:03,  2.40it/s, est. speed input: 175.76 toks/s, output: 166.68 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.38it/s, est. speed input: 182.20 toks/s, output: 181.22 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.52it/s, est. speed input: 195.29 toks/s, output: 198.37 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.12it/s, est. speed input: 209.22 toks/s, output: 221.35 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.70it/s, est. speed input: 214.66 toks/s, output: 231.98 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.06it/s, est. speed input: 207.81 toks/s, output: 235.47 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.39it/s, est. speed input: 219.18 toks/s, output: 254.85 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  2.80it/s, est. speed input: 230.68 toks/s, output: 275.04 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.80it/s, est. speed input: 246.96 toks/s, output: 300.57 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.91it/s, est. speed input: 246.96 toks/s, output: 300.57 toks/s]
+Generating for Sexual_orientation:  26%|██▌       | 14/54 [02:51<07:08, 10.72s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2249.11it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:07,  4.53s/it, est. speed input: 25.39 toks/s, output: 25.83 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:11,  1.08it/s, est. speed input: 96.39 toks/s, output: 100.14 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:05,  1.82it/s, est. speed input: 140.35 toks/s, output: 148.91 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:03,  2.11it/s, est. speed input: 168.75 toks/s, output: 179.78 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  2.39it/s, est. speed input: 187.15 toks/s, output: 199.15 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.69it/s, est. speed input: 199.30 toks/s, output: 218.14 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:02,  2.27it/s, est. speed input: 201.20 toks/s, output: 223.29 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  2.76it/s, est. speed input: 218.00 toks/s, output: 244.89 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.85it/s, est. speed input: 228.63 toks/s, output: 260.31 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.20it/s, est. speed input: 241.23 toks/s, output: 279.18 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  2.02it/s, est. speed input: 231.14 toks/s, output: 274.14 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.57it/s, est. speed input: 244.56 toks/s, output: 296.59 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.57it/s, est. speed input: 244.56 toks/s, output: 296.59 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.89it/s, est. speed input: 244.56 toks/s, output: 296.59 toks/s]
+Generating for Sexual_orientation:  28%|██▊       | 15/54 [03:00<06:31, 10.04s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2172.44it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:50,  3.33s/it, est. speed input: 43.19 toks/s, output: 25.79 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:33,  2.39s/it, est. speed input: 56.62 toks/s, output: 43.01 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:22,  1.71s/it, est. speed input: 71.99 toks/s, output: 62.61 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:13,  1.13s/it, est. speed input: 89.20 toks/s, output: 86.46 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.19it/s, est. speed input: 106.46 toks/s, output: 108.15 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.68it/s, est. speed input: 126.32 toks/s, output: 132.48 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.96it/s, est. speed input: 137.82 toks/s, output: 152.27 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.26it/s, est. speed input: 149.01 toks/s, output: 172.20 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.33it/s, est. speed input: 157.31 toks/s, output: 189.71 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:02,  2.06it/s, est. speed input: 160.51 toks/s, output: 202.08 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:01,  2.62it/s, est. speed input: 174.82 toks/s, output: 225.04 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.97it/s, est. speed input: 191.06 toks/s, output: 262.30 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:00,  3.18it/s, est. speed input: 199.22 toks/s, output: 281.82 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.84it/s, est. speed input: 204.68 toks/s, output: 295.24 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.84it/s, est. speed input: 197.92 toks/s, output: 293.36 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.84it/s, est. speed input: 197.92 toks/s, output: 293.36 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.49it/s, est. speed input: 197.92 toks/s, output: 293.36 toks/s]
+Generating for Sexual_orientation:  30%|██▉       | 16/54 [03:10<06:29, 10.26s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2175.61it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:58,  3.90s/it, est. speed input: 31.78 toks/s, output: 25.88 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:29,  2.14s/it, est. speed input: 51.38 toks/s, output: 47.01 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.37s/it, est. speed input: 70.35 toks/s, output: 69.02 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:07<00:19,  1.60s/it, est. speed input: 68.25 toks/s, output: 76.56 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:07<00:12,  1.13s/it, est. speed input: 84.91 toks/s, output: 99.66 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:07<00:08,  1.17it/s, est. speed input: 99.90 toks/s, output: 122.00 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:08<00:06,  1.30it/s, est. speed input: 107.34 toks/s, output: 139.49 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:03,  2.09it/s, est. speed input: 136.64 toks/s, output: 185.96 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  3.68it/s, est. speed input: 181.14 toks/s, output: 259.23 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:10<00:01,  1.96it/s, est. speed input: 167.15 toks/s, output: 248.81 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:01,  1.37it/s, est. speed input: 156.22 toks/s, output: 243.91 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:14<00:01,  1.07s/it, est. speed input: 142.55 toks/s, output: 233.51 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:21<00:00,  2.73s/it, est. speed input: 98.39 toks/s, output: 180.03 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:21<00:00,  2.73s/it, est. speed input: 98.39 toks/s, output: 180.03 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:21<00:00,  1.36s/it, est. speed input: 98.39 toks/s, output: 180.03 toks/s]
+Generating for Sexual_orientation:  31%|███▏      | 17/54 [03:32<08:28, 13.73s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2224.21it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:11,  4.77s/it, est. speed input: 29.97 toks/s, output: 25.78 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:30,  2.16s/it, est. speed input: 55.96 toks/s, output: 49.89 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:20,  1.59s/it, est. speed input: 70.98 toks/s, output: 68.32 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.12it/s, est. speed input: 105.32 toks/s, output: 110.22 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.45it/s, est. speed input: 123.12 toks/s, output: 133.23 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.33it/s, est. speed input: 154.79 toks/s, output: 180.27 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.85it/s, est. speed input: 167.78 toks/s, output: 203.63 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  2.33it/s, est. speed input: 173.14 toks/s, output: 226.41 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:09<00:02,  1.74it/s, est. speed input: 165.29 toks/s, output: 227.01 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:10<00:01,  1.64it/s, est. speed input: 167.80 toks/s, output: 237.62 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:12<00:02,  1.14s/it, est. speed input: 141.54 toks/s, output: 215.05 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:13<00:01,  1.14s/it, est. speed input: 138.10 toks/s, output: 224.73 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:53<00:00, 11.87s/it, est. speed input: 37.92 toks/s, output: 87.74 toks/s]  [A
+Processed prompts: 100%|██████████| 16/16 [00:53<00:00, 11.87s/it, est. speed input: 37.92 toks/s, output: 87.74 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:53<00:00,  3.35s/it, est. speed input: 37.92 toks/s, output: 87.74 toks/s]
+Generating for Sexual_orientation:  33%|███▎      | 18/54 [04:26<15:25, 25.71s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2232.72it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:16,  5.07s/it, est. speed input: 27.79 toks/s, output: 25.81 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:30,  2.20s/it, est. speed input: 53.96 toks/s, output: 50.73 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:20,  1.54s/it, est. speed input: 70.97 toks/s, output: 70.30 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.12it/s, est. speed input: 104.45 toks/s, output: 111.36 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:07<00:07,  1.37it/s, est. speed input: 119.81 toks/s, output: 132.13 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:06,  1.44it/s, est. speed input: 124.99 toks/s, output: 147.97 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.87it/s, est. speed input: 136.93 toks/s, output: 171.39 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:03,  1.83it/s, est. speed input: 144.45 toks/s, output: 185.88 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:03,  1.95it/s, est. speed input: 150.23 toks/s, output: 203.11 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:10<00:04,  1.14it/s, est. speed input: 136.41 toks/s, output: 196.57 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:11<00:03,  1.24it/s, est. speed input: 138.50 toks/s, output: 211.87 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:11<00:02,  1.49it/s, est. speed input: 146.72 toks/s, output: 232.01 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:13<00:01,  1.08it/s, est. speed input: 138.37 toks/s, output: 231.93 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:16<00:01,  1.67s/it, est. speed input: 116.65 toks/s, output: 211.45 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:20<00:00,  2.46s/it, est. speed input: 97.83 toks/s, output: 195.52 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:20<00:00,  2.46s/it, est. speed input: 97.83 toks/s, output: 195.52 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:20<00:00,  1.31s/it, est. speed input: 97.83 toks/s, output: 195.52 toks/s]
+Generating for Sexual_orientation:  35%|███▌      | 19/54 [04:47<14:09, 24.27s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2249.79it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:55,  3.70s/it, est. speed input: 28.94 toks/s, output: 25.69 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:23,  1.70s/it, est. speed input: 61.01 toks/s, output: 49.51 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.13s/it, est. speed input: 86.04 toks/s, output: 70.31 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.80it/s, est. speed input: 134.47 toks/s, output: 117.58 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:04,  2.23it/s, est. speed input: 164.23 toks/s, output: 152.56 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  2.72it/s, est. speed input: 180.51 toks/s, output: 175.36 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  2.88it/s, est. speed input: 195.34 toks/s, output: 192.54 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.39it/s, est. speed input: 198.38 toks/s, output: 200.11 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.01it/s, est. speed input: 211.97 toks/s, output: 223.00 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  3.03it/s, est. speed input: 222.36 toks/s, output: 238.63 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  3.49it/s, est. speed input: 232.37 toks/s, output: 258.87 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  2.88it/s, est. speed input: 231.52 toks/s, output: 268.08 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  1.65it/s, est. speed input: 211.31 toks/s, output: 256.90 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.87it/s, est. speed input: 218.01 toks/s, output: 273.50 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.87it/s, est. speed input: 218.01 toks/s, output: 273.50 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.77it/s, est. speed input: 218.01 toks/s, output: 273.50 toks/s]
+Generating for Sexual_orientation:  37%|███▋      | 20/54 [04:56<11:09, 19.69s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2270.49it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:42,  2.83s/it, est. speed input: 37.81 toks/s, output: 25.45 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:21,  1.56s/it, est. speed input: 61.01 toks/s, output: 46.47 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:13,  1.00s/it, est. speed input: 91.25 toks/s, output: 68.11 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.20it/s, est. speed input: 110.62 toks/s, output: 85.23 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:07,  1.47it/s, est. speed input: 129.50 toks/s, output: 103.81 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.32it/s, est. speed input: 173.60 toks/s, output: 146.49 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  2.87it/s, est. speed input: 202.14 toks/s, output: 184.52 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:03,  1.90it/s, est. speed input: 184.91 toks/s, output: 180.50 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:02,  2.37it/s, est. speed input: 197.81 toks/s, output: 204.04 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.16it/s, est. speed input: 201.17 toks/s, output: 214.82 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.53it/s, est. speed input: 209.76 toks/s, output: 235.38 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  2.91it/s, est. speed input: 217.65 toks/s, output: 255.61 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  1.42it/s, est. speed input: 192.22 toks/s, output: 239.20 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.26s/it, est. speed input: 162.40 toks/s, output: 215.46 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.26s/it, est. speed input: 162.40 toks/s, output: 215.46 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.32it/s, est. speed input: 162.40 toks/s, output: 215.46 toks/s]
+Generating for Sexual_orientation:  39%|███▉      | 21/54 [05:08<09:34, 17.42s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2140.70it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:02,  4.17s/it, est. speed input: 27.11 toks/s, output: 25.67 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:26,  1.89s/it, est. speed input: 50.55 toks/s, output: 49.65 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.12s/it, est. speed input: 72.76 toks/s, output: 73.40 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:04,  2.49it/s, est. speed input: 152.54 toks/s, output: 148.35 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:03,  2.65it/s, est. speed input: 184.30 toks/s, output: 181.36 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  2.99it/s, est. speed input: 198.45 toks/s, output: 201.65 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  3.01it/s, est. speed input: 214.35 toks/s, output: 216.70 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.11it/s, est. speed input: 230.19 toks/s, output: 232.75 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  3.78it/s, est. speed input: 251.67 toks/s, output: 254.97 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.58it/s, est. speed input: 248.83 toks/s, output: 255.63 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:01,  1.70it/s, est. speed input: 229.34 toks/s, output: 247.72 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  1.61it/s, est. speed input: 229.13 toks/s, output: 254.85 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:27<00:00,  5.73s/it, est. speed input: 81.06 toks/s, output: 112.68 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:27<00:00,  5.73s/it, est. speed input: 81.06 toks/s, output: 112.68 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:27<00:00,  1.69s/it, est. speed input: 81.06 toks/s, output: 112.68 toks/s]
+Generating for Sexual_orientation:  41%|████      | 22/54 [05:35<10:49, 20.31s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2128.89it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:43,  2.92s/it, est. speed input: 38.68 toks/s, output: 25.33 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:23,  1.69s/it, est. speed input: 60.80 toks/s, output: 45.33 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:16,  1.26s/it, est. speed input: 76.15 toks/s, output: 63.50 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:10,  1.15it/s, est. speed input: 106.14 toks/s, output: 85.79 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:04<00:03,  2.82it/s, est. speed input: 181.38 toks/s, output: 159.21 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  2.93it/s, est. speed input: 202.17 toks/s, output: 175.92 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  2.50it/s, est. speed input: 201.65 toks/s, output: 184.57 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:02,  3.00it/s, est. speed input: 223.50 toks/s, output: 206.16 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:02,  1.83it/s, est. speed input: 204.58 toks/s, output: 199.90 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.30it/s, est. speed input: 222.84 toks/s, output: 222.29 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.37it/s, est. speed input: 226.64 toks/s, output: 237.30 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.04it/s, est. speed input: 188.81 toks/s, output: 212.19 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.61s/it, est. speed input: 152.56 toks/s, output: 186.82 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.61s/it, est. speed input: 152.56 toks/s, output: 186.82 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.11it/s, est. speed input: 152.56 toks/s, output: 186.82 toks/s]
+Generating for Sexual_orientation:  43%|████▎     | 23/54 [05:49<09:35, 18.55s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2130.71it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:43,  2.92s/it, est. speed input: 38.67 toks/s, output: 25.33 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:21,  1.56s/it, est. speed input: 64.11 toks/s, output: 46.81 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:11,  1.11it/s, est. speed input: 93.44 toks/s, output: 70.90 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:07,  1.48it/s, est. speed input: 142.25 toks/s, output: 101.42 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:05,  1.76it/s, est. speed input: 157.01 toks/s, output: 121.09 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:04,  1.87it/s, est. speed input: 173.70 toks/s, output: 136.89 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  2.67it/s, est. speed input: 202.81 toks/s, output: 178.72 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  3.24it/s, est. speed input: 226.80 toks/s, output: 201.45 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:05<00:00,  4.90it/s, est. speed input: 275.83 toks/s, output: 249.77 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  3.13it/s, est. speed input: 263.54 toks/s, output: 249.51 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  2.63it/s, est. speed input: 265.38 toks/s, output: 256.43 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  2.82it/s, est. speed input: 270.75 toks/s, output: 273.40 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:07<00:00,  2.95it/s, est. speed input: 281.05 toks/s, output: 289.72 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:07<00:00,  2.95it/s, est. speed input: 281.05 toks/s, output: 289.72 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:07<00:00,  2.04it/s, est. speed input: 281.05 toks/s, output: 289.72 toks/s]
+Generating for Sexual_orientation:  44%|████▍     | 24/54 [05:57<07:40, 15.34s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2180.27it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:46,  3.09s/it, est. speed input: 36.20 toks/s, output: 25.53 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:19,  1.36s/it, est. speed input: 68.70 toks/s, output: 49.91 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:12,  1.04it/s, est. speed input: 99.61 toks/s, output: 69.08 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.42it/s, est. speed input: 128.83 toks/s, output: 89.68 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:05,  2.04it/s, est. speed input: 152.31 toks/s, output: 113.03 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:04<00:02,  3.53it/s, est. speed input: 218.05 toks/s, output: 175.22 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  3.35it/s, est. speed input: 233.36 toks/s, output: 202.69 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:05<00:01,  3.75it/s, est. speed input: 254.73 toks/s, output: 223.40 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:05<00:00,  4.05it/s, est. speed input: 266.60 toks/s, output: 242.38 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:05<00:00,  4.35it/s, est. speed input: 284.27 toks/s, output: 261.14 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:06<00:00,  4.26it/s, est. speed input: 297.16 toks/s, output: 276.66 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  2.02it/s, est. speed input: 268.61 toks/s, output: 257.49 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.56it/s, est. speed input: 253.24 toks/s, output: 252.63 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.56it/s, est. speed input: 253.24 toks/s, output: 252.63 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.95it/s, est. speed input: 253.24 toks/s, output: 252.63 toks/s]
+Generating for Sexual_orientation:  46%|████▋     | 25/54 [06:05<06:22, 13.21s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2187.52it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:48,  3.24s/it, est. speed input: 34.52 toks/s, output: 25.58 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:24,  1.78s/it, est. speed input: 56.03 toks/s, output: 46.52 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:13,  1.04s/it, est. speed input: 80.74 toks/s, output: 70.62 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.37it/s, est. speed input: 109.45 toks/s, output: 92.23 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.78it/s, est. speed input: 135.37 toks/s, output: 112.91 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:04,  2.11it/s, est. speed input: 149.49 toks/s, output: 132.21 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.47it/s, est. speed input: 170.63 toks/s, output: 151.55 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  3.21it/s, est. speed input: 194.69 toks/s, output: 174.33 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  3.28it/s, est. speed input: 211.49 toks/s, output: 191.45 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:05<00:00,  6.63it/s, est. speed input: 272.39 toks/s, output: 265.78 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:06<00:00,  5.39it/s, est. speed input: 298.70 toks/s, output: 295.02 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:06<00:00,  4.27it/s, est. speed input: 302.80 toks/s, output: 317.41 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:06<00:00,  4.27it/s, est. speed input: 302.80 toks/s, output: 317.41 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:06<00:00,  2.32it/s, est. speed input: 302.80 toks/s, output: 317.41 toks/s]
+Generating for Sexual_orientation:  48%|████▊     | 26/54 [06:12<05:16, 11.32s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2156.32it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:06<01:34,  6.28s/it, est. speed input: 19.10 toks/s, output: 25.94 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:06<00:40,  2.92s/it, est. speed input: 39.58 toks/s, output: 49.81 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:21,  1.64s/it, est. speed input: 60.62 toks/s, output: 74.99 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:07<00:13,  1.12s/it, est. speed input: 74.26 toks/s, output: 97.55 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:07<00:08,  1.27it/s, est. speed input: 88.42 toks/s, output: 121.14 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:03,  2.30it/s, est. speed input: 121.56 toks/s, output: 169.89 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.57it/s, est. speed input: 136.56 toks/s, output: 190.36 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:02,  2.55it/s, est. speed input: 148.16 toks/s, output: 207.42 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:01,  3.10it/s, est. speed input: 163.42 toks/s, output: 230.04 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:09<00:02,  2.24it/s, est. speed input: 163.04 toks/s, output: 237.53 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:09<00:01,  2.50it/s, est. speed input: 170.70 toks/s, output: 256.78 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:10<00:01,  2.33it/s, est. speed input: 174.18 toks/s, output: 270.45 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:00,  2.90it/s, est. speed input: 183.54 toks/s, output: 293.12 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.95it/s, est. speed input: 182.05 toks/s, output: 295.60 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:17<00:00,  2.14s/it, est. speed input: 127.18 toks/s, output: 220.05 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:17<00:00,  2.14s/it, est. speed input: 127.18 toks/s, output: 220.05 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:17<00:00,  1.07s/it, est. speed input: 127.18 toks/s, output: 220.05 toks/s]
+Generating for Sexual_orientation:  50%|█████     | 27/54 [06:29<05:52, 13.04s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2116.13it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:04,  4.32s/it, est. speed input: 28.02 toks/s, output: 25.71 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:27,  1.98s/it, est. speed input: 51.74 toks/s, output: 49.60 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.13s/it, est. speed input: 75.88 toks/s, output: 74.20 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:10,  1.12it/s, est. speed input: 96.83 toks/s, output: 92.67 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.23it/s, est. speed input: 105.94 toks/s, output: 108.11 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.70it/s, est. speed input: 128.29 toks/s, output: 131.39 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.59it/s, est. speed input: 136.93 toks/s, output: 143.65 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:05,  1.58it/s, est. speed input: 145.67 toks/s, output: 157.43 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  1.82it/s, est. speed input: 158.20 toks/s, output: 176.30 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  2.30it/s, est. speed input: 178.77 toks/s, output: 214.24 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.57it/s, est. speed input: 191.16 toks/s, output: 234.33 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  3.09it/s, est. speed input: 205.37 toks/s, output: 256.88 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:00,  3.53it/s, est. speed input: 214.62 toks/s, output: 278.19 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.15it/s, est. speed input: 177.83 toks/s, output: 251.73 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.15it/s, est. speed input: 177.83 toks/s, output: 251.73 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.31it/s, est. speed input: 177.83 toks/s, output: 251.73 toks/s]
+Generating for Sexual_orientation:  52%|█████▏    | 28/54 [06:42<05:33, 12.81s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2134.44it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:06,  4.43s/it, est. speed input: 26.84 toks/s, output: 25.71 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:30,  2.18s/it, est. speed input: 47.24 toks/s, output: 48.44 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:16,  1.27s/it, est. speed input: 68.31 toks/s, output: 72.52 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:06,  1.71it/s, est. speed input: 111.63 toks/s, output: 122.49 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:04,  2.04it/s, est. speed input: 134.06 toks/s, output: 142.63 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  3.12it/s, est. speed input: 182.23 toks/s, output: 188.07 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  4.48it/s, est. speed input: 229.90 toks/s, output: 234.76 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  4.86it/s, est. speed input: 249.85 toks/s, output: 255.24 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  6.49it/s, est. speed input: 293.98 toks/s, output: 301.00 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  3.71it/s, est. speed input: 288.23 toks/s, output: 313.45 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.53it/s, est. speed input: 271.42 toks/s, output: 305.84 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.53it/s, est. speed input: 271.42 toks/s, output: 305.84 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.97it/s, est. speed input: 271.42 toks/s, output: 305.84 toks/s]
+Generating for Sexual_orientation:  54%|█████▎    | 29/54 [06:50<04:45, 11.40s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2126.93it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:04,  4.32s/it, est. speed input: 35.90 toks/s, output: 25.71 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:34,  2.49s/it, est. speed input: 49.59 toks/s, output: 46.15 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.44s/it, est. speed input: 75.26 toks/s, output: 70.54 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.08it/s, est. speed input: 93.96 toks/s, output: 94.64 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.97it/s, est. speed input: 134.97 toks/s, output: 141.66 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.04it/s, est. speed input: 149.46 toks/s, output: 157.97 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.35it/s, est. speed input: 161.29 toks/s, output: 177.95 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.81it/s, est. speed input: 179.63 toks/s, output: 199.43 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.40it/s, est. speed input: 197.93 toks/s, output: 221.52 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  4.17it/s, est. speed input: 211.62 toks/s, output: 244.34 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:00,  4.30it/s, est. speed input: 221.54 toks/s, output: 263.48 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  3.87it/s, est. speed input: 227.83 toks/s, output: 278.93 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  3.35it/s, est. speed input: 231.60 toks/s, output: 291.97 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  4.16it/s, est. speed input: 247.71 toks/s, output: 314.66 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  4.16it/s, est. speed input: 264.28 toks/s, output: 338.59 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.91it/s, est. speed input: 264.28 toks/s, output: 338.59 toks/s]
+Generating for Sexual_orientation:  56%|█████▌    | 30/54 [06:58<04:11, 10.49s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2109.08it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:13,  4.89s/it, est. speed input: 23.33 toks/s, output: 25.78 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:32,  2.32s/it, est. speed input: 42.11 toks/s, output: 49.13 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.37s/it, est. speed input: 60.63 toks/s, output: 73.04 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.07it/s, est. speed input: 77.24 toks/s, output: 95.70 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.23it/s, est. speed input: 87.61 toks/s, output: 112.97 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:03,  2.33it/s, est. speed input: 137.13 toks/s, output: 162.65 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.54it/s, est. speed input: 147.69 toks/s, output: 181.65 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.74it/s, est. speed input: 157.56 toks/s, output: 200.42 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.35it/s, est. speed input: 167.58 toks/s, output: 211.75 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  4.09it/s, est. speed input: 224.44 toks/s, output: 281.42 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.70it/s, est. speed input: 215.77 toks/s, output: 280.97 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.28it/s, est. speed input: 218.42 toks/s, output: 288.06 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  2.14it/s, est. speed input: 223.00 toks/s, output: 298.95 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  2.14it/s, est. speed input: 223.00 toks/s, output: 298.95 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.58it/s, est. speed input: 223.00 toks/s, output: 298.95 toks/s]
+Generating for Sexual_orientation:  57%|█████▋    | 31/54 [07:08<03:59, 10.39s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2111.27it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:03,  4.21s/it, est. speed input: 27.33 toks/s, output: 25.67 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:31,  2.22s/it, est. speed input: 56.39 toks/s, output: 47.26 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:16,  1.26s/it, est. speed input: 77.29 toks/s, output: 72.04 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:12,  1.01s/it, est. speed input: 88.58 toks/s, output: 89.96 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.21it/s, est. speed input: 108.59 toks/s, output: 108.90 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:02,  2.70it/s, est. speed input: 166.31 toks/s, output: 181.52 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  3.13it/s, est. speed input: 188.40 toks/s, output: 203.58 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.45it/s, est. speed input: 194.11 toks/s, output: 210.74 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.65it/s, est. speed input: 201.72 toks/s, output: 229.01 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.18it/s, est. speed input: 219.74 toks/s, output: 251.02 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.40it/s, est. speed input: 224.49 toks/s, output: 269.59 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.60it/s, est. speed input: 230.06 toks/s, output: 287.87 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.98it/s, est. speed input: 227.46 toks/s, output: 290.12 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.98it/s, est. speed input: 227.46 toks/s, output: 290.12 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.60it/s, est. speed input: 227.46 toks/s, output: 290.12 toks/s]
+Generating for Sexual_orientation:  59%|█████▉    | 32/54 [07:18<03:46, 10.28s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2161.32it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:58,  3.91s/it, est. speed input: 28.40 toks/s, output: 25.59 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:37,  2.70s/it, est. speed input: 38.56 toks/s, output: 43.25 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:19,  1.52s/it, est. speed input: 66.10 toks/s, output: 68.32 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:13,  1.10s/it, est. speed input: 87.63 toks/s, output: 89.37 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.74it/s, est. speed input: 118.46 toks/s, output: 137.39 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.85it/s, est. speed input: 126.73 toks/s, output: 154.59 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:04,  1.67it/s, est. speed input: 139.57 toks/s, output: 178.06 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:09<00:04,  1.35it/s, est. speed input: 133.76 toks/s, output: 182.23 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:09<00:01,  2.10it/s, est. speed input: 165.45 toks/s, output: 231.34 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:10<00:01,  1.71it/s, est. speed input: 160.95 toks/s, output: 237.21 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:00,  2.13it/s, est. speed input: 174.75 toks/s, output: 261.48 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  2.28it/s, est. speed input: 184.16 toks/s, output: 279.92 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:19<00:00,  2.64s/it, est. speed input: 112.24 toks/s, output: 186.09 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:19<00:00,  2.64s/it, est. speed input: 112.24 toks/s, output: 186.09 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:19<00:00,  1.23s/it, est. speed input: 112.24 toks/s, output: 186.09 toks/s]
+Generating for Sexual_orientation:  61%|██████    | 33/54 [07:38<04:35, 13.12s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2134.57it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:19,  5.27s/it, est. speed input: 21.26 toks/s, output: 25.81 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:06<00:37,  2.68s/it, est. speed input: 36.34 toks/s, output: 48.24 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:22,  1.77s/it, est. speed input: 49.16 toks/s, output: 69.41 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:07<00:15,  1.32s/it, est. speed input: 59.95 toks/s, output: 89.45 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:07<00:10,  1.02it/s, est. speed input: 78.25 toks/s, output: 111.19 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:08<00:05,  1.70it/s, est. speed input: 107.90 toks/s, output: 156.64 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:09<00:05,  1.51it/s, est. speed input: 116.09 toks/s, output: 167.88 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:09<00:04,  1.64it/s, est. speed input: 127.91 toks/s, output: 185.82 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:09<00:03,  1.93it/s, est. speed input: 141.18 toks/s, output: 206.60 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:10<00:02,  1.76it/s, est. speed input: 142.53 toks/s, output: 219.52 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:10<00:01,  2.50it/s, est. speed input: 162.81 toks/s, output: 263.44 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:00,  2.52it/s, est. speed input: 171.84 toks/s, output: 280.81 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:16<00:01,  1.75s/it, est. speed input: 124.57 toks/s, output: 214.54 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:17<00:00,  1.50s/it, est. speed input: 125.04 toks/s, output: 231.89 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:17<00:00,  1.50s/it, est. speed input: 125.04 toks/s, output: 231.89 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:17<00:00,  1.11s/it, est. speed input: 125.04 toks/s, output: 231.89 toks/s]
+Generating for Sexual_orientation:  63%|██████▎   | 34/54 [07:56<04:50, 14.53s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2112.27it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:04,  4.32s/it, est. speed input: 24.32 toks/s, output: 25.71 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:26,  1.87s/it, est. speed input: 46.99 toks/s, output: 50.57 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:12,  1.05s/it, est. speed input: 75.02 toks/s, output: 87.34 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.29it/s, est. speed input: 91.31 toks/s, output: 110.96 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:07,  1.27it/s, est. speed input: 106.41 toks/s, output: 122.98 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.65it/s, est. speed input: 129.31 toks/s, output: 145.56 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.86it/s, est. speed input: 137.20 toks/s, output: 163.95 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.46it/s, est. speed input: 159.28 toks/s, output: 187.55 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.23it/s, est. speed input: 170.67 toks/s, output: 200.69 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.72it/s, est. speed input: 179.98 toks/s, output: 222.38 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  4.34it/s, est. speed input: 219.94 toks/s, output: 270.58 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  3.70it/s, est. speed input: 230.41 toks/s, output: 284.48 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.79it/s, est. speed input: 243.93 toks/s, output: 302.88 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.30it/s, est. speed input: 232.33 toks/s, output: 301.72 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.30it/s, est. speed input: 232.33 toks/s, output: 301.72 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.66it/s, est. speed input: 232.33 toks/s, output: 301.72 toks/s]
+Generating for Sexual_orientation:  65%|██████▍   | 35/54 [08:06<04:08, 13.07s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2117.27it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:58,  3.87s/it, est. speed input: 27.41 toks/s, output: 25.60 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:16,  1.27s/it, est. speed input: 69.16 toks/s, output: 69.60 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.01it/s, est. speed input: 83.81 toks/s, output: 89.17 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.84it/s, est. speed input: 134.97 toks/s, output: 137.08 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:07,  1.28it/s, est. speed input: 131.60 toks/s, output: 133.10 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:03,  1.99it/s, est. speed input: 177.50 toks/s, output: 179.37 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  1.86it/s, est. speed input: 185.91 toks/s, output: 201.77 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.10it/s, est. speed input: 201.29 toks/s, output: 222.17 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.19it/s, est. speed input: 204.38 toks/s, output: 238.69 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.71it/s, est. speed input: 221.83 toks/s, output: 262.26 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.04it/s, est. speed input: 186.51 toks/s, output: 229.25 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:23<00:00,  3.86s/it, est. speed input: 97.67 toks/s, output: 143.08 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:23<00:00,  3.86s/it, est. speed input: 97.67 toks/s, output: 143.08 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:23<00:00,  1.44s/it, est. speed input: 97.67 toks/s, output: 143.08 toks/s]
+Generating for Sexual_orientation:  67%|██████▋   | 36/54 [08:29<04:49, 16.07s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2128.62it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:09,  4.66s/it, est. speed input: 23.60 toks/s, output: 25.75 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:29,  2.14s/it, est. speed input: 43.67 toks/s, output: 49.62 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:16,  1.28s/it, est. speed input: 62.25 toks/s, output: 73.00 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:13,  1.13s/it, est. speed input: 70.89 toks/s, output: 88.28 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.26it/s, est. speed input: 85.99 toks/s, output: 111.63 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.98it/s, est. speed input: 119.59 toks/s, output: 154.79 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.43it/s, est. speed input: 139.74 toks/s, output: 177.46 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.13it/s, est. speed input: 175.21 toks/s, output: 218.74 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.04it/s, est. speed input: 187.56 toks/s, output: 234.74 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.43it/s, est. speed input: 203.33 toks/s, output: 255.61 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  1.75it/s, est. speed input: 185.55 toks/s, output: 244.96 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:01,  1.99it/s, est. speed input: 195.90 toks/s, output: 263.32 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.67it/s, est. speed input: 195.34 toks/s, output: 268.81 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.91s/it, est. speed input: 137.69 toks/s, output: 207.69 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.91s/it, est. speed input: 137.69 toks/s, output: 207.69 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.02it/s, est. speed input: 137.69 toks/s, output: 207.69 toks/s]
+Generating for Sexual_orientation:  69%|██████▊   | 37/54 [08:44<04:30, 15.94s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2152.86it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:56,  3.76s/it, est. speed input: 29.29 toks/s, output: 25.56 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:28,  2.01s/it, est. speed input: 48.59 toks/s, output: 46.83 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.40s/it, est. speed input: 63.33 toks/s, output: 66.58 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.03it/s, est. speed input: 79.96 toks/s, output: 88.82 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.48it/s, est. speed input: 97.21 toks/s, output: 112.53 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:04,  2.07it/s, est. speed input: 122.77 toks/s, output: 136.23 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.72it/s, est. speed input: 124.91 toks/s, output: 145.88 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.81it/s, est. speed input: 139.06 toks/s, output: 161.83 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.29it/s, est. speed input: 157.52 toks/s, output: 183.86 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.71it/s, est. speed input: 174.24 toks/s, output: 204.64 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.46it/s, est. speed input: 193.01 toks/s, output: 227.86 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.74it/s, est. speed input: 193.84 toks/s, output: 238.94 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.18it/s, est. speed input: 197.25 toks/s, output: 246.96 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:02,  1.29s/it, est. speed input: 153.81 toks/s, output: 207.94 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:12<00:01,  1.07s/it, est. speed input: 159.76 toks/s, output: 225.58 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.18s/it, est. speed input: 154.56 toks/s, output: 229.48 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.18s/it, est. speed input: 154.56 toks/s, output: 229.48 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.14it/s, est. speed input: 154.56 toks/s, output: 229.48 toks/s]
+Generating for Sexual_orientation:  70%|███████   | 38/54 [08:58<04:05, 15.36s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2107.62it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:03,  4.21s/it, est. speed input: 38.02 toks/s, output: 25.66 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:32,  2.29s/it, est. speed input: 62.12 toks/s, output: 46.78 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:16,  1.29s/it, est. speed input: 91.36 toks/s, output: 71.61 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:14,  1.20s/it, est. speed input: 101.58 toks/s, output: 85.60 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.22it/s, est. speed input: 123.93 toks/s, output: 109.56 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.61it/s, est. speed input: 143.63 toks/s, output: 131.84 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.14it/s, est. speed input: 158.14 toks/s, output: 155.07 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.23it/s, est. speed input: 171.31 toks/s, output: 172.27 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.50it/s, est. speed input: 180.89 toks/s, output: 191.75 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:02,  2.05it/s, est. speed input: 180.51 toks/s, output: 202.00 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  3.23it/s, est. speed input: 209.26 toks/s, output: 248.88 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.20it/s, est. speed input: 202.30 toks/s, output: 251.65 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:01,  1.28it/s, est. speed input: 182.16 toks/s, output: 239.56 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:19<00:02,  2.99s/it, est. speed input: 107.29 toks/s, output: 160.53 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:20<00:00,  2.21s/it, est. speed input: 112.30 toks/s, output: 186.47 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:20<00:00,  2.21s/it, est. speed input: 112.30 toks/s, output: 186.47 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:20<00:00,  1.26s/it, est. speed input: 112.30 toks/s, output: 186.47 toks/s]
+Generating for Sexual_orientation:  72%|███████▏  | 39/54 [09:18<04:11, 16.78s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2124.64it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:09,  4.66s/it, est. speed input: 26.17 toks/s, output: 25.74 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:34,  2.43s/it, est. speed input: 51.53 toks/s, output: 47.55 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.37s/it, est. speed input: 78.85 toks/s, output: 72.47 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.09it/s, est. speed input: 103.25 toks/s, output: 95.58 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.78it/s, est. speed input: 145.96 toks/s, output: 138.26 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:07,  1.22it/s, est. speed input: 133.46 toks/s, output: 138.04 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:04,  1.66it/s, est. speed input: 156.65 toks/s, output: 177.91 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:03,  1.83it/s, est. speed input: 164.02 toks/s, output: 196.92 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:09<00:01,  2.31it/s, est. speed input: 184.77 toks/s, output: 236.81 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.19it/s, est. speed input: 191.04 toks/s, output: 250.53 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:01,  1.52it/s, est. speed input: 180.14 toks/s, output: 248.61 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.61it/s, est. speed input: 182.45 toks/s, output: 264.19 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.21s/it, est. speed input: 155.80 toks/s, output: 240.77 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.21s/it, est. speed input: 155.80 toks/s, output: 240.77 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.10it/s, est. speed input: 155.80 toks/s, output: 240.77 toks/s]
+Generating for Sexual_orientation:  74%|███████▍  | 40/54 [09:33<03:45, 16.12s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2092.97it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:14,  5.00s/it, est. speed input: 24.42 toks/s, output: 25.82 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:34,  2.46s/it, est. speed input: 43.00 toks/s, output: 48.64 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:19,  1.47s/it, est. speed input: 61.24 toks/s, output: 72.12 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:07<00:17,  1.44s/it, est. speed input: 66.46 toks/s, output: 84.49 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:08<00:13,  1.21s/it, est. speed input: 80.57 toks/s, output: 102.37 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:08<00:09,  1.10it/s, est. speed input: 91.70 toks/s, output: 124.51 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:09<00:06,  1.23it/s, est. speed input: 112.35 toks/s, output: 155.24 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:10<00:03,  1.74it/s, est. speed input: 139.96 toks/s, output: 199.56 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:10<00:02,  1.81it/s, est. speed input: 149.56 toks/s, output: 217.25 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:11<00:01,  2.24it/s, est. speed input: 167.63 toks/s, output: 257.82 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:00,  2.64it/s, est. speed input: 180.24 toks/s, output: 281.07 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:19<00:02,  2.20s/it, est. speed input: 112.93 toks/s, output: 193.49 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:20<00:00,  1.81s/it, est. speed input: 115.37 toks/s, output: 214.54 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:20<00:00,  1.81s/it, est. speed input: 115.37 toks/s, output: 214.54 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:20<00:00,  1.27s/it, est. speed input: 115.37 toks/s, output: 214.54 toks/s]
+Generating for Sexual_orientation:  76%|███████▌  | 41/54 [09:53<03:45, 17.36s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2072.35it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:55,  3.71s/it, est. speed input: 33.11 toks/s, output: 25.57 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:25,  1.80s/it, est. speed input: 59.50 toks/s, output: 48.47 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:20,  1.61s/it, est. speed input: 66.51 toks/s, output: 62.37 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:12,  1.02s/it, est. speed input: 86.68 toks/s, output: 87.03 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:07<00:09,  1.07it/s, est. speed input: 106.02 toks/s, output: 112.91 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:06,  1.31it/s, est. speed input: 123.95 toks/s, output: 134.59 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:08<00:06,  1.22it/s, est. speed input: 124.32 toks/s, output: 145.64 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:10<00:05,  1.07it/s, est. speed input: 126.50 toks/s, output: 163.94 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:13<00:04,  1.09s/it, est. speed input: 126.70 toks/s, output: 179.69 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:14<00:03,  1.05s/it, est. speed input: 130.52 toks/s, output: 195.37 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:15<00:02,  1.03s/it, est. speed input: 133.50 toks/s, output: 210.04 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:15<00:00,  1.24it/s, est. speed input: 143.25 toks/s, output: 235.03 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:16<00:00,  1.05it/s, est. speed input: 139.17 toks/s, output: 243.34 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:16<00:00,  1.05it/s, est. speed input: 139.17 toks/s, output: 243.34 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:16<00:00,  1.05s/it, est. speed input: 139.17 toks/s, output: 243.34 toks/s]
+Generating for Sexual_orientation:  78%|███████▊  | 42/54 [10:10<03:26, 17.21s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2175.68it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:00,  4.05s/it, est. speed input: 37.81 toks/s, output: 25.70 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:26,  1.89s/it, est. speed input: 60.81 toks/s, output: 49.28 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.35s/it, est. speed input: 74.90 toks/s, output: 68.29 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.02it/s, est. speed input: 90.20 toks/s, output: 89.30 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.41it/s, est. speed input: 113.14 toks/s, output: 111.76 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.92it/s, est. speed input: 129.82 toks/s, output: 134.88 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:03,  2.51it/s, est. speed input: 151.78 toks/s, output: 157.53 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:04,  1.96it/s, est. speed input: 157.54 toks/s, output: 166.32 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.27it/s, est. speed input: 172.63 toks/s, output: 185.69 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.61it/s, est. speed input: 187.47 toks/s, output: 205.51 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.38it/s, est. speed input: 207.78 toks/s, output: 246.40 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.39it/s, est. speed input: 206.66 toks/s, output: 250.28 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:01,  1.78it/s, est. speed input: 198.04 toks/s, output: 251.67 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.24it/s, est. speed input: 207.17 toks/s, output: 274.64 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.28it/s, est. speed input: 190.51 toks/s, output: 261.77 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.28it/s, est. speed input: 190.51 toks/s, output: 261.77 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.42it/s, est. speed input: 190.51 toks/s, output: 261.77 toks/s]
+Generating for Sexual_orientation:  80%|███████▉  | 43/54 [10:21<02:49, 15.44s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2164.66it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:45,  3.07s/it, est. speed input: 37.84 toks/s, output: 25.45 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:25,  1.79s/it, est. speed input: 58.44 toks/s, output: 45.34 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.46s/it, est. speed input: 69.24 toks/s, output: 61.68 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.03it/s, est. speed input: 88.35 toks/s, output: 84.92 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.30it/s, est. speed input: 102.54 toks/s, output: 104.83 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.88it/s, est. speed input: 135.80 toks/s, output: 144.26 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.95it/s, est. speed input: 175.12 toks/s, output: 192.59 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.54it/s, est. speed input: 193.74 toks/s, output: 216.08 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  1.98it/s, est. speed input: 197.61 toks/s, output: 229.96 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.85it/s, est. speed input: 200.33 toks/s, output: 251.94 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.75it/s, est. speed input: 201.67 toks/s, output: 262.71 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.75it/s, est. speed input: 201.67 toks/s, output: 262.71 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.49it/s, est. speed input: 201.67 toks/s, output: 262.71 toks/s]
+Generating for Sexual_orientation:  81%|████████▏ | 44/54 [10:32<02:20, 14.03s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2147.83it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:01,  4.08s/it, est. speed input: 28.65 toks/s, output: 25.71 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.10s/it, est. speed input: 83.39 toks/s, output: 76.24 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:08,  1.37it/s, est. speed input: 117.60 toks/s, output: 114.57 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.55it/s, est. speed input: 130.16 toks/s, output: 131.84 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.51it/s, est. speed input: 140.09 toks/s, output: 142.39 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:04,  1.97it/s, est. speed input: 156.43 toks/s, output: 165.81 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.12it/s, est. speed input: 194.70 toks/s, output: 212.75 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.49it/s, est. speed input: 212.72 toks/s, output: 233.03 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.00it/s, est. speed input: 201.73 toks/s, output: 225.48 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.08it/s, est. speed input: 210.24 toks/s, output: 240.02 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:01,  1.71it/s, est. speed input: 207.32 toks/s, output: 243.77 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  1.76it/s, est. speed input: 212.17 toks/s, output: 256.94 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.76it/s, est. speed input: 227.74 toks/s, output: 282.78 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.68it/s, est. speed input: 227.74 toks/s, output: 282.78 toks/s]
+Generating for Sexual_orientation:  83%|████████▎ | 45/54 [10:42<01:54, 12.67s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2087.37it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:05,  4.36s/it, est. speed input: 27.78 toks/s, output: 25.71 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:28,  2.04s/it, est. speed input: 60.58 toks/s, output: 49.26 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.38s/it, est. speed input: 76.28 toks/s, output: 69.77 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.56it/s, est. speed input: 126.53 toks/s, output: 119.11 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.57it/s, est. speed input: 173.91 toks/s, output: 167.39 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  2.94it/s, est. speed input: 197.05 toks/s, output: 188.00 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  1.76it/s, est. speed input: 186.41 toks/s, output: 181.62 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:03,  1.75it/s, est. speed input: 188.28 toks/s, output: 194.28 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:02,  2.03it/s, est. speed input: 202.57 toks/s, output: 213.63 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  1.99it/s, est. speed input: 216.45 toks/s, output: 239.25 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:01,  1.05it/s, est. speed input: 181.91 toks/s, output: 216.13 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:12<00:00,  1.01it/s, est. speed input: 175.83 toks/s, output: 224.32 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.38s/it, est. speed input: 155.22 toks/s, output: 215.17 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.38s/it, est. speed input: 155.22 toks/s, output: 215.17 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.07it/s, est. speed input: 155.22 toks/s, output: 215.17 toks/s]
+Generating for Sexual_orientation:  85%|████████▌ | 46/54 [10:56<01:46, 13.34s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2068.32it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:03,  4.20s/it, est. speed input: 29.02 toks/s, output: 25.93 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:25,  1.80s/it, est. speed input: 67.41 toks/s, output: 50.96 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.33it/s, est. speed input: 116.37 toks/s, output: 98.03 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.33it/s, est. speed input: 131.48 toks/s, output: 110.10 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:03,  2.53it/s, est. speed input: 210.99 toks/s, output: 177.70 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.63it/s, est. speed input: 227.79 toks/s, output: 194.14 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.16it/s, est. speed input: 243.81 toks/s, output: 216.77 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  2.97it/s, est. speed input: 254.72 toks/s, output: 229.78 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.56it/s, est. speed input: 259.26 toks/s, output: 238.49 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.50it/s, est. speed input: 260.81 toks/s, output: 251.34 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:01,  1.15it/s, est. speed input: 217.51 toks/s, output: 224.00 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:12<00:01,  1.52s/it, est. speed input: 173.12 toks/s, output: 195.61 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.76s/it, est. speed input: 154.33 toks/s, output: 192.91 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.76s/it, est. speed input: 154.33 toks/s, output: 192.91 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.06it/s, est. speed input: 154.33 toks/s, output: 192.91 toks/s]
+Generating for Sexual_orientation:  87%|████████▋ | 47/54 [11:12<01:37, 13.86s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2055.72it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:54,  3.64s/it, est. speed input: 33.53 toks/s, output: 25.56 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:23,  1.65s/it, est. speed input: 62.27 toks/s, output: 49.46 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:16,  1.26s/it, est. speed input: 77.53 toks/s, output: 67.10 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.22it/s, est. speed input: 100.32 toks/s, output: 90.82 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.48it/s, est. speed input: 124.38 toks/s, output: 109.54 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.92it/s, est. speed input: 149.72 toks/s, output: 130.94 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:01,  3.70it/s, est. speed input: 229.76 toks/s, output: 199.98 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.11it/s, est. speed input: 238.36 toks/s, output: 210.02 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:02,  2.30it/s, est. speed input: 228.88 toks/s, output: 212.76 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.77it/s, est. speed input: 247.59 toks/s, output: 234.84 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.52it/s, est. speed input: 247.54 toks/s, output: 246.12 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:01,  1.64it/s, est. speed input: 228.77 toks/s, output: 240.36 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:14<00:01,  1.94s/it, est. speed input: 155.24 toks/s, output: 177.94 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:38<00:00,  8.33s/it, est. speed input: 60.63 toks/s, output: 95.04 toks/s]  [A
+Processed prompts: 100%|██████████| 16/16 [00:38<00:00,  8.33s/it, est. speed input: 60.63 toks/s, output: 95.04 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:38<00:00,  2.40s/it, est. speed input: 60.63 toks/s, output: 95.04 toks/s]
+Generating for Sexual_orientation:  89%|████████▉ | 48/54 [11:50<02:07, 21.20s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 1984.76it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:11,  4.78s/it, est. speed input: 28.66 toks/s, output: 25.73 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:33,  2.41s/it, est. speed input: 57.47 toks/s, output: 48.07 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.03it/s, est. speed input: 110.43 toks/s, output: 96.89 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.33it/s, est. speed input: 135.65 toks/s, output: 118.55 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.60it/s, est. speed input: 156.90 toks/s, output: 138.19 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.13it/s, est. speed input: 175.33 toks/s, output: 161.73 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:01,  3.62it/s, est. speed input: 214.05 toks/s, output: 210.55 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  4.34it/s, est. speed input: 256.42 toks/s, output: 251.64 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  5.79it/s, est. speed input: 296.35 toks/s, output: 298.19 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.27it/s, est. speed input: 219.19 toks/s, output: 236.21 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.15it/s, est. speed input: 208.51 toks/s, output: 239.90 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.15it/s, est. speed input: 208.51 toks/s, output: 239.90 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.31it/s, est. speed input: 208.51 toks/s, output: 239.90 toks/s]
+Generating for Sexual_orientation:  91%|█████████ | 49/54 [12:02<01:32, 18.51s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 1966.27it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:17,  5.18s/it, est. speed input: 34.91 toks/s, output: 25.85 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:31,  2.27s/it, est. speed input: 58.77 toks/s, output: 50.64 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.09it/s, est. speed input: 120.64 toks/s, output: 99.52 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.86it/s, est. speed input: 177.73 toks/s, output: 146.69 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:02,  2.85it/s, est. speed input: 218.88 toks/s, output: 194.59 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.91it/s, est. speed input: 270.95 toks/s, output: 240.27 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.51it/s, est. speed input: 275.46 toks/s, output: 251.93 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  3.96it/s, est. speed input: 296.45 toks/s, output: 272.68 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  3.97it/s, est. speed input: 305.50 toks/s, output: 289.32 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  4.86it/s, est. speed input: 331.40 toks/s, output: 329.75 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.51it/s, est. speed input: 268.65 toks/s, output: 280.16 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.51it/s, est. speed input: 268.65 toks/s, output: 280.16 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.69it/s, est. speed input: 268.65 toks/s, output: 280.16 toks/s]
+Generating for Sexual_orientation:  93%|█████████▎| 50/54 [12:12<01:03, 15.80s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 1964.89it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:56,  3.80s/it, est. speed input: 48.44 toks/s, output: 25.54 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:36,  2.63s/it, est. speed input: 65.62 toks/s, output: 43.15 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:20,  1.55s/it, est. speed input: 85.32 toks/s, output: 67.27 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:13,  1.09s/it, est. speed input: 109.78 toks/s, output: 89.14 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.01it/s, est. speed input: 161.96 toks/s, output: 158.07 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.39it/s, est. speed input: 177.96 toks/s, output: 180.59 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.65it/s, est. speed input: 190.50 toks/s, output: 200.21 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.07it/s, est. speed input: 204.17 toks/s, output: 221.34 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:00,  4.60it/s, est. speed input: 243.01 toks/s, output: 269.00 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  4.29it/s, est. speed input: 257.92 toks/s, output: 285.28 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.25it/s, est. speed input: 213.18 toks/s, output: 242.40 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.18it/s, est. speed input: 210.97 toks/s, output: 247.91 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:33<00:00,  6.85s/it, est. speed input: 74.89 toks/s, output: 110.74 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:33<00:00,  6.85s/it, est. speed input: 74.89 toks/s, output: 110.74 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:33<00:00,  2.12s/it, est. speed input: 74.89 toks/s, output: 110.74 toks/s]
+Generating for Sexual_orientation:  94%|█████████▍| 51/54 [12:46<01:03, 21.25s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 1942.09it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:55,  3.71s/it, est. speed input: 35.81 toks/s, output: 25.58 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:29,  2.08s/it, est. speed input: 68.07 toks/s, output: 46.16 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.23it/s, est. speed input: 122.62 toks/s, output: 96.42 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.56it/s, est. speed input: 153.17 toks/s, output: 117.21 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.65it/s, est. speed input: 171.77 toks/s, output: 132.02 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  2.79it/s, est. speed input: 223.47 toks/s, output: 179.68 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.78it/s, est. speed input: 232.20 toks/s, output: 194.98 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.92it/s, est. speed input: 266.67 toks/s, output: 239.96 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  3.39it/s, est. speed input: 277.07 toks/s, output: 250.73 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.51it/s, est. speed input: 268.63 toks/s, output: 253.02 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  2.71it/s, est. speed input: 282.96 toks/s, output: 270.13 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.03it/s, est. speed input: 229.90 toks/s, output: 229.12 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:17<00:00,  2.60s/it, est. speed input: 149.41 toks/s, output: 166.42 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:17<00:00,  2.60s/it, est. speed input: 149.41 toks/s, output: 166.42 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:17<00:00,  1.07s/it, est. speed input: 149.41 toks/s, output: 166.42 toks/s]
+Generating for Sexual_orientation:  96%|█████████▋| 52/54 [13:03<00:40, 20.01s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2115.80it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:03,  4.24s/it, est. speed input: 25.45 toks/s, output: 25.69 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:16,  1.30s/it, est. speed input: 67.70 toks/s, output: 71.69 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:10,  1.11it/s, est. speed input: 87.58 toks/s, output: 95.51 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:10,  1.07it/s, est. speed input: 90.78 toks/s, output: 105.10 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:07,  1.41it/s, est. speed input: 104.82 toks/s, output: 127.21 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.72it/s, est. speed input: 125.32 toks/s, output: 147.29 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.12it/s, est. speed input: 137.10 toks/s, output: 168.35 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  1.75it/s, est. speed input: 144.30 toks/s, output: 176.63 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.33it/s, est. speed input: 156.33 toks/s, output: 200.32 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  3.56it/s, est. speed input: 207.24 toks/s, output: 263.72 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.93it/s, est. speed input: 212.46 toks/s, output: 272.85 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.50it/s, est. speed input: 224.59 toks/s, output: 295.55 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.50it/s, est. speed input: 224.59 toks/s, output: 295.55 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.66it/s, est. speed input: 224.59 toks/s, output: 295.55 toks/s]
+Generating for Sexual_orientation:  98%|█████████▊| 53/54 [13:12<00:16, 16.91s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2161.80it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:01,  4.13s/it, est. speed input: 25.91 toks/s, output: 25.66 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:25,  1.81s/it, est. speed input: 49.78 toks/s, output: 50.25 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.36it/s, est. speed input: 95.40 toks/s, output: 99.17 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.37it/s, est. speed input: 103.22 toks/s, output: 111.45 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.53it/s, est. speed input: 113.29 toks/s, output: 127.82 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:06,  1.46it/s, est. speed input: 116.98 toks/s, output: 138.95 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:04,  1.91it/s, est. speed input: 130.65 toks/s, output: 161.81 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  1.93it/s, est. speed input: 144.55 toks/s, output: 176.43 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.08it/s, est. speed input: 159.00 toks/s, output: 193.33 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.71it/s, est. speed input: 178.12 toks/s, output: 216.82 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.00it/s, est. speed input: 193.12 toks/s, output: 236.16 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  4.22it/s, est. speed input: 227.58 toks/s, output: 281.00 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.33it/s, est. speed input: 233.77 toks/s, output: 291.46 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.44it/s, est. speed input: 245.52 toks/s, output: 309.38 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.44it/s, est. speed input: 245.52 toks/s, output: 309.38 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.80it/s, est. speed input: 245.52 toks/s, output: 309.38 toks/s]
+Generating for Sexual_orientation: 100%|██████████| 54/54 [13:21<00:00, 14.50s/it]Generating for Sexual_orientation: 100%|██████████| 54/54 [13:21<00:00, 14.85s/it]
