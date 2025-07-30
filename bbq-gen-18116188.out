@@ -94,3 +94,11 @@ Saved 5672 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_
 Processing BBQ category: Physical_appearance
 Saved 1576 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_deepseek-70B/bbq_Physical_appearance_results.json
 Processing BBQ category: Race_ethnicity
+Saved 6880 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_deepseek-70B/bbq_Race_ethnicity_results.json
+Processing BBQ category: Race_x_SES
+Saved 11160 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_deepseek-70B/bbq_Race_x_SES_results.json
+Processing BBQ category: Race_x_gender
+Saved 15960 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_deepseek-70B/bbq_Race_x_gender_results.json
+Processing BBQ category: SES
+Saved 6864 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_deepseek-70B/bbq_SES_results.json
+Processing BBQ category: Sexual_orientation

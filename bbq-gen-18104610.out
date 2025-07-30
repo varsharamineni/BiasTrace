@@ -98,3 +98,8 @@ Saved 6880 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_
 Processing BBQ category: Race_x_SES
 Saved 11160 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_qwen3-32B/bbq_Race_x_SES_results.json
 Processing BBQ category: Race_x_gender
+Saved 15960 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_qwen3-32B/bbq_Race_x_gender_results.json
+Processing BBQ category: SES
+Saved 6864 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_qwen3-32B/bbq_SES_results.json
+Processing BBQ category: Sexual_orientation
+Saved 864 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_qwen3-32B/bbq_Sexual_orientation_results.json
