@@ -90,3 +90,7 @@ INFO 07-30 12:35:37 [kv_cache_utils.py:720] Maximum concurrency for 131,072 toke
 [1;36m(VllmWorker rank=0 pid=1286055)[0;0m INFO 07-30 12:36:14 [gpu_model_runner.py:2326] Graph capturing finished in 37 secs, took 4.89 GiB
 INFO 07-30 12:36:14 [core.py:172] init engine (profile, create kv cache, warmup model) took 80.20 seconds
 Processing BBQ category: Gender_identity
+Saved 5672 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_deepseek-70B/bbq_Gender_identity_results.json
+Processing BBQ category: Physical_appearance
+Saved 1576 results to /leonardo_work/EUHPC_D19_099/vraminen/outputs/bbq_results_deepseek-70B/bbq_Physical_appearance_results.json
+Processing BBQ category: Race_ethnicity
