@@ -1,0 +1,1132 @@
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/17 [00:00<?, ?it/s]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:   6% Completed | 1/17 [00:15<04:13, 15.84s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  12% Completed | 2/17 [00:35<04:31, 18.12s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  18% Completed | 3/17 [00:50<03:52, 16.63s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  24% Completed | 4/17 [01:05<03:25, 15.83s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  29% Completed | 5/17 [01:19<03:05, 15.50s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  35% Completed | 6/17 [01:34<02:47, 15.27s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  41% Completed | 7/17 [01:48<02:29, 14.94s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  47% Completed | 8/17 [01:51<01:38, 10.92s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  53% Completed | 9/17 [02:06<01:37, 12.24s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  59% Completed | 10/17 [02:22<01:33, 13.39s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  65% Completed | 11/17 [02:37<01:24, 14.00s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  71% Completed | 12/17 [02:55<01:15, 15.06s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  76% Completed | 13/17 [03:12<01:02, 15.66s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  82% Completed | 14/17 [03:29<00:48, 16.23s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  88% Completed | 15/17 [04:15<00:50, 25.23s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards:  94% Completed | 16/17 [04:43<00:25, 25.93s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards: 100% Completed | 17/17 [05:00<00:00, 23.16s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Loading safetensors checkpoint shards: 100% Completed | 17/17 [05:00<00:00, 17.66s/it]
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m 
+[1;36m(VllmWorker rank=0 pid=45565)[0;0m Capturing CUDA graph shapes:   0%|          | 0/67 [00:00<?, ?it/s]Capturing CUDA graph shapes:   1%|▏         | 1/67 [00:00<00:41,  1.59it/s]Capturing CUDA graph shapes:   3%|▎         | 2/67 [00:01<00:38,  1.68it/s]Capturing CUDA graph shapes:   4%|▍         | 3/67 [00:01<00:37,  1.71it/s]Capturing CUDA graph shapes:   6%|▌         | 4/67 [00:02<00:36,  1.73it/s]Capturing CUDA graph shapes:   7%|▋         | 5/67 [00:02<00:35,  1.73it/s]Capturing CUDA graph shapes:   9%|▉         | 6/67 [00:03<00:35,  1.73it/s]Capturing CUDA graph shapes:  10%|█         | 7/67 [00:04<00:34,  1.72it/s]Capturing CUDA graph shapes:  12%|█▏        | 8/67 [00:04<00:34,  1.72it/s]Capturing CUDA graph shapes:  13%|█▎        | 9/67 [00:05<00:33,  1.72it/s]Capturing CUDA graph shapes:  15%|█▍        | 10/67 [00:05<00:32,  1.73it/s]Capturing CUDA graph shapes:  16%|█▋        | 11/67 [00:06<00:32,  1.73it/s]Capturing CUDA graph shapes:  18%|█▊        | 12/67 [00:06<00:31,  1.75it/s]Capturing CUDA graph shapes:  19%|█▉        | 13/67 [00:07<00:30,  1.76it/s]Capturing CUDA graph shapes:  21%|██        | 14/67 [00:08<00:29,  1.77it/s]Capturing CUDA graph shapes:  22%|██▏       | 15/67 [00:08<00:29,  1.78it/s]Capturing CUDA graph shapes:  24%|██▍       | 16/67 [00:09<00:28,  1.79it/s]Capturing CUDA graph shapes:  25%|██▌       | 17/67 [00:09<00:27,  1.82it/s]Capturing CUDA graph shapes:  27%|██▋       | 18/67 [00:10<00:26,  1.84it/s]Capturing CUDA graph shapes:  28%|██▊       | 19/67 [00:10<00:25,  1.85it/s]Capturing CUDA graph shapes:  30%|██▉       | 20/67 [00:11<00:25,  1.87it/s]Capturing CUDA graph shapes:  31%|███▏      | 21/67 [00:11<00:24,  1.88it/s]Capturing CUDA graph shapes:  33%|███▎      | 22/67 [00:12<00:23,  1.88it/s]Capturing CUDA graph shapes:  34%|███▍      | 23/67 [00:12<00:23,  1.89it/s]Capturing CUDA graph shapes:  36%|███▌      | 24/67 [00:13<00:22,  1.89it/s]Capturing CUDA graph shapes:  37%|███▋      | 25/67 [00:13<00:22,  1.89it/s]Capturing CUDA graph shapes:  39%|███▉      | 26/67 [00:14<00:21,  1.90it/s]Capturing CUDA graph shapes:  40%|████      | 27/67 [00:14<00:21,  1.90it/s]Capturing CUDA graph shapes:  42%|████▏     | 28/67 [00:15<00:20,  1.90it/s]Capturing CUDA graph shapes:  43%|████▎     | 29/67 [00:16<00:19,  1.90it/s]Capturing CUDA graph shapes:  45%|████▍     | 30/67 [00:16<00:19,  1.90it/s]Capturing CUDA graph shapes:  46%|████▋     | 31/67 [00:17<00:18,  1.90it/s]Capturing CUDA graph shapes:  48%|████▊     | 32/67 [00:17<00:18,  1.90it/s]Capturing CUDA graph shapes:  49%|████▉     | 33/67 [00:18<00:18,  1.88it/s]Capturing CUDA graph shapes:  51%|█████     | 34/67 [00:18<00:17,  1.89it/s]Capturing CUDA graph shapes:  52%|█████▏    | 35/67 [00:19<00:16,  1.91it/s]Capturing CUDA graph shapes:  54%|█████▎    | 36/67 [00:19<00:16,  1.92it/s]Capturing CUDA graph shapes:  55%|█████▌    | 37/67 [00:20<00:15,  1.92it/s]Capturing CUDA graph shapes:  57%|█████▋    | 38/67 [00:20<00:15,  1.92it/s]Capturing CUDA graph shapes:  58%|█████▊    | 39/67 [00:21<00:14,  1.92it/s]Capturing CUDA graph shapes:  60%|█████▉    | 40/67 [00:21<00:13,  1.93it/s]Capturing CUDA graph shapes:  61%|██████    | 41/67 [00:22<00:13,  1.93it/s]Capturing CUDA graph shapes:  63%|██████▎   | 42/67 [00:22<00:12,  1.94it/s]Capturing CUDA graph shapes:  64%|██████▍   | 43/67 [00:23<00:12,  1.93it/s]Capturing CUDA graph shapes:  66%|██████▌   | 44/67 [00:23<00:11,  1.94it/s]Capturing CUDA graph shapes:  67%|██████▋   | 45/67 [00:24<00:11,  1.94it/s]Capturing CUDA graph shapes:  69%|██████▊   | 46/67 [00:24<00:10,  1.93it/s]Capturing CUDA graph shapes:  70%|███████   | 47/67 [00:25<00:10,  1.93it/s]Capturing CUDA graph shapes:  72%|███████▏  | 48/67 [00:25<00:09,  1.92it/s]Capturing CUDA graph shapes:  73%|███████▎  | 49/67 [00:26<00:09,  1.91it/s]Capturing CUDA graph shapes:  75%|███████▍  | 50/67 [00:26<00:08,  1.91it/s]Capturing CUDA graph shapes:  76%|███████▌  | 51/67 [00:27<00:08,  1.91it/s]Capturing CUDA graph shapes:  78%|███████▊  | 52/67 [00:28<00:07,  1.92it/s]Capturing CUDA graph shapes:  79%|███████▉  | 53/67 [00:28<00:07,  1.91it/s]Capturing CUDA graph shapes:  81%|████████  | 54/67 [00:29<00:06,  1.91it/s]Capturing CUDA graph shapes:  82%|████████▏ | 55/67 [00:29<00:06,  1.91it/s]Capturing CUDA graph shapes:  84%|████████▎ | 56/67 [00:30<00:05,  1.89it/s]Capturing CUDA graph shapes:  85%|████████▌ | 57/67 [00:30<00:05,  1.89it/s]Capturing CUDA graph shapes:  87%|████████▋ | 58/67 [00:31<00:04,  1.89it/s]Capturing CUDA graph shapes:  88%|████████▊ | 59/67 [00:31<00:04,  1.89it/s]Capturing CUDA graph shapes:  90%|████████▉ | 60/67 [00:32<00:03,  1.88it/s]Capturing CUDA graph shapes:  91%|█████████ | 61/67 [00:32<00:03,  1.88it/s]Capturing CUDA graph shapes:  93%|█████████▎| 62/67 [00:33<00:02,  1.87it/s]Capturing CUDA graph shapes:  94%|█████████▍| 63/67 [00:33<00:02,  1.86it/s]Capturing CUDA graph shapes:  96%|█████████▌| 64/67 [00:34<00:01,  1.83it/s]Capturing CUDA graph shapes:  97%|█████████▋| 65/67 [00:34<00:01,  1.84it/s]Capturing CUDA graph shapes:  99%|█████████▊| 66/67 [00:35<00:00,  1.84it/s]Capturing CUDA graph shapes: 100%|██████████| 67/67 [00:36<00:00,  1.81it/s]Capturing CUDA graph shapes: 100%|██████████| 67/67 [00:36<00:00,  1.86it/s]
+Generating for Disability_status:   0%|          | 0/98 [00:00<?, ?it/s]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 1402.72it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:04,  4.31s/it, est. speed input: 27.82 toks/s, output: 25.27 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:26,  1.86s/it, est. speed input: 54.21 toks/s, output: 49.73 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.33it/s, est. speed input: 111.99 toks/s, output: 97.38 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.66it/s, est. speed input: 130.61 toks/s, output: 117.59 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:04,  2.05it/s, est. speed input: 155.06 toks/s, output: 137.93 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  3.39it/s, est. speed input: 196.21 toks/s, output: 184.49 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:05<00:01,  3.83it/s, est. speed input: 246.89 toks/s, output: 234.33 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  5.15it/s, est. speed input: 294.32 toks/s, output: 281.33 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  1.96it/s, est. speed input: 244.06 toks/s, output: 248.78 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:16<00:00,  1.83s/it, est. speed input: 137.73 toks/s, output: 158.85 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:16<00:00,  1.83s/it, est. speed input: 137.73 toks/s, output: 158.85 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:16<00:00,  1.01s/it, est. speed input: 137.73 toks/s, output: 158.85 toks/s]
+Generating for Disability_status:   1%|          | 1/98 [00:16<26:07, 16.16s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2101.16it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:58,  3.90s/it, est. speed input: 30.77 toks/s, output: 25.90 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:24,  1.72s/it, est. speed input: 59.19 toks/s, output: 50.63 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.10s/it, est. speed input: 81.07 toks/s, output: 72.34 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.44it/s, est. speed input: 129.57 toks/s, output: 110.41 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.90it/s, est. speed input: 149.53 toks/s, output: 134.15 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:04,  2.23it/s, est. speed input: 170.58 toks/s, output: 153.95 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.07it/s, est. speed input: 180.15 toks/s, output: 166.02 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.30it/s, est. speed input: 200.21 toks/s, output: 197.60 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.75it/s, est. speed input: 212.98 toks/s, output: 220.06 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  3.88it/s, est. speed input: 244.81 toks/s, output: 265.72 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.91it/s, est. speed input: 257.74 toks/s, output: 283.41 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  3.38it/s, est. speed input: 264.25 toks/s, output: 294.98 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.81it/s, est. speed input: 262.22 toks/s, output: 303.44 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.81it/s, est. speed input: 262.22 toks/s, output: 303.44 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.89it/s, est. speed input: 262.22 toks/s, output: 303.44 toks/s]
+Generating for Disability_status:   2%|▏         | 2/98 [00:24<18:37, 11.64s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2186.88it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:55,  3.67s/it, est. speed input: 33.25 toks/s, output: 25.89 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:25,  1.84s/it, est. speed input: 57.62 toks/s, output: 48.41 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:16,  1.24s/it, est. speed input: 76.44 toks/s, output: 69.09 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.23it/s, est. speed input: 98.93 toks/s, output: 93.02 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.53it/s, est. speed input: 114.39 toks/s, output: 112.50 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.77it/s, est. speed input: 162.88 toks/s, output: 161.04 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  3.08it/s, est. speed input: 184.48 toks/s, output: 180.78 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:01,  3.51it/s, est. speed input: 205.29 toks/s, output: 201.36 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.09it/s, est. speed input: 199.29 toks/s, output: 198.99 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  2.61it/s, est. speed input: 218.13 toks/s, output: 221.29 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.59it/s, est. speed input: 228.02 toks/s, output: 235.90 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.74it/s, est. speed input: 256.97 toks/s, output: 280.50 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.21it/s, est. speed input: 267.23 toks/s, output: 306.31 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.21it/s, est. speed input: 267.23 toks/s, output: 306.31 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.91it/s, est. speed input: 267.23 toks/s, output: 306.31 toks/s]
+Generating for Disability_status:   3%|▎         | 3/98 [00:33<16:04, 10.15s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2257.51it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:48,  3.21s/it, est. speed input: 41.18 toks/s, output: 25.58 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:23,  1.67s/it, est. speed input: 62.75 toks/s, output: 47.52 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:13,  1.01s/it, est. speed input: 86.24 toks/s, output: 70.63 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.49it/s, est. speed input: 115.16 toks/s, output: 93.90 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:04,  2.41it/s, est. speed input: 153.05 toks/s, output: 135.94 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:04<00:02,  3.84it/s, est. speed input: 200.54 toks/s, output: 184.06 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:05<00:00,  5.03it/s, est. speed input: 248.99 toks/s, output: 243.86 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:05<00:00,  6.08it/s, est. speed input: 291.62 toks/s, output: 287.05 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:05<00:00,  4.20it/s, est. speed input: 285.90 toks/s, output: 285.39 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:06<00:00,  2.38it/s, est. speed input: 259.03 toks/s, output: 265.95 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.44s/it, est. speed input: 163.33 toks/s, output: 184.43 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.44s/it, est. speed input: 163.33 toks/s, output: 184.43 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.36it/s, est. speed input: 163.33 toks/s, output: 184.43 toks/s]
+Generating for Disability_status:   4%|▍         | 4/98 [00:44<16:55, 10.81s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2316.42it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:39,  2.60s/it, est. speed input: 49.97 toks/s, output: 25.37 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:22,  1.60s/it, est. speed input: 67.04 toks/s, output: 44.50 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:13,  1.04s/it, est. speed input: 87.59 toks/s, output: 65.95 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.45it/s, est. speed input: 117.06 toks/s, output: 89.28 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:04,  2.16it/s, est. speed input: 150.51 toks/s, output: 127.91 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:04<00:03,  2.39it/s, est. speed input: 163.23 toks/s, output: 145.94 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  2.67it/s, est. speed input: 175.75 toks/s, output: 164.43 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:05<00:01,  3.73it/s, est. speed input: 220.11 toks/s, output: 222.58 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:05<00:01,  4.00it/s, est. speed input: 236.26 toks/s, output: 241.91 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:01,  1.79it/s, est. speed input: 205.24 toks/s, output: 222.74 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  1.43it/s, est. speed input: 192.28 toks/s, output: 220.14 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.35it/s, est. speed input: 188.25 toks/s, output: 228.09 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.35it/s, est. speed input: 188.25 toks/s, output: 228.09 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.58it/s, est. speed input: 188.25 toks/s, output: 228.09 toks/s]
+Generating for Disability_status:   5%|▌         | 5/98 [00:54<16:22, 10.56s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2315.14it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:06,  4.44s/it, est. speed input: 24.12 toks/s, output: 25.92 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:28,  2.05s/it, est. speed input: 44.46 toks/s, output: 49.86 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.23it/s, est. speed input: 90.45 toks/s, output: 99.52 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.48it/s, est. speed input: 108.82 toks/s, output: 118.55 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.62it/s, est. speed input: 122.36 toks/s, output: 134.71 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:04,  2.15it/s, est. speed input: 137.72 toks/s, output: 158.43 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.55it/s, est. speed input: 150.06 toks/s, output: 178.78 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  4.24it/s, est. speed input: 185.50 toks/s, output: 227.73 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.76it/s, est. speed input: 195.10 toks/s, output: 241.69 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:00,  4.11it/s, est. speed input: 205.35 toks/s, output: 261.57 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.63it/s, est. speed input: 222.94 toks/s, output: 289.91 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  2.61it/s, est. speed input: 218.80 toks/s, output: 290.51 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.41it/s, est. speed input: 192.23 toks/s, output: 268.38 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.41it/s, est. speed input: 192.23 toks/s, output: 268.38 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.62it/s, est. speed input: 192.23 toks/s, output: 268.38 toks/s]
+Generating for Disability_status:   6%|▌         | 6/98 [01:04<15:49, 10.33s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2309.08it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:38,  2.59s/it, est. speed input: 41.32 toks/s, output: 25.49 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:22,  1.62s/it, est. speed input: 60.60 toks/s, output: 44.46 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:13,  1.02s/it, est. speed input: 89.75 toks/s, output: 66.79 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.36it/s, est. speed input: 114.66 toks/s, output: 87.81 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.69it/s, est. speed input: 135.50 toks/s, output: 107.10 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:04<00:02,  3.12it/s, est. speed input: 177.97 toks/s, output: 155.94 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:04<00:02,  3.77it/s, est. speed input: 196.06 toks/s, output: 178.18 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  3.27it/s, est. speed input: 209.09 toks/s, output: 203.55 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:05<00:01,  3.73it/s, est. speed input: 222.91 toks/s, output: 224.53 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:05<00:00,  4.39it/s, est. speed input: 241.95 toks/s, output: 246.54 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:05<00:00,  3.97it/s, est. speed input: 251.08 toks/s, output: 259.76 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:06<00:00,  3.99it/s, est. speed input: 261.94 toks/s, output: 275.89 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:01,  1.79s/it, est. speed input: 147.65 toks/s, output: 171.50 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  2.03s/it, est. speed input: 130.03 toks/s, output: 168.50 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  2.03s/it, est. speed input: 130.03 toks/s, output: 168.50 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.10it/s, est. speed input: 130.03 toks/s, output: 168.50 toks/s]
+Generating for Disability_status:   7%|▋         | 7/98 [01:19<17:46, 11.72s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2341.88it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:54,  3.65s/it, est. speed input: 36.20 toks/s, output: 25.78 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:25,  1.83s/it, est. speed input: 56.76 toks/s, output: 48.21 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.37it/s, est. speed input: 103.40 toks/s, output: 97.67 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:04<00:03,  2.92it/s, est. speed input: 180.61 toks/s, output: 170.43 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  2.97it/s, est. speed input: 203.88 toks/s, output: 199.24 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  3.20it/s, est. speed input: 220.19 toks/s, output: 217.40 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:05<00:00,  4.32it/s, est. speed input: 255.62 toks/s, output: 262.26 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:05<00:00,  4.54it/s, est. speed input: 265.99 toks/s, output: 280.61 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:06<00:00,  3.99it/s, est. speed input: 267.75 toks/s, output: 290.69 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  2.32it/s, est. speed input: 249.05 toks/s, output: 277.15 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.67it/s, est. speed input: 232.10 toks/s, output: 267.48 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.67it/s, est. speed input: 232.10 toks/s, output: 267.48 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.96it/s, est. speed input: 232.10 toks/s, output: 267.48 toks/s]
+Generating for Disability_status:   8%|▊         | 8/98 [01:27<15:53, 10.59s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2330.82it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:55,  3.70s/it, est. speed input: 28.68 toks/s, output: 25.98 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:28,  2.05s/it, est. speed input: 46.52 toks/s, output: 46.74 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:16,  1.27s/it, est. speed input: 65.21 toks/s, output: 69.46 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:06,  1.68it/s, est. speed input: 105.34 toks/s, output: 118.70 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.48it/s, est. speed input: 138.23 toks/s, output: 161.82 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.17it/s, est. speed input: 145.65 toks/s, output: 170.89 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.35it/s, est. speed input: 158.74 toks/s, output: 188.33 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.45it/s, est. speed input: 169.96 toks/s, output: 204.48 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.67it/s, est. speed input: 181.93 toks/s, output: 222.44 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:03,  1.30it/s, est. speed input: 160.39 toks/s, output: 204.50 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:01,  1.65it/s, est. speed input: 174.26 toks/s, output: 238.35 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.49it/s, est. speed input: 171.27 toks/s, output: 255.65 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.49it/s, est. speed input: 171.27 toks/s, output: 255.65 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.43it/s, est. speed input: 171.27 toks/s, output: 255.65 toks/s]
+Generating for Disability_status:   9%|▉         | 9/98 [01:38<15:58, 10.77s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2309.00it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:01,  4.07s/it, est. speed input: 32.65 toks/s, output: 25.77 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:26,  1.90s/it, est. speed input: 59.32 toks/s, output: 49.43 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.08s/it, est. speed input: 81.51 toks/s, output: 74.06 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.37it/s, est. speed input: 100.59 toks/s, output: 97.22 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:06,  1.70it/s, est. speed input: 115.11 toks/s, output: 116.69 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.49it/s, est. speed input: 117.29 toks/s, output: 126.41 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.95it/s, est. speed input: 131.03 toks/s, output: 148.55 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.38it/s, est. speed input: 143.14 toks/s, output: 169.36 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.89it/s, est. speed input: 155.43 toks/s, output: 190.75 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.77it/s, est. speed input: 162.14 toks/s, output: 206.01 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.04it/s, est. speed input: 174.66 toks/s, output: 224.92 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.42it/s, est. speed input: 178.09 toks/s, output: 233.68 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.17it/s, est. speed input: 181.89 toks/s, output: 244.24 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.45it/s, est. speed input: 191.09 toks/s, output: 262.75 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.39it/s, est. speed input: 213.54 toks/s, output: 305.35 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.39it/s, est. speed input: 213.54 toks/s, output: 305.35 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.79it/s, est. speed input: 213.54 toks/s, output: 305.35 toks/s]
+Generating for Disability_status:  10%|█         | 10/98 [01:47<14:58, 10.21s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2258.04it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:46,  3.11s/it, est. speed input: 34.45 toks/s, output: 25.76 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:24,  1.74s/it, est. speed input: 61.08 toks/s, output: 46.45 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.36it/s, est. speed input: 108.91 toks/s, output: 94.01 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.81it/s, est. speed input: 135.50 toks/s, output: 116.70 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:07,  1.42it/s, est. speed input: 133.79 toks/s, output: 119.98 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:05,  1.79it/s, est. speed input: 147.93 toks/s, output: 141.30 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:03,  2.08it/s, est. speed input: 158.42 toks/s, output: 160.29 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.67it/s, est. speed input: 184.25 toks/s, output: 198.19 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  2.98it/s, est. speed input: 199.27 toks/s, output: 218.04 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  3.11it/s, est. speed input: 215.72 toks/s, output: 250.68 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.12it/s, est. speed input: 221.07 toks/s, output: 266.63 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  2.76it/s, est. speed input: 224.63 toks/s, output: 277.02 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:28<00:00,  5.72s/it, est. speed input: 67.01 toks/s, output: 106.05 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:28<00:00,  5.72s/it, est. speed input: 67.01 toks/s, output: 106.05 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:28<00:00,  1.81s/it, est. speed input: 67.01 toks/s, output: 106.05 toks/s]
+Generating for Disability_status:  11%|█         | 11/98 [02:16<23:07, 15.95s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2286.19it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:03,  4.20s/it, est. speed input: 24.99 toks/s, output: 25.94 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:27,  1.97s/it, est. speed input: 45.93 toks/s, output: 49.61 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.14s/it, est. speed input: 73.21 toks/s, output: 74.05 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.33it/s, est. speed input: 92.93 toks/s, output: 98.01 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:03,  2.61it/s, est. speed input: 134.18 toks/s, output: 147.30 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.63it/s, est. speed input: 149.85 toks/s, output: 163.17 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  3.28it/s, est. speed input: 171.99 toks/s, output: 185.95 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:01,  4.02it/s, est. speed input: 187.69 toks/s, output: 208.48 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  4.81it/s, est. speed input: 208.03 toks/s, output: 230.70 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  2.97it/s, est. speed input: 207.77 toks/s, output: 233.62 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  3.00it/s, est. speed input: 218.47 toks/s, output: 248.74 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.22it/s, est. speed input: 235.67 toks/s, output: 280.36 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  3.21it/s, est. speed input: 239.98 toks/s, output: 295.33 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.27it/s, est. speed input: 201.72 toks/s, output: 257.86 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.27it/s, est. speed input: 201.72 toks/s, output: 257.86 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.64it/s, est. speed input: 201.72 toks/s, output: 257.86 toks/s]
+Generating for Disability_status:  12%|█▏        | 12/98 [02:26<20:09, 14.06s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2316.26it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:42,  2.80s/it, est. speed input: 37.45 toks/s, output: 25.68 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:19,  1.42s/it, est. speed input: 65.11 toks/s, output: 47.91 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:13,  1.05s/it, est. speed input: 89.92 toks/s, output: 66.34 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.33it/s, est. speed input: 109.13 toks/s, output: 87.49 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.66it/s, est. speed input: 124.71 toks/s, output: 106.92 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:04,  2.17it/s, est. speed input: 142.13 toks/s, output: 128.68 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.37it/s, est. speed input: 153.66 toks/s, output: 146.10 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:03,  1.85it/s, est. speed input: 159.06 toks/s, output: 162.67 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.33it/s, est. speed input: 176.95 toks/s, output: 186.37 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:03,  1.41it/s, est. speed input: 160.79 toks/s, output: 178.41 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:02,  1.35it/s, est. speed input: 161.26 toks/s, output: 188.38 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:02,  1.21it/s, est. speed input: 157.89 toks/s, output: 195.52 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.19it/s, est. speed input: 157.42 toks/s, output: 206.34 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.11it/s, est. speed input: 154.83 toks/s, output: 215.04 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:29<00:00,  5.74s/it, est. speed input: 66.24 toks/s, output: 115.90 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:29<00:00,  5.74s/it, est. speed input: 66.24 toks/s, output: 115.90 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:29<00:00,  1.82s/it, est. speed input: 66.24 toks/s, output: 115.90 toks/s]
+Generating for Disability_status:  13%|█▎        | 13/98 [02:55<26:21, 18.61s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2334.55it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:48,  3.21s/it, est. speed input: 33.37 toks/s, output: 25.58 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:20,  1.43s/it, est. speed input: 62.45 toks/s, output: 49.78 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:13,  1.02s/it, est. speed input: 80.84 toks/s, output: 68.85 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:07,  1.51it/s, est. speed input: 112.04 toks/s, output: 92.71 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:05,  1.88it/s, est. speed input: 128.50 toks/s, output: 112.35 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.47it/s, est. speed input: 125.03 toks/s, output: 117.68 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:06,  1.45it/s, est. speed input: 127.87 toks/s, output: 129.86 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:04,  1.80it/s, est. speed input: 143.70 toks/s, output: 150.55 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:03,  2.17it/s, est. speed input: 158.49 toks/s, output: 170.88 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.21it/s, est. speed input: 167.96 toks/s, output: 186.46 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:02,  2.00it/s, est. speed input: 168.57 toks/s, output: 197.86 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.62it/s, est. speed input: 184.02 toks/s, output: 221.48 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:02,  1.39it/s, est. speed input: 168.83 toks/s, output: 212.18 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:02,  1.16s/it, est. speed input: 147.92 toks/s, output: 198.19 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.04it/s, est. speed input: 153.18 toks/s, output: 217.05 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.23it/s, est. speed input: 156.23 toks/s, output: 236.14 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.23it/s, est. speed input: 156.23 toks/s, output: 236.14 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.30it/s, est. speed input: 156.23 toks/s, output: 236.14 toks/s]
+Generating for Disability_status:  14%|█▍        | 14/98 [03:07<23:24, 16.72s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2288.22it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:43,  2.92s/it, est. speed input: 35.99 toks/s, output: 26.05 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:20,  1.44s/it, est. speed input: 63.63 toks/s, output: 48.62 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:11,  1.13it/s, est. speed input: 89.95 toks/s, output: 71.40 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:03<00:04,  2.40it/s, est. speed input: 152.57 toks/s, output: 120.69 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:03<00:03,  2.61it/s, est. speed input: 175.02 toks/s, output: 137.49 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:04<00:02,  3.12it/s, est. speed input: 209.95 toks/s, output: 171.82 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:04<00:01,  3.60it/s, est. speed input: 232.25 toks/s, output: 192.49 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:05<00:02,  2.33it/s, est. speed input: 222.27 toks/s, output: 197.34 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:01,  2.81it/s, est. speed input: 239.45 toks/s, output: 234.41 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  2.37it/s, est. speed input: 235.95 toks/s, output: 238.65 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  2.13it/s, est. speed input: 233.96 toks/s, output: 245.97 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.65it/s, est. speed input: 221.81 toks/s, output: 244.38 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.65it/s, est. speed input: 221.81 toks/s, output: 244.38 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.84it/s, est. speed input: 221.81 toks/s, output: 244.38 toks/s]
+Generating for Disability_status:  15%|█▌        | 15/98 [03:16<19:46, 14.30s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2341.14it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:02<00:38,  2.58s/it, est. speed input: 40.72 toks/s, output: 25.98 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:27,  1.97s/it, est. speed input: 51.66 toks/s, output: 42.20 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.21it/s, est. speed input: 102.40 toks/s, output: 89.74 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:07,  1.53it/s, est. speed input: 119.27 toks/s, output: 110.74 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.51it/s, est. speed input: 124.40 toks/s, output: 122.90 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:04,  1.89it/s, est. speed input: 138.15 toks/s, output: 144.05 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  3.17it/s, est. speed input: 171.85 toks/s, output: 192.08 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.25it/s, est. speed input: 170.42 toks/s, output: 194.20 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:02,  1.74it/s, est. speed input: 167.14 toks/s, output: 196.49 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.19it/s, est. speed input: 181.66 toks/s, output: 219.36 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.34it/s, est. speed input: 197.16 toks/s, output: 250.13 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  1.79it/s, est. speed input: 191.18 toks/s, output: 250.97 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:16<00:00,  2.10s/it, est. speed input: 120.63 toks/s, output: 175.64 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:16<00:00,  2.10s/it, est. speed input: 120.63 toks/s, output: 175.64 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:16<00:00,  1.00s/it, est. speed input: 120.63 toks/s, output: 175.64 toks/s]
+Generating for Disability_status:  16%|█▋        | 16/98 [03:32<20:14, 14.82s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2344.17it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:49,  3.33s/it, est. speed input: 31.81 toks/s, output: 25.81 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:20,  1.44s/it, est. speed input: 62.11 toks/s, output: 50.79 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:13,  1.02s/it, est. speed input: 81.32 toks/s, output: 69.99 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.44it/s, est. speed input: 110.08 toks/s, output: 92.78 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:07,  1.52it/s, est. speed input: 118.50 toks/s, output: 107.15 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.70it/s, est. speed input: 134.18 toks/s, output: 124.01 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:05,  1.65it/s, est. speed input: 142.98 toks/s, output: 136.65 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.02it/s, est. speed input: 154.36 toks/s, output: 157.14 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.67it/s, est. speed input: 173.38 toks/s, output: 180.61 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.25it/s, est. speed input: 193.26 toks/s, output: 218.69 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.03it/s, est. speed input: 197.72 toks/s, output: 232.88 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.23it/s, est. speed input: 195.51 toks/s, output: 236.34 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:16<00:02,  2.04s/it, est. speed input: 112.29 toks/s, output: 155.75 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:35<00:00,  6.03s/it, est. speed input: 55.52 toks/s, output: 100.59 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:35<00:00,  6.03s/it, est. speed input: 55.52 toks/s, output: 100.59 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:35<00:00,  2.20s/it, est. speed input: 55.52 toks/s, output: 100.59 toks/s]
+Generating for Disability_status:  17%|█▋        | 17/98 [04:07<28:14, 20.93s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2319.78it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:45,  3.03s/it, est. speed input: 45.23 toks/s, output: 25.75 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:22,  1.58s/it, est. speed input: 68.45 toks/s, output: 47.58 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:16,  1.25s/it, est. speed input: 85.43 toks/s, output: 64.35 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:15,  1.26s/it, est. speed input: 89.88 toks/s, output: 76.11 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.58it/s, est. speed input: 128.47 toks/s, output: 126.10 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.99it/s, est. speed input: 147.95 toks/s, output: 149.11 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.15it/s, est. speed input: 160.65 toks/s, output: 166.57 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.53it/s, est. speed input: 186.53 toks/s, output: 215.62 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.92it/s, est. speed input: 197.24 toks/s, output: 237.93 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  3.19it/s, est. speed input: 205.47 toks/s, output: 257.90 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.47it/s, est. speed input: 213.27 toks/s, output: 277.68 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.19it/s, est. speed input: 216.35 toks/s, output: 291.53 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.59s/it, est. speed input: 145.37 toks/s, output: 210.16 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.59s/it, est. speed input: 145.37 toks/s, output: 210.16 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.19it/s, est. speed input: 145.37 toks/s, output: 210.16 toks/s]
+Generating for Disability_status:  18%|█▊        | 18/98 [04:21<24:53, 18.67s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2251.82it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:53,  3.58s/it, est. speed input: 29.30 toks/s, output: 25.68 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:24,  1.76s/it, est. speed input: 51.56 toks/s, output: 48.37 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:13,  1.01s/it, est. speed input: 75.25 toks/s, output: 72.86 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:10,  1.10it/s, est. speed input: 93.75 toks/s, output: 87.68 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.30it/s, est. speed input: 111.83 toks/s, output: 105.24 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.45it/s, est. speed input: 154.94 toks/s, output: 154.94 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  2.86it/s, est. speed input: 175.58 toks/s, output: 175.93 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  3.30it/s, est. speed input: 195.14 toks/s, output: 196.65 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  4.61it/s, est. speed input: 236.34 toks/s, output: 241.37 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:00,  5.01it/s, est. speed input: 247.60 toks/s, output: 262.03 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.96it/s, est. speed input: 236.34 toks/s, output: 260.74 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:01,  1.88it/s, est. speed input: 223.66 toks/s, output: 253.25 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  1.79it/s, est. speed input: 219.55 toks/s, output: 261.76 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.79it/s, est. speed input: 231.55 toks/s, output: 288.52 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.83it/s, est. speed input: 231.55 toks/s, output: 288.52 toks/s]
+Generating for Disability_status:  19%|█▉        | 19/98 [04:29<20:39, 15.69s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2275.19it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:48,  3.21s/it, est. speed input: 32.44 toks/s, output: 25.58 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:03<00:19,  1.41s/it, est. speed input: 61.97 toks/s, output: 50.05 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:12,  1.07it/s, est. speed input: 94.83 toks/s, output: 70.72 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.34it/s, est. speed input: 119.49 toks/s, output: 88.90 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:04,  2.50it/s, est. speed input: 171.54 toks/s, output: 135.63 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:04<00:02,  3.97it/s, est. speed input: 232.34 toks/s, output: 183.51 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:04<00:01,  4.41it/s, est. speed input: 247.55 toks/s, output: 203.91 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  3.00it/s, est. speed input: 236.84 toks/s, output: 205.01 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:02,  1.85it/s, est. speed input: 211.79 toks/s, output: 195.68 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  2.32it/s, est. speed input: 229.47 toks/s, output: 217.84 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:01,  2.57it/s, est. speed input: 235.16 toks/s, output: 235.31 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  2.37it/s, est. speed input: 239.08 toks/s, output: 245.91 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  2.33it/s, est. speed input: 238.55 toks/s, output: 258.36 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.05it/s, est. speed input: 200.46 toks/s, output: 228.82 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.05it/s, est. speed input: 200.46 toks/s, output: 228.82 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.60it/s, est. speed input: 200.46 toks/s, output: 228.82 toks/s]
+Generating for Disability_status:  20%|██        | 20/98 [04:39<18:10, 13.98s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2271.41it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:52,  3.48s/it, est. speed input: 42.56 toks/s, output: 25.88 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:03<00:14,  1.08s/it, est. speed input: 101.09 toks/s, output: 71.59 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:08,  1.34it/s, est. speed input: 124.02 toks/s, output: 95.59 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:05,  1.86it/s, est. speed input: 145.73 toks/s, output: 119.25 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:04<00:05,  1.75it/s, est. speed input: 148.20 toks/s, output: 129.57 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:04<00:01,  3.83it/s, est. speed input: 234.74 toks/s, output: 204.18 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:05<00:00,  4.57it/s, est. speed input: 278.88 toks/s, output: 259.41 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:06<00:00,  3.37it/s, est. speed input: 276.72 toks/s, output: 271.41 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:06<00:00,  3.63it/s, est. speed input: 291.87 toks/s, output: 290.81 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:07<00:00,  3.13it/s, est. speed input: 286.33 toks/s, output: 297.36 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:07<00:00,  3.13it/s, est. speed input: 286.33 toks/s, output: 297.36 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:07<00:00,  2.26it/s, est. speed input: 286.33 toks/s, output: 297.36 toks/s]
+Generating for Disability_status:  21%|██▏       | 21/98 [04:46<15:16, 11.91s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2281.30it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:58,  3.89s/it, est. speed input: 26.73 toks/s, output: 26.22 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:15,  1.19s/it, est. speed input: 90.38 toks/s, output: 72.80 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.28it/s, est. speed input: 116.84 toks/s, output: 110.07 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.61it/s, est. speed input: 140.01 toks/s, output: 132.35 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:05,  1.62it/s, est. speed input: 150.42 toks/s, output: 145.22 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.32it/s, est. speed input: 213.01 toks/s, output: 220.59 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  3.76it/s, est. speed input: 245.13 toks/s, output: 259.68 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  3.92it/s, est. speed input: 252.93 toks/s, output: 277.81 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.33it/s, est. speed input: 251.17 toks/s, output: 286.35 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:01,  1.06s/it, est. speed input: 178.32 toks/s, output: 219.33 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.84s/it, est. speed input: 135.33 toks/s, output: 185.88 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.84s/it, est. speed input: 135.33 toks/s, output: 185.88 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.08it/s, est. speed input: 135.33 toks/s, output: 185.88 toks/s]
+Generating for Disability_status:  22%|██▏       | 22/98 [05:01<16:10, 12.77s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2294.63it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:08,  4.56s/it, est. speed input: 34.19 toks/s, output: 25.86 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:06<00:41,  2.96s/it, est. speed input: 44.31 toks/s, output: 44.47 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:21,  1.68s/it, est. speed input: 58.99 toks/s, output: 69.51 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:13,  1.09s/it, est. speed input: 72.76 toks/s, output: 93.65 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:07<00:06,  1.66it/s, est. speed input: 102.43 toks/s, output: 140.52 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:04,  2.14it/s, est. speed input: 118.91 toks/s, output: 164.47 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.44it/s, est. speed input: 132.01 toks/s, output: 184.81 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  3.09it/s, est. speed input: 150.45 toks/s, output: 208.31 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:02,  2.28it/s, est. speed input: 150.07 toks/s, output: 216.55 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  3.11it/s, est. speed input: 169.62 toks/s, output: 259.23 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  3.99it/s, est. speed input: 190.63 toks/s, output: 303.02 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.28it/s, est. speed input: 157.00 toks/s, output: 260.42 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.05s/it, est. speed input: 144.41 toks/s, output: 250.98 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.05s/it, est. speed input: 144.41 toks/s, output: 250.98 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.18it/s, est. speed input: 144.41 toks/s, output: 250.98 toks/s]
+Generating for Disability_status:  23%|██▎       | 23/98 [05:15<16:14, 12.99s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2206.80it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:02,  4.16s/it, est. speed input: 28.11 toks/s, output: 25.71 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:26,  1.91s/it, est. speed input: 59.76 toks/s, output: 49.54 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.29it/s, est. speed input: 117.07 toks/s, output: 98.09 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.63it/s, est. speed input: 134.08 toks/s, output: 118.73 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:07,  1.40it/s, est. speed input: 139.22 toks/s, output: 125.80 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.64it/s, est. speed input: 154.84 toks/s, output: 144.30 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:04,  1.86it/s, est. speed input: 170.37 toks/s, output: 162.23 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:03,  2.32it/s, est. speed input: 182.72 toks/s, output: 184.04 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:00,  4.13it/s, est. speed input: 234.81 toks/s, output: 252.96 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  4.38it/s, est. speed input: 245.18 toks/s, output: 273.18 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.05it/s, est. speed input: 244.57 toks/s, output: 290.41 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.84it/s, est. speed input: 226.12 toks/s, output: 276.77 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.84it/s, est. speed input: 226.12 toks/s, output: 276.77 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.66it/s, est. speed input: 226.12 toks/s, output: 276.77 toks/s]
+Generating for Disability_status:  24%|██▍       | 24/98 [05:24<14:46, 11.98s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2157.70it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:59,  4.00s/it, est. speed input: 29.27 toks/s, output: 25.77 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:33,  2.38s/it, est. speed input: 44.65 toks/s, output: 45.60 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:20,  1.60s/it, est. speed input: 59.14 toks/s, output: 66.40 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:12,  1.04s/it, est. speed input: 76.80 toks/s, output: 90.39 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.36it/s, est. speed input: 100.07 toks/s, output: 113.73 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:03,  2.50it/s, est. speed input: 147.06 toks/s, output: 162.89 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:02,  2.91it/s, est. speed input: 167.17 toks/s, output: 184.36 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.28it/s, est. speed input: 167.62 toks/s, output: 193.44 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.74it/s, est. speed input: 179.06 toks/s, output: 215.06 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:00,  4.13it/s, est. speed input: 215.49 toks/s, output: 262.10 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  4.41it/s, est. speed input: 230.35 toks/s, output: 282.52 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  4.26it/s, est. speed input: 256.68 toks/s, output: 333.90 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  4.26it/s, est. speed input: 256.68 toks/s, output: 333.90 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.86it/s, est. speed input: 256.68 toks/s, output: 333.90 toks/s]
+Generating for Disability_status:  26%|██▌       | 25/98 [05:33<13:20, 10.97s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2116.13it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:57,  3.85s/it, est. speed input: 40.22 toks/s, output: 25.69 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:26,  1.88s/it, est. speed input: 62.85 toks/s, output: 48.57 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.40s/it, est. speed input: 75.38 toks/s, output: 66.88 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.09it/s, est. speed input: 94.55 toks/s, output: 90.44 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.22it/s, est. speed input: 107.59 toks/s, output: 106.75 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.62it/s, est. speed input: 122.62 toks/s, output: 128.88 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.81it/s, est. speed input: 138.32 toks/s, output: 146.90 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  4.51it/s, est. speed input: 212.47 toks/s, output: 245.44 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:00,  4.54it/s, est. speed input: 228.28 toks/s, output: 264.07 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  4.42it/s, est. speed input: 242.31 toks/s, output: 281.27 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  4.03it/s, est. speed input: 252.79 toks/s, output: 295.78 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  1.70it/s, est. speed input: 221.20 toks/s, output: 270.77 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.82s/it, est. speed input: 148.72 toks/s, output: 200.36 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.82s/it, est. speed input: 148.72 toks/s, output: 200.36 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.10it/s, est. speed input: 148.72 toks/s, output: 200.36 toks/s]
+Generating for Disability_status:  27%|██▋       | 26/98 [05:47<14:25, 12.02s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2221.19it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:19,  5.31s/it, est. speed input: 27.48 toks/s, output: 25.97 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:32,  2.30s/it, est. speed input: 47.43 toks/s, output: 51.07 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:12,  1.02s/it, est. speed input: 87.08 toks/s, output: 96.70 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:07<00:11,  1.03s/it, est. speed input: 93.79 toks/s, output: 108.48 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:07<00:07,  1.31it/s, est. speed input: 111.20 toks/s, output: 132.37 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.93it/s, est. speed input: 137.89 toks/s, output: 174.83 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:03,  2.05it/s, est. speed input: 149.01 toks/s, output: 192.52 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:02,  2.20it/s, est. speed input: 156.60 toks/s, output: 210.64 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.84it/s, est. speed input: 175.06 toks/s, output: 252.21 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:00,  3.86it/s, est. speed input: 201.58 toks/s, output: 298.63 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.90it/s, est. speed input: 184.21 toks/s, output: 283.05 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:21<00:00,  2.97s/it, est. speed input: 96.17 toks/s, output: 167.88 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:21<00:00,  2.97s/it, est. speed input: 96.17 toks/s, output: 167.88 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:21<00:00,  1.35s/it, est. speed input: 96.17 toks/s, output: 167.88 toks/s]
+Generating for Disability_status:  28%|██▊       | 27/98 [06:09<17:37, 14.90s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2212.19it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:26,  5.77s/it, est. speed input: 23.41 toks/s, output: 26.01 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:06<00:35,  2.55s/it, est. speed input: 45.32 toks/s, output: 50.76 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:18,  1.44s/it, est. speed input: 68.11 toks/s, output: 75.87 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:10,  1.09it/s, est. speed input: 88.49 toks/s, output: 100.57 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:07,  1.56it/s, est. speed input: 103.03 toks/s, output: 124.28 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:04,  2.19it/s, est. speed input: 128.17 toks/s, output: 164.57 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.98it/s, est. speed input: 133.08 toks/s, output: 177.04 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  2.37it/s, est. speed input: 162.21 toks/s, output: 228.41 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:09<00:02,  1.80it/s, est. speed input: 159.10 toks/s, output: 229.63 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.17it/s, est. speed input: 168.46 toks/s, output: 252.95 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:00,  2.29it/s, est. speed input: 176.87 toks/s, output: 270.81 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.68it/s, est. speed input: 170.86 toks/s, output: 272.42 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.16s/it, est. speed input: 146.46 toks/s, output: 247.52 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.16s/it, est. speed input: 146.46 toks/s, output: 247.52 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.14it/s, est. speed input: 146.46 toks/s, output: 247.52 toks/s]
+Generating for Disability_status:  29%|██▊       | 28/98 [06:23<17:04, 14.63s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2259.03it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:10,  4.68s/it, est. speed input: 29.73 toks/s, output: 25.88 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:20,  1.59s/it, est. speed input: 69.40 toks/s, output: 68.87 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:12,  1.08s/it, est. speed input: 92.16 toks/s, output: 93.54 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.24it/s, est. speed input: 111.73 toks/s, output: 115.52 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.64it/s, est. speed input: 125.80 toks/s, output: 138.10 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.10it/s, est. speed input: 143.22 toks/s, output: 160.14 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.25it/s, est. speed input: 155.75 toks/s, output: 177.45 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.75it/s, est. speed input: 171.73 toks/s, output: 199.02 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.25it/s, est. speed input: 182.60 toks/s, output: 220.20 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.09it/s, est. speed input: 191.78 toks/s, output: 235.94 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.87it/s, est. speed input: 203.59 toks/s, output: 258.90 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.30it/s, est. speed input: 198.95 toks/s, output: 271.25 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.77it/s, est. speed input: 208.01 toks/s, output: 293.65 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.19it/s, est. speed input: 203.57 toks/s, output: 298.81 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.19it/s, est. speed input: 203.57 toks/s, output: 298.81 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.64it/s, est. speed input: 203.57 toks/s, output: 298.81 toks/s]
+Generating for Disability_status:  30%|██▉       | 29/98 [06:33<15:09, 13.18s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2248.05it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:16,  5.09s/it, est. speed input: 26.71 toks/s, output: 25.93 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.42s/it, est. speed input: 77.51 toks/s, output: 75.64 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.01it/s, est. speed input: 99.87 toks/s, output: 98.97 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.27it/s, est. speed input: 116.42 toks/s, output: 118.79 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.22it/s, est. speed input: 158.70 toks/s, output: 166.72 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.37it/s, est. speed input: 171.86 toks/s, output: 183.96 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:04,  1.57it/s, est. speed input: 158.63 toks/s, output: 180.92 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:03,  1.81it/s, est. speed input: 165.69 toks/s, output: 199.96 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  2.35it/s, est. speed input: 177.06 toks/s, output: 223.82 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.82it/s, est. speed input: 186.49 toks/s, output: 245.39 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:02,  1.44it/s, est. speed input: 168.71 toks/s, output: 233.94 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.68it/s, est. speed input: 173.55 toks/s, output: 252.56 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:12<00:01,  1.03s/it, est. speed input: 152.97 toks/s, output: 236.94 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.28s/it, est. speed input: 140.33 toks/s, output: 232.90 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.28s/it, est. speed input: 140.33 toks/s, output: 232.90 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.13it/s, est. speed input: 140.33 toks/s, output: 232.90 toks/s]
+Generating for Disability_status:  31%|███       | 30/98 [06:47<15:15, 13.46s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2252.96it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:06,  4.45s/it, est. speed input: 30.33 toks/s, output: 25.84 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:29,  2.08s/it, est. speed input: 49.74 toks/s, output: 49.53 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.40s/it, est. speed input: 70.59 toks/s, output: 70.04 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.05it/s, est. speed input: 91.76 toks/s, output: 92.81 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.79it/s, est. speed input: 125.95 toks/s, output: 137.34 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.89it/s, est. speed input: 138.42 toks/s, output: 154.03 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.43it/s, est. speed input: 157.27 toks/s, output: 177.54 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.74it/s, est. speed input: 174.69 toks/s, output: 212.94 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.89it/s, est. speed input: 183.45 toks/s, output: 231.15 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.47it/s, est. speed input: 188.02 toks/s, output: 241.29 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:02,  1.44it/s, est. speed input: 173.83 toks/s, output: 230.78 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.66it/s, est. speed input: 178.54 toks/s, output: 249.32 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:13<00:01,  1.28s/it, est. speed input: 145.83 toks/s, output: 218.90 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.04s/it, est. speed input: 149.37 toks/s, output: 239.20 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.04s/it, est. speed input: 149.37 toks/s, output: 239.20 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:13<00:00,  1.19it/s, est. speed input: 149.37 toks/s, output: 239.20 toks/s]
+Generating for Disability_status:  32%|███▏      | 31/98 [07:00<15:02, 13.47s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2232.13it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:12,  4.84s/it, est. speed input: 23.74 toks/s, output: 25.80 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:28,  2.06s/it, est. speed input: 46.39 toks/s, output: 51.03 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.38s/it, est. speed input: 62.47 toks/s, output: 71.70 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:10,  1.10it/s, est. speed input: 85.10 toks/s, output: 95.26 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.35it/s, est. speed input: 101.76 toks/s, output: 114.26 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.49it/s, est. speed input: 111.11 toks/s, output: 131.30 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.05it/s, est. speed input: 129.87 toks/s, output: 155.17 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.34it/s, est. speed input: 140.59 toks/s, output: 174.69 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.01it/s, est. speed input: 143.77 toks/s, output: 186.23 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.37it/s, est. speed input: 176.74 toks/s, output: 234.90 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  3.20it/s, est. speed input: 183.11 toks/s, output: 251.10 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  3.74it/s, est. speed input: 196.70 toks/s, output: 273.18 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  4.12it/s, est. speed input: 209.08 toks/s, output: 293.90 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  4.47it/s, est. speed input: 220.90 toks/s, output: 314.43 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.35s/it, est. speed input: 158.87 toks/s, output: 241.02 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.35s/it, est. speed input: 158.87 toks/s, output: 241.02 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.24it/s, est. speed input: 158.87 toks/s, output: 241.02 toks/s]
+Generating for Disability_status:  33%|███▎      | 32/98 [07:13<14:37, 13.30s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2244.74it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:09,  4.65s/it, est. speed input: 30.30 toks/s, output: 25.79 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:27,  1.98s/it, est. speed input: 58.96 toks/s, output: 50.98 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.32s/it, est. speed input: 80.02 toks/s, output: 71.72 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:11,  1.01s/it, est. speed input: 95.84 toks/s, output: 101.83 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:06,  1.48it/s, est. speed input: 127.45 toks/s, output: 144.97 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.77it/s, est. speed input: 138.97 toks/s, output: 166.92 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.19it/s, est. speed input: 151.25 toks/s, output: 189.93 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.15it/s, est. speed input: 175.64 toks/s, output: 235.64 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  3.08it/s, est. speed input: 191.77 toks/s, output: 267.89 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.58it/s, est. speed input: 170.35 toks/s, output: 248.95 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:12<00:00,  1.05it/s, est. speed input: 154.27 toks/s, output: 235.96 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.11s/it, est. speed input: 146.74 toks/s, output: 236.21 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.11s/it, est. speed input: 146.74 toks/s, output: 236.21 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.14it/s, est. speed input: 146.74 toks/s, output: 236.21 toks/s]
+Generating for Disability_status:  34%|███▎      | 33/98 [07:27<14:38, 13.52s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2236.66it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:08,  4.58s/it, est. speed input: 25.11 toks/s, output: 25.77 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:34,  2.48s/it, est. speed input: 41.27 toks/s, output: 46.99 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:19,  1.47s/it, est. speed input: 63.48 toks/s, output: 70.82 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:13,  1.13s/it, est. speed input: 75.52 toks/s, output: 90.37 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.25it/s, est. speed input: 90.32 toks/s, output: 113.35 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.65it/s, est. speed input: 107.62 toks/s, output: 135.68 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:05,  1.59it/s, est. speed input: 116.63 toks/s, output: 149.71 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:08<00:04,  1.65it/s, est. speed input: 125.87 toks/s, output: 165.50 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:02,  2.77it/s, est. speed input: 153.89 toks/s, output: 213.78 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  3.76it/s, est. speed input: 182.00 toks/s, output: 259.36 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  3.70it/s, est. speed input: 191.95 toks/s, output: 277.33 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.98it/s, est. speed input: 179.79 toks/s, output: 269.83 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.38it/s, est. speed input: 168.51 toks/s, output: 264.48 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:19<00:00,  2.58s/it, est. speed input: 107.35 toks/s, output: 187.24 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:19<00:00,  2.58s/it, est. speed input: 107.35 toks/s, output: 187.24 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:19<00:00,  1.19s/it, est. speed input: 107.35 toks/s, output: 187.24 toks/s]
+Generating for Disability_status:  35%|███▍      | 34/98 [07:46<16:12, 15.19s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2227.53it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:18,  5.24s/it, est. speed input: 22.13 toks/s, output: 25.94 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:25,  1.93s/it, est. speed input: 58.92 toks/s, output: 66.28 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:15,  1.33s/it, est. speed input: 77.68 toks/s, output: 90.57 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:07<00:11,  1.01s/it, est. speed input: 93.14 toks/s, output: 112.04 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:05,  1.68it/s, est. speed input: 120.05 toks/s, output: 159.11 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.04it/s, est. speed input: 132.10 toks/s, output: 181.44 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:02,  2.40it/s, est. speed input: 146.28 toks/s, output: 202.74 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:02,  2.77it/s, est. speed input: 159.98 toks/s, output: 223.66 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  2.43it/s, est. speed input: 163.44 toks/s, output: 236.26 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.54it/s, est. speed input: 175.17 toks/s, output: 268.66 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:00,  2.29it/s, est. speed input: 176.82 toks/s, output: 280.19 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  2.06it/s, est. speed input: 179.75 toks/s, output: 290.45 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:17<00:00,  2.06s/it, est. speed input: 121.43 toks/s, output: 210.65 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:17<00:00,  2.06s/it, est. speed input: 121.43 toks/s, output: 210.65 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:17<00:00,  1.07s/it, est. speed input: 121.43 toks/s, output: 210.65 toks/s]
+Generating for Disability_status:  36%|███▌      | 35/98 [08:04<16:33, 15.77s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2197.12it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:10,  4.71s/it, est. speed input: 30.35 toks/s, output: 25.89 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:30,  2.18s/it, est. speed input: 50.72 toks/s, output: 49.74 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.36s/it, est. speed input: 68.32 toks/s, output: 72.32 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.05it/s, est. speed input: 88.84 toks/s, output: 94.14 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.36it/s, est. speed input: 102.90 toks/s, output: 115.04 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.71it/s, est. speed input: 120.05 toks/s, output: 135.78 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:02,  2.84it/s, est. speed input: 158.97 toks/s, output: 182.68 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.89it/s, est. speed input: 168.20 toks/s, output: 200.33 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.64it/s, est. speed input: 173.21 toks/s, output: 214.15 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.19it/s, est. speed input: 188.73 toks/s, output: 236.33 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.63it/s, est. speed input: 202.58 toks/s, output: 257.28 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  4.23it/s, est. speed input: 213.53 toks/s, output: 279.06 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.35it/s, est. speed input: 208.24 toks/s, output: 277.73 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.02it/s, est. speed input: 218.97 toks/s, output: 301.05 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.16s/it, est. speed input: 172.01 toks/s, output: 250.82 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.16s/it, est. speed input: 172.01 toks/s, output: 250.82 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.32it/s, est. speed input: 172.01 toks/s, output: 250.82 toks/s]
+Generating for Disability_status:  37%|███▋      | 36/98 [08:16<15:09, 14.67s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2200.51it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:10,  4.72s/it, est. speed input: 24.58 toks/s, output: 26.06 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:30,  2.21s/it, est. speed input: 44.86 toks/s, output: 49.89 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:19,  1.53s/it, est. speed input: 59.10 toks/s, output: 69.97 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:13,  1.12s/it, est. speed input: 72.91 toks/s, output: 90.94 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.19it/s, est. speed input: 86.34 toks/s, output: 112.54 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.66it/s, est. speed input: 101.35 toks/s, output: 136.30 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.45it/s, est. speed input: 134.48 toks/s, output: 179.67 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.35it/s, est. speed input: 166.61 toks/s, output: 224.48 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  3.64it/s, est. speed input: 191.76 toks/s, output: 262.81 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  4.05it/s, est. speed input: 202.50 toks/s, output: 284.67 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  3.92it/s, est. speed input: 209.31 toks/s, output: 301.61 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.39it/s, est. speed input: 204.01 toks/s, output: 298.97 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.23s/it, est. speed input: 159.31 toks/s, output: 245.01 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.23s/it, est. speed input: 159.31 toks/s, output: 245.01 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.24it/s, est. speed input: 159.31 toks/s, output: 245.01 toks/s]
+Generating for Disability_status:  38%|███▊      | 37/98 [08:29<14:22, 14.14s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2168.37it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:06<01:30,  6.04s/it, est. speed input: 19.05 toks/s, output: 26.17 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:06<00:20,  1.61s/it, est. speed input: 64.70 toks/s, output: 77.71 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:07<00:11,  1.00s/it, est. speed input: 96.79 toks/s, output: 118.89 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:06,  1.40it/s, est. speed input: 122.59 toks/s, output: 159.57 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:08<00:05,  1.49it/s, est. speed input: 128.92 toks/s, output: 175.64 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:04,  1.59it/s, est. speed input: 134.77 toks/s, output: 191.79 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:03,  1.99it/s, est. speed input: 148.54 toks/s, output: 215.06 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:09<00:02,  1.88it/s, est. speed input: 153.97 toks/s, output: 227.61 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:09<00:01,  2.26it/s, est. speed input: 162.64 toks/s, output: 249.04 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.72it/s, est. speed input: 171.41 toks/s, output: 271.10 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:00,  2.19it/s, est. speed input: 171.45 toks/s, output: 280.46 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.73it/s, est. speed input: 170.83 toks/s, output: 285.68 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.37it/s, est. speed input: 165.26 toks/s, output: 287.93 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.37it/s, est. speed input: 165.26 toks/s, output: 287.93 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.28it/s, est. speed input: 165.26 toks/s, output: 287.93 toks/s]
+Generating for Disability_status:  39%|███▉      | 38/98 [08:41<13:38, 13.64s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2220.38it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:06,  4.44s/it, est. speed input: 26.10 toks/s, output: 26.32 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:36,  2.61s/it, est. speed input: 44.41 toks/s, output: 46.49 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:12,  1.04s/it, est. speed input: 85.30 toks/s, output: 96.31 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.50it/s, est. speed input: 122.26 toks/s, output: 139.85 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.69it/s, est. speed input: 136.14 toks/s, output: 158.47 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.56it/s, est. speed input: 164.59 toks/s, output: 205.60 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.08it/s, est. speed input: 178.11 toks/s, output: 228.80 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.08it/s, est. speed input: 199.31 toks/s, output: 260.76 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.25it/s, est. speed input: 201.70 toks/s, output: 283.23 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.25it/s, est. speed input: 213.80 toks/s, output: 310.06 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.67it/s, est. speed input: 213.80 toks/s, output: 310.06 toks/s]
+Generating for Disability_status:  40%|███▉      | 39/98 [08:51<12:12, 12.42s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2230.79it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:56,  3.74s/it, est. speed input: 31.02 toks/s, output: 26.21 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:32,  2.32s/it, est. speed input: 51.20 toks/s, output: 45.46 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.40s/it, est. speed input: 69.77 toks/s, output: 69.03 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:14,  1.17s/it, est. speed input: 79.33 toks/s, output: 85.96 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:07<00:09,  1.10it/s, est. speed input: 95.84 toks/s, output: 118.37 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.69it/s, est. speed input: 127.77 toks/s, output: 164.94 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  3.23it/s, est. speed input: 189.50 toks/s, output: 260.79 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  3.62it/s, est. speed input: 201.14 toks/s, output: 283.79 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:01,  1.90it/s, est. speed input: 180.71 toks/s, output: 264.81 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.95it/s, est. speed input: 186.28 toks/s, output: 279.90 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  2.10it/s, est. speed input: 193.24 toks/s, output: 297.32 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  2.10it/s, est. speed input: 193.24 toks/s, output: 297.32 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.49it/s, est. speed input: 193.24 toks/s, output: 297.32 toks/s]
+Generating for Disability_status:  41%|████      | 40/98 [09:01<11:31, 11.92s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2253.56it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:05,  4.38s/it, est. speed input: 32.64 toks/s, output: 26.02 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:31,  2.25s/it, est. speed input: 55.70 toks/s, output: 48.30 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.32s/it, est. speed input: 75.18 toks/s, output: 72.38 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.07it/s, est. speed input: 91.07 toks/s, output: 94.23 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.53it/s, est. speed input: 113.00 toks/s, output: 117.95 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.68it/s, est. speed input: 122.62 toks/s, output: 135.09 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.11it/s, est. speed input: 136.10 toks/s, output: 156.68 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.86it/s, est. speed input: 139.59 toks/s, output: 168.47 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.12it/s, est. speed input: 152.46 toks/s, output: 187.50 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:01,  2.60it/s, est. speed input: 173.66 toks/s, output: 225.40 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.47it/s, est. speed input: 180.74 toks/s, output: 239.66 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  3.06it/s, est. speed input: 191.84 toks/s, output: 263.25 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:00,  2.61it/s, est. speed input: 193.48 toks/s, output: 274.74 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.48it/s, est. speed input: 199.04 toks/s, output: 288.56 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.91it/s, est. speed input: 209.42 toks/s, output: 309.58 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.91it/s, est. speed input: 209.42 toks/s, output: 309.58 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.62it/s, est. speed input: 209.42 toks/s, output: 309.58 toks/s]
+Generating for Disability_status:  42%|████▏     | 41/98 [09:11<10:44, 11.31s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2207.67it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:15,  5.02s/it, est. speed input: 23.90 toks/s, output: 25.89 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:32,  2.33s/it, est. speed input: 51.16 toks/s, output: 49.70 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.06it/s, est. speed input: 91.25 toks/s, output: 98.79 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.21it/s, est. speed input: 102.04 toks/s, output: 115.94 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:07,  1.41it/s, est. speed input: 119.03 toks/s, output: 134.23 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:06,  1.45it/s, est. speed input: 128.44 toks/s, output: 148.72 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.95it/s, est. speed input: 147.82 toks/s, output: 172.61 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.07it/s, est. speed input: 180.24 toks/s, output: 219.57 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:00,  4.46it/s, est. speed input: 210.40 toks/s, output: 267.80 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  4.21it/s, est. speed input: 223.00 toks/s, output: 284.67 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  4.66it/s, est. speed input: 238.44 toks/s, output: 306.08 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  4.89it/s, est. speed input: 247.73 toks/s, output: 326.07 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:23<00:00,  4.15s/it, est. speed input: 94.29 toks/s, output: 146.44 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:23<00:00,  4.15s/it, est. speed input: 94.29 toks/s, output: 146.44 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:23<00:00,  1.46s/it, est. speed input: 94.29 toks/s, output: 146.44 toks/s]
+Generating for Disability_status:  43%|████▎     | 42/98 [09:35<13:56, 14.93s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2142.48it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:48,  3.21s/it, est. speed input: 49.80 toks/s, output: 25.52 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:25,  1.83s/it, est. speed input: 68.63 toks/s, output: 45.83 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.13s/it, est. speed input: 91.76 toks/s, output: 68.48 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:10,  1.12it/s, est. speed input: 115.32 toks/s, output: 87.00 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:09,  1.13it/s, est. speed input: 118.68 toks/s, output: 100.14 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:06,  1.61it/s, est. speed input: 136.79 toks/s, output: 124.22 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.09it/s, est. speed input: 159.42 toks/s, output: 146.41 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.24it/s, est. speed input: 175.28 toks/s, output: 163.95 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.40it/s, est. speed input: 210.47 toks/s, output: 209.13 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.65it/s, est. speed input: 227.20 toks/s, output: 228.79 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  3.17it/s, est. speed input: 241.62 toks/s, output: 256.76 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.25it/s, est. speed input: 248.23 toks/s, output: 274.03 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.14it/s, est. speed input: 256.92 toks/s, output: 288.99 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.09it/s, est. speed input: 206.53 toks/s, output: 247.47 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.09it/s, est. speed input: 206.53 toks/s, output: 247.47 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.47it/s, est. speed input: 206.53 toks/s, output: 247.47 toks/s]
+Generating for Disability_status:  44%|████▍     | 43/98 [09:46<12:34, 13.72s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2165.08it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:52,  3.51s/it, est. speed input: 34.49 toks/s, output: 25.65 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:28,  2.04s/it, est. speed input: 62.53 toks/s, output: 45.74 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:21,  1.68s/it, est. speed input: 77.08 toks/s, output: 61.84 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:06<00:13,  1.16s/it, est. speed input: 92.22 toks/s, output: 84.09 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.59it/s, est. speed input: 138.45 toks/s, output: 131.32 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.97it/s, est. speed input: 158.78 toks/s, output: 153.66 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.96it/s, est. speed input: 230.86 toks/s, output: 246.58 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  3.97it/s, est. speed input: 239.58 toks/s, output: 264.27 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.90it/s, est. speed input: 254.31 toks/s, output: 297.23 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.55it/s, est. speed input: 262.28 toks/s, output: 309.66 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.20it/s, est. speed input: 205.72 toks/s, output: 257.46 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.20it/s, est. speed input: 205.72 toks/s, output: 257.46 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.46it/s, est. speed input: 205.72 toks/s, output: 257.46 toks/s]
+Generating for Disability_status:  45%|████▍     | 44/98 [09:57<11:37, 12.91s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2112.87it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:05<01:18,  5.21s/it, est. speed input: 23.42 toks/s, output: 26.11 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.41s/it, est. speed input: 84.32 toks/s, output: 76.67 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.04it/s, est. speed input: 105.05 toks/s, output: 101.03 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.28it/s, est. speed input: 125.51 toks/s, output: 119.90 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.63it/s, est. speed input: 146.66 toks/s, output: 140.81 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  2.19it/s, est. speed input: 170.38 toks/s, output: 164.31 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:03,  2.26it/s, est. speed input: 184.41 toks/s, output: 180.21 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.33it/s, est. speed input: 191.27 toks/s, output: 196.21 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:03,  1.71it/s, est. speed input: 189.26 toks/s, output: 199.62 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  2.17it/s, est. speed input: 199.86 toks/s, output: 221.60 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  3.56it/s, est. speed input: 237.24 toks/s, output: 287.50 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  3.99it/s, est. speed input: 247.27 toks/s, output: 309.40 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.99it/s, est. speed input: 260.11 toks/s, output: 334.75 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.82it/s, est. speed input: 260.11 toks/s, output: 334.75 toks/s]
+Generating for Disability_status:  46%|████▌     | 45/98 [10:05<10:18, 11.67s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2156.32it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:03,  4.23s/it, est. speed input: 38.07 toks/s, output: 25.77 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:16,  1.25s/it, est. speed input: 103.38 toks/s, output: 73.01 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.06it/s, est. speed input: 119.54 toks/s, output: 93.44 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:09,  1.17it/s, est. speed input: 126.43 toks/s, output: 108.34 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:03,  2.60it/s, est. speed input: 191.62 toks/s, output: 182.55 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:05<00:01,  3.67it/s, est. speed input: 240.59 toks/s, output: 229.74 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:00,  4.05it/s, est. speed input: 269.67 toks/s, output: 266.69 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:01,  2.04it/s, est. speed input: 233.78 toks/s, output: 242.80 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.29it/s, est. speed input: 241.29 toks/s, output: 261.98 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  2.27it/s, est. speed input: 247.02 toks/s, output: 274.77 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.53it/s, est. speed input: 253.13 toks/s, output: 293.51 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.53it/s, est. speed input: 253.13 toks/s, output: 293.51 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.81it/s, est. speed input: 253.13 toks/s, output: 293.51 toks/s]
+Generating for Disability_status:  47%|████▋     | 46/98 [10:14<09:23, 10.83s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2135.66it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:02,  4.19s/it, est. speed input: 28.88 toks/s, output: 25.78 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:26,  1.92s/it, est. speed input: 62.50 toks/s, output: 49.69 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:16,  1.27s/it, est. speed input: 80.50 toks/s, output: 70.74 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:09,  1.21it/s, est. speed input: 101.56 toks/s, output: 94.60 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:06,  1.67it/s, est. speed input: 127.85 toks/s, output: 117.21 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:04,  2.31it/s, est. speed input: 154.83 toks/s, output: 140.75 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.49it/s, est. speed input: 174.05 toks/s, output: 158.55 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:02,  3.11it/s, est. speed input: 197.04 toks/s, output: 180.59 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  4.55it/s, est. speed input: 235.64 toks/s, output: 225.60 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:00,  5.22it/s, est. speed input: 256.89 toks/s, output: 247.81 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:06<00:01,  3.77it/s, est. speed input: 256.87 toks/s, output: 256.87 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  4.72it/s, est. speed input: 286.33 toks/s, output: 298.42 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  1.77it/s, est. speed input: 244.12 toks/s, output: 266.63 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.04it/s, est. speed input: 250.30 toks/s, output: 285.69 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.04it/s, est. speed input: 250.30 toks/s, output: 285.69 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.78it/s, est. speed input: 250.30 toks/s, output: 285.69 toks/s]
+Generating for Disability_status:  48%|████▊     | 47/98 [10:23<08:44, 10.29s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2149.34it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:04,  4.30s/it, est. speed input: 28.14 toks/s, output: 25.82 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:28,  2.06s/it, est. speed input: 50.93 toks/s, output: 49.05 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:16,  1.29s/it, est. speed input: 78.59 toks/s, output: 71.42 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:06,  1.69it/s, est. speed input: 138.08 toks/s, output: 121.60 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:07,  1.42it/s, est. speed input: 142.23 toks/s, output: 128.65 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:05,  1.62it/s, est. speed input: 158.31 toks/s, output: 146.76 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.64it/s, est. speed input: 189.55 toks/s, output: 194.51 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:03,  1.68it/s, est. speed input: 174.86 toks/s, output: 190.64 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.68it/s, est. speed input: 207.34 toks/s, output: 240.78 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.90it/s, est. speed input: 220.50 toks/s, output: 260.16 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:00,  2.51it/s, est. speed input: 224.91 toks/s, output: 270.38 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  1.98it/s, est. speed input: 218.82 toks/s, output: 275.00 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.05it/s, est. speed input: 189.23 toks/s, output: 252.72 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.05it/s, est. speed input: 189.23 toks/s, output: 252.72 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:12<00:00,  1.33it/s, est. speed input: 189.23 toks/s, output: 252.72 toks/s]
+Generating for Disability_status:  49%|████▉     | 48/98 [10:35<09:00, 10.81s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2173.71it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:49,  3.28s/it, est. speed input: 31.70 toks/s, output: 25.60 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:29,  2.08s/it, est. speed input: 49.95 toks/s, output: 44.43 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:17,  1.32s/it, est. speed input: 70.46 toks/s, output: 66.61 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:08,  1.29it/s, est. speed input: 105.77 toks/s, output: 107.01 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:03,  2.65it/s, est. speed input: 187.65 toks/s, output: 181.45 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  3.04it/s, est. speed input: 210.50 toks/s, output: 203.10 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.39it/s, est. speed input: 224.22 toks/s, output: 223.24 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.51it/s, est. speed input: 238.25 toks/s, output: 240.60 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  4.57it/s, est. speed input: 272.29 toks/s, output: 283.45 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  2.96it/s, est. speed input: 261.23 toks/s, output: 281.30 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  3.17it/s, est. speed input: 268.69 toks/s, output: 298.74 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.39it/s, est. speed input: 232.79 toks/s, output: 267.03 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.39it/s, est. speed input: 232.79 toks/s, output: 267.03 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.69it/s, est. speed input: 232.79 toks/s, output: 267.03 toks/s]
+Generating for Disability_status:  50%|█████     | 49/98 [10:45<08:30, 10.42s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2318.66it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:02,  4.19s/it, est. speed input: 25.56 toks/s, output: 25.80 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:33,  2.37s/it, est. speed input: 47.92 toks/s, output: 46.41 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.46s/it, est. speed input: 63.49 toks/s, output: 69.32 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.03it/s, est. speed input: 78.90 toks/s, output: 92.68 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:07,  1.40it/s, est. speed input: 99.12 toks/s, output: 114.74 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:02,  3.20it/s, est. speed input: 160.41 toks/s, output: 189.00 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.90it/s, est. speed input: 199.24 toks/s, output: 247.56 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  4.11it/s, est. speed input: 240.29 toks/s, output: 299.94 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  2.77it/s, est. speed input: 225.22 toks/s, output: 292.08 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.82it/s, est. speed input: 228.59 toks/s, output: 307.99 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  2.82it/s, est. speed input: 228.59 toks/s, output: 307.99 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.81it/s, est. speed input: 228.59 toks/s, output: 307.99 toks/s]
+Generating for Disability_status:  51%|█████     | 50/98 [10:54<07:57,  9.95s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2262.68it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:01,  4.08s/it, est. speed input: 26.23 toks/s, output: 25.74 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:33,  2.41s/it, est. speed input: 40.20 toks/s, output: 45.84 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:18,  1.40s/it, est. speed input: 58.24 toks/s, output: 70.22 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.09it/s, est. speed input: 82.82 toks/s, output: 93.87 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:05,  1.72it/s, est. speed input: 116.10 toks/s, output: 135.27 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:04,  1.91it/s, est. speed input: 132.30 toks/s, output: 153.69 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.62it/s, est. speed input: 161.58 toks/s, output: 195.97 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:01,  3.08it/s, est. speed input: 179.50 toks/s, output: 218.21 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.77it/s, est. speed input: 182.62 toks/s, output: 231.12 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:07<00:01,  2.85it/s, est. speed input: 194.29 toks/s, output: 248.10 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:00,  3.41it/s, est. speed input: 204.07 toks/s, output: 270.12 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  3.12it/s, est. speed input: 212.60 toks/s, output: 284.21 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  4.82it/s, est. speed input: 239.17 toks/s, output: 332.48 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  4.82it/s, est. speed input: 239.17 toks/s, output: 332.48 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.85it/s, est. speed input: 239.17 toks/s, output: 332.48 toks/s]
+Generating for Disability_status:  52%|█████▏    | 51/98 [11:02<07:29,  9.56s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2262.91it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:55,  3.73s/it, est. speed input: 28.66 toks/s, output: 25.72 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:25,  1.83s/it, est. speed input: 50.43 toks/s, output: 48.54 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:13,  1.06s/it, est. speed input: 72.69 toks/s, output: 72.92 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.76it/s, est. speed input: 128.20 toks/s, output: 117.04 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.69it/s, est. speed input: 172.15 toks/s, output: 161.57 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:05<00:03,  2.62it/s, est. speed input: 178.44 toks/s, output: 175.31 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:05<00:02,  3.21it/s, est. speed input: 201.16 toks/s, output: 197.90 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:02,  2.83it/s, est. speed input: 210.27 toks/s, output: 208.60 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  3.17it/s, est. speed input: 226.45 toks/s, output: 227.58 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:06<00:00,  3.80it/s, est. speed input: 250.80 toks/s, output: 265.32 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  2.43it/s, est. speed input: 240.60 toks/s, output: 260.62 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  1.80it/s, est. speed input: 225.04 toks/s, output: 257.26 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.27it/s, est. speed input: 203.48 toks/s, output: 247.77 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.27it/s, est. speed input: 203.48 toks/s, output: 247.77 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.62it/s, est. speed input: 203.48 toks/s, output: 247.77 toks/s]
+Generating for Disability_status:  53%|█████▎    | 52/98 [11:12<07:24,  9.66s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2277.35it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:04,  4.30s/it, est. speed input: 24.89 toks/s, output: 25.82 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:29,  2.13s/it, est. speed input: 43.85 toks/s, output: 48.54 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.33s/it, est. speed input: 68.95 toks/s, output: 71.04 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:06,  1.63it/s, est. speed input: 114.87 toks/s, output: 120.60 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:05<00:03,  2.49it/s, est. speed input: 146.88 toks/s, output: 165.86 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:06<00:01,  3.55it/s, est. speed input: 201.74 toks/s, output: 227.71 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:06<00:01,  4.02it/s, est. speed input: 222.19 toks/s, output: 249.94 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  3.15it/s, est. speed input: 230.52 toks/s, output: 268.52 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:07<00:00,  3.37it/s, est. speed input: 244.50 toks/s, output: 287.24 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:07<00:00,  3.01it/s, est. speed input: 249.70 toks/s, output: 297.11 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.02it/s, est. speed input: 252.62 toks/s, output: 311.85 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:08<00:00,  3.02it/s, est. speed input: 252.62 toks/s, output: 311.85 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:08<00:00,  1.96it/s, est. speed input: 252.62 toks/s, output: 311.85 toks/s]
+Generating for Disability_status:  54%|█████▍    | 53/98 [11:20<06:54,  9.21s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2303.93it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:06<01:33,  6.23s/it, est. speed input: 16.53 toks/s, output: 26.00 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:06<00:39,  2.85s/it, est. speed input: 36.46 toks/s, output: 50.15 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.16it/s, est. speed input: 99.37 toks/s, output: 125.44 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:05,  1.72it/s, est. speed input: 128.27 toks/s, output: 170.85 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:02,  2.11it/s, est. speed input: 155.03 toks/s, output: 221.67 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  2.45it/s, est. speed input: 165.25 toks/s, output: 245.15 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:01,  2.83it/s, est. speed input: 179.01 toks/s, output: 267.34 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.44it/s, est. speed input: 182.71 toks/s, output: 276.24 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:01,  2.00it/s, est. speed input: 178.68 toks/s, output: 281.27 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  2.17it/s, est. speed input: 182.50 toks/s, output: 298.38 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.50s/it, est. speed input: 135.66 toks/s, output: 238.16 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.50s/it, est. speed input: 135.66 toks/s, output: 238.16 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.09it/s, est. speed input: 135.66 toks/s, output: 238.16 toks/s]
+Generating for Disability_status:  55%|█████▌    | 54/98 [11:35<07:56, 10.84s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2339.18it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:00,  4.04s/it, est. speed input: 34.43 toks/s, output: 25.76 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:34,  2.46s/it, est. speed input: 51.72 toks/s, output: 45.23 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:19,  1.53s/it, est. speed input: 65.57 toks/s, output: 67.98 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.79it/s, est. speed input: 121.55 toks/s, output: 142.39 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.75it/s, est. speed input: 172.18 toks/s, output: 206.95 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  1.98it/s, est. speed input: 172.28 toks/s, output: 212.94 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:08<00:02,  1.88it/s, est. speed input: 171.20 toks/s, output: 223.73 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.05it/s, est. speed input: 176.53 toks/s, output: 242.44 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.62it/s, est. speed input: 168.07 toks/s, output: 243.86 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.90it/s, est. speed input: 177.59 toks/s, output: 264.89 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.46s/it, est. speed input: 134.23 toks/s, output: 217.43 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.46s/it, est. speed input: 134.23 toks/s, output: 217.43 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.10it/s, est. speed input: 134.23 toks/s, output: 217.43 toks/s]
+Generating for Disability_status:  56%|█████▌    | 55/98 [11:49<08:33, 11.93s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2319.46it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:03,  4.26s/it, est. speed input: 23.94 toks/s, output: 25.81 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:27,  1.96s/it, est. speed input: 44.55 toks/s, output: 49.76 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:09,  1.29it/s, est. speed input: 94.50 toks/s, output: 99.56 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:04<00:06,  1.68it/s, est. speed input: 119.66 toks/s, output: 121.69 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:05<00:05,  1.78it/s, est. speed input: 134.65 toks/s, output: 136.67 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:04,  1.61it/s, est. speed input: 148.39 toks/s, output: 155.87 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:05,  1.29it/s, est. speed input: 143.14 toks/s, output: 158.43 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:08<00:03,  1.67it/s, est. speed input: 153.74 toks/s, output: 182.70 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:02,  1.95it/s, est. speed input: 165.10 toks/s, output: 202.91 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:09<00:01,  2.00it/s, est. speed input: 174.07 toks/s, output: 232.58 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:00,  2.32it/s, est. speed input: 180.82 toks/s, output: 254.06 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:10<00:00,  1.81it/s, est. speed input: 174.87 toks/s, output: 258.89 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.62it/s, est. speed input: 171.68 toks/s, output: 267.86 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.62it/s, est. speed input: 171.68 toks/s, output: 267.86 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:11<00:00,  1.41it/s, est. speed input: 171.68 toks/s, output: 267.86 toks/s]
+Generating for Disability_status:  57%|█████▋    | 56/98 [12:01<08:13, 11.75s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2337.15it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:54,  3.66s/it, est. speed input: 28.15 toks/s, output: 25.69 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:29,  2.11s/it, est. speed input: 51.95 toks/s, output: 45.96 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:20,  1.57s/it, est. speed input: 68.15 toks/s, output: 64.23 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:12,  1.01s/it, est. speed input: 90.97 toks/s, output: 88.55 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:08,  1.23it/s, est. speed input: 100.77 toks/s, output: 108.17 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:05,  1.62it/s, est. speed input: 122.97 toks/s, output: 144.29 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.63it/s, est. speed input: 160.32 toks/s, output: 193.97 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.55it/s, est. speed input: 164.61 toks/s, output: 209.20 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  2.60it/s, est. speed input: 169.97 toks/s, output: 226.08 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.92it/s, est. speed input: 187.21 toks/s, output: 262.05 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:10<00:01,  1.23it/s, est. speed input: 158.83 toks/s, output: 231.27 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:17<00:02,  2.21s/it, est. speed input: 105.69 toks/s, output: 172.74 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:24<00:00,  3.39s/it, est. speed input: 80.41 toks/s, output: 152.80 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:24<00:00,  3.39s/it, est. speed input: 80.41 toks/s, output: 152.80 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:24<00:00,  1.51s/it, est. speed input: 80.41 toks/s, output: 152.80 toks/s]
+Generating for Disability_status:  58%|█████▊    | 57/98 [12:25<10:34, 15.49s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2339.76it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:04,  4.27s/it, est. speed input: 23.90 toks/s, output: 26.01 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:04<00:28,  2.07s/it, est. speed input: 49.83 toks/s, output: 49.21 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:17,  1.33s/it, est. speed input: 64.98 toks/s, output: 71.08 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:10,  1.12it/s, est. speed input: 86.96 toks/s, output: 94.27 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:09,  1.17it/s, est. speed input: 97.89 toks/s, output: 108.58 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:07,  1.39it/s, est. speed input: 106.48 toks/s, output: 127.48 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:05,  1.59it/s, est. speed input: 114.19 toks/s, output: 145.74 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:05,  1.55it/s, est. speed input: 122.09 toks/s, output: 159.47 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:08<00:04,  1.49it/s, est. speed input: 127.78 toks/s, output: 172.40 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:09<00:04,  1.29it/s, est. speed input: 128.40 toks/s, output: 180.74 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:11<00:05,  1.07s/it, est. speed input: 121.06 toks/s, output: 179.82 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:11<00:01,  1.55it/s, est. speed input: 135.27 toks/s, output: 227.78 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:13<00:02,  1.07s/it, est. speed input: 119.92 toks/s, output: 216.70 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:16<00:01,  1.51s/it, est. speed input: 108.48 toks/s, output: 208.45 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:26<00:00,  3.81s/it, est. speed input: 71.83 toks/s, output: 159.00 toks/s] [A
+Processed prompts: 100%|██████████| 16/16 [00:26<00:00,  3.81s/it, est. speed input: 71.83 toks/s, output: 159.00 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:26<00:00,  1.67s/it, est. speed input: 71.83 toks/s, output: 159.00 toks/s]
+Generating for Disability_status:  59%|█████▉    | 58/98 [12:52<12:33, 18.84s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2308.61it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:01,  4.10s/it, est. speed input: 25.10 toks/s, output: 26.07 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:32,  2.33s/it, est. speed input: 39.44 toks/s, output: 46.75 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:19,  1.49s/it, est. speed input: 60.12 toks/s, output: 68.91 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.47it/s, est. speed input: 100.15 toks/s, output: 119.63 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:06,  1.52it/s, est. speed input: 111.83 toks/s, output: 134.63 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:06,  1.46it/s, est. speed input: 119.22 toks/s, output: 146.76 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:04,  1.82it/s, est. speed input: 129.41 toks/s, output: 168.57 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.81it/s, est. speed input: 156.70 toks/s, output: 215.14 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:12<00:07,  1.40s/it, est. speed input: 109.03 toks/s, output: 160.98 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:12<00:04,  1.08s/it, est. speed input: 116.08 toks/s, output: 185.99 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:13<00:01,  1.12it/s, est. speed input: 122.26 toks/s, output: 219.63 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:15<00:01,  1.05s/it, est. speed input: 118.88 toks/s, output: 224.56 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.04it/s, est. speed input: 120.11 toks/s, output: 242.11 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.04it/s, est. speed input: 120.11 toks/s, output: 242.11 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:15<00:00,  1.00it/s, est. speed input: 120.11 toks/s, output: 242.11 toks/s]
+Generating for Disability_status:  60%|██████    | 59/98 [13:08<11:40, 17.97s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2332.19it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:02,  4.18s/it, est. speed input: 32.30 toks/s, output: 26.08 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:31,  2.28s/it, est. speed input: 52.71 toks/s, output: 47.44 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:16,  1.31s/it, est. speed input: 76.80 toks/s, output: 72.25 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:11,  1.02it/s, est. speed input: 88.17 toks/s, output: 92.34 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.41it/s, est. speed input: 101.89 toks/s, output: 115.09 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:06<00:03,  2.40it/s, est. speed input: 135.86 toks/s, output: 161.95 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:06<00:02,  2.90it/s, est. speed input: 153.78 toks/s, output: 184.42 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:06<00:02,  2.64it/s, est. speed input: 162.93 toks/s, output: 198.17 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.75it/s, est. speed input: 169.77 toks/s, output: 215.79 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:07<00:01,  3.33it/s, est. speed input: 184.83 toks/s, output: 237.99 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:08<00:01,  2.52it/s, est. speed input: 186.46 toks/s, output: 258.77 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:09<00:00,  2.11it/s, est. speed input: 186.99 toks/s, output: 265.33 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:09<00:00,  2.41it/s, est. speed input: 193.03 toks/s, output: 285.20 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.08it/s, est. speed input: 190.60 toks/s, output: 293.42 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:09<00:00,  2.08it/s, est. speed input: 190.60 toks/s, output: 293.42 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:09<00:00,  1.60it/s, est. speed input: 190.60 toks/s, output: 293.42 toks/s]
+Generating for Disability_status:  61%|██████    | 60/98 [13:18<09:51, 15.57s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2323.63it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:47,  3.16s/it, est. speed input: 32.24 toks/s, output: 25.92 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:18,  1.42s/it, est. speed input: 78.12 toks/s, output: 60.36 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:05<00:13,  1.11s/it, est. speed input: 96.11 toks/s, output: 80.50 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:06<00:13,  1.23s/it, est. speed input: 90.36 toks/s, output: 89.47 toks/s][A
+Processed prompts:  44%|████▍     | 7/16 [00:07<00:06,  1.36it/s, est. speed input: 122.96 toks/s, output: 135.60 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:03,  2.03it/s, est. speed input: 149.81 toks/s, output: 182.12 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.12it/s, est. speed input: 155.18 toks/s, output: 199.30 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:09<00:03,  1.32it/s, est. speed input: 142.43 toks/s, output: 191.37 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:09<00:02,  1.64it/s, est. speed input: 150.29 toks/s, output: 214.48 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:10<00:01,  1.62it/s, est. speed input: 150.86 toks/s, output: 227.98 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:01,  1.35it/s, est. speed input: 148.83 toks/s, output: 233.66 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.06s/it, est. speed input: 132.77 toks/s, output: 235.03 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.06s/it, est. speed input: 132.77 toks/s, output: 235.03 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.11it/s, est. speed input: 132.77 toks/s, output: 235.03 toks/s]
+Generating for Disability_status:  62%|██████▏   | 61/98 [13:32<09:22, 15.21s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2257.05it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:04<01:14,  4.98s/it, est. speed input: 28.74 toks/s, output: 25.93 toks/s][A
+Processed prompts:  12%|█▎        | 2/16 [00:05<00:30,  2.16s/it, est. speed input: 50.16 toks/s, output: 50.94 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:05<00:19,  1.48s/it, est. speed input: 68.80 toks/s, output: 71.03 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.48it/s, est. speed input: 115.53 toks/s, output: 121.24 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:07<00:07,  1.27it/s, est. speed input: 114.71 toks/s, output: 129.12 toks/s][A
+Processed prompts:  50%|█████     | 8/16 [00:07<00:03,  2.08it/s, est. speed input: 146.94 toks/s, output: 176.66 toks/s][A
+Processed prompts:  56%|█████▋    | 9/16 [00:07<00:02,  2.35it/s, est. speed input: 155.59 toks/s, output: 196.99 toks/s][A
+Processed prompts:  62%|██████▎   | 10/16 [00:07<00:02,  2.63it/s, est. speed input: 168.22 toks/s, output: 216.80 toks/s][A
+Processed prompts:  69%|██████▉   | 11/16 [00:08<00:01,  2.60it/s, est. speed input: 177.62 toks/s, output: 232.56 toks/s][A
+Processed prompts:  75%|███████▌  | 12/16 [00:10<00:03,  1.14it/s, est. speed input: 151.64 toks/s, output: 210.41 toks/s][A
+Processed prompts:  81%|████████▏ | 13/16 [00:10<00:02,  1.23it/s, est. speed input: 155.30 toks/s, output: 224.81 toks/s][A
+Processed prompts:  88%|████████▊ | 14/16 [00:11<00:01,  1.52it/s, est. speed input: 161.70 toks/s, output: 245.85 toks/s][A
+Processed prompts:  94%|█████████▍| 15/16 [00:11<00:00,  1.73it/s, est. speed input: 165.13 toks/s, output: 264.50 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.12s/it, est. speed input: 145.09 toks/s, output: 246.55 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.12s/it, est. speed input: 145.09 toks/s, output: 246.55 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:14<00:00,  1.14it/s, est. speed input: 145.09 toks/s, output: 246.55 toks/s]
+Generating for Disability_status:  63%|██████▎   | 62/98 [13:46<08:54, 14.85s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2208.11it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts:   6%|▋         | 1/16 [00:03<00:58,  3.88s/it, est. speed input: 36.83 toks/s, output: 25.75 toks/s][A
+Processed prompts:  19%|█▉        | 3/16 [00:04<00:14,  1.13s/it, est. speed input: 95.21 toks/s, output: 73.42 toks/s][A
+Processed prompts:  25%|██▌       | 4/16 [00:04<00:11,  1.03it/s, est. speed input: 105.75 toks/s, output: 89.21 toks/s][A
+Processed prompts:  31%|███▏      | 5/16 [00:05<00:07,  1.45it/s, est. speed input: 131.89 toks/s, output: 113.14 toks/s][A
+Processed prompts:  38%|███▊      | 6/16 [00:06<00:08,  1.12it/s, est. speed input: 122.82 toks/s, output: 115.86 toks/s][Aslurmstepd: error: *** JOB 18096776 ON lrdn2457 CANCELLED AT 2025-07-29T16:12:11 ***

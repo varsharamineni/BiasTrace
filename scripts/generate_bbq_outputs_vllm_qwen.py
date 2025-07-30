@@ -61,7 +61,8 @@ def main():
     
     # Initialize vLLM model
     print("Loading model with vLLM...")
-    llm = LLM(model=model_id, tensor_parallel_size=4)  # Adjust tensor_parallel_size if you have multi-GPU
+    llm = LLM(model=model_id, tensor_parallel_size=4,
+    enable_reasoning=True,reasoning_parser="qwen3")  # Adjust tensor_parallel_size if you have multi-GPU
     
     sampling_params = SamplingParams(
         max_tokens=args.max_length,

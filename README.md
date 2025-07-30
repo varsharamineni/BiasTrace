@@ -23,7 +23,15 @@ pip install -r requirements.txt
 
 ### Download Models to Cache
 
-The `snapshot_download.py` script downloads models from Hugging Face and saves them locally so you don’t have to download them again.
+downloads BBQ data from Hugging Face and saves them locally
+
+```bash 
+python download_bbq_all_cat.py
+```
+
+### Download Models to Cache
+
+The `snapshot_download.py` script downloads models from Hugging Face and saves them locally
 
 deepseek-70B (deepseek-ai/DeepSeek-R1-Distill-Llama-70B)
 
@@ -46,11 +54,36 @@ Generate outputs on the BBQ dataset
 sbatch generate_bbq_traces/generate_bbq.slurm deepseek-70B 16 0.6 0.95 50 2048
 ```
 
+job 18097420 
+
+```bash
+sbatch generate_bbq_traces/generate_bbq_Gender.slurm deepseek-70B 16 0.6 0.95 50 2048
+```
+job 18116188
+
+```bash 
+sbatch generate_bbq_traces/generate_bbq_qwen.slurm qwen3-32B 16 0.6 0.95 20 32768
+```
+ job 18099218
+
+```bash 
+sbatch generate_bbq_traces/generate_bbq_qwen_Gender.slurm qwen3-32B 16 0.6 0.95 20 32768
+```
+job 18104610
+
+```bash
+sbatch generate_bbq_traces/generate_bbq_qwen.slurm qwen3-14B 16 0.6 0.95 20 32768
+```
+job 18099151
+
+```bash
+sbatch generate_bbq_traces/generate_bbq_qwen_Gender.slurm qwen3-14B 16 0.6 0.95 20 32768
+```
+job 18104612
+
 ### Evaluate Reasoning Traces
 
 Evaluate model outputs on the BBQ dataset 
-
-
 
 
 ## Note on Special Tokens

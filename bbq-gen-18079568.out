@@ -1,5 +1,0 @@
-INFO 07-29 01:29:49 [__init__.py:244] Automatically detected platform cuda.
-Loading model with vLLM...
-INFO 07-29 01:30:03 [config.py:841] This model supports multiple tasks: {'classify', 'reward', 'generate', 'embed'}. Defaulting to 'generate'.
-INFO 07-29 01:30:03 [config.py:1472] Using max model len 131072
-INFO 07-29 01:30:04 [config.py:2285] Chunked prefill is enabled with max_num_batched_tokens=8192.

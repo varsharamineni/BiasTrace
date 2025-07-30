@@ -19,7 +19,9 @@ for name, repo_id in models.items():
         snapshot_download(
             repo_id=repo_id,
             local_dir=local_path,
-            local_dir_use_symlinks=False
+            local_dir_use_symlinks=False,
+            resume_download=True,
+            max_workers=2
         )
         print(f"Cached {name} at {local_path}")
     else:

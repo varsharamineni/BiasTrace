@@ -1,4 +1,0 @@
-  File "/leonardo/home/userexternal/vraminen/bias-reasoning-LLM/scripts/generate_bbq_outputs_vllm.py", line 26
-    choices=["deepseek-8B", "deepseek-70b", "qwen3-32B", "qwen2-14B""],
-                                                                    ^
-SyntaxError: unterminated string literal (detected at line 26)
