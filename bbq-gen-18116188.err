@@ -15457,3 +15457,9 @@
 Processed prompts:  81%|████████▏ | 13/16 [00:07<00:00,  3.89it/s, est. speed input: 269.51 toks/s, output: 265.47 toks/s][A
 Processed prompts:  88%|████████▊ | 14/16 [00:08<00:00,  2.61it/s, est. speed input: 253.90 toks/s, output: 262.82 toks/s][A
 Processed prompts:  94%|█████████▍| 15/16 [00:08<00:00,  2.97it/s, est. speed input: 262.45 toks/s, output: 283.68 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.34it/s, est. speed input: 221.34 toks/s, output: 254.59 toks/s][A
+Processed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.34it/s, est. speed input: 221.34 toks/s, output: 254.59 toks/s][AProcessed prompts: 100%|██████████| 16/16 [00:10<00:00,  1.56it/s, est. speed input: 221.34 toks/s, output: 254.59 toks/s]
+Generating for Race_ethnicity:  95%|█████████▌| 410/430 [1:24:42<03:16,  9.82s/it]
+Adding requests:   0%|          | 0/16 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 16/16 [00:00<00:00, 2087.63it/s]
+
+Processed prompts:   0%|          | 0/16 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
