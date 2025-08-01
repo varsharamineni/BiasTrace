@@ -26,7 +26,7 @@ pip install -r requirements.txt
 downloads BBQ data from Hugging Face and saves them locally
 
 ```bash 
-python download_bbq_all_cat.py
+python scripts/download_data/download_bbq_all_cat.py
 ```
 
 ### Download Models to Cache
@@ -40,7 +40,7 @@ qwen3-32b (Qwen/Qwen3-32B)
 qwen3-14b (Qwen/Qwen3-14B)
 
 ```bash
- python download_models/snapshot_download.py
+ python scripts/download_models/snapshot_download.py
 ```
 
 Note: Replace `base_cache_dir` with your desired local folder.
@@ -54,36 +54,30 @@ Generate outputs on the BBQ dataset
 sbatch generate_bbq_traces/generate_bbq.slurm deepseek-70B 16 0.6 0.95 50 2048
 ```
 
-job 18097420 
-
 ```bash
 sbatch generate_bbq_traces/generate_bbq_Gender.slurm deepseek-70B 16 0.6 0.95 50 2048
 ```
-job 18116188
 
 ```bash 
 sbatch generate_bbq_traces/generate_bbq_qwen.slurm qwen3-32B 16 0.6 0.95 20 32768
 ```
- job 18099218
 
 ```bash 
 sbatch generate_bbq_traces/generate_bbq_qwen_Gender.slurm qwen3-32B 16 0.6 0.95 20 32768
 ```
-job 18104610
 
 ```bash
 sbatch generate_bbq_traces/generate_bbq_qwen.slurm qwen3-14B 16 0.6 0.95 20 32768
 ```
-job 18099151
 
 ```bash
 sbatch generate_bbq_traces/generate_bbq_qwen_Gender.slurm qwen3-14B 16 0.6 0.95 20 32768
 ```
-job 18104612
+
+Outputs saved in folder `outputs/backup_outputs`
 
 ### Evaluate Reasoning Traces
 
-Evaluate model outputs on the BBQ dataset 
 
 
 ## Note on Special Tokens

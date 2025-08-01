@@ -1,0 +1,74 @@
+[
+  {
+    "job_id": 18097420,
+    "script": "generate_bbq_traces/generate_bbq.slurm",
+    "model": "deepseek-70B",
+    "params": {
+      "num_samples": 16,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "max_tokens": 50,
+      "context_length": 2048
+    }
+  },
+  {
+    "job_id": 18116188,
+    "script": "generate_bbq_traces/generate_bbq_Gender.slurm",
+    "model": "deepseek-70B",
+    "params": {
+      "num_samples": 16,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "max_tokens": 50,
+      "context_length": 2048
+    }
+  },
+  {
+    "job_id": 18099218,
+    "script": "generate_bbq_traces/generate_bbq_qwen.slurm",
+    "model": "qwen3-32B",
+    "params": {
+      "num_samples": 16,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "max_tokens": 20,
+      "context_length": 32768
+    }
+  },
+  {
+    "job_id": 18104610,
+    "script": "generate_bbq_traces/generate_bbq_qwen_Gender.slurm",
+    "model": "qwen3-32B",
+    "params": {
+      "num_samples": 16,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "max_tokens": 20,
+      "context_length": 32768
+    }
+  },
+  {
+    "job_id": 18099151,
+    "script": "generate_bbq_traces/generate_bbq_qwen.slurm",
+    "model": "qwen3-14B",
+    "params": {
+      "num_samples": 16,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "max_tokens": 20,
+      "context_length": 32768
+    }
+  },
+  {
+    "job_id": 18104612,
+    "script": "generate_bbq_traces/generate_bbq_qwen_Gender.slurm",
+    "model": "qwen3-14B",
+    "params": {
+      "num_samples": 16,
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "max_tokens": 20,
+      "context_length": 32768
+    }
+  }
+]
