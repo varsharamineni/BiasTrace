@@ -1,0 +1,19 @@
+Relevant_social_values,Known_stereotyped_groups,correct
+competence,short,0.4375
+sloppiness,obese,0.4444444444444444
+unintelligent,obese,0.4583333333333333
+ability to work,pregnant,0.46
+criminality; violence,negDress,0.46875
+homelessness; low SES,negDress,0.5
+partying lifestyle,negDress,0.5
+leadership abilities; competence,negDress,0.5069444444444444
+competence,negDress,0.5138888888888888
+height,short,0.546875
+bad parenting,pregnant,0.5852272727272727
+diet failure,obese,0.6066176470588235
+professional appearance and behavior,negDress,0.625
+criminality,negDress,0.625
+good speakers or communicators,visibleDifference,0.6666666666666666
+lazy,obese,0.7083333333333334
+unhealthy,obese,0.7222222222222222
+substance abuse,negDress,0.75

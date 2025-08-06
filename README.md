@@ -50,6 +50,9 @@ Note: Replace `base_cache_dir` with your desired local folder.
 
 Generate outputs on the BBQ dataset
 
+This uses `scripts/generate_bbq_outputs_vllm.py` and `scripts/generate_bbq_outputs_vllm_qwen.py`
+
+
 ```bash
 sbatch generate_bbq_traces/generate_bbq.slurm deepseek-70B 16 0.6 0.95 50 2048
 ```
@@ -78,7 +81,9 @@ Outputs saved in folder `outputs/backup_outputs`
 
 ### Evaluate Reasoning Traces
 
+`python run_all_models_bbq_evaluation`
 
+`python scripts/evaluate_bbq_outputs_with_metadata.py`
 
 ## Note on Special Tokens
 

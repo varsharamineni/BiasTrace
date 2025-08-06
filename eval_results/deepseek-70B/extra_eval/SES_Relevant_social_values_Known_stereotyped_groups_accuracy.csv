@@ -1,0 +1,11 @@
+Relevant_social_values,Known_stereotyped_groups,correct
+drug use,lowSES,0.4962121212121212
+intelligence,lowSES,0.5734126984126984
+educational achievement,lowSES,0.5833333333333334
+laziness,lowSES,0.6041666666666666
+"academic achievement, drug use",lowSES,0.6111111111111112
+bad parenting,lowSES,0.6479166666666667
+language,lowSES,0.6534090909090909
+incompetence,lowSES,0.6597222222222222
+academic achievement,lowSES,0.6628205128205128
+valuing education; bad parents,lowSES,0.8125
