@@ -81,9 +81,33 @@ Outputs saved in folder `outputs/backup_outputs`
 
 ### Evaluate Reasoning Traces
 
+
 `python run_all_models_bbq_evaluation`
 
+- Scans `backup_outputs/` for model folders named `bbq_results_{model_name}`.
+- For each model:
+  - Creates output directory in `eval_results/{model_name}`.
+  - Finds category JSON files named `bbq_{category}_results.json`.
+  - Extracts categories from filenames.
+  - Runs `evaluate_bbq_outputs.py` with the model’s results, output path, and categories.
+
+saved to `eval_results/{model_name}/`
+
+example: `eval_results/deepseek-70B/Religion_detailed_per_trace.json`
+
+
 `python scripts/evaluate_bbq_outputs_with_metadata.py`
+
+The script will:
+
+- Detect all models by folder names under `eval_results/`
+- Detect all categories by matching JSON files for each model
+- For each model-category pair:
+  - Load outputs and metadata
+  - Assign example IDs
+  - Calculate accuracy grouped by one or more specified metadata columns (customizable in the script)
+  - Save accuracy bar plots under `eval_results/{model_name}/figs/`
+  - Save CSV summaries under `eval_results/{model_name}/extra_eval/`
 
 ## Note on Special Tokens
 
