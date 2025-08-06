@@ -166,7 +166,7 @@ def is_answer_correct(prediction, reference):
     
     # Exact or substring match
     if normalized_reference in normalized_prediction or normalized_prediction in normalized_reference:
-        print("Exact match found.")
+        #print("Exact match found.")
         return True
     
     normalized_prediction = normalize_text_to_entities(normalized_prediction)
@@ -178,7 +178,7 @@ def is_answer_correct(prediction, reference):
     sem_sim = semantic_similarity(normalized_prediction, normalized_reference)
     
     if sem_sim >= 0.6 and similarity >= 0.6:
-        print("Both semantic and fuzzy similarity checks passed.")
+        #print("Both semantic and fuzzy similarity checks passed.")
         #print(f"Semantic similarity: {sem_sim:.2f}, Fuzzy similarity: {similarity:.2f}")
         return True
     
@@ -340,7 +340,7 @@ def main():
                 
                 # Simple metric: normalize length between 0 and 1
                 if length <= min_length:
-                    reasoning_quality = 0.0s
+                    reasoning_quality = 0.0
                 elif length >= max_length:
                     reasoning_quality = 1.0
                 else:
