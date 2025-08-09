@@ -39,6 +39,8 @@ def parse_args():
                         help="Top-k sampling (Qwen recommends 20)")
     parser.add_argument("--max_length", type=int, default=2048,
                         help="Maximum generation length (increased for thinking mode)")
+    parser.add_argument("--seed", type=int, default=42,
+                        help="Random seed for reproducible generation (default: 42)")
     parser.add_argument("--tensor_parallel_size", type=int, default=1,
                         help="Number of GPUs for tensor parallelism")
     parser.add_argument("--gpu_memory_utilization", type=float, default=0.9,
@@ -94,7 +96,7 @@ def extract_reasoning_and_answer(text: str, answer_options: List[str], item_id: 
     
     # Warn if no thinking tags found
     if not thinking_match and not quiet:
-        warning_msg = f"⚠️  WARNING: No <think> tags found"
+        warning_msg = f"WARNING: No <think> tags found"
         if item_id:
             warning_msg += f" for item {item_id}"
         print(warning_msg)
@@ -108,7 +110,7 @@ def extract_reasoning_and_answer(text: str, answer_options: List[str], item_id: 
     
     # Warn if no answer tags found
     if not answer_match and not quiet:
-        warning_msg = f"⚠️  WARNING: No <answer> tags found"
+        warning_msg = f"WARNING: No <answer> tags found"
         if item_id:
             warning_msg += f" for item {item_id}"
         print(warning_msg)
@@ -266,7 +268,7 @@ def main():
     # Override num_samples if in test mode
     if args.test_mode:
         args.num_samples = 10
-        print("🧪 TEST MODE: Processing only 10 samples per category")
+        print("TEST MODE: Processing only 10 samples per category")
     
     os.makedirs(args.output_dir, exist_ok=True)
 
@@ -291,6 +293,7 @@ def main():
         top_k=args.top_k,  # Use user override or default 20 for thinking mode
         stop=["<|endoftext|>", "<|im_end|>", "<|im_start|>"],  # Qwen specific stop tokens
         skip_special_tokens=False,  # Keep special tokens for proper formatting
+        seed=args.seed,  # Set seed for reproducibility
     )
     
     data_dir = "datasets/bbq_dataset_all_cat/data"
@@ -298,18 +301,19 @@ def main():
     category_stats = {}
     
     # Display categories to process
-    print(f"\n📋 Categories to process: {', '.join(args.categories)}")
-    print(f"🔧 Batch size: {args.batch_size}")
-    print(f"🤖 Model: {args.model}")
-    print(f"💭 Thinking mode: {'Enabled' if args.enable_thinking else 'Disabled'}")
+    print(f"\nCategories to process: {', '.join(args.categories)}")
+    print(f"Batch size: {args.batch_size}")
+    print(f"Model: {args.model}")
+    print(f"Thinking mode: {'Enabled' if args.enable_thinking else 'Disabled'}")
+    print(f"Seed: {args.seed}")  # Always show seed since it has a default
     print()
     
     for category in args.categories:
-        print(f"\n▶️  Processing {category}...", end=" ")
+        print(f"\nProcessing {category}...", end=" ")
         
         file_path = os.path.join(data_dir, f"{category}.jsonl")
         if not os.path.exists(file_path):
-            print(f"❌ Missing file for category: {category}")
+            print(f"ERROR: Missing file for category: {category}")
             continue
 
         # Load JSONL data
@@ -384,12 +388,23 @@ def main():
         }
         
         # Print compact statistics
-        print(f"  ✓ Accuracy: {accuracy:.1f}% | Unambiguous: {unambig_acc:.1f}% | Ambiguous: {ambig_acc:.1f}%")
+        print(f"  Accuracy: {accuracy:.1f}% | Unambiguous: {unambig_acc:.1f}% | Ambiguous: {ambig_acc:.1f}%")
         
-        # Save category-specific results (silently)
+        # Save category-specific results with metadata
         output_file = os.path.join(args.output_dir, f"bbq_{category}_results.json")
+        category_output = {
+            'metadata': {
+                'model': args.model,
+                'seed': args.seed,
+                'category': category,
+                'num_samples': len(results),
+                'accuracy': accuracy,
+                'enable_thinking': args.enable_thinking
+            },
+            'results': results
+        }
         with open(output_file, "w") as f:
-            json.dump(results, f, indent=2)
+            json.dump(category_output, f, indent=2)
 
     # Save combined results
     if all_results:
@@ -401,6 +416,7 @@ def main():
         stats_file = os.path.join(args.output_dir, "evaluation_stats.json")
         overall_stats = {
             'model': args.model,
+            'seed': args.seed,  # Always logged for reproducibility
             'categories': category_stats,
             'overall': {
                 'total_samples': len(all_results),
@@ -413,23 +429,24 @@ def main():
         
         # Print overall summary
         print(f"\n{'='*60}")
-        print(f"📊 SUMMARY")
+        print(f"SUMMARY")
         print(f"{'='*60}")
+        print(f"Seed: {args.seed}")
         print(f"Total Samples: {overall_stats['overall']['total_samples']}")
         print(f"Overall Accuracy: {overall_stats['overall']['accuracy']:.2f}%")
         print(f"\nPer-Category:")
         for cat, stats in category_stats.items():
-            print(f"  • {cat}: {stats['accuracy']:.2f}% ({stats['correct']}/{stats['total_samples']})")
+            print(f"  - {cat}: {stats['accuracy']:.2f}% ({stats['correct']}/{stats['total_samples']})")
         
-        print(f"\n📁 Results saved to: {args.output_dir}/")
-        print("✅ Complete!")
+        print(f"\nResults saved to: {args.output_dir}/")
+        print("Complete!")
     
     # If in test mode, show one sample output
     if args.test_mode and all_results:
-        print("\n📝 Sample Output:")
+        print("\nSample Output:")
         result = all_results[0]
         print(f"  Q: {result['question'][:100]}..." if len(result['question']) > 100 else f"  Q: {result['question']}")
-        print(f"  A: {result['model_answer']} {'✅' if result['is_correct'] else '❌'}")
+        print(f"  A: {result['model_answer']} {'[CORRECT]' if result['is_correct'] else '[INCORRECT]'}")
 
 
 if __name__ == "__main__":
