@@ -6,6 +6,11 @@ import re
 from typing import Tuple, List, Dict, Any
 
 from tqdm import tqdm
+import logging
+
+# Suppress vLLM's tqdm progress bars
+logging.getLogger("vllm.engine.llm_engine").setLevel(logging.WARNING)
+logging.getLogger("vllm.engine.async_llm_engine").setLevel(logging.WARNING)
 from vllm import LLM, SamplingParams
 from datasets import Dataset
 
@@ -19,8 +24,8 @@ def parse_args():
     parser.add_argument("--categories", type=str, nargs="+", 
                         default=["Age", "Nationality", "Religion"],
                         help="BBQ categories to evaluate")
-    parser.add_argument("--batch_size", type=int, default=16,
-                        help="Batch size for VLLM inference (optimized for better throughput)")
+    parser.add_argument("--batch_size", type=int, default=32,
+                        help="Batch size for VLLM inference (increased for better throughput)")
     parser.add_argument("--num_samples", type=int, default=None,
                         help="Number of samples to process per category (default: all)")
     parser.add_argument("--test_mode", action="store_true",
@@ -40,6 +45,8 @@ def parse_args():
                         help="GPU memory utilization for vLLM")
     parser.add_argument("--enable_thinking", action="store_true", default=True,
                         help="Enable thinking mode for Qwen (default: True)")
+    parser.add_argument("--quiet", action="store_true",
+                        help="Suppress warning messages for missing tags")
 
     return parser.parse_args()
 
@@ -75,7 +82,7 @@ Response:"""
     return messages
 
 
-def extract_reasoning_and_answer(text: str, answer_options: List[str], item_id: str = None) -> Tuple[str, str, str]:
+def extract_reasoning_and_answer(text: str, answer_options: List[str], item_id: str = None, quiet: bool = False) -> Tuple[str, str, str]:
     """
     Extract thinking and answer from model output with improved parsing.
     Returns: (thinking, extracted_answer, normalized_answer)
@@ -86,7 +93,7 @@ def extract_reasoning_and_answer(text: str, answer_options: List[str], item_id: 
     thinking = thinking_match.group(1).strip() if thinking_match else ""
     
     # Warn if no thinking tags found
-    if not thinking_match:
+    if not thinking_match and not quiet:
         warning_msg = f"⚠️  WARNING: No <think> tags found"
         if item_id:
             warning_msg += f" for item {item_id}"
@@ -100,7 +107,7 @@ def extract_reasoning_and_answer(text: str, answer_options: List[str], item_id: 
     extracted_answer = answer_match.group(1).strip() if answer_match else ""
     
     # Warn if no answer tags found
-    if not answer_match:
+    if not answer_match and not quiet:
         warning_msg = f"⚠️  WARNING: No <answer> tags found"
         if item_id:
             warning_msg += f" for item {item_id}"
@@ -194,7 +201,7 @@ def normalize_answer(answer: str, answer_options: List[str], full_text: str) -> 
 
 def process_batch(llm: LLM, batch_data: List[Dict[str, Any]], 
                  sampling_params: SamplingParams, batch_start_idx: int = 0,
-                 enable_thinking: bool = True) -> List[Dict[str, Any]]:
+                 enable_thinking: bool = True, quiet: bool = False) -> List[Dict[str, Any]]:
     """Process a batch of examples with optimized vLLM generation."""
     messages_batch = []
     for item in batch_data:
@@ -202,10 +209,12 @@ def process_batch(llm: LLM, batch_data: List[Dict[str, Any]],
         messages_batch.append(messages)
     
     # Generate outputs using vLLM's chat method with thinking mode
+    # Disable internal progress bar by using use_tqdm=False
     outputs = llm.chat(
         messages_batch, 
         sampling_params,
-        chat_template_kwargs={"enable_thinking": enable_thinking}
+        chat_template_kwargs={"enable_thinking": enable_thinking},
+        use_tqdm=False  # Disable vLLM's internal tqdm
     )
     
     results = []
@@ -219,7 +228,7 @@ def process_batch(llm: LLM, batch_data: List[Dict[str, Any]],
         
         # Extract thinking and answer with item ID for warnings
         thinking, extracted_answer, normalized_answer = extract_reasoning_and_answer(
-            generated_text, item['answer_options'], item_id
+            generated_text, item['answer_options'], item_id, quiet
         )
         
         # Determine if the answer is correct
@@ -271,6 +280,7 @@ def main():
         max_model_len=32768,  # Qwen context length
         enable_prefix_caching=True,  # Enable prefix caching for better batching performance
         enforce_eager=False,  # Use CUDA graphs for better performance
+        disable_log_stats=True,  # Disable vLLM's internal logging
     )
     
     # Optimized sampling parameters for Qwen thinking mode (based on official recommendations)
@@ -287,10 +297,15 @@ def main():
     all_results = []
     category_stats = {}
     
+    # Display categories to process
+    print(f"\n📋 Categories to process: {', '.join(args.categories)}")
+    print(f"🔧 Batch size: {args.batch_size}")
+    print(f"🤖 Model: {args.model}")
+    print(f"💭 Thinking mode: {'Enabled' if args.enable_thinking else 'Disabled'}")
+    print()
+    
     for category in args.categories:
-        print(f"\n{'='*60}")
-        print(f"Processing BBQ category: {category}")
-        print(f"{'='*60}")
+        print(f"\n▶️  Processing {category}...", end=" ")
         
         file_path = os.path.join(data_dir, f"{category}.jsonl")
         if not os.path.exists(file_path):
@@ -308,7 +323,7 @@ def main():
         if args.num_samples is not None:
             dataset = dataset.select(range(min(args.num_samples, len(dataset))))
         
-        print(f"📊 Processing {len(dataset)} samples from {category}")
+        print(f"({len(dataset)} samples)")
         
         # Prepare data for batch processing
         batch_data = []
@@ -327,15 +342,19 @@ def main():
                 'ambig': example.get("ambig", False),
             })
         
-        # Process in optimized batches
+        # Process all data in optimized batches
         results = []
         batch_size = args.batch_size
+        num_batches = (len(batch_data) + batch_size - 1) // batch_size
         
-        with tqdm(total=len(batch_data), desc=f"Generating for {category}") as pbar:
+        # Single progress bar for the entire category
+        with tqdm(total=len(batch_data), desc=f"  {category}", unit="samples", 
+                  bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]") as pbar:
             for i in range(0, len(batch_data), batch_size):
                 batch = batch_data[i:i + batch_size]
                 batch_results = process_batch(llm, batch, sampling_params, 
-                                             batch_start_idx=i, enable_thinking=args.enable_thinking)
+                                             batch_start_idx=i, enable_thinking=args.enable_thinking,
+                                             quiet=args.quiet)
                 results.extend(batch_results)
                 all_results.extend(batch_results)
                 pbar.update(len(batch))
@@ -364,24 +383,19 @@ def main():
             'ambiguous_samples': len(ambiguous_results),
         }
         
-        # Print statistics
-        print(f"\n📈 {category} Results:")
-        print(f"  Total Accuracy: {accuracy:.2f}% ({correct_count}/{len(results)})")
-        print(f"  Unambiguous: {unambig_acc:.2f}% ({unambig_correct}/{len(unambiguous_results)})")
-        print(f"  Ambiguous: {ambig_acc:.2f}% ({ambig_correct}/{len(ambiguous_results)})")
+        # Print compact statistics
+        print(f"  ✓ Accuracy: {accuracy:.1f}% | Unambiguous: {unambig_acc:.1f}% | Ambiguous: {ambig_acc:.1f}%")
         
-        # Save category-specific results
+        # Save category-specific results (silently)
         output_file = os.path.join(args.output_dir, f"bbq_{category}_results.json")
         with open(output_file, "w") as f:
             json.dump(results, f, indent=2)
-        print(f"💾 Saved {len(results)} results to {output_file}")
 
     # Save combined results
     if all_results:
         combined_output_file = os.path.join(args.output_dir, "bbq_all_categories_results.json")
         with open(combined_output_file, "w") as f:
             json.dump(all_results, f, indent=2)
-        print(f"\n💾 Saved all {len(all_results)} results to {combined_output_file}")
         
         # Save statistics summary
         stats_file = os.path.join(args.output_dir, "evaluation_stats.json")
@@ -396,35 +410,26 @@ def main():
         }
         with open(stats_file, "w") as f:
             json.dump(overall_stats, f, indent=2)
-        print(f"📊 Saved evaluation statistics to {stats_file}")
         
         # Print overall summary
         print(f"\n{'='*60}")
-        print(f"OVERALL SUMMARY")
+        print(f"📊 SUMMARY")
         print(f"{'='*60}")
-        print(f"Model: {args.model}")
         print(f"Total Samples: {overall_stats['overall']['total_samples']}")
         print(f"Overall Accuracy: {overall_stats['overall']['accuracy']:.2f}%")
-        print(f"\nPer-Category Accuracy:")
+        print(f"\nPer-Category:")
         for cat, stats in category_stats.items():
-            print(f"  {cat}: {stats['accuracy']:.2f}%")
-
-    print("\n✅ Generation complete!")
+            print(f"  • {cat}: {stats['accuracy']:.2f}% ({stats['correct']}/{stats['total_samples']})")
+        
+        print(f"\n📁 Results saved to: {args.output_dir}/")
+        print("✅ Complete!")
     
-    # If in test mode, show sample outputs
+    # If in test mode, show one sample output
     if args.test_mode and all_results:
-        print("\n" + "="*60)
-        print("SAMPLE OUTPUTS (First 3)")
-        print("="*60)
-        for i, result in enumerate(all_results[:3], 1):
-            print(f"\n--- Sample {i} ---")
-            print(f"Question: {result['question']}")
-            print(f"Options: {', '.join(result['answer_options'])}")
-            print(f"Thinking: {result['model_reasoning'][:200]}..." if len(result['model_reasoning']) > 200 else f"Thinking: {result['model_reasoning']}")
-            print(f"Extracted Answer: {result['extracted_answer']}")
-            print(f"Model Answer: {result['model_answer']}")
-            print(f"Correct Answer: {result['correct_answer']}")
-            print(f"Is Correct: {'✅' if result['is_correct'] else '❌'}")
+        print("\n📝 Sample Output:")
+        result = all_results[0]
+        print(f"  Q: {result['question'][:100]}..." if len(result['question']) > 100 else f"  Q: {result['question']}")
+        print(f"  A: {result['model_answer']} {'✅' if result['is_correct'] else '❌'}")
 
 
 if __name__ == "__main__":
