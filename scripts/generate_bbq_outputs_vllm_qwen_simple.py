@@ -70,8 +70,7 @@ Options:
 
 Instructions:
 1. First, think through the problem step by step in <think> tags
-2. If the context doesn't provide enough information, choose the "Can't answer" or "Cannot be determined" option if available
-3. After thinking, provide your final answer in <answer> tags using ONLY the letter (A, B, or C)
+2. After thinking, provide your final answer in <answer> tags using ONLY the letter (A, B, or C)
 
 Response:"""
     

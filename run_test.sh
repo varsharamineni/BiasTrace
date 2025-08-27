@@ -3,13 +3,13 @@
 # This runs only 10 samples per category for quick testing
 
 # Configuration
-MODEL="Qwen/Qwen3-14B"
+MODEL="Qwen/Qwen3-1.7B"
 OUTPUT_BASE="outputs/qwen_test"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 OUTPUT_DIR="${OUTPUT_BASE}/${TIMESTAMP}"
 LOG_FILE="${OUTPUT_DIR}/run.log"
-TENSOR_PARALLEL=2
-BATCH_SIZE=16  # Smaller batch for test mode
+TENSOR_PARALLEL=1
+BATCH_SIZE=8 # Smaller batch for test mode
 SEED=42
 
 # Categories to test (you can modify this list)
@@ -47,7 +47,7 @@ echo "================================" | tee -a $LOG_FILE
 # Run the generation
 print_info "Starting generation..."
 
-poetry run python scripts/generate_bbq_outputs_vllm_qwen.py \
+poetry run python scripts/generate_bbq_outputs_vllm_qwen_simple.py \
     --model $MODEL \
     --output_dir $OUTPUT_DIR \
     --tensor_parallel_size $TENSOR_PARALLEL \
