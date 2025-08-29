@@ -4,17 +4,17 @@
 
 # Configuration
 MODEL="/home/vramineni/models/qwen3-14B"
-OUTPUT_BASE="outputs/qwen_full_14B_simple_prompt_test"
+OUTPUT_BASE="outputs/qwen_full_14B_simple_prompt"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 OUTPUT_DIR="${OUTPUT_BASE}/${TIMESTAMP}"
 LOG_FILE="${OUTPUT_DIR}/run.log"
 TENSOR_PARALLEL=2
-BATCH_SIZE=16  # Larger batch for full run
+BATCH_SIZE=32  # Larger batch for full run
 SEED=42
 
 # All BBQ categories (modify as needed)
 # You can use specific categories or "all" for everything
-CATEGORIES="Sexual_orientation"
+CATEGORIES="Age Disability_status Gender_identity Nationality Physical_appearance Race_ethnicity Race_x_SES Race_x_gender Religion SES Sexual_orientation"
 
 # Advanced options
 GPU_MEMORY_UTIL=0.9

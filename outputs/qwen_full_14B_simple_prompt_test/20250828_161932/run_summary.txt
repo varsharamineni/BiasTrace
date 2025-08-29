@@ -1,0 +1,10 @@
+BBQ Full Dataset Run Summary
+============================
+Date: Thu Aug 28 16:32:44 UTC 2025
+Model: /home/vramineni/models/qwen3-14B
+Seed: 42
+Runtime: 0h 13m 12s
+Output Directory: outputs/qwen_full_14B_simple_prompt_test/20250828_161932
+
+Overall Accuracy: 89.81%
+Total Samples: 864

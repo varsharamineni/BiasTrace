@@ -14,44 +14,58 @@ poetry shell
 ```
 If you prefer pip, you can use:
 
-
 ```bash
 pip install -r requirements.txt
 ```
 
 ## Scripts
 
-### Download Models to Cache
+### Download BBQ Data 
 
-downloads BBQ data from Hugging Face and saves them locally
+Downloads BBQ data from Hugging Face and saves them locally
 
 ```bash 
 python scripts/download_data/download_bbq_all_cat.py
 ```
 
+BBQ data saved to `datasets/bbq_data_all_cat`
+
 ### Download Models to Cache
 
 The `snapshot_download.py` script downloads models from Hugging Face and saves them locally
 
-deepseek-70B (deepseek-ai/DeepSeek-R1-Distill-Llama-70B)
-
-qwen3-32b (Qwen/Qwen3-32B)
-
-qwen3-14b (Qwen/Qwen3-14B)
+Note: Replace `base_cache_dir` with your desired local folder
 
 ```bash
  python scripts/download_models/snapshot_download.py
 ```
 
-Note: Replace `base_cache_dir` with your desired local folder.
+- deepseek-70B (deepseek-ai/DeepSeek-R1-Distill-Llama-70B)
+
+- qwen3-32B (Qwen/Qwen3-32B)
+
+- qwen3-14B (Qwen/Qwen3-14B)
+
+- qwen3-8B (Qwen/Qwen3-8B)
+
+```bash
+ python scripts/download_models/snapshot_download.py
+```
+
+## Generate Reasoning Traces - Qwen 
+
+With full prompt
+`scripts/generate_bbq_outputs_vllm_qwen.py`
+
+With simple prompt
+`scripts/generate_bbq_outputs_vllm_qwen_simple.py`
 
 
-### Generate Reasoning Traces
+## Generate Reasoning Traces - Deepseek and Qwen (Old)
 
 Generate outputs on the BBQ dataset
 
 This uses `scripts/generate_bbq_outputs_vllm.py` and `scripts/generate_bbq_outputs_vllm_qwen.py`
-
 
 ```bash
 sbatch generate_bbq_traces/generate_bbq.slurm deepseek-70B 16 0.6 0.95 50 2048
@@ -80,7 +94,6 @@ sbatch generate_bbq_traces/generate_bbq_qwen_Gender.slurm qwen3-14B 16 0.6 0.95 
 Outputs saved in folder `outputs/backup_outputs`
 
 ### Evaluate Reasoning Traces
-
 
 `python run_all_models_bbq_evaluation`
 
