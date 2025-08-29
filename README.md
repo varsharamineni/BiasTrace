@@ -60,6 +60,18 @@ With full prompt
 With simple prompt
 `scripts/generate_bbq_outputs_vllm_qwen_simple.py`
 
+Can use job_scripts to run these and get reasoning traces 
+
+```bash
+job_scripts/run_full.sh
+``` 
+
+## Saved Reasoning Traces
+
+Google Drive link
+
+[Google Drive Link](https://drive.google.com/drive/folders/1avhCGFPHafxfV80AtVIbEFRfT08Vsb67?usp=sharing)
+
 
 ## Generate Reasoning Traces - Deepseek and Qwen (Old)
 

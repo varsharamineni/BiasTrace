@@ -7,4 +7,6 @@ results/
 
 outputs/qwen_full_8B_simple_prompt/
 outputs/qwen_full_14B_simple_prompt/
+outputs/qwen_full_32B_simple_prompt/
+
 

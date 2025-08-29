@@ -31,7 +31,7 @@ def is_model_complete(local_dir, repo_id):
 
 # Example models to check
 models = {
-    "qwen3-14B": "Qwen/Qwen3-14B"
+    "qwen3-32B": "Qwen/Qwen3-32B"
 }
 
 base_cache_dir = "/home/vramineni/models"
