@@ -60,7 +60,7 @@ With full prompt
 With simple prompt
 `scripts/generate_bbq_outputs_vllm_qwen_simple.py`
 
-Can use job_scripts to run these and get reasoning traces 
+Can use job_scripts to run these and get reasoning traces, can edit model and folders and paramters as needed
 
 ```bash
 job_scripts/run_full.sh
