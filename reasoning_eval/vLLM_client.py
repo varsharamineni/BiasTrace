@@ -1,14 +1,12 @@
 import logging
-
-# Suppress vLLM's tqdm progress bars
 logging.getLogger("vllm.engine.llm_engine").setLevel(logging.WARNING)
 logging.getLogger("vllm.engine.async_llm_engine").setLevel(logging.WARNING)
-from vllm import LLM, SamplingParams
-from datasets import Dataset
+from vllm import LLM
 
 class vLLMClient:
 
     def __init__(self, model: str = "Qwen/Qwen3-4B", tensor_parallel_size: int = 1, gpu_memory_utilization: float = 0.9):
+        # Suppress vLLM's tqdm progress bars
         self.model = model
         self.tensor_parallel_size = tensor_parallel_size
         self.gpu_memory_utilization = gpu_memory_utilization
