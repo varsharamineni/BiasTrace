@@ -1,15 +1,15 @@
 from datasets import load_dataset
 import pandas as pd
 import json
-import argparse
 
 class EvalData:
 
     def __init__(self, category: str = "Age"):
         self.category = category
 
-    def load_BBQ_dataset(self, dataset_path: str = "heegyu/bbq") -> dict:
-        dataset = load_dataset(dataset_path, self.category)
+    def load_BBQ_dataset(self, dataset_path: str = "heegyu/bbq"):
+        # Example: load the Age.json file inside the "data" folder
+        dataset = load_dataset("json", data_files=f"data/{self.category}.jsonl", repo_id="heegyu/bbq")
         dataset = dataset['test']
         print(f"INFO:: Loaded BBQ dataset with {len(dataset)} samples.")
         return dataset
