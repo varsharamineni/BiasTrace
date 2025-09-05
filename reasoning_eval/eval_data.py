@@ -7,10 +7,13 @@ class EvalData:
     def __init__(self, category: str = "Age"):
         self.category = category
 
-    def load_BBQ_dataset(self, dataset_path: str = "heegyu/bbq"):
-        # Example: load the Age.json file inside the "data" folder
-        dataset = load_dataset("json", data_files=f"data/{self.category}.jsonl", repo_id="heegyu/bbq")
-        dataset = dataset['test']
+    def load_BBQ_dataset(self, dataset_path: str = "../datasets/bbq_dataset_all_cat/data"):
+        """
+        # Load a single JSON file
+        # The file is just a single .jsonl with no predefined splits. In that case, load_dataset("json", ...) still wraps it 
+        # into a DatasetDict with a default key "train" (even though there is no actual train/test distinction)
+        """
+        dataset = load_dataset("json", data_files=f"{dataset_path}/{self.category}.jsonl", split="train")
         print(f"INFO:: Loaded BBQ dataset with {len(dataset)} samples.")
         return dataset
     
