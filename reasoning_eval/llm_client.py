@@ -15,7 +15,7 @@ from datasets import Dataset
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Generate outputs on BBQ dataset using Qwen3 8B with thinking mode")
-    parser.add_argument("--model", "--model_path", type=str, default="Qwen/Qwen3-8B", help="Path to the model or HuggingFace model ID (default: Qwen/Qwen3-8B)")
+    parser.add_argument("--model", "--model_path", type=str, default="Qwen/Qwen3-4B", help="Path to the model or HuggingFace model ID (default: Qwen/Qwen3-8B)")
     parser.add_argument("--output_dir", type=str, default="../outputs/bbq_results", help="Directory to save the outputs")
     parser.add_argument("--categories", type=str, nargs="+", default=["Age", "Nationality", "Religion"], help="BBQ categories to evaluate")
     parser.add_argument("--batch_size", type=int, default=32, help="Batch size for VLLM inference (increased for better throughput)")
@@ -34,8 +34,69 @@ def parse_args():
 
     return parser.parse_args()
 
+def process_batch(llm: LLM, batch_data: List[Dict[str, Any]], 
+                 sampling_params: SamplingParams, batch_start_idx: int = 0,
+                 enable_thinking: bool = True, quiet: bool = False) -> List[Dict[str, Any]]:
+    """Process a batch of examples with optimized vLLM generation."""
+    messages_batch = []
+    for item in batch_data:
+        messages = create_messages(item['context'], item['question'], item['answer_options'])
+        messages_batch.append(messages)
+    
+    # Generate outputs using vLLM's chat method with thinking mode
+    # Disable internal progress bar by using use_tqdm=False
+    outputs = llm.chat(
+        messages_batch, 
+        sampling_params,
+        chat_template_kwargs={"enable_thinking": enable_thinking},
+        use_tqdm=False  # Disable vLLM's internal tqdm
+    )
+    
+    results = []
+    for idx, (output, item) in enumerate(zip(outputs, batch_data)):
+        generated_text = output.outputs[0].text
+        
+        # Create item identifier for debugging
+        item_id = f"{item['category']}_idx{batch_start_idx + idx}"
+        if 'id' in item:
+            item_id = f"{item['category']}_id{item['id']}"
+        
+        # Extract thinking and answer with item ID for warnings
+        thinking, extracted_answer, normalized_answer = extract_reasoning_and_answer(
+            generated_text, item['answer_options'], item_id, quiet
+        )
+        
+        # Determine if the answer is correct
+        correct_answer = item['answer_options'][item['label']]
+        is_correct = normalized_answer == correct_answer
+        
+        result = {
+            "category": item['category'],
+            "context": item['context'],
+            "question": item['question'],
+            "answer_options": item['answer_options'],
+            "model_output": generated_text.strip(),
+            "model_reasoning": thinking,  # Using thinking content
+            "model_answer": normalized_answer,  # Key name as requested
+            "extracted_answer": extracted_answer,
+            "normalized_answer": normalized_answer,
+            "correct_answer": correct_answer,
+            "is_correct": is_correct,
+            "ambiguous": item.get('ambig', False),
+            "correct_label": item['label'],
+        }
+        
+        # Add individual answer options for compatibility
+        for idx, ans in enumerate(item['answer_options']):
+            result[f"ans{idx}"] = ans
+        
+        results.append(result)
+    
+    return results
+
 def main():
     args = parse_args()
+    enable_thinking: bool = True
     
     # Override num_samples if in test mode
     if args.test_mode:
@@ -67,6 +128,20 @@ def main():
         skip_special_tokens=False,  # Keep special tokens for proper formatting
         seed=args.seed,  # Set seed for reproducibility
     )
+
+    messages = [
+        {"role": "user", "content": "What is your name?"}
+    ]
+
+    outputs = llm.chat(
+        messages,
+        sampling_params,
+        chat_template_kwargs={"enable_thinking": enable_thinking},
+        use_tqdm=False  # Disable vLLM's internal tqdm
+    )
+
+    for output in outputs:
+        print(output)
 
 if __name__ == "__main__":
     main()
