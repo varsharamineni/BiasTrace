@@ -18,7 +18,6 @@ class EvalData:
         return dataset
     
     def load_BBQ_metadata(self, metadata_path: str = "../datasets/bbq_additional_metadata.csv"):
-        # load metadata
         metadata = pd.read_csv(metadata_path)
         metadata = metadata[metadata['category'] == self.category]
         print(f"INFO:: Loaded BBQ metadata with {len(metadata)} samples.")
@@ -27,9 +26,10 @@ class EvalData:
     def load_BBQ_templates(self):
         template_path = f"../datasets/bbq_templates/new_templates - {self.category}.csv"
         template_df = pd.read_csv(template_path)
+        print(f"INFO:: Loaded BBQ templates with {len(template_df)} samples.")
         return template_df
     
-    def load_reasoning_data(reasoning_data_path: str = "../outputs/qwen_8B_full/bbq_Age_results_merged.json"):
+    def load_reasoning_data(self, reasoning_data_path: str = "../outputs/qwen_8B_full/bbq_Age_results_merged.json"):
         with open(reasoning_data_path, "r") as f:
             data = json.load(f)
         reasoning_data = data['results']
