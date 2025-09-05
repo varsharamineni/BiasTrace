@@ -1,6 +1,7 @@
 import json
 import csv
 import os
+import argparse
 
 def flag_stereotype_alignment(example):
     """
@@ -164,20 +165,26 @@ def merge_all_categories(base_folder, meta_data_file):
             )
 
 
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Merge BBQ results with original data and optional metadata.")
+    parser.add_argument(
+        '--base_folders', 
+        type=str, 
+        nargs='+', 
+        required=True, 
+        help='One or more folders containing bbq_*_results.json files'
+    )
+    parser.add_argument(
+        '--meta_file', 
+        type=str, 
+        default='datasets/bbq_additional_metadata.csv', 
+        help='Optional metadata CSV file'
+    )
 
-    meta_data_file = 'datasets/bbq_additional_metadata.csv'
+    args = parser.parse_args()
 
-    # base_folder = 'outputs/qwen_full_14B_simple_prompt/20250828_215719/'    
-    # merge_all_categories(base_folder, meta_data_file)
-
-    # base_folder = 'outputs/qwen_full_8B_simple_prompt/20250827_163953'
-    # merge_all_categories(base_folder, meta_data_file)
-
-    # base_folder = 'outputs/qwen_8B_full'
-    # merge_all_categories(base_folder, meta_data_file)
-
-    base_folder = 'outputs/qwen_8B_full_prompt'
-    merge_all_categories(base_folder, meta_data_file)
-
+    for folder in args.base_folders:
+        print(f"\n=== Processing folder: {folder} ===")
+        merge_all_categories(folder, args.meta_file)
 

@@ -26,6 +26,8 @@ python scripts/download_data/download_bbq_all_cat.py
 
 BBQ data saved to `datasets/bbq_data_all_cat`
 
+You should also download the templates `bbq_templates`[https://github.com/nyu-mll/BBQ/tree/main/templates] folder and `bbq_additional_metadata.csv`[https://github.com/nyu-mll/BBQ/tree/main/supplemental] and store in `datasets/` folder
+
 ### Download Models to Cache
 
 The `snapshot_download.py` script downloads models from Hugging Face and saves them locally
@@ -38,17 +40,29 @@ Note: Replace `base_cache_dir` with your desired local folder
 
 ### Generate Reasoning Traces - Qwen 
 
+Can use `job_scripts` to run these and get reasoning traces, can edit model and folders and paramters as needed
+
+```bash
+job_scripts/run_full.sh
+``` 
+
+These rely on these:
+
 With full prompt
 `scripts/generate_bbq_outputs_vllm_qwen.py`
 
 With simple prompt
 `scripts/generate_bbq_outputs_vllm_qwen_simple.py`
 
-Can use `job_scripts` to run these and get reasoning traces, can edit model and folders and paramters as needed
+## Process Results
+
+merge model outputs with the original BBQ dataset and optional metadata useful for further analysis
 
 ```bash
-job_scripts/run_full.sh
-``` 
+python process_bbq_results.py --base_folders <folder1> <folder2> ... --meta_file <metadata_csv>
+
+```
+
 
 ## Saved Reasoning Traces
 
