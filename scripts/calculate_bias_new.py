@@ -116,7 +116,7 @@ def plot_bias_proportions_separate(summary, output_file="bias_proportions.png"):
 
 
 if __name__ == "__main__":
-    folder_path = "outputs/qwen_full_8B_simple_prompt/20250827_163953"
+    folder_path = "outputs/qwen_8B_full_prompt"
     summary = process_all_categories(folder_path)
 
     # Optional: print summary
@@ -127,19 +127,6 @@ if __name__ == "__main__":
         print()
 
     # Plot
-    plot_bias_proportions_separate(summary, output_file="bias_proportions_8B.png")
-
-    folder_path = "outputs/qwen_full_14B_simple_prompt/20250828_215719"
-    summary = process_all_categories(folder_path)
-
-    # Optional: print summary
-    for cat, metrics in summary.items():
-        print(f"Category: {cat}")
-        for k, v in metrics.items():
-            print(f"  {k}: {v}")
-        print()
-
-    # Plot
-    plot_bias_proportions_separate(summary, output_file="bias_proportions_14B.png")
+    plot_bias_proportions_separate(summary, output_file="bias_proportions_8B_full_prompt.png")
 
 

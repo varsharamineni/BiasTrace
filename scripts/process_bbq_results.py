@@ -168,13 +168,16 @@ if __name__ == "__main__":
 
     meta_data_file = 'datasets/bbq_additional_metadata.csv'
 
-    base_folder = 'outputs/qwen_full_14B_simple_prompt/20250828_215719/'    
-    merge_all_categories(base_folder, meta_data_file)
+    # base_folder = 'outputs/qwen_full_14B_simple_prompt/20250828_215719/'    
+    # merge_all_categories(base_folder, meta_data_file)
 
-    base_folder = 'outputs/qwen_full_8B_simple_prompt/20250827_163953'
-    merge_all_categories(base_folder, meta_data_file)
+    # base_folder = 'outputs/qwen_full_8B_simple_prompt/20250827_163953'
+    # merge_all_categories(base_folder, meta_data_file)
 
-    base_folder = 'outputs/qwen_8B_full'
+    # base_folder = 'outputs/qwen_8B_full'
+    # merge_all_categories(base_folder, meta_data_file)
+
+    base_folder = 'outputs/qwen_8B_full_prompt'
     merge_all_categories(base_folder, meta_data_file)
 
 
