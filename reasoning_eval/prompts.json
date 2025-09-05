@@ -1,0 +1,5 @@
+{
+  "summarize": "Summarize the following text in one sentence: {text}",
+  "question_answer": "Based on the passage: {passage}, answer the question: {question}",
+  "rewrite_style": "Rewrite the following text in a {style} style: {text}"
+}
