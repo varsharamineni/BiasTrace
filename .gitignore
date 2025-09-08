@@ -2,7 +2,6 @@ __pycache__/
 *.py[cod]
 .venv/
 data/
-results/
 .ipynb_checkpoints/
 
 outputs/qwen_full_8B_simple_prompt/
