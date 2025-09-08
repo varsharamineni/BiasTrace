@@ -59,13 +59,21 @@ With simple prompt
 merge model outputs with the original BBQ dataset and optional metadata useful for further analysis
 
 ```bash
-python process_bbq_results.py --base_folders <folder1> <folder2> ... --meta_file <metadata_csv>
+python scripts/process_bbq_results.py --base_folders <folder1> <folder2> ... --meta_file <metadata_csv>
 
 ```
 
 ## Accuracy and Bias scores 
 
+```bash
+python scripts/calculate_bbq_acc_and_bias_plot.py
 
+```
+
+```bash
+python scripts/create_bbq_metrics_table.py
+
+```
 
 
 ## Saved Reasoning Traces
