@@ -7,6 +7,7 @@ We recommend using Poetry for dependency management:
 ```bash
 poetry install
 poetry shell
+source $(poetry env info --path)/bin/activate
 ```
 If you prefer pip, you can use:
 
@@ -26,7 +27,7 @@ python scripts/download_data/download_bbq_all_cat.py
 
 BBQ data saved to `datasets/bbq_data_all_cat`
 
-You should also download the templates `bbq_templates`[https://github.com/nyu-mll/BBQ/tree/main/templates] folder and `bbq_additional_metadata.csv`[https://github.com/nyu-mll/BBQ/tree/main/supplemental] and store in `datasets/` folder
+You should also download the templates to `datasets/bbq_templates`[https://github.com/nyu-mll/BBQ/tree/main/templates] folder and the metadata `datasets/bbq_additional_metadata.csv`[https://github.com/nyu-mll/BBQ/tree/main/supplemental]  
 
 ### Download Models to Cache
 
@@ -46,7 +47,7 @@ Can use `job_scripts` to run these and get reasoning traces, can edit model and 
 job_scripts/run_full.sh
 ``` 
 
-These rely on these:
+These rely on these depending on the type of prompt used.
 
 With full prompt
 `scripts/generate_bbq_outputs_vllm_qwen.py`
@@ -56,7 +57,7 @@ With simple prompt
 
 ## Process Results
 
-merge model outputs with the original BBQ dataset and optional metadata useful for further analysis
+Merge model outputs with the original BBQ dataset and optional metadata useful for further analysis
 
 ```bash
 python scripts/process_bbq_results.py --base_folders <folder1> <folder2> ... --meta_file <metadata_csv>
@@ -74,7 +75,6 @@ python scripts/calculate_bbq_acc_and_bias_plot.py
 python scripts/create_bbq_metrics_table.py
 
 ```
-
 
 ## Saved Reasoning Traces
 
