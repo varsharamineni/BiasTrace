@@ -4,52 +4,90 @@ import pandas as pd
 import glob
 import argparse
 
-parser = argparse.ArgumentParser(description="Compute accuracy and variance across Relevant_social_values")
+parser = argparse.ArgumentParser(description="Compute Answer Distribution across groups")
 parser.add_argument("model_folders", nargs="+", help="Paths to model folders")
+parser.add_argument(
+    "--group_cols",
+    nargs="+",
+    default=["category", "ambiguous", "question_polarity", ],  # grouping
+    help="Columns to group by when calculating distributions"
+)
 args = parser.parse_args()
 
-all_summaries = []
+
+def get_mapped_answer_category(r):
+    """
+    Map the normalized answer to 'unknown', 'stereotype', or 'non-stereotype'
+    based on answer_info and known stereotyped groups.
+    """
+    normalized = r.get("normalized_answer", "").strip().lower()
+    if not normalized:
+        return "unknown"
+
+    answer_info = r.get("answer_info", {})
+    known_stereotypes = [g.lower() for g in r.get("Known_stereotyped_groups", [])]
+
+    for key in ["ans0", "ans1", "ans2"]:
+        if key not in answer_info:
+            continue
+
+        ans_labels = [str(x).lower() for x in answer_info[key]]  # e.g., ["grandfather", "old"]
+        ans_text = ans_labels[0] if ans_labels else None
+        if ans_text is None:
+            continue
+
+        if normalized == ans_text:
+            # Unknown answers
+            if any(u in ans_labels for u in ["unknown", "can't be determined", "undetermined"]):
+                return "unknown"
+            # Stereotype answers
+            elif any(label in known_stereotypes for label in ans_labels):
+                return "stereotype"
+            else:
+                return "non-stereotype"
+
+    # fallback
+    return "unknown"
+
+
+all_distributions = []
 
 for folder in args.model_folders:
     model_name = os.path.basename(folder.rstrip("/"))
     json_files = glob.glob(os.path.join(folder, "bbq_*_results_merged.json"))
-    
+
     for json_file in json_files:
         category = os.path.basename(json_file).replace("bbq_", "").replace("_results_merged.json", "")
+
         with open(json_file) as f:
             data = json.load(f)
-        
-        # Flatten results
+
+        # Flatten results into a DataFrame
         records = []
         for r in data.get("results", []):
-            records.append({
-                "Ambiguous": r.get("ambiguous", False),
-                "Relevant_social_values": str(r.get("Relevant_social_values", [])),
-                "question_polarity": r.get("question_polarity"),
-                "is_correct": 1 if r.get("is_correct", False) else 0
-            })
+            record = {col: r.get(col) for col in args.group_cols if col in r}
+            record["mapped_answer_category"] = get_mapped_answer_category(r)
+            if "category" in args.group_cols and "category" not in record:
+                record["category"] = category
+            records.append(record)
+
         df = pd.DataFrame(records)
-        
         if df.empty:
             continue
-        
-        # Mean accuracy per group
-        group_acc = df.groupby(['Ambiguous', 'question_polarity', 'Relevant_social_values'], as_index=False)['is_correct'].mean()
-        group_acc['Model'] = model_name
-        group_acc['Category'] = category
-        
-        all_summaries.append(group_acc)
 
-# Concatenate all
-final_df = pd.concat(all_summaries, ignore_index=True)
+        # Compute distribution per group
+        dist_df = (
+            df.groupby(args.group_cols)["mapped_answer_category"]
+            .value_counts(normalize=True)
+            .unstack(fill_value=0)
+            .reset_index()
+        )
+        dist_df["model"] = model_name
+        all_distributions.append(dist_df)
 
-# Compute standard deviation of accuracy across Relevant_social_values for each Ambiguous × question_polarity
-std_df = final_df.groupby(['Model','Category','Ambiguous','question_polarity'])['is_correct'].std().reset_index()
-std_df.rename(columns={'is_correct':'accuracy_std_across_social_values'}, inplace=True)
+# Concatenate all models
+final_distributions = pd.concat(all_distributions, ignore_index=True)
 
 # Save
-final_df.to_csv("accuracy_per_group.csv", index=False)
-std_df.to_csv("accuracy_std_across_social_values.csv", index=False)
-
-print("Accuracy per group saved to accuracy_per_group.csv")
-print("Std dev across Relevant_social_values saved to accuracy_std_across_social_values.csv")
+final_distributions.to_csv("mapped_answer_distribution_per_group.csv", index=False)
+print("Mapped answer distributions per group saved to mapped_answer_distribution_per_group.csv")

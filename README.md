@@ -2,7 +2,7 @@
 
 ## Installation
 
-We recommend using Poetry for dependency management:
+We recommend using **Poetry** for dependency management:
 
 ```bash
 poetry install
@@ -68,7 +68,6 @@ python scripts/process_bbq_results.py --base_folders <folder1> <folder2> ... --m
 
 ```bash
 python scripts/calculate_bbq_acc_and_bias_plot.py
-
 ```
 
 ```bash
