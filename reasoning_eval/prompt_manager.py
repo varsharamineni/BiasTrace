@@ -1,7 +1,7 @@
 import json
-from string import Template
 
 class PromptManager:
+
     def __init__(self, prompt_file: str):
         # Load prompts from a JSON file
         with open(prompt_file, "r") as f:
