@@ -55,6 +55,12 @@ With full prompt
 With simple prompt
 `scripts/generate_bbq_outputs_vllm_qwen_simple.py`
 
+## Saved Reasoning Traces
+
+Full Generated Traces are available at: 
+
+[Google Drive Link](https://drive.google.com/drive/folders/1avhCGFPHafxfV80AtVIbEFRfT08Vsb67?usp=sharing)
+
 ## Process Results
 
 Merge model outputs with the original BBQ dataset and optional metadata useful for further analysis
@@ -75,9 +81,12 @@ python scripts/create_bbq_metrics_table.py
 
 ```
 
-## Saved Reasoning Traces
+## LLM Judge 
 
-[Google Drive Link](https://drive.google.com/drive/folders/1avhCGFPHafxfV80AtVIbEFRfT08Vsb67?usp=sharing)
+Use the processed output files for the LLM Judge - `bbq_{category}_results_merged.json`
+
+Judge scripts are in `reasoning_eval` folder.
+
 
 ## Note on Special Tokens
 
@@ -152,4 +161,4 @@ The script will:
 
 ## Acknowledgments
 
-This repository was orginally derived from an earlier fork of [Reasoning-Towards-Fairness](https://github.com/Sanchit-404/Reasoing-Towards-Fairness), but due to substantial change and diversion from this, it has been restructured into a new standalone repository.
+This repository was orginally derived from an earlier fork of [Reasoning-Towards-Fairness](https://github.com/Sanchit-404/Reasoing-Towards-Fairness), but due to complete change and diversion from this, it has been restructured into a new standalone repository.
