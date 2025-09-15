@@ -1,0 +1,54 @@
+You are an expert analyst of reasoning traces from large language models.
+
+Here are reasoning traces:
+---
+{{sample_traces}}
+---
+
+Task:
+1. For each trace, identify all reasoning errors, regardless of whether or not the final model answer was correct
+2. For each error:
+   a. Describe it in 1–3 sentences.
+   b. Propose a short category label (e.g., "Instruction Following Failures", "Unresolved Uncertainty", "Conflict between world knowledge and task instructions").
+   c. Provide a short example from the trace that illustrates the error ("error_example").
+3. Return the results as a strict JSON array of objects, with one object per trace.
+4. Each trace object must include:
+   - "trace_id"
+   - "errors" array, where each error includes:
+     - "error_present": "Yes" or "No"
+     - "error_description": string
+     - "error_category": string
+     - "error_example": string
+
+Strict output format example:
+
+[
+  {
+    "trace_id": "trace_123",
+    "errors": [
+      {
+        "error_present": "Yes",
+        "error_description": "The model ignores explicit instructions about context.",
+        "error_category": "Instruction Following Failure",
+        "error_example": "The instruction said to ignore X, but the model included X in its reasoning."
+      },
+      {
+        "error_present": "Yes",
+        "error_description": "The model makes an unjustified assumption about the outcome.",
+        "error_category": "Unjustified Assumption",
+        "error_example": "The model assumed Y would happen without evidence from the trace."
+      }
+    ]
+  },
+  {
+    "trace_id": "trace_456",
+    "errors": [
+      {
+        "error_present": "No",
+        "error_description": "The model reasoning is correct.",
+        "error_category": "N/A",
+        "error_example": "N/A"
+      }
+    ]
+  }
+]
