@@ -13,3 +13,6 @@ outputs/wrong_traces_all.json
 
 
 outputs/wrong_traces_all.json
+
+# but keep reasoning_error_taxonomy/data/
+!reasoning_error_taxonomy/data/
