@@ -11,6 +11,7 @@ source $(poetry env info --path)/bin/activate
 ```
 If you prefer pip, you can use:
 
+
 ```bash
 pip install -r requirements.txt
 ```
