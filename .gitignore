@@ -16,3 +16,5 @@ outputs/wrong_traces_all.json
 
 # but keep reasoning_error_taxonomy/data/
 !reasoning_error_taxonomy/data/
+
+gpt_oss_env

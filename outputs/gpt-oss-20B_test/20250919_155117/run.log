@@ -1,0 +1,82 @@
+[1;34m[INFO][0m Starting BBQ TEST MODE generation at Fri Sep 19 03:51:17 PM UTC 2025
+[1;34m[INFO][0m Configuration:
+  Model: openai/gpt-oss-20b
+  Output: outputs/gpt-oss-20B_test/20250919_155117
+  Log: outputs/gpt-oss-20B_test/20250919_155117/run.log
+  Categories: Age Nationality Religion
+  Tensor Parallel: 2
+  Batch Size: 8
+  Seed: 42
+  Reasoning Level: medium
+  Temperature: 0.7
+  Top-p: 0.95
+  Top-k: 20
+  Max Tokens: 2048
+  Mode: TEST (10 samples per category)
+================================
+[1;34m[INFO][0m Starting generation...
+INFO 09-19 15:51:22 [__init__.py:216] Automatically detected platform cuda.
+TEST MODE: Only 10 samples per category
+Loading GPT-OSS model: openai/gpt-oss-20b
+INFO 09-19 15:51:24 [utils.py:328] non-default args: {'trust_remote_code': True, 'max_model_len': 4096, 'tensor_parallel_size': 2, 'enable_prefix_caching': True, 'disable_log_stats': True, 'model': 'openai/gpt-oss-20b'}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+INFO 09-19 15:51:30 [__init__.py:742] Resolved architecture: GptOssForCausalLM
+`torch_dtype` is deprecated! Use `dtype` instead!
+Parse safetensors files:   0%|          | 0/3 [00:00<?, ?it/s]Parse safetensors files:  33%|███▎      | 1/3 [00:00<00:00,  7.68it/s]Parse safetensors files: 100%|██████████| 3/3 [00:00<00:00, 15.41it/s]
+INFO 09-19 15:51:30 [__init__.py:1815] Using max model len 4096
+WARNING 09-19 15:51:32 [_ipex_ops.py:16] Import error msg: No module named 'intel_extension_for_pytorch'
+WARNING 09-19 15:51:32 [__init__.py:1217] mxfp4 quantization is not fully optimized yet. The speed can be slower than non-quantized models.
+INFO 09-19 15:51:32 [scheduler.py:222] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 09-19 15:51:32 [config.py:284] Overriding max cuda graph capture size to 1024 for performance.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:33 [core.py:654] Waiting for init message from front-end.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:33 [core.py:76] Initializing a V1 LLM engine (v0.10.2) with config: model='openai/gpt-oss-20b', speculative_config=None, tokenizer='openai/gpt-oss-20b', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=auto, tensor_parallel_size=2, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=mxfp4, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, decoding_config=DecodingConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend='openai_gptoss'), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=openai/gpt-oss-20b, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":[],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output","vllm.mamba_mixer2","vllm.mamba_mixer","vllm.short_conv","vllm.linear_attention","vllm.plamo2_mamba_mixer","vllm.gdn_attention"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"cudagraph_mode":1,"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[1024,1008,992,976,960,944,928,912,896,880,864,848,832,816,800,784,768,752,736,720,704,688,672,656,640,624,608,592,576,560,544,528,512,496,480,464,448,432,416,400,384,368,352,336,320,304,288,272,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"pass_config":{},"max_capture_size":1024,"local_cache_dir":null}
+[1;36m(EngineCore_DP0 pid=42045)[0;0m WARNING 09-19 15:51:33 [multiproc_worker_utils.py:273] Reducing Torch parallelism from 255 threads to 1 to avoid unnecessary CPU contention. Set OMP_NUM_THREADS in the external environment to tune this value as needed.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:33 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0, 1], buffer_handle=(2, 16777216, 10, 'psm_7367a31f'), local_subscribe_addr='ipc:///tmp/5cb5c702-c47e-4fc5-8b56-e4c8c6567b76', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:34 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0], buffer_handle=(1, 10485760, 10, 'psm_0cdae6b0'), local_subscribe_addr='ipc:///tmp/48c6bc7e-595c-49bc-a7ef-122e46684d11', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:34 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0], buffer_handle=(1, 10485760, 10, 'psm_35c45689'), local_subscribe_addr='ipc:///tmp/d79b72eb-d23e-438e-99ec-8253485346c1', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[W919 15:51:35.816942073 ProcessGroupNCCL.cpp:981] Warning: TORCH_NCCL_AVOID_RECORD_STREAMS is the default now, this environment variable is thus deprecated. (function operator())
+[W919 15:51:35.826811520 ProcessGroupNCCL.cpp:981] Warning: TORCH_NCCL_AVOID_RECORD_STREAMS is the default now, this environment variable is thus deprecated. (function operator())
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:35 [__init__.py:1433] Found nccl from library libnccl.so.2
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:35 [pynccl.py:70] vLLM is using nccl==2.27.3
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:35 [__init__.py:1433] Found nccl from library libnccl.so.2
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:35 [pynccl.py:70] vLLM is using nccl==2.27.3
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:36 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:36 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:36 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_71f9faa1'), local_subscribe_addr='ipc:///tmp/05482d29-543c-490d-a1b6-777342468b79', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:36 [parallel_state.py:1165] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
+[1;36m(EngineCore_DP0 pid=42045)[0;0m INFO 09-19 15:51:36 [parallel_state.py:1165] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
+[1;36m(EngineCore_DP0 pid=42045)[0;0m WARNING 09-19 15:51:36 [topk_topp_sampler.py:69] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m WARNING 09-19 15:51:36 [topk_topp_sampler.py:69] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m INFO 09-19 15:51:36 [gpu_model_runner.py:2338] Starting to load model openai/gpt-oss-20b...
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP0 pid=42051)[0;0m INFO 09-19 15:51:36 [gpu_model_runner.py:2338] Starting to load model openai/gpt-oss-20b...
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m INFO 09-19 15:51:36 [gpu_model_runner.py:2370] Loading model from scratch...
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m INFO 09-19 15:51:36 [cuda.py:357] Using Triton backend on V1 engine.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m INFO 09-19 15:51:36 [triton_attn.py:266] Using vllm unified attention for TritonAttentionImpl
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m INFO 09-19 15:51:36 [mxfp4.py:93] Using Marlin backend
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m INFO 09-19 15:51:36 [weight_utils.py:348] Using model weights format ['*.safetensors']
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP0 pid=42051)[0;0m INFO 09-19 15:51:36 [gpu_model_runner.py:2370] Loading model from scratch...
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m /home/jovyan/workspace/bias-reasoning-LLM/gpt_oss_env/lib/python3.12/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 13761.30 MB. The target location /home/jovyan/.cache/huggingface/hub/models--openai--gpt-oss-20b/blobs only has 7737.51 MB free disk space.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m   warnings.warn(
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP0 pid=42051)[0;0m INFO 09-19 15:51:37 [cuda.py:357] Using Triton backend on V1 engine.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP0 pid=42051)[0;0m INFO 09-19 15:51:37 [triton_attn.py:266] Using vllm unified attention for TritonAttentionImpl
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP0 pid=42051)[0;0m INFO 09-19 15:51:37 [mxfp4.py:93] Using Marlin backend
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP0 pid=42051)[0;0m INFO 09-19 15:51:37 [weight_utils.py:348] Using model weights format ['*.safetensors']
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m ERROR 09-19 15:52:01 [multiproc_executor.py:585] WorkerProc failed to start.
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m ERROR 09-19 15:52:01 [multiproc_executor.py:585] Traceback (most recent call last):
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m ERROR 09-19 15:52:01 [multiproc_executor.py:585]   File "/home/jovyan/workspace/bias-reasoning-LLM/gpt_oss_env/lib/python3.12/site-packages/vllm/v1/executor/multiproc_executor.py", line 559, in worker_main
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m ERROR 09-19 15:52:01 [multiproc_executor.py:585]     worker = WorkerProc(*args, **kwargs)
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m ERROR 09-19 15:52:01 [multiproc_executor.py:585]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m ERROR 09-19 15:52:01 [multiproc_executor.py:585]   File "/home/jovyan/workspace/bias-reasoning-LLM/gpt_oss_env/lib/python3.12/site-packages/vllm/v1/executor/multiproc_executor.py", line 427, in __init__
+[1;36m(EngineCore_DP0 pid=42045)[0;0m [1;36m(Worker_TP1 pid=42053)[0;0m ERROR 09-19 15:52:01 [mu
