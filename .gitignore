@@ -11,7 +11,7 @@ outputs/qwen_full_8B_full_prompt/
 outputs/qwen_full_14B_full_prompt/
 outputs/wrong_traces_all.json
 
-outputs/gpt-oss-20B_full_simple_prompt
+outputs/gpt-oss-120B_full_simple_prompt
 
 
 outputs/wrong_traces_all.json

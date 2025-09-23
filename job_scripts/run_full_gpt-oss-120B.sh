@@ -1,14 +1,14 @@
 #!/bin/bash
-# Full dataset script for BBQ generation using GPT-OSS-20B vLLM deployment
+# Full dataset script for BBQ generation using GPT-OSS-120B vLLM deployment
 # Supports automated resumption per category and configurable reasoning level
 
 # -------------------------
 # Configuration
 # -------------------------
-MODEL="openai/gpt-oss-20b"
-OUTPUT_BASE="outputs/gpt-oss-20B_full_simple_prompt"
+MODEL="openai/gpt-oss-120b"
+OUTPUT_BASE="outputs/gpt-oss-120B_full_simple_prompt"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-OUTPUT_DIR="${OUTPUT_BASE}/${TIMESTAMP}"
+OUTPUT_DIR="${OUTPUT_BASE}/20250922_133414"
 LOG_FILE="${OUTPUT_DIR}/run.log"
 BATCH_SIZE=32
 SEED=42
@@ -24,7 +24,7 @@ TOP_K=20
 REASONING_LEVEL="${REASONING_LEVEL:-medium}"  # Can be overridden via environment variable
 
 # API URL for vLLM deployment
-API_URL="https://gpt-oss-20b-bbq.nvidia-oci.saturnenterprise.io"  # Replace with your server IP
+API_URL="https://gpt-oss-120b-bbq.nvidia-oci.saturnenterprise.io"  # Replace with your server IP
 
 # -------------------------
 # Create output directory
