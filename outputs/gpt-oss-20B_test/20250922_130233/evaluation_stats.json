@@ -1,0 +1,25 @@
+{
+  "model": "gpt-oss-20b-remote",
+  "categories": {
+    "Age": {
+      "total_samples": 10,
+      "correct": 9,
+      "accuracy": 90.0
+    },
+    "Nationality": {
+      "total_samples": 10,
+      "correct": 9,
+      "accuracy": 90.0
+    },
+    "Religion": {
+      "total_samples": 10,
+      "correct": 10,
+      "accuracy": 100.0
+    }
+  },
+  "overall": {
+    "total_samples": 30,
+    "correct": 28,
+    "accuracy": 93.33333333333333
+  }
+}
