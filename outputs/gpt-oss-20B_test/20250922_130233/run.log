@@ -1,10 +1,0 @@
-[1;34m[INFO][0m Starting BBQ TEST MODE generation at Mon Sep 22 01:02:33 PM UTC 2025
-TEST MODE: Only 10 samples per category
-Age:   0%|          | 0/10 [00:00<?, ?samples/s]Age:  80%|████████  | 8/10 [00:15<00:03,  2.00s/samples]Age: 100%|██████████| 10/10 [00:19<00:00,  1.94s/samples]Age: 100%|██████████| 10/10 [00:19<00:00,  1.96s/samples]
-Nationality:   0%|          | 0/10 [00:00<?, ?samples/s]Nationality:  80%|████████  | 8/10 [00:15<00:03,  1.98s/samples]Nationality: 100%|██████████| 10/10 [00:20<00:00,  2.03s/samples]Nationality: 100%|██████████| 10/10 [00:20<00:00,  2.02s/samples]
-Religion:   0%|          | 0/10 [00:00<?, ?samples/s]Religion:  80%|████████  | 8/10 [00:19<00:04,  2.50s/samples]Religion: 100%|██████████| 10/10 [00:23<00:00,  2.32s/samples]Religion: 100%|██████████| 10/10 [00:23<00:00,  2.36s/samples]
-[1;32m[SUCCESS][0m Generation completed successfully!
-Overall accuracy: 93.33%
-Age: 90.00%
-Nationality: 90.00%
-Religion: 100.00%

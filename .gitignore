@@ -11,12 +11,9 @@ outputs/qwen_full_8B_full_prompt/
 outputs/qwen_full_14B_full_prompt/
 outputs/wrong_traces_all.json
 
-outputs/gpt-oss-120B_full_simple_prompt
+outputs/gpt-oss*
 
 
-outputs/wrong_traces_all.json
 
-# but keep reasoning_error_taxonomy/data/
+# keep reasoning_error_taxonomy/data/
 !reasoning_error_taxonomy/data/
-
-gpt_oss_env
