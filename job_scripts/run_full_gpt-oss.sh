@@ -6,7 +6,7 @@
 # Configuration
 # -------------------------
 MODEL="${MODEL:-openai/gpt-oss-120b}"        # Model name (e.g., openai/gpt-oss-120b)
-REASONING_LEVEL="${REASONING_LEVEL:-medium}" # default "medium", or choose "low", "high"
+REASONING_LEVEL="${REASONING_LEVEL:-high}" # default "medium", or choose "low", "high"
 API_URL="${API_URL:-https://gpt-oss-120b-bbq.nvidia-oci.saturnenterprise.io/v1}" # default API URL
 
 # Prompt style: simple, full, or custom

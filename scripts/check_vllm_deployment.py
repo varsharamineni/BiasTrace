@@ -7,13 +7,13 @@ import json
 # -----------------------------
 # CONFIG
 # -----------------------------
-ENDPOINT = "https://gpt-oss-120b-bbq.nvidia-oci.saturnenterprise.io/v1"
+ENDPOINT = "https://gpt-oss-20b-bbq.nvidia-oci.saturnenterprise.io/v1"
 API_KEY = os.environ.get("OPENAI_API_KEY")
 
 if not API_KEY:
     raise ValueError("Please set the OPENAI_API_KEY environment variable with your Saturn token")
 
-MODEL_NAME = "openai/gpt-oss-120b"
+MODEL_NAME = "openai/gpt-oss-20b"
 SYSTEM_PROMPT = "You are a helpful assistant."  # Neutral system prompt
 
 USER_PROMPT = (

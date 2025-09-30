@@ -1,19 +1,19 @@
 #!/bin/bash
 # Test mode for BBQ generation with remote GPT-OSS-20B vLLM deployment
 
-MODEL="openai/gpt-oss-120b"
-OUTPUT_BASE="outputs/gpt-oss-120B_test_client_new"
+MODEL="openai/gpt-oss-20b"
+OUTPUT_BASE="outputs/gpt-oss-20B_test_client_new"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 OUTPUT_DIR="${OUTPUT_BASE}/${TIMESTAMP}"
 LOG_FILE="${OUTPUT_DIR}/run.log"
 BATCH_SIZE=8
 SEED=42
-REASONING_LEVEL="low"
+REASONING_LEVEL="high"
 TEMPERATURE=1.0
 TOP_P=1.0
 MAX_LENGTH=2048
 CATEGORIES="Age"
-API_URL="https://gpt-oss-120b-bbq.nvidia-oci.saturnenterprise.io/v1"  # Replace with your deployment URL
+API_URL="https://gpt-oss-20b-bbq.nvidia-oci.saturnenterprise.io/v1"  # Replace with your deployment URL
 
 mkdir -p $OUTPUT_DIR
 
