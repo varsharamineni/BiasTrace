@@ -64,6 +64,7 @@ def load_results(folders):
                     "correct_answer": r.get("correct_answer"),
                     "is_correct": r.get("is_correct"),
                     "stereotype_aligned": r.get("stereotype_alignment"),
+                    "ambiguous": r.get("ambiguous", False)
                 })
     return traces
 
