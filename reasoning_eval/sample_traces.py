@@ -2,6 +2,7 @@ import json
 import random
 from pathlib import Path
 from collections import defaultdict
+import pandas as pd
 
 # === CONFIG ===
 FOLDERS_TO_USE = [
@@ -125,3 +126,11 @@ if __name__ == "__main__":
         json.dump(sampled, f, indent=2)
 
     print(f"Saved sampled traces to {OUT_PATH}")
+
+
+    # Convert JSON list of dicts to DataFrame
+    df = pd.DataFrame(sampled)
+
+    # Save to CSV
+    df.to_csv("reasoning_eval/data_to_label/sampled_traces_for_labeling.csv", index=False)
+
