@@ -12,8 +12,8 @@ FOLDERS_TO_USE = [
     "outputs/qwen_full_8B_simple_prompt/20250827_163953"
 
 ]
-OUT_PATH = Path("reasoning_eval/data_to_label/sample_traces.json")
-N_PER_MODEL_PROMPT = 25  # number of traces per model × prompt type
+OUT_PATH = Path("reasoning_eval/data_to_label/sample_traces_inital.json")
+N_PER_MODEL_PROMPT = 3  # number of traces per model × prompt type
 random.seed(42)
 
 # === LOAD RESULTS (only _merged.json) ===
@@ -133,5 +133,5 @@ if __name__ == "__main__":
     df = pd.DataFrame(sampled)
 
     # Save to CSV
-    df.to_csv("reasoning_eval/data_to_label/sampled_traces_for_labeling.csv", index=False)
+    df.to_csv("reasoning_eval/data_to_label/sampled_traces_for_labeling_initial.csv", index=False)
 
