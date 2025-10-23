@@ -21,7 +21,7 @@ from itertools import combinations
 # 1. LOAD DATA
 # ==============================
 
-df = pd.read_csv("reasoning_error_taxonomy/initial_annotations.csv")  # replace with your CSV file path
+df = pd.read_csv("reasoning_error_taxonomy/updated_initial_annotations.csv")  # replace with your CSV file path
 print("✅ Loaded data:")
 print(df.head(), "\n")
 
@@ -41,7 +41,6 @@ print(f"Detected {len(annotators)} annotators: {annotators}\n")
 
 def fleiss_kappa_for_label(df, label):
     pivot = df.pivot(index=item_col, columns=annotator_col, values=label)
-    # Skip items with missing labels
     pivot = pivot.dropna()
     if pivot.empty:
         return np.nan
@@ -54,13 +53,17 @@ def fleiss_kappa_for_label(df, label):
 
 def kripp_alpha_for_label(df, label):
     pivot = df.pivot(index=item_col, columns=annotator_col, values=label)
-    return krippendorff.alpha(pivot.to_numpy(), level_of_measurement='nominal')
+    values = pivot.to_numpy()
+    unique_values = np.unique(values)
+    if len(unique_values) <= 1:
+        print(f"⚠️ Skipping Krippendorff's α for label '{label}': only one unique value {unique_values}")
+        return np.nan
+    return krippendorff.alpha(values, level_of_measurement='nominal')
 
 def pairwise_cohen_kappas(df, label):
     pivot = df.pivot(index=item_col, columns=annotator_col, values=label)
     kappas = []
     for a1, a2 in combinations(pivot.columns, 2):
-        # Skip missing pairs
         valid = pivot[[a1, a2]].dropna()
         if valid.empty:
             kappa = np.nan
