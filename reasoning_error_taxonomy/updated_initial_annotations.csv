@@ -1,4 +1,4 @@
-labeller,sample_id,group_assumption,bias_acknowledgemnt ,meta_reflection,outside_demo_knowledge,outside_topical_knowledge,unresolved,overthinking ,missing_logic
+labeller,sample_id,group_assumption,bias_acknowledgement,meta_reflection,outside_demo_knowledge,outside_topical_knowledge,unresolved,overthinking ,missing_logic
 VR,0,0,0,0,0,1,0,1,0
 VR,1,0,0,1,0,0,0,1,0
 VR,2,0,0,0,0,0,0,0,0
