@@ -12,6 +12,7 @@ class vLLMClient:
         self.gpu_memory_utilization = gpu_memory_utilization
 
     def load_vllm(self):
+        
         print(f"INFO:: Loading model: {self.model}")
         llm = LLM(
             model=self.model,
