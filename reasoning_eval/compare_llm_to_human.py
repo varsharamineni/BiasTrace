@@ -10,7 +10,11 @@ Outputs:
 
 import json
 import pandas as pd
-from sklearn.metrics import cohen_kappa_score
+from sklearn.metrics import (
+    cohen_kappa_score,
+    precision_score,
+    recall_score,
+)
 import argparse
 from pathlib import Path
 from tqdm import tqdm
@@ -73,6 +77,8 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
 
     judge_model = metadata.get("judge_model", "")
     judge_prompt = metadata.get("judge_prompt", "")
+    enable_thinking = metadata.get("enable_thinking", False)  
+
 
     llm_df = pd.DataFrame(llm_results)
 
@@ -87,6 +93,7 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
     # Add judge metadata
     llm_df["judge_model"] = judge_model
     llm_df["judge_prompt"] = judge_prompt
+    llm_df["thinking_mode"] = enable_thinking
 
     # Merge with human labels
     merged_df = human_df.merge(llm_df, on="sample_id", suffixes=("_human", "_llm"))
@@ -105,14 +112,33 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
         merged_df[human_col] = pd.to_numeric(merged_df[human_col], errors="coerce")
         merged_df[llm_col] = pd.to_numeric(merged_df[llm_col], errors="coerce")
 
+        # Drop rows with NaN values for this label
+        df_valid = merged_df.dropna(subset=[human_col, llm_col])
+
+        if df_valid.empty:
+            print(f"⚠️ No valid data for {col}")
+            continue
+
+        y_true = df_valid[human_col]
+        y_pred = df_valid[llm_col]
+
+        try:
+            precision = precision_score(y_true, y_pred, zero_division=0)
+            recall = recall_score(y_true, y_pred, zero_division=0)
+        except Exception:
+            precision, recall = None, None
+
         all_metrics.append({
             "judge_model": judge_model,
             "judge_prompt": judge_prompt,
+             "thinking_mode": enable_thinking,
             "error_label": col,
-            "accuracy": (merged_df[human_col] == merged_df[llm_col]).mean(),
-            "cohens_kappa": cohen_kappa_score(merged_df[human_col], merged_df[llm_col]),
-            "pearson": merged_df[[human_col, llm_col]].corr(method="pearson").iloc[0, 1],
-            "spearman": merged_df[[human_col, llm_col]].corr(method="spearman").iloc[0, 1],
+            "accuracy": (y_true == y_pred).mean(),
+            "precision": precision,
+            "recall": recall,
+            "cohens_kappa": cohen_kappa_score(y_true, y_pred, labels=[0,1]),
+            "pearson": df_valid[[human_col, llm_col]].corr(method="pearson").iloc[0, 1],
+            "spearman": df_valid[[human_col, llm_col]].corr(method="spearman").iloc[0, 1],
         })
 
 # ----------------------------
@@ -127,6 +153,11 @@ print(f"✅ Merged CSV saved to {merged_file}")
 # Save long-format metrics CSV
 # ----------------------------
 metrics_long_df = pd.DataFrame(all_metrics)
+
+# Ensure 'thinking_mode' column exists for all rows
+if "thinking_mode" not in metrics_long_df.columns:
+    metrics_long_df["thinking_mode"] = False
+
 metrics_long_file = f"{args.output_prefix}_metrics_long.csv"
 metrics_long_df.to_csv(metrics_long_file, index=False)
 print(f"✅ Metrics CSV (long format) saved to {metrics_long_file}")
@@ -134,8 +165,8 @@ print(f"✅ Metrics CSV (long format) saved to {metrics_long_file}")
 # ----------------------------
 # Leaderboard (mean metrics per model × prompt)
 # ----------------------------
-leaderboard = metrics_long_df.groupby(["judge_model", "judge_prompt"])[
-    ["accuracy", "cohens_kappa", "pearson", "spearman"]
+leaderboard = metrics_long_df.groupby(["judge_model", "judge_prompt", "thinking_mode"])[
+    ["accuracy", "precision", "recall", "cohens_kappa", "pearson", "spearman"]
 ].mean().reset_index()
 
 leaderboard_file = f"{args.output_prefix}_leaderboard.csv"

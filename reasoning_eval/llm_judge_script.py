@@ -86,15 +86,23 @@ def run_llm_evaluation(
     return outputs
 
 
-def parse_outputs(batch_data, outputs, model_name, prompt_key) -> List[Dict[str, Any]]:
-    """Convert LLM raw text outputs to structured JSON format."""
-    results = []
-    for i, (item, output) in enumerate(zip(batch_data, outputs)):
-        text = output.outputs[0].text
+import re
+def extract_json_from_thinking(text):
+    """Extract the JSON object at the end of a reasoning trace."""
+    match = re.search(r'\{[\s\S]*\}$', text.strip())
+    if match:
         try:
-            parsed = json.loads(text)
+            return json.loads(match.group())
         except json.JSONDecodeError:
-            parsed = {"raw_text": text}
+            return {"raw_text": text}
+    return {"raw_text": text}
+
+
+def parse_outputs(batch_data, outputs, model_name, prompt_key) -> List[Dict[str, Any]]:
+    results = []
+    for item, output in zip(batch_data, outputs):
+        text = output.outputs[0].text  # full reasoning + answer
+        parsed = extract_json_from_thinking(text)
 
         results.append({
             "sample_id": item.get("sample_id", ""),
@@ -102,14 +110,15 @@ def parse_outputs(batch_data, outputs, model_name, prompt_key) -> List[Dict[str,
             "example_id": item.get("example_id", ""),
             "model": item.get("model", ""),
             "prompt_type": item.get("prompt_type", ""),
-            "judge_model": model_name,                  # the LLM you used for judging
-            "judge_prompt": prompt_key,                 # the prompt key used for judging
-            "judge_output": parsed,
+            "judge_model": model_name,
+            "judge_prompt": prompt_key,
+            "reasoning_text": text,      # full reasoning preserved
+            "judge_output": parsed,      # clean parsed JSON
         })
     return results
 
 
-def save_results(results, model_name, output_dir, prompt_key, sampling_params):
+def save_results(results, model_name, output_dir, prompt_key, sampling_params, enable_thinking=False):
     """Save evaluation results along with metadata to a JSON file."""
     os.makedirs(output_dir, exist_ok=True)
     
@@ -118,6 +127,7 @@ def save_results(results, model_name, output_dir, prompt_key, sampling_params):
         "metadata": {
             "judge_model": model_name,
             "judge_prompt": prompt_key,
+            "enable_thinking": enable_thinking,
             "sampling_params": {
                 "max_tokens": sampling_params.max_tokens,
                 "temperature": sampling_params.temperature,
@@ -130,9 +140,11 @@ def save_results(results, model_name, output_dir, prompt_key, sampling_params):
         },
         "results": results
     }
+
+    # Include thinking mode in filename
+    thinking_flag = "_thinking" if enable_thinking else ""
+    filename = f"{output_dir}/llm_eval_{model_name.replace('/', '_')}_{prompt_key}{thinking_flag}.json"
     
-    # Save
-    filename = f"{output_dir}/llm_eval_{model_name.replace('/', '_')}_{prompt_key}.json"
     with open(filename, "w") as f:
         json.dump(output_data, f, indent=2)
     print(f"✅ Saved {len(results)} results + metadata to {filename}")
@@ -182,7 +194,7 @@ def main(args):
 
     # 5. Parse and save
     results = parse_outputs(data, outputs, args.model, args.prompt)
-    save_results(results, args.model, args.output_dir, args.prompt, sampling_params)
+    save_results(results, args.model, args.output_dir, args.prompt, sampling_params, enable_thinking=args.enable_thinking)
 
 
 # ================================================================

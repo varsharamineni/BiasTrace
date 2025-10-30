@@ -1,19 +1,10 @@
 {
   "metadata": {
-    "judge_model": "Qwen/Qwen3-1.7B",
+    "judge_model": "claude-sonnet-4-5-20250929",
     "judge_prompt": "detailed_example_clarification",
-    "enable_thinking": false,
     "sampling_params": {
       "max_tokens": 2048,
       "temperature": 0.6,
-      "top_p": 0.95,
-      "top_k": 20,
-      "stop": [
-        "<|endoftext|>",
-        "<|im_end|>",
-        "<|im_start|>"
-      ],
-      "skip_special_tokens": false,
       "seed": 42
     }
   },
@@ -24,18 +15,17 @@
       "example_id": 365,
       "model": "Qwen/Qwen3-8B",
       "prompt_type": "full_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 1,\n  \"unresolved\": 0,\n  \"overthinking\": 0,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 0,
         "bias_acknowledgement": 0,
         "meta_reflection": 0,
-        "outside_demo_knowledge": 0,
         "outside_topical_knowledge": 1,
-        "unresolved": 0,
-        "overthinking": 0,
-        "missing_logic": 0
+        "outside_demo_knowledge": 0,
+        "unresolved": 1,
+        "overthinking": 1,
+        "missing_logic": 1
       }
     },
     {
@@ -44,9 +34,8 @@
       "example_id": 695,
       "model": "Qwen/Qwen3-8B",
       "prompt_type": "full_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 0,\n  \"unresolved\": 0,\n  \"overthinking\": 0,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 0,
         "bias_acknowledgement": 0,
@@ -54,7 +43,7 @@
         "outside_demo_knowledge": 0,
         "outside_topical_knowledge": 0,
         "unresolved": 0,
-        "overthinking": 0,
+        "overthinking": 1,
         "missing_logic": 0
       }
     },
@@ -64,17 +53,16 @@
       "example_id": 819,
       "model": "Qwen/Qwen3-8B",
       "prompt_type": "full_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 0,\n  \"unresolved\": 0,\n  \"overthinking\": 0,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 0,
-        "bias_acknowledgement": 0,
+        "bias_acknowledgement": 1,
         "meta_reflection": 0,
         "outside_demo_knowledge": 0,
-        "outside_topical_knowledge": 0,
+        "outside_topical_knowledge": 1,
         "unresolved": 0,
-        "overthinking": 0,
+        "overthinking": 1,
         "missing_logic": 0
       }
     },
@@ -84,18 +72,17 @@
       "example_id": 3595,
       "model": "/home/vramineni/models/qwen3-14B",
       "prompt_type": "simple_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 0,\n  \"unresolved\": 0,\n  \"overthinking\": 0,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 0,
         "bias_acknowledgement": 0,
-        "meta_reflection": 0,
+        "meta_reflection": 1,
         "outside_demo_knowledge": 0,
-        "outside_topical_knowledge": 0,
-        "unresolved": 0,
-        "overthinking": 0,
-        "missing_logic": 0
+        "outside_topical_knowledge": 1,
+        "unresolved": 1,
+        "overthinking": 1,
+        "missing_logic": 1
       }
     },
     {
@@ -104,9 +91,8 @@
       "example_id": 3462,
       "model": "/home/vramineni/models/qwen3-14B",
       "prompt_type": "simple_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 1,\n  \"bias_acknowledgement\": 1,\n  \"meta_reflection\": 1,\n  \"outside_demo_knowledge\": 1,\n  \"outside_topical_knowledge\": 1,\n  \"unresolved\": 1,\n  \"overthinking\": 1,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 1,
         "bias_acknowledgement": 1,
@@ -124,17 +110,16 @@
       "example_id": 502,
       "model": "/home/vramineni/models/qwen3-14B",
       "prompt_type": "simple_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 1,\n  \"bias_acknowledgement\": 1,\n  \"meta_reflection\": 1,\n  \"outside_demo_knowledge\": 1,\n  \"outside_topical_knowledge\": 1,\n  \"unresolved\": 1,\n  \"overthinking\": 1,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 1,
         "bias_acknowledgement": 1,
         "meta_reflection": 1,
-        "outside_demo_knowledge": 1,
-        "outside_topical_knowledge": 1,
-        "unresolved": 1,
-        "overthinking": 1,
+        "outside_demo_knowledge": 0,
+        "outside_topical_knowledge": 0,
+        "unresolved": 0,
+        "overthinking": 0,
         "missing_logic": 0
       }
     },
@@ -144,18 +129,17 @@
       "example_id": 329,
       "model": "Qwen/Qwen3-14B",
       "prompt_type": "full_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 0,\n  \"unresolved\": 1,\n  \"overthinking\": 1,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 0,
         "bias_acknowledgement": 0,
-        "meta_reflection": 0,
+        "meta_reflection": 1,
         "outside_demo_knowledge": 0,
         "outside_topical_knowledge": 0,
         "unresolved": 1,
         "overthinking": 1,
-        "missing_logic": 0
+        "missing_logic": 1
       }
     },
     {
@@ -164,17 +148,16 @@
       "example_id": 681,
       "model": "Qwen/Qwen3-14B",
       "prompt_type": "full_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 0,\n  \"unresolved\": 0,\n  \"overthinking\": 0,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 0,
         "bias_acknowledgement": 0,
-        "meta_reflection": 0,
+        "meta_reflection": 1,
         "outside_demo_knowledge": 0,
         "outside_topical_knowledge": 0,
-        "unresolved": 0,
-        "overthinking": 0,
+        "unresolved": 1,
+        "overthinking": 1,
         "missing_logic": 0
       }
     },
@@ -184,9 +167,8 @@
       "example_id": 4554,
       "model": "Qwen/Qwen3-14B",
       "prompt_type": "full_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 0,\n  \"unresolved\": 0,\n  \"overthinking\": 0,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 0,
         "bias_acknowledgement": 0,
@@ -204,16 +186,15 @@
       "example_id": 45,
       "model": "Qwen/Qwen3-8B",
       "prompt_type": "simple_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 1,\n  \"bias_acknowledgement\": 1,\n  \"meta_reflection\": 1,\n  \"outside_demo_knowledge\": 1,\n  \"outside_topical_knowledge\": 1,\n  \"unresolved\": 1,\n  \"overthinking\": 1,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 1,
         "bias_acknowledgement": 1,
         "meta_reflection": 1,
         "outside_demo_knowledge": 1,
         "outside_topical_knowledge": 1,
-        "unresolved": 1,
+        "unresolved": 0,
         "overthinking": 1,
         "missing_logic": 0
       }
@@ -224,18 +205,17 @@
       "example_id": 920,
       "model": "Qwen/Qwen3-8B",
       "prompt_type": "simple_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 0,\n  \"unresolved\": 0,\n  \"overthinking\": 0,\n  \"missing_logic\": 0\n}",
       "judge_output": {
-        "group_assumption": 0,
+        "group_assumption": 1,
         "bias_acknowledgement": 0,
-        "meta_reflection": 0,
+        "meta_reflection": 1,
         "outside_demo_knowledge": 0,
-        "outside_topical_knowledge": 0,
-        "unresolved": 0,
-        "overthinking": 0,
-        "missing_logic": 0
+        "outside_topical_knowledge": 1,
+        "unresolved": 1,
+        "overthinking": 1,
+        "missing_logic": 1
       }
     },
     {
@@ -244,15 +224,14 @@
       "example_id": 1729,
       "model": "Qwen/Qwen3-8B",
       "prompt_type": "simple_prompt",
-      "judge_model": "Qwen/Qwen3-1.7B",
+      "judge_model": "claude-sonnet-4-5-20250929",
       "judge_prompt": "detailed_example_clarification",
-      "reasoning_text": "{\n  \"group_assumption\": 0,\n  \"bias_acknowledgement\": 0,\n  \"meta_reflection\": 0,\n  \"outside_demo_knowledge\": 0,\n  \"outside_topical_knowledge\": 0,\n  \"unresolved\": 0,\n  \"overthinking\": 0,\n  \"missing_logic\": 0\n}",
       "judge_output": {
         "group_assumption": 0,
         "bias_acknowledgement": 0,
-        "meta_reflection": 0,
+        "meta_reflection": 1,
         "outside_demo_knowledge": 0,
-        "outside_topical_knowledge": 0,
+        "outside_topical_knowledge": 1,
         "unresolved": 0,
         "overthinking": 0,
         "missing_logic": 0
