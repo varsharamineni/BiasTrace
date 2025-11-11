@@ -100,6 +100,7 @@ outlines_core==0.2.10
 packaging==25.0
 pandas==2.3.1
 partial-json-parser==0.2.1.1.post6
+patsy==1.0.2
 peft==0.16.0
 pillow==11.3.0
 preshed==3.0.10
@@ -138,6 +139,7 @@ rpds-py==0.27.0
 safetensors==0.5.3
 scikit-learn==1.7.0
 scipy==1.16.0
+seaborn==0.13.2
 sentence-transformers==5.0.0
 sentencepiece==0.2.1
 sentry-sdk==2.35.0
@@ -153,7 +155,9 @@ spacy-legacy==3.0.12
 spacy-loggers==1.0.5
 srsly==2.5.1
 starlette==0.47.2
+statsmodels==0.14.5
 sympy==1.14.0
+tabulate==0.9.0
 thinc==8.3.6
 threadpoolctl==3.6.0
 tiktoken==0.11.0

@@ -100,7 +100,9 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
     merged_df["source_file"] = llm_file.name
     all_merged_rows.append(merged_df)
 
+    # ----------------------------
     # Compute metrics per error/label column (long format)
+    # ----------------------------
     for col in label_cols:
         human_col = col + "_human"
         llm_col = col + "_llm"
@@ -114,7 +116,6 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
 
         # Drop rows with NaN values for this label
         df_valid = merged_df.dropna(subset=[human_col, llm_col])
-
         if df_valid.empty:
             print(f"⚠️ No valid data for {col}")
             continue
@@ -122,23 +123,31 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
         y_true = df_valid[human_col]
         y_pred = df_valid[llm_col]
 
+        # Compute metrics safely
         try:
             precision = precision_score(y_true, y_pred, zero_division=0)
             recall = recall_score(y_true, y_pred, zero_division=0)
+            kappa = cohen_kappa_score(y_true, y_pred, labels=[0,1])
+            pearson = df_valid[[human_col, llm_col]].corr(method="pearson").iloc[0, 1]
+            spearman = df_valid[[human_col, llm_col]].corr(method="spearman").iloc[0, 1]
         except Exception:
-            precision, recall = None, None
+            precision = recall = kappa = pearson = spearman = None
+
+        # **Compute class prevalence**
+        class_prevalence = y_true.mean()  # fraction of positives in human labels
 
         all_metrics.append({
             "judge_model": judge_model,
             "judge_prompt": judge_prompt,
-             "thinking_mode": enable_thinking,
+            "thinking_mode": enable_thinking,
             "error_label": col,
             "accuracy": (y_true == y_pred).mean(),
             "precision": precision,
             "recall": recall,
-            "cohens_kappa": cohen_kappa_score(y_true, y_pred, labels=[0,1]),
-            "pearson": df_valid[[human_col, llm_col]].corr(method="pearson").iloc[0, 1],
-            "spearman": df_valid[[human_col, llm_col]].corr(method="spearman").iloc[0, 1],
+            "cohens_kappa": kappa,
+            "pearson": pearson,
+            "spearman": spearman,
+            "human_positive_ratio": class_prevalence  # new column
         })
 
 # ----------------------------
