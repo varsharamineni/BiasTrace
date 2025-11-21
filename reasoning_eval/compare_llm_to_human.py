@@ -14,10 +14,12 @@ from sklearn.metrics import (
     cohen_kappa_score,
     precision_score,
     recall_score,
+    accuracy_score
 )
 import argparse
 from pathlib import Path
 from tqdm import tqdm
+import numpy as np
 
 # ----------------------------
 # CLI arguments
@@ -125,8 +127,9 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
 
         # Compute metrics safely
         try:
-            precision = precision_score(y_true, y_pred, zero_division=0)
-            recall = recall_score(y_true, y_pred, zero_division=0)
+            accuracy = accuracy_score(y_true, y_pred)
+            precision = precision_score(y_true, y_pred, zero_division=np.nan)
+            recall = recall_score(y_true, y_pred, zero_division=np.nan)
             kappa = cohen_kappa_score(y_true, y_pred, labels=[0,1])
             pearson = df_valid[[human_col, llm_col]].corr(method="pearson").iloc[0, 1]
             spearman = df_valid[[human_col, llm_col]].corr(method="spearman").iloc[0, 1]
@@ -141,7 +144,7 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
             "judge_prompt": judge_prompt,
             "thinking_mode": enable_thinking,
             "error_label": col,
-            "accuracy": (y_true == y_pred).mean(),
+            "accuracy": accuracy,
             "precision": precision,
             "recall": recall,
             "cohens_kappa": kappa,
@@ -175,7 +178,7 @@ print(f"✅ Metrics CSV (long format) saved to {metrics_long_file}")
 # Leaderboard (mean metrics per model × prompt)
 # ----------------------------
 leaderboard = metrics_long_df.groupby(["judge_model", "judge_prompt", "thinking_mode"])[
-    ["accuracy", "precision", "recall", "cohens_kappa", "pearson", "spearman"]
+    ["accuracy", "precision", "recall", "cohens_kappa"]
 ].mean().reset_index()
 
 leaderboard_file = f"{args.output_prefix}_leaderboard.csv"
@@ -184,4 +187,4 @@ print(f"✅ Leaderboard CSV saved to {leaderboard_file}")
 
 # Display top models by mean accuracy
 print("\n🏆 Leaderboard (top by mean accuracy) 🏆")
-print(leaderboard.sort_values("accuracy", ascending=False).head(10))
+print(leaderboard.sort_values("accuracy", ascending=False).head(500))
