@@ -1,2 +1,2 @@
-judge_model,judge_prompt,thinking_mode,accuracy,precision,recall,cohens_kappa,pearson,spearman
-openai/gpt-oss-120b,multi_prompt_eval,False,0.6375,0.48525398212898213,0.7217261904761905,0.26293160428147366,0.29010658098961795,0.29010658098961795
+judge_model,judge_prompt,thinking_mode,accuracy,precision,recall,cohens_kappa
+openai/gpt-oss-120b,multi_prompt_eval,False,0.5875,0.39905129592629596,0.7829861111111112,0.18348102374879846
