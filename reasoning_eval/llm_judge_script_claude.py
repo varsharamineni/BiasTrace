@@ -81,26 +81,43 @@ def run_claude_evaluation(
 import re
 
 def parse_outputs(batch_data, outputs, model_name, prompt_key):
-    """Convert Claude outputs to structured JSON format, handling code fences."""
+    """
+    Extract:
+      - full reasoning text
+      - last JSON block as the metric result
+    Returns separate:
+      judge_output (metric→0/1)
+      judge_explanations (metric→free text)
+    """
     results = []
-    code_fence_pattern = re.compile(r"```(?:json)?\n(.*?)```", re.DOTALL)
 
-    for i, (item, output) in enumerate(zip(batch_data, outputs)):
+    # Regex: capture last {...} JSON block
+    json_block_pattern = re.compile(r"\{[\s\S]*?\}", re.MULTILINE)
+
+    for item, output in zip(batch_data, outputs):
+
         if not output:
-            parsed = {"raw_text": None}
+            reasoning_text = None
+            metric_value = None
         else:
-            text = output.content[0].text  # Claude output text
+            text = output.content[0].text.strip()
+            reasoning_text = text   # store entire raw reasoning
 
-            # Strip code fences if present
-            match = code_fence_pattern.search(text)
-            if match:
-                text = match.group(1).strip()
+            # Extract final JSON block
+            matches = json_block_pattern.findall(text)
+            if matches:
+                last_block = matches[-1]
+                try:
+                    parsed_json = json.loads(last_block)
+                    # {"group_assumption": 0} → extract value
+                    metric_value = list(parsed_json.values())[0]
+                except Exception:
+                    metric_value = None
+            else:
+                metric_value = None
 
-            # Try to parse as JSON
-            try:
-                parsed = json.loads(text)
-            except json.JSONDecodeError:
-                parsed = {"raw_text": text}
+        # Metric name is prompt_key but starting with "judge_"
+        metric_name = prompt_key.replace("judge_", "")
 
         results.append({
             "sample_id": item.get("sample_id", ""),
@@ -110,12 +127,22 @@ def parse_outputs(batch_data, outputs, model_name, prompt_key):
             "prompt_type": item.get("prompt_type", ""),
             "judge_model": model_name,
             "judge_prompt": prompt_key,
-            "judge_output": parsed,
+
+            # ONLY store the extracted 0/1 metric here
+            "judge_output": {
+                metric_name: metric_value
+            },
+
+            # store the chain-of-thought here, separate from the numbers
+            "judge_explanations": {
+                metric_name: reasoning_text
+            }
         })
+
     return results
 
 
-def save_results(results, model_name, output_dir, prompt_key, params):
+def save_results(results, model_name, output_dir, prompt_key, params, extra_metadata=None):
     """Save evaluation results + metadata."""
     os.makedirs(output_dir, exist_ok=True)
     output_data = {
@@ -127,6 +154,10 @@ def save_results(results, model_name, output_dir, prompt_key, params):
         "results": results
     }
 
+    # Merge extra metadata if provided
+    if extra_metadata:
+        output_data["metadata"].update(extra_metadata)
+
     filename = f"{output_dir}/llm_eval_{model_name.replace('/', '_')}_{prompt_key}.json"
     with open(filename, "w") as f:
         json.dump(output_data, f, indent=2)
@@ -134,10 +165,80 @@ def save_results(results, model_name, output_dir, prompt_key, params):
     return filename
 
 
+
+# ================================================================
+# Multi-prompt mode
+# ================================================================
+def run_multi_prompt_evaluation(args):
+    """Run separate Claude evaluations for each metric-specific prompt and merge results."""
+    metric_prompts = {
+        "group_assumption": "judge_group_assumption",
+        "bias_acknowledgement": "judge_bias_acknowledgement",
+        "meta_reflection": "judge_meta_reflection",
+        "outside_demo_knowledge": "judge_outside_demo_knowledge",
+        "outside_topical_knowledge": "judge_outside_topical_knowledge",
+        "unresolved": "judge_unresolved",
+        "overthinking": "judge_overthinking",
+        "missing_logic": "judge_missing_logic",
+    }
+
+    data = load_reasoning_data(args.data_path)
+    if args.max_samples:
+        data = data[:args.max_samples]
+
+    pm = PromptManager(args.prompts)
+    combined_results = {
+        item["sample_id"]: {
+            "sample_id": item["sample_id"],
+            "category": item.get("bbq_category", ""),
+            "example_id": item.get("example_id", ""),
+            "model": item.get("model", ""),
+            "prompt_type": item.get("prompt_type", ""),
+            "judge_model": args.model,
+            "judge_output": {}
+        } for item in data
+    }
+
+    for metric_name, prompt_key in metric_prompts.items():
+        print(f"\n🧩 Evaluating metric: {metric_name} using prompt: {prompt_key}")
+        messages_batch = build_batch_messages(data, pm, prompt_key)
+        outputs = run_claude_evaluation(
+            model_name=args.model,
+            messages_batch=messages_batch,
+            temperature=args.temperature,
+            max_tokens=2048,
+            seed=args.seed,
+        )
+
+        parsed = parse_outputs(data, outputs, args.model, prompt_key)
+        for item in parsed:
+            sid = item["sample_id"]
+            # numeric metric
+            combined_results[sid]["judge_output"][metric_name] = \
+                item["judge_output"].get(metric_name)
+
+            # explanation text
+            if "judge_explanations" not in combined_results[sid]:
+                combined_results[sid]["judge_explanations"] = {}
+
+            combined_results[sid]["judge_explanations"][metric_name] = \
+                item.get("judge_explanations", {}).get(metric_name)
+
+    results = list(combined_results.values())
+    params = {"max_tokens": 2048, "temperature": args.temperature, "seed": args.seed}
+    extra_metadata = {"judge_prompts_used": metric_prompts}
+    save_results(results, args.model, args.output_dir, "multi_prompt_eval", params, extra_metadata)
+
 # ================================================================
 # Main
 # ================================================================
 def main(args):
+    if args.multi_prompt:
+        print("🔄 Running in multi-prompt mode...")
+        run_multi_prompt_evaluation(args)
+        return
+
+
     data = load_reasoning_data(args.data_path)
 
     if args.max_samples:
@@ -176,6 +277,8 @@ if __name__ == "__main__":
     parser.add_argument("--max_samples", type=int, default=None)
     parser.add_argument("--temperature", type=float, default=0.6)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--multi_prompt", action="store_true", help="Run in multi-prompt mode.")
+
     args = parser.parse_args()
 
     main(args)
