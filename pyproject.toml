@@ -1,3 +1,14 @@
+[project]
+name = "bias-reasoning-llm"
+version = "0.1.0"
+description = "Bias and reasoning evaluation for LLMs"
+authors = [
+    {name = "Varsha Ramineni", email = "varsharaminen@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = []
+
 [tool.poetry]
 name = "bias-reasoning-llm"
 version = "0.1.0"

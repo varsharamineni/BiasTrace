@@ -1,0 +1,27 @@
+# Minimal requirements for running tests on macOS (or any system without GPU)
+# Use this for local development/testing
+# For production on Linux GPU server, use requirements.txt
+
+# Core dependencies for the script
+tqdm>=4.67.1
+dspy-ai>=2.5.0
+
+# JSON and data handling (already in stdlib but listing for clarity)
+# json, os, argparse are stdlib
+
+# Test dependencies
+pytest>=7.0.0
+
+# Optional linting tools
+ruff>=0.1.0
+black>=23.0.0
+mypy>=1.0.0
+types-tqdm
+
+# Note: This excludes GPU dependencies like:
+# - bitsandbytes (GPU quantization - Linux only)
+# - vllm (model inference - requires GPU)
+# - torch (large, CUDA support - not needed for tests)
+# 
+# On Linux GPU server, use: uv pip install -r requirements.txt
+
