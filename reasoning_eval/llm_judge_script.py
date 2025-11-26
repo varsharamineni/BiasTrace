@@ -4,7 +4,17 @@ import argparse
 from typing import List, Dict, Any
 from tqdm import tqdm
 import dspy
-from dspy import LM
+from lm_config import (
+    create_lm,
+    DEFAULT_MODEL,
+    DEFAULT_API_BASE,
+    DEFAULT_API_KEY,
+    DEFAULT_CUSTOM_LLM_PROVIDER,
+    DEFAULT_TIMEOUT,
+    DEFAULT_MAX_RETRIES,
+    DEFAULT_TEMPERATURE,
+    DEFAULT_MAX_TOKENS,
+)
 
 
 # ================================================================
@@ -163,16 +173,18 @@ def main(args):
     print(f"📄 Loading optimized prompt from: {args.prompt_path}")
     OptimizedSignature = load_optimized_signature(args.prompt_path)
 
-    # 3. Configure DSPy with vLLM backend
+    # 3. Configure DSPy with LM backend (from lm_config.py)
     print(f"🚀 Configuring DSPy with model: {args.model}")
     
-    lm = LM(
+    lm = create_lm(
         model=args.model,
+        api_base=args.api_base,
+        api_key=args.api_key,
+        custom_llm_provider=args.custom_llm_provider,
+        timeout=args.timeout,
+        max_retries=args.max_retries,
         temperature=args.temperature,
-        top_p=args.top_p,
-        max_tokens=2048,
-        seed=args.seed,
-        # Additional vLLM-specific params can be passed here
+        max_tokens=args.max_tokens,
     )
     
     dspy.configure(lm=lm)
@@ -193,7 +205,8 @@ def main(args):
         args.temperature,
         args.top_p,
         args.top_k,
-        args.seed
+        args.seed,
+        max_tokens=args.max_tokens
     )
 
 
@@ -202,16 +215,29 @@ def main(args):
 # ================================================================
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate reasoning traces using DSPy ChainOfThought.")
-    parser.add_argument("--model", type=str, required=True, help="Path or name of model to use (e.g., Qwen/Qwen3-4B).")
+    
+    # Model and data arguments
+    parser.add_argument("--model", type=str, default=DEFAULT_MODEL, help=f"Model name/path (default: {DEFAULT_MODEL})")
     parser.add_argument("--prompt_path", type=str, required=True, help="Path to DSPy optimized prompt JSON file.")
     parser.add_argument("--data_path", type=str, default="reasoning_eval/data_to_label/sample_traces_inital.json")
     parser.add_argument("--output_dir", type=str, default="reasoning_eval/llm_judge_samples/")
     parser.add_argument("--device", type=str, default="0", help="CUDA device (e.g., '0' or '0,1')")
     parser.add_argument("--max_samples", type=int, default=None, help="Limit number of samples for quick runs.")
-    parser.add_argument("--temperature", type=float, default=0.6)
+    
+    # API configuration (defaults from lm_config.py)
+    parser.add_argument("--api_base", type=str, default=DEFAULT_API_BASE, help=f"API base URL (default: {DEFAULT_API_BASE})")
+    parser.add_argument("--api_key", type=str, default=DEFAULT_API_KEY, help=f"API key (default: {DEFAULT_API_KEY})")
+    parser.add_argument("--custom_llm_provider", type=str, default=DEFAULT_CUSTOM_LLM_PROVIDER, help=f"Custom LLM provider (default: {DEFAULT_CUSTOM_LLM_PROVIDER})")
+    parser.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT, help=f"Timeout per request in seconds (default: {DEFAULT_TIMEOUT}s)")
+    parser.add_argument("--max_retries", type=int, default=DEFAULT_MAX_RETRIES, help=f"Max retries for failed requests (default: {DEFAULT_MAX_RETRIES})")
+    
+    # Sampling parameters
+    parser.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE, help=f"Sampling temperature (default: {DEFAULT_TEMPERATURE})")
+    parser.add_argument("--max_tokens", type=int, default=DEFAULT_MAX_TOKENS, help=f"Max tokens to generate (default: {DEFAULT_MAX_TOKENS})")
     parser.add_argument("--top_p", type=float, default=0.95)
     parser.add_argument("--top_k", type=int, default=20)
     parser.add_argument("--seed", type=int, default=42)
+    
     args = parser.parse_args()
 
     main(args)

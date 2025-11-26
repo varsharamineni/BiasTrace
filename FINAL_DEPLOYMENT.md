@@ -104,35 +104,57 @@ chmod +x setup_server.sh
 .venv/bin/python tests/test_dry_run.py
 ```
 
-### 4. Run Small Test (5 samples)
-```bash
-.venv/bin/python reasoning_eval/llm_judge_script.py \
-  --model "Qwen/Qwen3-4B" \
-  --prompt_path "tests/judge_optimized_prompt.json" \
-  --data_path "reasoning_eval/data_to_label/sample_traces_inital.json" \
-  --output_dir "reasoning_eval/llm_judge_samples/" \
-  --device "0" \
-  --max_samples 5 \
-  --temperature 0.6 \
-  --seed 42
+### 4. Configure LM Settings
+
+Edit `reasoning_eval/lm_config.py` to match your setup:
+
+```python
+# Model configuration
+DEFAULT_MODEL = "nvidia/Llama-3_3-Nemotron-Super-49B-v1_5"
+
+# API configuration (adjust to your vLLM server)
+DEFAULT_API_BASE = "http://localhost:8000/v1"
+DEFAULT_API_KEY = "dummy"
 ```
 
-### 5. Run Full Dataset
+See `reasoning_eval/LM_CONFIG_README.md` for detailed configuration guide.
+
+### 5. Run Small Test (5 samples)
+
+**Simple (uses defaults from lm_config.py):**
 ```bash
-# Remove --max_samples to run on all data
-.venv/bin/python reasoning_eval/llm_judge_script.py \
-  --model "Qwen/Qwen3-4B" \
-  --prompt_path "tests/judge_optimized_prompt.json" \
-  --data_path "reasoning_eval/data_to_label/sample_traces_inital.json" \
-  --output_dir "reasoning_eval/llm_judge_samples/" \
-  --device "0" \
-  --temperature 0.6 \
-  --top_p 0.95 \
-  --top_k 20 \
-  --seed 42
+chmod +x run_judge_example.sh
+./run_judge_example.sh
 ```
 
-### 6. Check Results
+**Or run directly:**
+```bash
+.venv/bin/python reasoning_eval/llm_judge_script.py \
+  --prompt_path "tests/judge_optimized_prompt.json" \
+  --data_path "reasoning_eval/data_to_label/sample_traces_inital.json" \
+  --max_samples 5
+```
+
+**With custom settings (override defaults):**
+```bash
+.venv/bin/python reasoning_eval/llm_judge_script.py \
+  --prompt_path "tests/judge_optimized_prompt.json" \
+  --data_path "reasoning_eval/data_to_label/sample_traces_inital.json" \
+  --model "different-model" \
+  --api_base "http://localhost:8001/v1" \
+  --max_samples 5
+```
+
+### 6. Run Full Dataset
+
+```bash
+# Remove --max_samples to run on all data (uses settings from lm_config.py)
+.venv/bin/python reasoning_eval/llm_judge_script.py \
+  --prompt_path "tests/judge_optimized_prompt.json" \
+  --data_path "reasoning_eval/data_to_label/sample_traces_inital.json"
+```
+
+### 7. Check Results
 ```bash
 # List output files
 ls -lh reasoning_eval/llm_judge_samples/
@@ -201,15 +223,38 @@ nvidia-smi
 .venv/bin/python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}')"
 ```
 
+## 🔧 Configuration with lm_config.py
+
+All LM settings are now centralized in `reasoning_eval/lm_config.py`:
+
+```python
+# Edit these defaults to match your setup
+DEFAULT_MODEL = "nvidia/Llama-3_3-Nemotron-Super-49B-v1_5"
+DEFAULT_API_BASE = "http://localhost:8000/v1"
+DEFAULT_API_KEY = "dummy"
+DEFAULT_TIMEOUT = 600.0
+DEFAULT_MAX_RETRIES = 3
+DEFAULT_TEMPERATURE = 0.7
+```
+
+**Benefits:**
+- ✅ **Set once, use everywhere** - No need to specify API settings every time
+- ✅ **Easy to maintain** - One file to update
+- ✅ **Can still override** - Use CLI args when needed
+- ✅ **Version controlled** - Team shares same defaults
+
+See `reasoning_eval/LM_CONFIG_README.md` for full documentation.
+
 ## 📊 Quick Reference Card
 
 | Task | Command |
 |------|---------|
 | **macOS: Run tests** | `make dry-run` |
-| **macOS: Verify prompt** | `.venv/bin/python -c "from reasoning_eval.llm_judge_script import load_optimized_signature; load_optimized_signature('tests/judge_optimized_prompt.json')"` |
 | **Server: Setup** | `./setup_server.sh` |
-| **Server: Test small** | `.venv/bin/python reasoning_eval/llm_judge_script.py --model "..." --prompt_path "tests/judge_optimized_prompt.json" --max_samples 5` |
-| **Server: Run full** | Same as above, remove `--max_samples` |
+| **Server: Configure** | Edit `reasoning_eval/lm_config.py` |
+| **Server: Test (5 samples)** | `./run_judge_example.sh` |
+| **Server: Run full** | `.venv/bin/python reasoning_eval/llm_judge_script.py --prompt_path "tests/judge_optimized_prompt.json"` |
+| **Override settings** | Add `--model "..." --temperature 0.5` etc. to any command |
 
 ## ✨ Key Features
 
