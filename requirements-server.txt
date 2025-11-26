@@ -1,0 +1,27 @@
+# Server requirements (flexible for ARM64 and x86_64)
+# Use this on Linux GPU servers
+
+# Core dependencies for the script
+tqdm>=4.67.1
+dspy-ai>=2.5.0
+
+# Data handling
+numpy>=2.2.0
+pandas>=2.3.1
+
+# PyTorch (will install appropriate version for your platform)
+torch>=2.7.1
+transformers>=4.53.2
+
+# vLLM for inference (will skip triton on ARM64)
+vllm>=0.10.0
+
+# GPU utilities (skip if not available)
+accelerate>=1.8.1
+
+# Optional: Skip bitsandbytes on ARM64, install on x86_64
+# bitsandbytes>=0.46.1  # Uncomment if on x86_64
+
+# Note: triton is a PyTorch dependency, but not required on ARM64
+# If installation fails, you can still run inference without it
+
