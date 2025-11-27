@@ -16,7 +16,6 @@ from lm_config import (
     DEFAULT_TEMPERATURE,
     DEFAULT_MAX_TOKENS,
 )
-from prompt_manager import PromptManager
 
 
 # ================================================================
@@ -324,8 +323,8 @@ def run_multi_prompt_evaluation(args):
     if args.max_samples:
         data = data[:args.max_samples]
     
-    # Load prompt manager
-    pm = PromptManager(args.prompts)
+    # Determine prompts directory
+    prompts_dir = args.prompts if os.path.isdir(args.prompts) else os.path.dirname(args.prompts)
     
     # Initialize combined results
     combined_results = {
@@ -346,39 +345,26 @@ def run_multi_prompt_evaluation(args):
     for metric_name, prompt_key in metric_prompts.items():
         print(f"\n🧩 Evaluating metric: {metric_name} via {prompt_key}")
         
-        # Build prompts for this metric
-        batch_prompts = []
-        for item in data:
-            prompt_text = pm.get_prompt(
-                prompt_key,
-                reasoning_trace=item.get("model_reasoning", ""),
-                final_answer=item.get("model_answer", ""),
-                category=item.get("bbq_category", ""),
-                context=item.get("context", ""),
-                question=item.get("question", ""),
-                answer_options=item.get("answer_options", []),
-                sample_id=item.get("sample_id", ""),
-                example_id=item.get("example_id", ""),
-                model=item.get("model", ""),
-                prompt_type=item.get("prompt_type", "")
-            )
-            batch_prompts.append(prompt_text)
+        # Check that prompt file exists
+        prompt_file = os.path.join(prompts_dir, f"{prompt_key}.txt")
+        if not os.path.exists(prompt_file):
+            print(f"⚠️  Warning: Prompt file not found: {prompt_file}, skipping {metric_name}")
+            continue
         
         # Create simple signature for single metric
+        # Note: DSPy will handle the actual prompting based on the signature
         MetricSignature = create_single_metric_signature(
             metric_name,
-            pm.prompts.get(prompt_key, "")
+            f"Evaluate {metric_name} in the model's reasoning"
         )
         
         # Run evaluation with DSPy
         judge_module = dspy.ChainOfThought(MetricSignature)
         
         # Process each sample
-        for idx, (item, prompt_text) in enumerate(tqdm(zip(data, batch_prompts), 
-                                                       total=len(data),
-                                                       desc=f"  {metric_name}")):
+        for item in tqdm(data, desc=f"  {metric_name}"):
             try:
-                # Run DSPy prediction with the full prompt as context
+                # Run DSPy prediction
                 result = judge_module(
                     context=item.get("context", ""),
                     question=item.get("question", ""),
@@ -529,8 +515,8 @@ if __name__ == "__main__":
     parser.add_argument("--mode", type=str, choices=["single_prompt", "multi_prompt"], default="single_prompt",
                         help="Evaluation mode: single_prompt (optimized) or multi_prompt (8 separate prompts)")
     parser.add_argument("--prompt_path", type=str, help="Path to DSPy optimized prompt JSON file (for single_prompt mode)")
-    parser.add_argument("--prompts", type=str, default="reasoning_eval/prompts.json", 
-                        help="Path to prompts JSON file (for multi_prompt mode)")
+    parser.add_argument("--prompts", type=str, default="reasoning_eval/judge_prompts", 
+                        help="Path to prompts directory with .txt files (for multi_prompt mode)")
     parser.add_argument("--data_path", type=str, default="reasoning_eval/data_to_label/sample_traces_inital.json")
     parser.add_argument("--output_dir", type=str, default="reasoning_eval/llm_judge_samples/")
     parser.add_argument("--device", type=str, default="0", help="CUDA device (e.g., '0' or '0,1')")
@@ -556,8 +542,5 @@ if __name__ == "__main__":
     # Validate arguments based on mode
     if args.mode == "single_prompt" and not args.prompt_path:
         parser.error("--prompt_path is required when using single_prompt mode")
-    
-    if args.mode == "multi_prompt" and not args.prompts:
-        parser.error("--prompts is required when using multi_prompt mode")
 
     main(args)
