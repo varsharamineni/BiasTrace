@@ -1,6 +1,7 @@
 import os
 import json
 import argparse
+import re
 from typing import List, Dict, Any
 from tqdm import tqdm
 import dspy
@@ -15,6 +16,7 @@ from lm_config import (
     DEFAULT_TEMPERATURE,
     DEFAULT_MAX_TOKENS,
 )
+from prompt_manager import PromptManager
 
 
 # ================================================================
@@ -73,9 +75,32 @@ def load_optimized_signature(prompt_path: str):
     return OptimizedReasoningJudge
 
 
+def create_single_metric_signature(metric_name: str, metric_desc: str):
+    """Create a simple DSPy signature for a single metric evaluation."""
+    
+    class SingleMetricJudge(dspy.Signature):
+        """Evaluate a specific aspect of model reasoning."""
+        
+        # Input fields
+        context: str = dspy.InputField()
+        question: str = dspy.InputField()
+        answer_options: str = dspy.InputField()
+        model_reasoning: str = dspy.InputField()
+        
+        # Output fields
+        reasoning: str = dspy.OutputField(desc="Explanation for the judgment")
+        judgment: str = dspy.OutputField(desc="Binary judgment (0 or 1)")
+    
+    # Set custom docstring with metric description
+    SingleMetricJudge.__doc__ = f"Evaluate {metric_name}: {metric_desc}"
+    
+    return SingleMetricJudge
+
+
 def run_dspy_evaluation(
     batch_data: List[Dict[str, Any]],
     judge_module: dspy.Module,
+    debug: bool = False
 ) -> List[Any]:
     """Run DSPy evaluation for a batch of samples."""
     print(f"💬 Running DSPy inference on {len(batch_data)} samples...")
@@ -83,7 +108,7 @@ def run_dspy_evaluation(
     
     for idx, item in enumerate(tqdm(batch_data)):
         # DEBUG: Print first sample input
-        if idx == 0:
+        if debug and idx == 0:
             print("\n🔍 DEBUG: First sample input:")
             print(f"  - context: {item.get('context', '')[:100]}...")
             print(f"  - question: {item.get('question', '')}")
@@ -98,7 +123,7 @@ def run_dspy_evaluation(
         )
         
         # DEBUG: Print first sample result
-        if idx == 0:
+        if debug and idx == 0:
             print(f"\n🔍 DEBUG: First sample raw result: {result}")
         
         results.append(result)
@@ -124,8 +149,6 @@ def parse_text_output(text: str) -> Dict[str, Any]:
     Fallback parser: Extract structured fields from model text output.
     Handles cases where DSPy doesn't properly parse the response.
     """
-    import re
-    
     result = {
         "reasoning": "",
         "group_assumption": 0,
@@ -280,23 +303,127 @@ def save_results(results, model_name, output_dir, temperature, top_p, top_k, see
 
 
 # ================================================================
+# Multi-prompt Mode
+# ================================================================
+def run_multi_prompt_evaluation(args):
+    """Run evaluation with separate prompts for each metric."""
+    
+    metric_prompts = {
+        "group_assumption": "judge_group_assumption",
+        "bias_acknowledgement": "judge_bias_acknowledgement",
+        "meta_reflection": "judge_meta_reflection",
+        "outside_demo_knowledge": "judge_outside_demo_knowledge",
+        "outside_topical_knowledge": "judge_outside_topical_knowledge",
+        "unresolved": "judge_unresolved",
+        "overthinking": "judge_overthinking",
+        "missing_logic": "judge_missing_logic",
+    }
+    
+    # Load data
+    data = load_reasoning_data(args.data_path)
+    if args.max_samples:
+        data = data[:args.max_samples]
+    
+    # Load prompt manager
+    pm = PromptManager(args.prompts)
+    
+    # Initialize combined results
+    combined_results = {
+        item["sample_id"]: {
+            "sample_id": item["sample_id"],
+            "category": item.get("bbq_category", ""),
+            "example_id": item.get("example_id", ""),
+            "model": item.get("model", ""),
+            "prompt_type": item.get("prompt_type", ""),
+            "judge_model": args.model,
+            "judge_prompt": "multi_prompt_eval",
+            "judge_output": {},
+            "judge_explanations": {}
+        } for item in data
+    }
+    
+    # Evaluate each metric separately
+    for metric_name, prompt_key in metric_prompts.items():
+        print(f"\n🧩 Evaluating metric: {metric_name} via {prompt_key}")
+        
+        # Build prompts for this metric
+        batch_prompts = []
+        for item in data:
+            prompt_text = pm.get_prompt(
+                prompt_key,
+                reasoning_trace=item.get("model_reasoning", ""),
+                final_answer=item.get("model_answer", ""),
+                category=item.get("bbq_category", ""),
+                context=item.get("context", ""),
+                question=item.get("question", ""),
+                answer_options=item.get("answer_options", []),
+                sample_id=item.get("sample_id", ""),
+                example_id=item.get("example_id", ""),
+                model=item.get("model", ""),
+                prompt_type=item.get("prompt_type", "")
+            )
+            batch_prompts.append(prompt_text)
+        
+        # Create simple signature for single metric
+        MetricSignature = create_single_metric_signature(
+            metric_name,
+            pm.prompts.get(prompt_key, "")
+        )
+        
+        # Run evaluation with DSPy
+        judge_module = dspy.ChainOfThought(MetricSignature)
+        
+        # Process each sample
+        for idx, (item, prompt_text) in enumerate(tqdm(zip(data, batch_prompts), 
+                                                       total=len(data),
+                                                       desc=f"  {metric_name}")):
+            try:
+                # Run DSPy prediction with the full prompt as context
+                result = judge_module(
+                    context=item.get("context", ""),
+                    question=item.get("question", ""),
+                    answer_options=str(item.get("answer_options", [])),
+                    model_reasoning=item.get("model_reasoning", "")
+                )
+                
+                # Extract judgment
+                judgment_text = getattr(result, "judgment", "0")
+                reasoning_text = getattr(result, "reasoning", "")
+                
+                # Parse judgment value
+                judgment_value = parse_binary_value(judgment_text)
+                
+            except Exception as e:
+                print(f"⚠️ Error on sample {item['sample_id']}: {e}")
+                judgment_value = None
+                reasoning_text = None
+            
+            # Store result
+            sid = item["sample_id"]
+            combined_results[sid]["judge_output"][metric_name] = judgment_value
+            combined_results[sid]["judge_explanations"][metric_name] = reasoning_text
+    
+    # Convert to list and save
+    results = list(combined_results.values())
+    save_results(
+        results,
+        args.model,
+        args.output_dir,
+        args.temperature,
+        args.top_p,
+        args.top_k,
+        args.seed,
+        max_tokens=args.max_tokens
+    )
+
+
+# ================================================================
 # Main script logic
 # ================================================================
 def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = args.device
 
-    # 1. Load data
-    data = load_reasoning_data(args.data_path)
-
-    # Optional: subset for debugging
-    if args.max_samples:
-        data = data[:args.max_samples]
-
-    # 2. Load optimized DSPy signature
-    print(f"📄 Loading optimized prompt from: {args.prompt_path}")
-    OptimizedSignature = load_optimized_signature(args.prompt_path)
-
-    # 3. Configure DSPy with LM backend (from lm_config.py)
+    # Configure DSPy with LM backend
     print(f"🚀 Configuring DSPy with model: {args.model}")
     
     lm = create_lm(
@@ -312,15 +439,47 @@ def main(args):
     
     dspy.configure(lm=lm)
 
-    # 4. Initialize DSPy ChainOfThought module with optimized signature
+    # Check mode
+    if args.mode == "multi_prompt":
+        print("📋 Running in MULTI-PROMPT mode (8 separate evaluations per sample)")
+        run_multi_prompt_evaluation(args)
+        return
+
+    # Single optimized prompt mode
+    print("📋 Running in SINGLE-PROMPT mode (optimized DSPy signature)")
+    
+    # 1. Load data
+    data = load_reasoning_data(args.data_path)
+
+    # Optional: subset for debugging
+    if args.max_samples:
+        data = data[:args.max_samples]
+
+    # 2. Load optimized DSPy signature
+    print(f"📄 Loading optimized prompt from: {args.prompt_path}")
+    OptimizedSignature = load_optimized_signature(args.prompt_path)
+
+    # 3. Initialize DSPy ChainOfThought module with optimized signature
     print("🧠 Initializing DSPy ChainOfThought module with optimized signature...")
     judge_module = dspy.ChainOfThought(OptimizedSignature)
 
-    # 5. Run DSPy evaluation
-    outputs = run_dspy_evaluation(data, judge_module)
+    # 4. Run DSPy evaluation
+    outputs = run_dspy_evaluation(data, judge_module, debug=args.debug)
+    # 5. Parse and save
+    results = parse_dspy_outputs(data, outputs, args.model)
+    save_results(
+        results, 
+        args.model, 
+        args.output_dir, 
+        args.temperature,
+        args.top_p,
+        args.top_k,
+        args.seed,
+        max_tokens=args.max_tokens
+    )
     
-    # DEBUG: Inspect DSPy history for first sample
-    if len(outputs) > 0 and hasattr(dspy.settings, 'lm') and hasattr(dspy.settings.lm, 'history'):
+    # DEBUG: Inspect DSPy history for first sample (only if debug enabled)
+    if args.debug and len(outputs) > 0 and hasattr(dspy.settings, 'lm') and hasattr(dspy.settings.lm, 'history'):
         print("\n🔍 DEBUG: Checking DSPy LM history...")
         history = dspy.settings.lm.history
         if history:
@@ -358,19 +517,6 @@ def main(args):
                     if 'outputs' in first_call:
                         print(f"\n🔍 DEBUG: First outputs: {first_call['outputs'][:500]}...")
 
-    # 6. Parse and save
-    results = parse_dspy_outputs(data, outputs, args.model)
-    save_results(
-        results, 
-        args.model, 
-        args.output_dir, 
-        args.temperature,
-        args.top_p,
-        args.top_k,
-        args.seed,
-        max_tokens=args.max_tokens
-    )
-
 
 # ================================================================
 # CLI Entry Point
@@ -380,11 +526,16 @@ if __name__ == "__main__":
     
     # Model and data arguments
     parser.add_argument("--model", type=str, default=DEFAULT_MODEL, help=f"Model name/path (default: {DEFAULT_MODEL})")
-    parser.add_argument("--prompt_path", type=str, required=True, help="Path to DSPy optimized prompt JSON file.")
+    parser.add_argument("--mode", type=str, choices=["single_prompt", "multi_prompt"], default="single_prompt",
+                        help="Evaluation mode: single_prompt (optimized) or multi_prompt (8 separate prompts)")
+    parser.add_argument("--prompt_path", type=str, help="Path to DSPy optimized prompt JSON file (for single_prompt mode)")
+    parser.add_argument("--prompts", type=str, default="reasoning_eval/prompts.json", 
+                        help="Path to prompts JSON file (for multi_prompt mode)")
     parser.add_argument("--data_path", type=str, default="reasoning_eval/data_to_label/sample_traces_inital.json")
     parser.add_argument("--output_dir", type=str, default="reasoning_eval/llm_judge_samples/")
     parser.add_argument("--device", type=str, default="0", help="CUDA device (e.g., '0' or '0,1')")
     parser.add_argument("--max_samples", type=int, default=None, help="Limit number of samples for quick runs.")
+    parser.add_argument("--debug", action="store_true", help="Enable debug output")
     
     # API configuration (defaults from lm_config.py)
     parser.add_argument("--api_base", type=str, default=DEFAULT_API_BASE, help=f"API base URL (default: {DEFAULT_API_BASE})")
@@ -401,5 +552,12 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=42)
     
     args = parser.parse_args()
+    
+    # Validate arguments based on mode
+    if args.mode == "single_prompt" and not args.prompt_path:
+        parser.error("--prompt_path is required when using single_prompt mode")
+    
+    if args.mode == "multi_prompt" and not args.prompts:
+        parser.error("--prompts is required when using multi_prompt mode")
 
     main(args)
