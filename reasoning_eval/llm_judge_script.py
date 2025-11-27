@@ -41,30 +41,34 @@ def load_optimized_signature(prompt_path: str):
     instructions = signature_data["instructions"]
     fields = signature_data["fields"]
     
-    # Build DSPy signature dynamically
-    class OptimizedReasoningJudge(dspy.Signature):
-        pass
+    print(f"\n🔍 DEBUG: Loading signature with {len(fields)} fields")
+    print(f"🔍 DEBUG: Instructions length: {len(instructions)} chars")
     
-    # Set instructions as docstring
+    # Build DSPy signature dynamically using proper annotation syntax
+    class OptimizedReasoningJudge(dspy.Signature):
+        """Evaluate model reasoning quality based on specific criteria."""
+        
+        # Input fields
+        context: str = dspy.InputField()
+        question: str = dspy.InputField()
+        answer_options: str = dspy.InputField()
+        model_reasoning: str = dspy.InputField()
+        
+        # Output fields  
+        reasoning: str = dspy.OutputField()
+        group_assumption: str = dspy.OutputField()
+        bias_acknowledgement: str = dspy.OutputField()
+        meta_reflection: str = dspy.OutputField()
+        outside_demo_knowledge: str = dspy.OutputField()
+        outside_topical_knowledge: str = dspy.OutputField()
+        unresolved: str = dspy.OutputField()
+        overthinking: str = dspy.OutputField()
+        missing_logic: str = dspy.OutputField()
+    
+    # Override the docstring with the detailed instructions
     OptimizedReasoningJudge.__doc__ = instructions
     
-    # Manually set the input/output fields on the class
-    # Input fields - just use prefix, not the ${} template descriptions
-    OptimizedReasoningJudge.context = dspy.InputField(prefix=fields[0].get("prefix", "Context:"))
-    OptimizedReasoningJudge.question = dspy.InputField(prefix=fields[1].get("prefix", "Question:"))
-    OptimizedReasoningJudge.answer_options = dspy.InputField(prefix=fields[2].get("prefix", "Answer Options:"))
-    OptimizedReasoningJudge.model_reasoning = dspy.InputField(prefix=fields[3].get("prefix", "Model Reasoning:"))
-    
-    # Output fields
-    OptimizedReasoningJudge.reasoning = dspy.OutputField(prefix=fields[4].get("prefix", "Reasoning:"))
-    OptimizedReasoningJudge.group_assumption = dspy.OutputField(prefix=fields[5].get("prefix", "Group Assumption:"))
-    OptimizedReasoningJudge.bias_acknowledgement = dspy.OutputField(prefix=fields[6].get("prefix", "Bias Acknowledgement:"))
-    OptimizedReasoningJudge.meta_reflection = dspy.OutputField(prefix=fields[7].get("prefix", "Meta Reflection:"))
-    OptimizedReasoningJudge.outside_demo_knowledge = dspy.OutputField(prefix=fields[8].get("prefix", "Outside Demo Knowledge:"))
-    OptimizedReasoningJudge.outside_topical_knowledge = dspy.OutputField(prefix=fields[9].get("prefix", "Outside Topical Knowledge:"))
-    OptimizedReasoningJudge.unresolved = dspy.OutputField(prefix=fields[10].get("prefix", "Unresolved:"))
-    OptimizedReasoningJudge.overthinking = dspy.OutputField(prefix=fields[11].get("prefix", "Overthinking:"))
-    OptimizedReasoningJudge.missing_logic = dspy.OutputField(prefix=fields[12].get("prefix", "Missing Logic:"))
+    print(f"✅ Signature created with {len([f for f in dir(OptimizedReasoningJudge) if not f.startswith('_')])} attributes")
     
     return OptimizedReasoningJudge
 
@@ -328,16 +332,27 @@ def main(args):
                     # Show the actual prompt sent to the model
                     if 'prompt' in first_call:
                         prompt_text = first_call['prompt']
-                        print("\n🔍 DEBUG: ACTUAL PROMPT SENT TO MODEL:")
-                        print("="*80)
-                        print(prompt_text[:1500] if len(prompt_text) > 1500 else prompt_text)
-                        print("="*80)
+                        if prompt_text:
+                            print("\n🔍 DEBUG: ACTUAL PROMPT SENT TO MODEL:")
+                            print("="*80)
+                            print(prompt_text[:1500] if len(prompt_text) > 1500 else prompt_text)
+                            print("="*80)
+                        else:
+                            print("\n🔍 DEBUG: Prompt field exists but is None")
                     if 'messages' in first_call:
                         messages = first_call['messages']
                         print("\n🔍 DEBUG: MESSAGES FORMAT:")
                         print(f"Number of messages: {len(messages) if isinstance(messages, list) else 'N/A'}")
                         if isinstance(messages, list) and len(messages) > 0:
-                            print(f"First message preview: {str(messages[0])[:500]}...")
+                            print("\n🔍 DEBUG: FULL FIRST MESSAGE:")
+                            print("="*80)
+                            for msg in messages:
+                                if isinstance(msg, dict):
+                                    role = msg.get('role', 'unknown')
+                                    content = msg.get('content', '')
+                                    print(f"\n[{role.upper()}]:")
+                                    print(content[:2000] if len(content) > 2000 else content)
+                            print("="*80)
                     if 'response' in first_call:
                         print(f"\n🔍 DEBUG: First response preview: {str(first_call['response'])[:300]}...")
                     if 'outputs' in first_call:
