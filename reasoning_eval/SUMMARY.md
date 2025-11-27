@@ -61,19 +61,32 @@ Added three improvements:
 - Three proposed solutions with pros/cons
 - Recommended next steps
 
-## Next Steps: Test the Fixed Script
+## Latest Fix (After Your Test Run)
 
-Run with debug output to see if the fallback parser works:
+### New Issue Discovered
+Your test showed that **DSPy wasn't including input values in the prompt**! The model said:
+> "The provided input lacks the necessary components"
+
+But the inputs WERE being passed - DSPy just wasn't formatting them into the prompt correctly.
+
+### Fix Applied
+1. **Rewrote `load_optimized_signature()`** to properly use DSPy field `prefix` parameters
+2. **Added detailed prompt debugging** to show exactly what's sent to the model
+3. **Enhanced DSPy history inspection** to diagnose formatting issues
+
+## Next Steps: Test the New Fix
 
 ```bash
 uv run reasoning_eval/llm_judge_script.py \
   --model nvidia/Llama-3_3-Nemotron-Super-49B-v1_5 \
-  --prompt_path tests/judge_optimized_prompt.json \
+  --prompt_path ../dspy_judge/optimized_reasoning_analyzer.json \
   --data_path reasoning_eval/data_to_label/sample_traces_inital.json \
-  --max_samples 3 \
+  --max_samples 2 \
   --temperature 0.7 \
   --seed 42
 ```
+
+**Look for**: The "ACTUAL PROMPT SENT TO MODEL" section should now show the context, question, and reasoning values!
 
 ### What to Look For
 

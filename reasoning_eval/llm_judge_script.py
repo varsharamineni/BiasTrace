@@ -45,34 +45,26 @@ def load_optimized_signature(prompt_path: str):
     class OptimizedReasoningJudge(dspy.Signature):
         pass
     
-    # Set instructions
+    # Set instructions as docstring
     OptimizedReasoningJudge.__doc__ = instructions
     
-    # Add input fields (first 4 fields are inputs based on the format)
-    input_fields = {
-        "context": dspy.InputField(desc=fields[0]["description"]),
-        "question": dspy.InputField(desc=fields[1]["description"]),
-        "answer_options": dspy.InputField(desc=fields[2]["description"]),
-        "model_reasoning": dspy.InputField(desc=fields[3]["description"]),
-    }
+    # Manually set the input/output fields on the class
+    # Input fields - just use prefix, not the ${} template descriptions
+    OptimizedReasoningJudge.context = dspy.InputField(prefix=fields[0].get("prefix", "Context:"))
+    OptimizedReasoningJudge.question = dspy.InputField(prefix=fields[1].get("prefix", "Question:"))
+    OptimizedReasoningJudge.answer_options = dspy.InputField(prefix=fields[2].get("prefix", "Answer Options:"))
+    OptimizedReasoningJudge.model_reasoning = dspy.InputField(prefix=fields[3].get("prefix", "Model Reasoning:"))
     
-    # Add output fields (remaining fields are outputs)
-    output_fields = {
-        "reasoning": dspy.OutputField(desc=fields[4]["description"], prefix=fields[4]["prefix"]),
-        "group_assumption": dspy.OutputField(desc=fields[5]["description"], prefix=fields[5]["prefix"]),
-        "bias_acknowledgement": dspy.OutputField(desc=fields[6]["description"], prefix=fields[6]["prefix"]),
-        "meta_reflection": dspy.OutputField(desc=fields[7]["description"], prefix=fields[7]["prefix"]),
-        "outside_demo_knowledge": dspy.OutputField(desc=fields[8]["description"], prefix=fields[8]["prefix"]),
-        "outside_topical_knowledge": dspy.OutputField(desc=fields[9]["description"], prefix=fields[9]["prefix"]),
-        "unresolved": dspy.OutputField(desc=fields[10]["description"], prefix=fields[10]["prefix"]),
-        "overthinking": dspy.OutputField(desc=fields[11]["description"], prefix=fields[11]["prefix"]),
-        "missing_logic": dspy.OutputField(desc=fields[12]["description"], prefix=fields[12]["prefix"]),
-    }
-    
-    # Merge all fields
-    all_fields = {**input_fields, **output_fields}
-    for field_name, field_obj in all_fields.items():
-        setattr(OptimizedReasoningJudge, field_name, field_obj)
+    # Output fields
+    OptimizedReasoningJudge.reasoning = dspy.OutputField(prefix=fields[4].get("prefix", "Reasoning:"))
+    OptimizedReasoningJudge.group_assumption = dspy.OutputField(prefix=fields[5].get("prefix", "Group Assumption:"))
+    OptimizedReasoningJudge.bias_acknowledgement = dspy.OutputField(prefix=fields[6].get("prefix", "Bias Acknowledgement:"))
+    OptimizedReasoningJudge.meta_reflection = dspy.OutputField(prefix=fields[7].get("prefix", "Meta Reflection:"))
+    OptimizedReasoningJudge.outside_demo_knowledge = dspy.OutputField(prefix=fields[8].get("prefix", "Outside Demo Knowledge:"))
+    OptimizedReasoningJudge.outside_topical_knowledge = dspy.OutputField(prefix=fields[9].get("prefix", "Outside Topical Knowledge:"))
+    OptimizedReasoningJudge.unresolved = dspy.OutputField(prefix=fields[10].get("prefix", "Unresolved:"))
+    OptimizedReasoningJudge.overthinking = dspy.OutputField(prefix=fields[11].get("prefix", "Overthinking:"))
+    OptimizedReasoningJudge.missing_logic = dspy.OutputField(prefix=fields[12].get("prefix", "Missing Logic:"))
     
     return OptimizedReasoningJudge
 
@@ -333,10 +325,23 @@ def main(args):
                 first_call = history[0]
                 print(f"🔍 DEBUG: First history entry keys: {first_call.keys() if isinstance(first_call, dict) else 'N/A'}")
                 if isinstance(first_call, dict):
+                    # Show the actual prompt sent to the model
+                    if 'prompt' in first_call:
+                        prompt_text = first_call['prompt']
+                        print("\n🔍 DEBUG: ACTUAL PROMPT SENT TO MODEL:")
+                        print("="*80)
+                        print(prompt_text[:1500] if len(prompt_text) > 1500 else prompt_text)
+                        print("="*80)
+                    if 'messages' in first_call:
+                        messages = first_call['messages']
+                        print("\n🔍 DEBUG: MESSAGES FORMAT:")
+                        print(f"Number of messages: {len(messages) if isinstance(messages, list) else 'N/A'}")
+                        if isinstance(messages, list) and len(messages) > 0:
+                            print(f"First message preview: {str(messages[0])[:500]}...")
                     if 'response' in first_call:
-                        print(f"🔍 DEBUG: First response preview: {str(first_call['response'])[:300]}...")
+                        print(f"\n🔍 DEBUG: First response preview: {str(first_call['response'])[:300]}...")
                     if 'outputs' in first_call:
-                        print(f"🔍 DEBUG: First outputs: {first_call['outputs']}")
+                        print(f"\n🔍 DEBUG: First outputs: {first_call['outputs'][:500]}...")
 
     # 6. Parse and save
     results = parse_dspy_outputs(data, outputs, args.model)
