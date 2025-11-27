@@ -7,3 +7,9 @@ version = "0.1.0"
 description = "Bias and reasoning evaluation for LLMs"
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
+dependencies = [
+    "dspy>=3.0.4",
+    "pandas>=2.3.3",
+    "scikit-learn>=1.7.2",
+    "tqdm>=4.67.1",
+]
