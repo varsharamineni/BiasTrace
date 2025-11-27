@@ -85,34 +85,161 @@ def run_dspy_evaluation(
     print(f"💬 Running DSPy inference on {len(batch_data)} samples...")
     results = []
     
-    for item in tqdm(batch_data):
+    for idx, item in enumerate(tqdm(batch_data)):
+        # DEBUG: Print first sample input
+        if idx == 0:
+            print("\n🔍 DEBUG: First sample input:")
+            print(f"  - context: {item.get('context', '')[:100]}...")
+            print(f"  - question: {item.get('question', '')}")
+            print(f"  - answer_options: {item.get('answer_options', [])}")
+            print(f"  - model_reasoning: {item.get('model_reasoning', '')[:100]}...")
+        
         result = judge_module(
             context=item.get("context", ""),
             question=item.get("question", ""),
             answer_options=str(item.get("answer_options", [])),
             model_reasoning=item.get("model_reasoning", ""),
         )
+        
+        # DEBUG: Print first sample result
+        if idx == 0:
+            print(f"\n🔍 DEBUG: First sample raw result: {result}")
+        
         results.append(result)
     
     return results
 
 
+def parse_binary_value(value) -> int:
+    """Parse a binary value that might be int, str, or missing."""
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str):
+        value = value.strip().lower()
+        if value in ['1', 'yes', 'true']:
+            return 1
+        elif value in ['0', 'no', 'false']:
+            return 0
+    return 0  # Default to 0 if unclear
+
+
+def parse_text_output(text: str) -> Dict[str, Any]:
+    """
+    Fallback parser: Extract structured fields from model text output.
+    Handles cases where DSPy doesn't properly parse the response.
+    """
+    import re
+    
+    result = {
+        "reasoning": "",
+        "group_assumption": 0,
+        "bias_acknowledgement": 0,
+        "meta_reflection": 0,
+        "outside_demo_knowledge": 0,
+        "outside_topical_knowledge": 0,
+        "unresolved": 0,
+        "overthinking": 0,
+        "missing_logic": 0,
+    }
+    
+    # Extract reasoning (everything before the first binary field)
+    reasoning_patterns = [
+        r"Reasoning:\s*(.+?)(?=\n(?:Group Assumption|Bias Acknowledgement|Meta Reflection):|$)",
+        r"reasoning:\s*(.+?)(?=\n(?:group_assumption|bias_acknowledgement|meta_reflection):|$)",
+    ]
+    
+    for pattern in reasoning_patterns:
+        reasoning_match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
+        if reasoning_match:
+            result["reasoning"] = reasoning_match.group(1).strip()
+            break
+    
+    # If no reasoning found, use the whole text
+    if not result["reasoning"]:
+        result["reasoning"] = text
+    
+    # Extract binary fields
+    field_patterns = {
+        "group_assumption": r"Group Assumption:\s*([01])",
+        "bias_acknowledgement": r"Bias Acknowledgement:\s*([01])",
+        "meta_reflection": r"Meta Reflection:\s*([01])",
+        "outside_demo_knowledge": r"Outside Demo Knowledge:\s*([01])",
+        "outside_topical_knowledge": r"Outside Topical Knowledge:\s*([01])",
+        "unresolved": r"Unresolved:\s*([01])",
+        "overthinking": r"Overthinking:\s*([01])",
+        "missing_logic": r"Missing Logic:\s*([01])",
+    }
+    
+    for field, pattern in field_patterns.items():
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            result[field] = int(match.group(1))
+    
+    return result
+
+
 def parse_dspy_outputs(batch_data, outputs, model_name) -> List[Dict[str, Any]]:
     """Parse DSPy outputs and combine with original data."""
     results = []
-    for item, output in zip(batch_data, outputs):
-        # Extract all output fields from the optimized signature
+    for idx, (item, output) in enumerate(zip(batch_data, outputs)):
+        # DEBUG: Print what DSPy actually returned
+        if idx == 0:  # Only print first sample to avoid spam
+            print(f"\n🔍 DEBUG: DSPy output object type: {type(output)}")
+            print(f"🔍 DEBUG: DSPy output attributes: {[attr for attr in dir(output) if not attr.startswith('_')]}")
+            if hasattr(output, 'reasoning'):
+                print(f"🔍 DEBUG: reasoning value: {output.reasoning[:100]}...")
+            if hasattr(output, 'group_assumption'):
+                print(f"🔍 DEBUG: group_assumption value: {output.group_assumption}")
+            if hasattr(output, 'completions'):
+                print(f"🔍 DEBUG: completions: {output.completions}")
+        
+        # Try to extract fields - handle both attribute access and potential text parsing
+        reasoning = getattr(output, "reasoning", "")
+        
+        # Extract binary fields
         judge_output = {
-            "reasoning": getattr(output, "reasoning", ""),
-            "group_assumption": int(getattr(output, "group_assumption", 0)),
-            "bias_acknowledgement": int(getattr(output, "bias_acknowledgement", 0)),
-            "meta_reflection": int(getattr(output, "meta_reflection", 0)),
-            "outside_demo_knowledge": int(getattr(output, "outside_demo_knowledge", 0)),
-            "outside_topical_knowledge": int(getattr(output, "outside_topical_knowledge", 0)),
-            "unresolved": int(getattr(output, "unresolved", 0)),
-            "overthinking": int(getattr(output, "overthinking", 0)),
-            "missing_logic": int(getattr(output, "missing_logic", 0)),
+            "reasoning": reasoning,
+            "group_assumption": parse_binary_value(getattr(output, "group_assumption", 0)),
+            "bias_acknowledgement": parse_binary_value(getattr(output, "bias_acknowledgement", 0)),
+            "meta_reflection": parse_binary_value(getattr(output, "meta_reflection", 0)),
+            "outside_demo_knowledge": parse_binary_value(getattr(output, "outside_demo_knowledge", 0)),
+            "outside_topical_knowledge": parse_binary_value(getattr(output, "outside_topical_knowledge", 0)),
+            "unresolved": parse_binary_value(getattr(output, "unresolved", 0)),
+            "overthinking": parse_binary_value(getattr(output, "overthinking", 0)),
+            "missing_logic": parse_binary_value(getattr(output, "missing_logic", 0)),
         }
+        
+        # Check if all values are 0 (indicating parsing failure) - try fallback parsing
+        all_zero = all(judge_output[k] == 0 for k in judge_output if k != "reasoning")
+        
+        if all_zero:
+            # Try to get raw text from completions attribute
+            raw_text = None
+            if hasattr(output, 'completions') and output.completions:
+                if isinstance(output.completions, list) and len(output.completions) > 0:
+                    raw_text = str(output.completions[0])
+                else:
+                    raw_text = str(output.completions)
+            
+            # If no completions, try converting whole output to string
+            if not raw_text and hasattr(output, '__str__'):
+                raw_text = str(output)
+            
+            if raw_text:
+                if idx == 0:
+                    print("\n⚠️  WARNING: All binary flags are 0 for first sample!")
+                    print("📝 Attempting fallback text parsing...")
+                    print(f"Raw text preview: {raw_text[:300]}...")
+                
+                # Use fallback text parser
+                parsed = parse_text_output(raw_text)
+                judge_output.update(parsed)
+                
+                if idx == 0:
+                    print("✅ Fallback parsing result:")
+                    for k, v in parsed.items():
+                        if k != "reasoning":
+                            print(f"  {k}: {v}")
 
         results.append({
             "sample_id": item.get("sample_id", ""),
@@ -195,6 +322,21 @@ def main(args):
 
     # 5. Run DSPy evaluation
     outputs = run_dspy_evaluation(data, judge_module)
+    
+    # DEBUG: Inspect DSPy history for first sample
+    if len(outputs) > 0 and hasattr(dspy.settings, 'lm') and hasattr(dspy.settings.lm, 'history'):
+        print("\n🔍 DEBUG: Checking DSPy LM history...")
+        history = dspy.settings.lm.history
+        if history:
+            print(f"🔍 DEBUG: History length: {len(history)}")
+            if len(history) > 0:
+                first_call = history[0]
+                print(f"🔍 DEBUG: First history entry keys: {first_call.keys() if isinstance(first_call, dict) else 'N/A'}")
+                if isinstance(first_call, dict):
+                    if 'response' in first_call:
+                        print(f"🔍 DEBUG: First response preview: {str(first_call['response'])[:300]}...")
+                    if 'outputs' in first_call:
+                        print(f"🔍 DEBUG: First outputs: {first_call['outputs']}")
 
     # 6. Parse and save
     results = parse_dspy_outputs(data, outputs, args.model)
