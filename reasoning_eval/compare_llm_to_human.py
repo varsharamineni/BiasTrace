@@ -14,7 +14,8 @@ from sklearn.metrics import (
     cohen_kappa_score,
     precision_score,
     recall_score,
-    accuracy_score
+    accuracy_score,
+    f1_score
 )
 import argparse
 from pathlib import Path
@@ -131,6 +132,7 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
             precision = precision_score(y_true, y_pred, zero_division=np.nan)
             recall = recall_score(y_true, y_pred, zero_division=np.nan)
             kappa = cohen_kappa_score(y_true, y_pred, labels=[0,1])
+            f1 = f1_score(y_true, y_pred, zero_division=np.nan)
             pearson = df_valid[[human_col, llm_col]].corr(method="pearson").iloc[0, 1]
             spearman = df_valid[[human_col, llm_col]].corr(method="spearman").iloc[0, 1]
         except Exception:
@@ -147,6 +149,7 @@ for llm_file in tqdm(list(Path(args.llm_folder).glob("*.json")), desc="Processin
             "accuracy": accuracy,
             "precision": precision,
             "recall": recall,
+            "f1_score": f1,
             "cohens_kappa": kappa,
             "pearson": pearson,
             "spearman": spearman,
@@ -178,7 +181,7 @@ print(f"✅ Metrics CSV (long format) saved to {metrics_long_file}")
 # Leaderboard (mean metrics per model × prompt)
 # ----------------------------
 leaderboard = metrics_long_df.groupby(["judge_model", "judge_prompt", "thinking_mode"])[
-    ["accuracy", "precision", "recall", "cohens_kappa"]
+    ["accuracy", "precision", "recall", "f1_score", "cohens_kappa"]
 ].mean().reset_index()
 
 leaderboard_file = f"{args.output_prefix}_leaderboard.csv"
@@ -187,4 +190,4 @@ print(f"✅ Leaderboard CSV saved to {leaderboard_file}")
 
 # Display top models by mean accuracy
 print("\n🏆 Leaderboard (top by mean accuracy) 🏆")
-print(leaderboard.sort_values("accuracy", ascending=False).head(500))
+print(leaderboard.sort_values("cohens_kappa", ascending=False).head(500))
