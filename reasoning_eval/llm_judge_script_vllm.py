@@ -54,7 +54,8 @@ def run_vllm_evaluation(
     temperature: float = 0.6,
     max_tokens: int = 2048,
     seed: int = 42,
-    reasoning_level: str = "medium"
+    reasoning_level: str = "medium",
+    top_p: float = 1.0 
 ):
     """
     Calls the OpenAI Responses API with reasoning enabled.
@@ -76,7 +77,8 @@ def run_vllm_evaluation(
                 input=messages,
                 max_output_tokens=max_tokens,
                 temperature=temperature,
-                reasoning={"effort": reasoning_level},  # <-- reasoning enabled
+                reasoning={"effort": reasoning_level},
+                top_p=top_p  
             )
             outputs.append(response)
             continue
@@ -90,6 +92,7 @@ def run_vllm_evaluation(
                 messages=messages,
                 max_tokens=max_tokens,
                 temperature=temperature,
+                top_p=top_p
             )
             outputs.append(response)
         except Exception as e:
@@ -242,6 +245,7 @@ def run_multi_prompt_evaluation(args):
             max_tokens=2048,
             seed=args.seed,
             reasoning_level=args.reasoning_level,
+            top_p=args.top_p
         )
 
         parsed = parse_outputs(data, outputs, args.model, prompt_key, args.reasoning_level)
@@ -258,7 +262,8 @@ def run_multi_prompt_evaluation(args):
         "max_tokens": 2048,
         "temperature": args.temperature,
         "seed": args.seed,
-        "reasoning_level": args.reasoning_level
+        "reasoning_level": args.reasoning_level,
+        "top_p": args.top_p
     }
     save_results(results, args.model, args.output_dir, "multi_prompt_eval", params)
 
@@ -319,6 +324,13 @@ if __name__ == "__main__":
         default="medium",
         help="Set reasoning effort level (step-by-step thinking)"
     )
+    parser.add_argument(
+    "--top_p",
+    type=float,
+    default=1.0,
+    help="Top-p (nucleus) sampling parameter for the model"
+)
+
     args = parser.parse_args()
 
     main(args)

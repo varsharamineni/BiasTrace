@@ -1,0 +1,2 @@
+judge_model,judge_prompt,thinking_mode,accuracy,precision,recall,f1_score,cohens_kappa
+meta-llama/Meta-Llama-3-70B-Instruct,detailed_example_clarification_opt_think,False,0.7122093023255814,0.6608946608946609,0.5444984243697479,0.49912243128280004,0.30411048696577747

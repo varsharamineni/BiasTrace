@@ -1,7 +1,7 @@
 import json
 import re
 
-input_file = "reasoning_eval/llm_judge_samples/val_set/llm_eval_claude-opus-4-1-20250805_detailed_example_clarification_opt.json"
+input_file = "reasoning_eval/llm_judge_samples/test_set/llm_eval_meta-llama_Meta-Llama-3-70B-Instruct_detailed_example_clarification_opt_think.json"
 output_file = input_file.replace(".json", "_fixed.json")
 
 with open(input_file, "r") as f:
