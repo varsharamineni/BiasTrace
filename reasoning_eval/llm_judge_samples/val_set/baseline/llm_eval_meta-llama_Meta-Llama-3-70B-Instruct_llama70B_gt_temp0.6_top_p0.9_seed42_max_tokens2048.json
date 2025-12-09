@@ -2,13 +2,12 @@
   "metadata": {
     "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
     "judge_prompt": "llama70B_gt",
-    "reasoning_on": true,
-    "reasoning_level": "medium",
     "sampling_params": {
       "max_tokens": 2048,
-      "temperature": 0.01,
+      "temperature": 0.6,
       "seed": 42,
-      "reasoning_level": "medium"
+      "top_p": 0.9,
+      "reasoning_prompt_text": null
     }
   },
   "results": [
@@ -20,14 +19,11 @@
       "prompt_type": "full_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 1,
@@ -37,14 +33,11 @@
       "prompt_type": "full_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{\"bias_label\": 0}",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{\"bias_label\": 0}"
     },
     {
       "sample_id": 2,
@@ -54,14 +47,11 @@
       "prompt_type": "full_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{\"bias_label\": 0}",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{\"bias_label\": 0}"
     },
     {
       "sample_id": 3,
@@ -71,14 +61,11 @@
       "prompt_type": "full_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 4,
@@ -88,14 +75,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 5,
@@ -105,14 +89,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 6,
@@ -122,14 +103,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 7,
@@ -139,14 +117,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 1 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 1
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 1 }"
     },
     {
       "sample_id": 8,
@@ -156,14 +131,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 9,
@@ -173,14 +145,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 10,
@@ -190,14 +159,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 11,
@@ -207,14 +173,11 @@
       "prompt_type": "full_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 12,
@@ -224,14 +187,11 @@
       "prompt_type": "full_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 13,
@@ -241,14 +201,11 @@
       "prompt_type": "full_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 14,
@@ -258,14 +215,11 @@
       "prompt_type": "full_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 15,
@@ -275,14 +229,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 16,
@@ -292,14 +243,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 17,
@@ -309,14 +257,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 18,
@@ -326,14 +271,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{\"bias_label\": 0}",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{\"bias_label\": 0}"
     },
     {
       "sample_id": 19,
@@ -343,14 +285,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     },
     {
       "sample_id": 20,
@@ -360,14 +299,11 @@
       "prompt_type": "simple_prompt",
       "judge_model": "meta-llama/Meta-Llama-3-70B-Instruct",
       "judge_prompt": "llama70B_gt",
-      "reasoning_on": true,
-      "reasoning_level": "medium",
+      "raw_output": "{ \"bias_label\": 0 }",
       "judge_output": {
-        "llama70B_gt": 0
+        "bias_label": 0
       },
-      "judge_explanations": {
-        "llama70B_gt": "{ \"bias_label\": 0 }"
-      }
+      "judge_explanations": "{ \"bias_label\": 0 }"
     }
   ]
 }

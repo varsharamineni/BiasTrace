@@ -1,0 +1,11 @@
+,baseline1_bin,baseline2,group_assumption,bias_acknowledgement,meta_reflection,outside_demo_knowledge,outside_topical_knowledge,unresolved,overthinking,missing_logic
+baseline1_bin,,,0.674 | 0.333,0.535 | 0.008,0.616 | 0.216,0.733 | 0.431,0.581 | 0.174,0.616 | 0.175,0.558 | 0.151,0.547 | 0.030
+baseline2,,,0.628 | 0.070,0.767 | 0.051,0.593 | 0.011,0.779 | 0.137,0.442 | -0.005,0.779 | -0.043,0.326 | -0.012,0.779 | 0.055
+group_assumption,,,,,,,,,,
+bias_acknowledgement,,,,,,,,,,
+meta_reflection,,,,,,,,,,
+outside_demo_knowledge,,,,,,,,,,
+outside_topical_knowledge,,,,,,,,,,
+unresolved,,,,,,,,,,
+overthinking,,,,,,,,,,
+missing_logic,,,,,,,,,,
