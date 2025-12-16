@@ -80,7 +80,10 @@ def run_vllm_evaluation(
             try:
                 response = client.responses.create(
                     model=model_name,
-                    input=messages,
+                    input=[{
+                    "role": "user",
+                    "content": [{"type": "text", "text": messages[0]["content"]}]
+                }],
                     max_output_tokens=max_tokens,
                     temperature=temperature,
                     reasoning={"effort": reasoning_level},
@@ -104,7 +107,6 @@ def run_vllm_evaluation(
                 print(f"⚠️ Chat Completions API failed: {e}")
                 outputs.append(None)
 
-
     return outputs
 
 
@@ -119,8 +121,13 @@ def parse_outputs(batch_data, outputs, model_name, prompt_key, reasoning_level="
         text = None
 
         # Responses API
-        if hasattr(output, "output_text"):
-            text = output.output_text
+        if hasattr(output, "output") and output.output:
+            chunks = []
+            for seg in output.output:
+                for c in getattr(seg, "content", []):
+                    if hasattr(c, "text"):
+                        chunks.append(c.text)
+            text = "\n".join(chunks)
 
         # ChatCompletion API
         elif hasattr(output, "choices"):
@@ -137,10 +144,23 @@ def parse_outputs(batch_data, outputs, model_name, prompt_key, reasoning_level="
         elif isinstance(output, str):
             text = output.strip()
 
+        # fallback: if no text, try reasoning segment
+        if not text and hasattr(output, "output") and output.output:
+            reasoning_segments = []
+            for seg in output.output:
+                if getattr(seg, "type", None) == "reasoning":
+                    for c in getattr(seg, "content", []):
+                        if hasattr(c, "text") and c.text:
+                            reasoning_segments.append(c.text)
+            if reasoning_segments:
+                text = "\n".join(reasoning_segments)
+
         if not text:
             print(f"⚠️ Could not parse output for sample_id {item.get('sample_id')}")
-            results.append(_empty_parse(item, model_name, prompt_key))
+            results.append(_empty_parse(item, model_name, prompt_key, reasoning_level))
             continue
+
+
 
         raw_output = text
         reasoning_text = text
@@ -183,6 +203,7 @@ def parse_outputs(batch_data, outputs, model_name, prompt_key, reasoning_level="
             "prompt_type": item.get("prompt_type", ""),
             "judge_model": model_name,
             "judge_prompt": prompt_key,
+            "reasoning_level": reasoning_level,
             "raw_output": raw_output,
             "judge_output": judge_output,
             "judge_explanations": reasoning_text,
@@ -191,7 +212,7 @@ def parse_outputs(batch_data, outputs, model_name, prompt_key, reasoning_level="
     return results
 
 
-def _empty_parse(item, model_name, prompt_key):
+def _empty_parse(item, model_name, prompt_key, reasoning_level="medium"):
     """Return default structure for empty output."""
     return {
         "sample_id": item.get("sample_id", ""),
@@ -201,8 +222,7 @@ def _empty_parse(item, model_name, prompt_key):
         "prompt_type": item.get("prompt_type", ""),
         "judge_model": model_name,
         "judge_prompt": prompt_key,
-        "reasoning_on": True,
-        "reasoning_level": "medium",
+        "reasoning_level": reasoning_level,
         "raw_output": None,
         "judge_output": None,
         "judge_explanations": None,
@@ -276,6 +296,7 @@ def save_results(results, model_name, output_dir, prompt_key, params, extra_meta
 # ================================================================
 # Multi-prompt Mode
 # ================================================================
+
 def run_multi_prompt_evaluation(args):
     metric_prompts = {
         "group_assumption": "judge_group_assumption",
@@ -332,9 +353,12 @@ def run_multi_prompt_evaluation(args):
 
         for item in parsed:
             sid = item["sample_id"]
-            combined_results[sid]["raw_output"] = item["raw_output"][metric_name]
-            combined_results[sid]["judge_output"][metric_name] = item["judge_output"][metric_name]
-            combined_results[sid]["judge_explanations"][metric_name] = item["judge_explanations"][metric_name]
+            
+            combined_results[sid]["raw_output"] = combined_results[sid].get("raw_output", {})
+            combined_results[sid]["raw_output"][metric_name] = item["raw_output"]
+
+            combined_results[sid]["judge_output"][metric_name] = item["judge_output"]
+            combined_results[sid]["judge_explanations"][metric_name] = item["judge_explanations"]
 
     results = list(combined_results.values())
 
@@ -355,7 +379,7 @@ def run_multi_prompt_evaluation(args):
 
 # ================================================================
 # Main
-# ================================================================def main(args):
+# ================================================================
 def main(args):
 
     data = load_reasoning_data(args.data_path)
@@ -425,6 +449,13 @@ if __name__ == "__main__":
     type=str,
     default=None,
     help="Text to prepend to the prompt for step-by-step reasoning"
+    )
+
+    parser.add_argument(
+    "--multi_prompt_keys",
+    type=str,
+    default=None,
+    help="Comma-separated list of prompt keys for multi-prompt evaluation"
     )
 
 
