@@ -6,15 +6,15 @@
 # Configuration
 # -------------------------
 MODEL="${MODEL:-openai/gpt-oss-120b}"        # Model name (e.g., openai/gpt-oss-120b)
-REASONING_LEVEL="${REASONING_LEVEL:-high}" # default "medium", or choose "low", "high"
+REASONING_LEVEL="${REASONING_LEVEL:-low}" # default "medium", or choose "low", "high"
 API_URL="${API_URL:-https://gpt-oss-120b-bbq.nvidia-oci.saturnenterprise.io/v1}" # default API URL
 
 # Prompt style: simple, full, or custom
-PROMPT_STYLE="${PROMPT_STYLE:-simple}"    
+PROMPT_STYLE="${PROMPT_STYLE:-full}"    
 
 # Optional custom prompt file or raw string
 CUSTOM_PROMPT_FILE="${CUSTOM_PROMPT_FILE:-}"  # Path to custom prompt file
-CUSTOM_PROMPT="${CUSTOM_PROMPT:-}"            # Raw custom prompt string
+CUSTOM_PROMPT="${CUSTOM_PROMPT:-}"          ====  # Raw custom prompt string
 
 BATCH_SIZE=32
 SEED=42

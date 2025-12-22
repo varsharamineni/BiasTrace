@@ -17,7 +17,7 @@ SEED=42
 CATEGORIES="Age Disability_status Gender_identity Nationality Physical_appearance Race_ethnicity Race_x_SES Race_x_gender Religion SES Sexual_orientation"
 
 # Advanced options
-GPU_MEMORY_UTIL=0.9
+GPU_MEMORY_UTIL=0.8
 MAX_LENGTH=2048
 TEMPERATURE=0.6
 TOP_P=0.95
