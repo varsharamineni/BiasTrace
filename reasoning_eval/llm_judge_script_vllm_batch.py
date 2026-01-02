@@ -11,6 +11,12 @@ from prompt_manager import PromptManager
 # ================================================================
 # Utility functions
 # ================================================================
+def chunk_list(lst, batch_size):
+    """Split list into chunks of size batch_size."""
+    for i in range(0, len(lst), batch_size):
+        yield lst[i:i + batch_size]
+
+
 def load_reasoning_data(path: str) -> List[Dict[str, Any]]:
     """Load model reasoning traces or evaluation data."""
     with open(path, "r") as f:
@@ -76,39 +82,42 @@ def run_vllm_evaluation(
     outputs = []
     print(f"🚀 Calling model via flexible vLLM client: {model_name}")
 
-    for messages in tqdm(messages_batch, desc="Inference batches"):
+    for batch_messages in tqdm(messages_batch, desc="Inference batches"):
+        # GPT Responses API
         if "gpt" in model_name.lower():
             try:
                 response = client.responses.create(
                     model=model_name,
-                    input=[{
-                    "role": "user",
-                    "content": [{"type": "text", "text": messages[0]["content"]}]
-                }],
+                    input=[
+                        {"role": "user", "content": [{"type": "text", "text": m[0]["content"]}]}
+                        for m in batch_messages
+                    ],
                     max_output_tokens=max_tokens,
                     temperature=temperature,
                     reasoning={"effort": reasoning_level},
-                    top_p=top_p  
-                )
-                outputs.append(response)
-            except Exception as e:
-                print(f"⚠️ GPT Responses API failed: {e}")
-                outputs.append(None)
-        else:
-            try:
-                response = client.chat.completions.create(
-                    model=model_name,
-                    messages=messages,
-                    max_tokens=max_tokens,
-                    temperature=temperature,
                     top_p=top_p
                 )
-                outputs.append(response)
+                # responses correspond to batch, flatten into outputs list
+                outputs.extend(response)
+            except Exception as e:
+                print(f"⚠️ GPT Responses API failed: {e}")
+                outputs.extend([None]*len(batch_messages))
+
+        # ChatCompletion API
+        else:
+            try:
+                for messages in batch_messages:
+                    response = client.chat.completions.create(
+                        model=model_name,
+                        messages=messages,
+                        max_tokens=max_tokens,
+                        temperature=temperature,
+                        top_p=top_p
+                    )
+                    outputs.append(response)
             except Exception as e:
                 print(f"⚠️ Chat Completions API failed: {e}")
-                outputs.append(None)
-
-    return outputs
+                outputs.extend([None]*len(batch_messages))
 
 
 # ================================================================
@@ -342,7 +351,7 @@ def run_multi_prompt_evaluation(args):
 
         outputs = run_vllm_evaluation(
             model_name=args.model,
-            messages_batch=messages_batch,
+            messages_batch=messages_batches,  # <- use the list of batches
             temperature=args.temperature,
             max_tokens=2048,
             seed=args.seed,
@@ -393,22 +402,28 @@ def main(args):
         run_multi_prompt_evaluation(args)
         return
 
-    messages_batch = build_batch_messages(
-        data,
-        pm,
-        args.prompt,
-        reasoning_prompt_text=args.reasoning_prompt_text
-    )
+    batch_size = 32  # adjust depending on memory/API limits
+    all_batches = list(chunk_list(data, batch_size))
+
+
+    all_batches = list(chunk_list(data, batch_size))
+
+    # flatten into a single list of message batches
+    messages_batch = []
+    for batch in all_batches:
+        messages_batch.extend(build_batch_messages(batch, pm, args.prompt, reasoning_prompt_text=args.reasoning_prompt_text))
 
     outputs = run_vllm_evaluation(
         model_name=args.model,
-        messages_batch=messages_batch,
+        messages_batch=messages_batch,  # now defined
         temperature=args.temperature,
         max_tokens=2048,
         seed=args.seed,
         reasoning_level=args.reasoning_level,
         top_p=args.top_p
     )
+
+
 
     results = parse_outputs(data, outputs, args.model, args.prompt, args.reasoning_level)
 

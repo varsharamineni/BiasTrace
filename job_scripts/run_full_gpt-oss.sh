@@ -6,7 +6,7 @@
 # Configuration
 # -------------------------
 MODEL="${MODEL:-openai/gpt-oss-120b}"        # Model name (e.g., openai/gpt-oss-120b)
-REASONING_LEVEL="${REASONING_LEVEL:-low}" # default "medium", or choose "low", "high"
+REASONING_LEVEL="${REASONING_LEVEL:-medium}" # default "medium", or choose "low", "high"
 API_URL="${API_URL:-https://gpt-oss-120b-bbq.nvidia-oci.saturnenterprise.io/v1}" # default API URL
 
 # Prompt style: simple, full, or custom
@@ -23,7 +23,7 @@ TEMPERATURE=1.0
 TOP_P=1.0
 
 # All BBQ categories
-CATEGORIES="Age Disability_status Gender_identity Nationality Physical_appearance Race_ethnicity Religion SES Sexual_orientation"
+CATEGORIES="Religion SES Sexual_orientation"
 
 # -------------------------
 # Extract model short name (e.g., gpt-oss-20B)

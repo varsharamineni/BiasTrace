@@ -277,3 +277,154 @@ print(f"✅ Leaderboard CSV saved to {leaderboard_file}")
 
 print("\n🏆 Leaderboard (sorted by Cohen's κ) 🏆")
 print(leaderboard.sort_values("cohens_kappa", ascending=False).head(100))
+
+
+
+# =============================================================
+# Side-by-Side Table: Prompt × Reasoning Style (DeepSeek only)
+# =============================================================
+
+deepseek_df = metrics_long_df[
+    metrics_long_df["judge_model"].str.contains("DeepSeek", case=False, na=False)
+].copy()
+
+# Combine prompt + reasoning into one column
+deepseek_df["prompt_reasoning"] = (
+    deepseek_df["judge_prompt"] + " (" + deepseek_df["reasoning_style"] + ")"
+)
+
+pivot = deepseek_df.pivot_table(
+    index="error_label",
+    columns="prompt_reasoning",
+    values=["cohens_kappa", "f1_score"],
+    aggfunc="first"
+)
+
+def fmt_cell(err, col):
+    try:
+        k = pivot["cohens_kappa"].loc[err, col]
+        f = pivot["f1_score"].loc[err, col]
+        if pd.isna(k):
+            return "-"
+        return f"κ = {k:.4f} (F1 {f:.4f})"
+    except KeyError:
+        return "-"
+
+side_by_side = pd.DataFrame(index=pivot.index)
+
+for col in pivot["cohens_kappa"].columns:
+    side_by_side[col] = [
+        fmt_cell(err, col) for err in side_by_side.index
+    ]
+
+# Best κ per error label
+side_by_side["Best Cohen’s Kappa"] = (
+    pivot["cohens_kappa"].idxmax(axis=1)
+)
+
+side_by_side_file = f"{args.output_prefix}_deepseek_prompt_reasoning_side_by_side.csv"
+side_by_side.to_csv(side_by_side_file)
+
+print(f"✅ Side-by-side prompt × reasoning table saved to {side_by_side_file}")
+
+print("\n" + "=" * 80)
+print("📊 DeepSeek — Prompt × Reasoning Style (Side-by-Side)")
+print("=" * 80)
+print(side_by_side.to_string())
+
+
+#=============================================================
+# Side-by-Side Table: Prompt × Reasoning Style (Llama only)
+# =============================================================
+
+llama_df = metrics_long_df[
+    metrics_long_df["judge_model"].str.contains("Llama", case=False, na=False)
+].copy()
+
+# Combine prompt + reasoning into one column
+llama_df["prompt_reasoning"] = (
+    llama_df["judge_prompt"] + " (" + llama_df["reasoning_style"] + ")"
+)
+
+pivot = llama_df.pivot_table(
+    index="error_label",
+    columns="prompt_reasoning",
+    values=["cohens_kappa", "f1_score"],
+    aggfunc="first"
+)
+
+def fmt_cell(err, col):
+    try:
+        k = pivot["cohens_kappa"].loc[err, col]
+        f = pivot["f1_score"].loc[err, col]
+        if pd.isna(k):
+            return "-"
+        return f"κ = {k:.4f} (F1 {f:.4f})"
+    except KeyError:
+        return "-"
+
+side_by_side = pd.DataFrame(index=pivot.index)
+
+for col in pivot["cohens_kappa"].columns:
+    side_by_side[col] = [
+        fmt_cell(err, col) for err in side_by_side.index
+    ]
+
+# Best κ per error label
+side_by_side["Best Cohen’s Kappa"] = (
+    pivot["cohens_kappa"].idxmax(axis=1)
+)
+
+side_by_side_file = f"{args.output_prefix}_llama_prompt_reasoning_side_by_side.csv"
+side_by_side.to_csv(side_by_side_file)
+
+print(f"✅ Side-by-side prompt × reasoning table saved to {side_by_side_file}")
+
+print("\n" + "=" * 80)
+print("📊 Llama — Prompt × Reasoning Style (Side-by-Side)")
+print("=" * 80)
+print(side_by_side.to_string())
+
+
+
+# =============================================================
+# Top-2 Non-Claude Models/Prompt/Reasoning per Error Label by Cohen's Kappa
+# =============================================================
+# Filter out Claude models
+non_claude_df = metrics_long_df[~metrics_long_df["judge_model"].str.contains("claude", case=False, na=False)].copy()
+
+top_kappa_per_label = []
+
+for label in label_cols:
+    df_label = non_claude_df[non_claude_df["error_label"] == label].copy()
+    df_label_sorted = df_label.sort_values("cohens_kappa", ascending=False).head(2)
+    
+    for rank, row in enumerate(df_label_sorted.itertuples(), 1):
+        top_kappa_per_label.append({
+            "error_label": label,
+            "rank": rank,
+            "judge_model": row.judge_model,
+            "judge_prompt": row.judge_prompt,
+            "reasoning_style": row.reasoning_style,
+            "thinking_mode": row.thinking_mode,
+            "temperature": row.temperature,
+            "top_p": row.top_p,
+            "seed": row.seed,
+            "max_tokens": row.max_tokens,
+            "cohens_kappa": row.cohens_kappa,
+            "accuracy": row.accuracy,
+            "precision": row.precision,
+            "recall": row.recall,
+            "f1_score": row.f1_score
+        })
+
+top_kappa_df = pd.DataFrame(top_kappa_per_label)
+top_kappa_file = f"{args.output_prefix}_top2_nonclaude_models_per_error_label.csv"
+top_kappa_df.to_csv(top_kappa_file, index=False)
+print(f"✅ Top-2 non-Claude models/prompt/reasoning per error label saved to {top_kappa_file}")
+
+print("\n📊 Top-2 Non-Claude Models per Error Label (by Cohen’s κ)")
+for label in label_cols:
+    print(f"\nError Label: {label}")
+    display_df = top_kappa_df[top_kappa_df["error_label"] == label].sort_values("rank")
+    print(display_df[["rank", "judge_model", "judge_prompt", "reasoning_style", "cohens_kappa"]].to_string(index=False))
