@@ -89,6 +89,16 @@ Use the processed output files for the LLM Judge - `bbq_{category}_results_merge
 Judge scripts are in `reasoning_eval` folder.
 
 
+```bash
+python reasoning_eval/llm_judge_script_vllm.py     --model deepseek-chat     --prompt detailed_2example_clarification_opt     --output_dir reasoning_eval/llm_judge_samples/test_set/our_labels     --data_path reasoning_eval/ground_truth_samples/test_set.json --temperature 1.0 --top_p 0.9 --reasoning_prompt_text "<think>\nPlease carefully reason through the given reasoning trace step by step"
+```
+
+```bash
+python reasoning_eval/compare_llm_to_human.py   --human_file reasoning_eval/ground_truth_samples/test_set.json   --llm_folder reasoning_eval/llm_judge_samples/test_set/our_labels   --output_prefix reasoning_eval/llm_judge_eval_metrics_val 
+```
+
+
+
 ## Note on Special Tokens
 
 All scripts use the following special tokens for extracting reasoning and answers:
