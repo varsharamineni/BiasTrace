@@ -223,3 +223,31 @@ print(f"✅ Saved per-dataset metrics CSVs")
 combined_metrics = combine_metrics([val_metrics, test_metrics])
 combined_metrics.to_csv(f"{args.output_prefix}_combined_metrics.csv", index=False)
 print(f"✅ Saved combined metrics CSV")
+
+# ----------------------------
+# Rank model/prompt combos by Cohen's kappa per error label
+# ----------------------------
+ranked_combos = []
+
+# Loop over each error label
+for label in combined_metrics['error_label'].unique():
+    subset = combined_metrics[combined_metrics['error_label'] == label].copy()
+    
+    # Sort descending by Cohen's kappa
+    subset.sort_values("cohens_kappa", ascending=False, inplace=True)
+    
+    # Add rank column
+    subset['rank'] = range(1, len(subset) + 1)
+    
+    # Keep only relevant columns
+    subset_display = subset[[
+        'rank', 'judge_model', 'judge_prompt', 'cohens_kappa',
+        'accuracy', 'precision', 'recall', 'f1_score', 'n_samples_total'
+    ]]
+    
+    ranked_combos.append(subset_display)
+
+# Combine all error labels into one CSV
+ranked_df = pd.concat(ranked_combos, keys=combined_metrics['error_label'].unique(), names=['error_label', 'row']).reset_index(level=1, drop=True).reset_index()
+ranked_df.to_csv(f"{args.output_prefix}_ranked_by_kappa_per_label.csv", index=False)
+print("✅ Saved ranked model/prompt combos per error label (by Cohen's kappa)")
