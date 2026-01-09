@@ -65,7 +65,7 @@ def main():
     files = sorted(glob.glob(pattern))
 
     if not files:
-        print(f"⚠️ No files found in {args.input_folder} matching pattern bbq_*_results*.json")
+        print(f"⚠️ No files found in {args.input_folder} matching pattern bbq_*_results.json")
         return
 
     print(f"Found {len(files)} files to process.")
@@ -115,7 +115,10 @@ def main():
             cmd += ["--reasoning_prompt_text", args.reasoning_prompt_text]
 
         print(f"\n🚀 Running eval on {data_path}")
-        subprocess.run(cmd, check=True)
+        
+        result = subprocess.run(cmd)
+        if result.returncode != 0:
+            print(f"⚠️ Judge failed for {data_path}, continuing…")
 
         print(f"✅ Output saved: {output_path}")
 
