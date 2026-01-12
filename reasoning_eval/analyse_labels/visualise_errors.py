@@ -9,12 +9,102 @@ import scipy.spatial.distance as ssd
 import numpy as np
 import os
 
+import glob
+import json
+from pathlib import Path
+
+
 # -------------------------
-# 1️⃣ Load CSV
+# Load multiple JSON annotation files (like previous script)
 # -------------------------
-df = pd.read_csv("reasoning_eval/ground_truth_samples/sample_traces_full_annotated.csv")
+def load_judge_files(paths, judge_labels):
+    rows = []
+    for path in paths:
+        with open(path, "r") as f:
+            data = json.load(f)
+
+        meta = data.get("metadata", {})
+        for r in data["results"]:
+            row = {
+                "source_file": path,
+                "sample_id": r["sample_id"],
+                "category": r.get("category"),
+                "example_id": r.get("example_id"),
+                "model": r.get("model"),
+                "prompt_type": r.get("prompt_type"),
+                "judge_model": r.get("judge_model"),
+                "judge_prompt": r.get("judge_prompt"),
+                "is_correct": r.get("is_correct"),
+                "ambiguous": r.get("ambiguous"),
+                "stereotype_alignment": r.get("stereotype_alignment"),
+                "incorrect_and_stereotype": r.get("incorrect_and_stereotype"),
+            }
+
+            judge_out = r.get("judge_output")
+            if judge_out is None:
+                for k in judge_labels:
+                    row[k] = 0
+                row["judge_missing"] = True
+            else:
+                for k in judge_labels:
+                    row[k] = judge_out.get(k, 0)
+                row["judge_missing"] = False
+
+            rows.append(row)
+    return pd.DataFrame(rows)
+
+
+# -------------------------
+# 1️⃣ Load multiple JSON files instead of CSV
+# -------------------------
+INPUT_GLOBS = [
+    "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
+]
+
+# Collect all files
+all_paths = []
+for pattern in INPUT_GLOBS:
+    all_paths.extend(glob.glob(pattern, recursive=True))
+
+if len(all_paths) == 0:
+    raise RuntimeError(f"No files found for input patterns: {INPUT_GLOBS}")
+
+error_cols = [
+    'group_assumption',
+    'bias_acknowledgement',
+    'meta_reflection',
+    'outside_demo_knowledge',
+    'outside_topical_knowledge',
+    'unresolved',
+    'overthinking',
+    'missing_logic'
+]
+
+df = load_judge_files(all_paths, judge_labels=error_cols)
+print(f"Loaded {len(df)} annotated samples from {len(all_paths)} files")
 print(df.head())
-print(df.info())
+
+# Fill NaNs in error labels with 0
+df[error_cols] = df[error_cols].fillna(0).astype(int)
+df["is_correct"] = df["is_correct"].fillna(0).astype(int)
+
+# Optional: ambiguous as categorical
+if "ambiguous" in df.columns:
+    df["ambiguous"] = df["ambiguous"].astype("category")
+
+# Normalize model names
+def normalize_model_name(model_str):
+    if pd.isna(model_str):
+        return model_str
+    model_str = model_str.lower()
+    if "qwen3-14b" in model_str:
+        return "Qwen3-14B"
+    return model_str
+
+df['model'] = df['model'].apply(normalize_model_name)
+
+
 
 # -------------------------
 # 2️⃣ Define error columns
@@ -42,7 +132,7 @@ def normalize_model_name(model_str):
 df['model'] = df['model'].apply(normalize_model_name)
 
 # Ensure output folder exists
-output_dir = "plots"
+output_dir = "reasoning_eval/analyse_labels/overall_plots"
 os.makedirs(output_dir, exist_ok=True)
 
 # Fill NaNs in error labels with 0
@@ -237,11 +327,15 @@ plt.close()
 # -------------------------
 # 12️⃣ Hierarchical clustering + dendrogram
 # -------------------------
-distance_matrix = 1 - corr_matrix
+# Only cluster error_cols, not is_correct
+corr_matrix_errors = df[error_cols].corr()
+
+distance_matrix = 1 - corr_matrix_errors
 condensed_distance = ssd.squareform(distance_matrix)
 Z = linkage(condensed_distance, method='average')
 max_distance = 0.5
 cluster_labels = fcluster(Z, t=max_distance, criterion='distance')
+
 cluster_df = pd.DataFrame({'error': error_cols, 'cluster': cluster_labels})
 print("Error clusters:\n", cluster_df)
 

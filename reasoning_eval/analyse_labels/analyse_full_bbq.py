@@ -254,12 +254,12 @@ reg_df["model"] = reg_df["model"].astype("category")
 reg_df["category"] = reg_df["category"].astype("category")
 
 
-interaction_terms = " + ".join([f"{label}:C(prompt_type)" for label in JUDGE_LABELS])
+interaction_terms = " + ".join([f"{label}:C(prompt_type, Treatment(reference=\"simple_prompt\"))" for label in JUDGE_LABELS])
 
 formula = (
     "is_correct ~ "
     + " + ".join(JUDGE_LABELS)
-    + " + C(prompt_type)"
+    + " + C(prompt_type, Treatment(reference=\"simple_prompt\"))"
     + " + " + interaction_terms
     + " + C(model)"
     + " + C(category)"
@@ -281,6 +281,52 @@ with open(OUT_DIR / "logit_stereotype_prediction.txt", "w") as f:
 
 with open(OUT_DIR / "logit_sample_size.txt", "w") as f:
     f.write(f"N regression samples: {len(reg_df)}\n")
+
+
+
+
+# ======================
+# 7. Distribution of errors by prompt_type and ambiguous
+# ======================
+plt.figure(figsize=(8, 5))
+
+# Compute mean correctness by prompt_type and ambiguity
+error_dist = (
+    reg_df
+    .groupby(["prompt_type", "ambiguous"])["is_correct"]
+    .mean()
+    .unstack()
+)
+
+print("Mean correctness by prompt_type and ambiguous:")
+print(error_dist)
+
+# Bar plot
+error_dist.plot(kind="bar")
+plt.ylabel("Mean Correctness")
+plt.title("Mean Correctness by Prompt Type and Ambiguous Flag")
+plt.xticks(rotation=45, ha="right")
+plt.legend(title="Ambiguous")
+plt.tight_layout()
+plt.savefig(OUT_DIR / "fig_correctness_by_prompt_and_ambiguous.pdf")
+plt.close()
+
+# Optional: boxplot of individual samples
+plt.figure(figsize=(8, 5))
+import seaborn as sns
+sns.boxplot(
+    data=reg_df,
+    x="prompt_type",
+    y="is_correct",
+    hue="ambiguous"
+)
+plt.ylabel("Correctness (0/1)")
+plt.title("Distribution of Correctness by Prompt Type and Ambiguous Flag")
+plt.xticks(rotation=45, ha="right")
+plt.legend(title="Ambiguous")
+plt.tight_layout()
+plt.savefig(OUT_DIR / "fig_correctness_boxplot_by_prompt_and_ambiguous.pdf")
+plt.close()
 
 
 # ======================
