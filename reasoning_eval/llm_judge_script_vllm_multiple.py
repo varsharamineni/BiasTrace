@@ -41,8 +41,30 @@ def load_reasoning_data(path: str):
     print(f"✅ Loaded {len(data)} samples from {path}")
     return data, metadata
 
+def infer_prompt_type_from_path(path: str) -> str:
+    """
+    Infer prompt_type from a path by taking the part immediately before 'prompt' 
+    and appending '_prompt'.
+    
+    Examples:
+        'qwen_full_8B_full_prompt.json' -> 'full_prompt'
+        'qwen_simple_prompt_v2.json' -> 'simple_prompt'
+    """
+    filename = os.path.basename(path)
+    stem = os.path.splitext(filename)[0]
 
-def normalize_sample(item, metadata, idx):
+    parts = stem.split("_")
+
+    for i, part in enumerate(parts):
+        if "prompt" in part.lower():
+            if i > 0:
+                return f"{parts[i-1]}_prompt"
+            else:
+                return "prompt"  # fallback if it's the first part
+    return "unknown"
+
+
+def normalize_sample(item, metadata, idx, path=None):
     return {
         # Required IDs
         "sample_id": f"{metadata.get('category', 'unknown')}_{idx}",
@@ -74,7 +96,7 @@ def normalize_sample(item, metadata, idx):
 
         # Metadata
         "model": metadata.get("model", ""),
-        "prompt_type": "simple_prompt",  # or infer from path
+        "prompt_type":  infer_prompt_type_from_path(path) if path else "unknown"
     }
 
 
@@ -486,7 +508,7 @@ def main(args):
         raw_data, metadata = load_reasoning_data(data_path)
 
         data = [
-        normalize_sample(item, metadata, idx)
+        normalize_sample(item, metadata, idx, path=data_path)
             for idx, item in enumerate(raw_data)
         ]
 
