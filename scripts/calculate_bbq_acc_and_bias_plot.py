@@ -1,3 +1,4 @@
+from html import parser
 import json
 import os
 import argparse
@@ -112,14 +113,19 @@ def compute_for_subset(cat_results):
     }
 
 
-def process_all_categories(folder_path):
+def process_all_categories(folders):
     all_results = []
-    for filename in os.listdir(folder_path):
-        if filename.endswith('_results_merged.json') and filename.startswith('bbq_'):
-            file_path = os.path.join(folder_path, filename)
-            with open(file_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            all_results.extend(data["results"])
+    if isinstance(folders, str):
+        folders = [folders]
+
+    for folder_path in folders:
+        for root, _, files in os.walk(folder_path):
+            for filename in files:
+                if filename.endswith('_results_merged.json') and filename.startswith('bbq_'):
+                    file_path = os.path.join(root, filename)
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    all_results.extend(data["results"])
     return compute_bias_and_accuracy(all_results)
 
 
@@ -195,7 +201,11 @@ def plot_bbq_heatmap(summary, output_file="bbq_bias_heatmap.png"):
 
 def main():
     parser = argparse.ArgumentParser(description="Compute bias/accuracy metrics for BBQ results.")
-    parser.add_argument("--input_dir", required=True, help="Folder containing *_results_merged.json files")
+    parser.add_argument(
+        "--input_dir",
+        required=True,
+        nargs="+",  # <-- allows multiple folders
+        help="One or more folders containing *_results_merged.json files")    
     parser.add_argument("--model_name", required=True, help="Model name (used for top-level output folder)")
     parser.add_argument("--out_folder", default="acc_and_bias_results", help="Subfolder for output files (default: bias_results)")
     parser.add_argument("--results_dir", default="results", help="Top-level folder for all results (default: 'results')")
