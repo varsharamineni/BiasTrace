@@ -8,18 +8,26 @@ import re
 
 def parse_model_name(model_str):
     """
-    Converts strings like 'qwen_full_8B_simple_prompt' into:
-        Model = 'Qwen3-8B'
-        Prompt = 'Simple' or 'Full'
+    Converts strings like:
+    'gpt-oss-120b_simple_prompt_low_reasoning' 
+    into:
+        Model = 'GPT-OSS-120B'
+        Prompt = 'Simple_Low_Reasoning'
     """
-    model_str = re.sub(r'_prompt$', '', model_str, flags=re.IGNORECASE)
     parts = model_str.split('_')
-    base = parts[0].capitalize() if parts else "Unknown"
-    size_match = next((p for p in parts if re.match(r'^\d+B$', p, re.IGNORECASE)), "")
-    model_name = f"{base}3-{size_match}" if size_match else base
-    prompt_candidates = [p for p in parts if not re.match(r'^\d+B$', p, re.IGNORECASE) and p.lower() != 'full' and p.lower() != base.lower()]
-    prompt = prompt_candidates[-1].capitalize() if prompt_candidates else "Full"
-    return model_name, prompt
+    
+    # Find size token (e.g., '14B', '120B')
+    size_token = next((p for p in parts if re.match(r'^\d+B$', p, re.IGNORECASE)), "")
+    
+    # Model = base + size
+    base = parts[0].upper() if parts else "UNKNOWN"
+    model_name = f"{base}_{size_token}" if size_token else base
+
+    # Everything else except base and size = prompt
+    prompt_tokens = [p for p in parts[1:] if p != size_token]
+    prompt_str = "_".join(prompt_tokens).replace("prompt", "").strip("_").capitalize() if prompt_tokens else "Full"
+
+    return model_name, prompt_str
 
 def load_model_summary(model_name=None, file_path=None, base_folder="results"):
     if file_path:
