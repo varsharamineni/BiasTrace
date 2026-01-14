@@ -94,13 +94,50 @@ Use the processed output files for the LLM Judge - `bbq_{category}_results_merge
 Judge scripts are in `reasoning_eval` folder.
 
 
+LLM Judge Annotations for test set 
 ```bash
-python reasoning_eval/llm_judge_script_vllm.py     --model deepseek-chat     --prompt detailed_2example_clarification_opt     --output_dir reasoning_eval/llm_judge_samples/test_set/our_labels     --data_path reasoning_eval/ground_truth_samples/test_set.json --temperature 1.0 --top_p 0.9 --reasoning_prompt_text "<think>\nPlease carefully reason through the given reasoning trace step by step"
+python reasoning_eval/llm_judge_script_vllm.py     --model deepseek-chat     --prompt new_prompt_edit2     --output_dir reasoning_eval/llm_judge_samples/test_set/our_labels     --data_path reasoning_eval/ground_truth_samples/test_set.json --temperature 1.0 --top_p 0.9 --reasoning_prompt_text "<think>\nPlease carefully reason through the given reasoning trace step by step"
 ```
+
+Evaluation Metrics for test set 
 
 ```bash
 python reasoning_eval/compare_llm_to_human.py   --human_file reasoning_eval/ground_truth_samples/test_set.json   --llm_folder reasoning_eval/llm_judge_samples/test_set/our_labels   --output_prefix reasoning_eval/llm_judge_eval_metrics_val 
 ```
+
+LLM Judge on Full BBQ Data
+
+```bash 
+CATEGORIES=(
+  Age
+  Disability_status
+  Gender_identity
+  Nationality
+  Physical_appearance
+  Race_ethnicity
+  Religion
+  SES
+  Sexual_orientation
+)
+
+for CAT in "${CATEGORIES[@]}"; do
+  python reasoning_eval/llm_judge_script_vllm_multiple.py \
+    --model deepseek-chat \
+    --prompt new_prompt_edit2 \
+    --output_dir outputs/qwen_full_8B_full_prompt/full_annotation/${CAT}/ \
+    --temperature 1.0 \
+    --top_p 0.9 \
+    --data_paths outputs/qwen_full_8B_full_prompt/bbq_${CAT}_results_merged.json
+done
+```
+
+
+## Prompts
+
+Baseline Score 0-5 Prompt: baseline.txt
+Baseline Score 0/1 Prompt: llama70b_gt.txt
+
+Final Prompt Chosen: new_prompt_edit2.txt
 
 
 
