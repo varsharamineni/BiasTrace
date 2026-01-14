@@ -1,0 +1,39 @@
+                              Logit Regression Results                              
+====================================================================================
+Dep. Variable:     incorrect_and_stereotype   No. Observations:                55015
+Model:                                Logit   Df Residuals:                    54993
+Method:                                 MLE   Df Model:                           21
+Date:                      Tue, 13 Jan 2026   Pseudo R-squ.:                  0.4758
+Time:                              16:28:43   Log-Likelihood:                -1710.1
+converged:                             True   LL-Null:                       -3262.6
+Covariance Type:                        HC3   LLR p-value:                     0.000
+=================================================================================================================================================================
+                                                                                                    coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                                        -6.1157      0.178    -34.358      0.000      -6.465      -5.767
+C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                              -1.1588      0.551     -2.102      0.036      -2.239      -0.079
+C(category)[T.Disability_status]                                                                 -1.0776      0.189     -5.689      0.000      -1.449      -0.706
+C(category)[T.Gender_identity]                                                                   -4.7793      0.994     -4.810      0.000      -6.727      -2.832
+C(category)[T.Nationality]                                                                       -1.4999      0.214     -7.023      0.000      -1.918      -1.081
+C(category)[T.Physical_appearance]                                                                0.5721      0.161      3.558      0.000       0.257       0.887
+C(category)[T.Race_ethnicity]                                                                    -2.6786      0.301     -8.894      0.000      -3.269      -2.088
+C(category)[T.Religion]                                                                          -0.6150      0.193     -3.183      0.001      -0.994      -0.236
+C(category)[T.SES]                                                                               -0.5798      0.145     -3.987      0.000      -0.865      -0.295
+C(category)[T.Sexual_orientation]                                                                -1.6679      0.434     -3.846      0.000      -2.518      -0.818
+group_assumption                                                                                  2.9442      0.165     17.856      0.000       2.621       3.267
+group_assumption:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]             -1.8463      0.456     -4.053      0.000      -2.739      -0.954
+bias_acknowledgement                                                                             -0.8989      0.147     -6.135      0.000      -1.186      -0.612
+bias_acknowledgement:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]         -1.4571      1.107     -1.316      0.188      -3.627       0.713
+meta_reflection                                                                                  -0.3030      0.116     -2.606      0.009      -0.531      -0.075
+meta_reflection:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]              -0.1839      0.392     -0.469      0.639      -0.953       0.585
+outside_demo_knowledge                                                                            1.6249      0.134     12.166      0.000       1.363       1.887
+outside_demo_knowledge:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]        0.2721      0.489      0.556      0.578      -0.687       1.231
+outside_topical_knowledge                                                                         0.3969      0.133      2.984      0.003       0.136       0.658
+outside_topical_knowledge:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]    -0.6785      0.290     -2.338      0.019      -1.247      -0.110
+overthinking                                                                                      2.0848      0.104     19.960      0.000       1.880       2.290
+overthinking:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]                  1.5810      0.531      2.979      0.003       0.541       2.621
+=================================================================================================================================================================
+
+Possibly complete quasi-separation: A fraction 0.33 of observations can be
+perfectly predicted. This might indicate that there is complete
+quasi-separation. In this case some parameters will not be identified.
