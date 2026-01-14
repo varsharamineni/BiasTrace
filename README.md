@@ -16,9 +16,7 @@ If you prefer pip, you can use:
 pip install -r requirements.txt
 ```
 
-## Scripts
-
-### Download BBQ Data 
+## Download BBQ Data 
 
 Downloads BBQ data from Hugging Face and saves them locally
 
@@ -30,7 +28,7 @@ BBQ data saved to `datasets/bbq_data_all_cat`
 
 You should also download the templates to `datasets/bbq_templates`[https://github.com/nyu-mll/BBQ/tree/main/templates] folder and the metadata `datasets/bbq_additional_metadata.csv`[https://github.com/nyu-mll/BBQ/tree/main/supplemental]  
 
-### Download Models to Cache
+## Download Models to Cache
 
 The `snapshot_download.py` script downloads models from Hugging Face and saves them locally
 
@@ -40,7 +38,7 @@ Note: Replace `base_cache_dir` with your desired local folder
  python scripts/download_models/snapshot_download.py
 ```
 
-### Generate Reasoning Traces - Qwen 
+## Generate Reasoning Traces  
 
 Can use `job_scripts` to run these and get reasoning traces, can edit model and folders and paramters as needed
 
@@ -50,11 +48,19 @@ job_scripts/run_full.sh
 
 These rely on these depending on the type of prompt used.
 
-With full prompt
+With full prompt - qwen3 models
 `scripts/generate_bbq_outputs_vllm_qwen.py`
 
-With simple prompt
+With simple prompt - qwen3 models 
 `scripts/generate_bbq_outputs_vllm_qwen_simple.py`
+
+
+```bash
+job_scripts/run_full_gpt-oss.sh
+``` 
+
+for GPT-OSS
+`scripts/generate_bbq_outputs_vllm_gpt-oss.py`
 
 ## Saved Reasoning Traces
 
@@ -68,7 +74,6 @@ Merge model outputs with the original BBQ dataset and optional metadata useful f
 
 ```bash
 python scripts/process_bbq_results.py --base_folders <folder1> <folder2> ... --meta_file <metadata_csv>
-
 ```
 
 ## Accuracy and Bias scores 
