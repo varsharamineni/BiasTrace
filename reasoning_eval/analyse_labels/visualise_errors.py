@@ -25,13 +25,25 @@ def load_judge_files(paths, judge_labels):
 
         meta = data.get("metadata", {})
         for r in data["results"]:
+
+            # Convert path to string
+            path_str = str(path)
+            
+            # Detect prompt_type from path
+            if "simple_prompt" in path_str:
+                prompt_type = "simple_prompt"
+            elif "full_prompt" in path_str:
+                prompt_type = "full_prompt"
+            else:
+                prompt_type = r.get("prompt_type", "unknown")  # fallback
+
             row = {
                 "source_file": path,
-                "sample_id": r["sample_id"],
+                "sample_id": r["sample_id"],    
                 "category": r.get("category"),
                 "example_id": r.get("example_id"),
                 "model": r.get("model"),
-                "prompt_type": r.get("prompt_type"),
+                "prompt_type": prompt_type,
                 "judge_model": r.get("judge_model"),
                 "judge_prompt": r.get("judge_prompt"),
                 "is_correct": r.get("is_correct"),
@@ -290,7 +302,7 @@ fig.legend(handles, error_cols, loc='upper center', bbox_to_anchor=(0.5, 0.92), 
 plt.tight_layout(rect=[0.06,0,1,0.9])  # leave space for legend and row labels
 
 # Save figure
-output_dir = "plots"
+output_dir = "reasoning_eval/analyse_labels/overall_plots"
 os.makedirs(output_dir, exist_ok=True)
 fig.savefig(os.path.join(output_dir, "errors_by_model_prompt_rows_is_correct_facet_label_legend_top.png"))
 plt.close()
