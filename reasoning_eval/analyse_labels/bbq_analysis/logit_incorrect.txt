@@ -1,35 +1,35 @@
                            Logit Regression Results                           
 ==============================================================================
-Dep. Variable:              incorrect   No. Observations:                55015
-Model:                          Logit   Df Residuals:                    54993
+Dep. Variable:              incorrect   No. Observations:                62743
+Model:                          Logit   Df Residuals:                    62721
 Method:                           MLE   Df Model:                           21
-Date:                Tue, 13 Jan 2026   Pseudo R-squ.:                  0.1989
-Time:                        16:28:42   Log-Likelihood:                -11616.
-converged:                       True   LL-Null:                       -14501.
+Date:                Fri, 16 Jan 2026   Pseudo R-squ.:                  0.1822
+Time:                        14:59:54   Log-Likelihood:                -14285.
+converged:                       True   LL-Null:                       -17468.
 Covariance Type:                  HC3   LLR p-value:                     0.000
 =================================================================================================================================================================
                                                                                                     coef    std err          z      P>|z|      [0.025      0.975]
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-Intercept                                                                                        -3.8107      0.066    -57.315      0.000      -3.941      -3.680
-C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]                               1.1695      0.065     18.028      0.000       1.042       1.297
-C(category)[T.Disability_status]                                                                 -1.0254      0.110     -9.345      0.000      -1.240      -0.810
-C(category)[T.Gender_identity]                                                                    0.1143      0.060      1.904      0.057      -0.003       0.232
-C(category)[T.Nationality]                                                                       -0.1921      0.069     -2.764      0.006      -0.328      -0.056
-C(category)[T.Physical_appearance]                                                                0.9018      0.076     11.800      0.000       0.752       1.052
-C(category)[T.Race_ethnicity]                                                                    -0.4053      0.062     -6.513      0.000      -0.527      -0.283
-C(category)[T.Religion]                                                                           0.4275      0.089      4.815      0.000       0.253       0.601
-C(category)[T.SES]                                                                                0.1345      0.075      1.797      0.072      -0.012       0.281
-C(category)[T.Sexual_orientation]                                                                 0.1128      0.160      0.707      0.479      -0.200       0.425
-group_assumption                                                                                  0.6679      0.080      8.312      0.000       0.510       0.825
-group_assumption:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]             -1.6814      0.170     -9.896      0.000      -2.014      -1.348
-bias_acknowledgement                                                                             -0.6022      0.106     -5.706      0.000      -0.809      -0.395
-bias_acknowledgement:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]         -0.4479      0.139     -3.211      0.001      -0.721      -0.175
-meta_reflection                                                                                  -0.3754      0.065     -5.766      0.000      -0.503      -0.248
-meta_reflection:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]              -0.2021      0.107     -1.895      0.058      -0.411       0.007
-outside_demo_knowledge                                                                            1.1418      0.096     11.931      0.000       0.954       1.329
-outside_demo_knowledge:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]       -0.6824      0.214     -3.183      0.001      -1.103      -0.262
-outside_topical_knowledge                                                                         0.2004      0.067      2.986      0.003       0.069       0.332
-outside_topical_knowledge:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]    -0.0254      0.092     -0.277      0.782      -0.205       0.154
-overthinking                                                                                      2.2883      0.054     42.735      0.000       2.183       2.393
-overthinking:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]                 -0.4116      0.074     -5.583      0.000      -0.556      -0.267
+Intercept                                                                                        -3.8576      0.065    -59.197      0.000      -3.985      -3.730
+C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]                               1.3117      0.058     22.653      0.000       1.198       1.425
+C(category)[T.Disability_status]                                                                 -1.0123      0.109     -9.305      0.000      -1.226      -0.799
+C(category)[T.Gender_identity]                                                                    0.1066      0.059      1.811      0.070      -0.009       0.222
+C(category)[T.Nationality]                                                                       -0.1802      0.068     -2.636      0.008      -0.314      -0.046
+C(category)[T.Physical_appearance]                                                                0.8837      0.075     11.858      0.000       0.738       1.030
+C(category)[T.Race_ethnicity]                                                                    -0.4165      0.061     -6.809      0.000      -0.536      -0.297
+C(category)[T.Religion]                                                                           0.4244      0.087      4.883      0.000       0.254       0.595
+C(category)[T.SES]                                                                                0.3061      0.056      5.504      0.000       0.197       0.415
+C(category)[T.Sexual_orientation]                                                                 0.3542      0.102      3.456      0.001       0.153       0.555
+group_assumption                                                                                  0.6381      0.079      8.056      0.000       0.483       0.793
+group_assumption:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]             -1.5789      0.138    -11.461      0.000      -1.849      -1.309
+bias_acknowledgement                                                                             -0.6087      0.106     -5.766      0.000      -0.816      -0.402
+bias_acknowledgement:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]         -0.2341      0.125     -1.873      0.061      -0.479       0.011
+meta_reflection                                                                                  -0.3839      0.065     -5.897      0.000      -0.512      -0.256
+meta_reflection:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]              -0.1056      0.093     -1.131      0.258      -0.289       0.077
+outside_demo_knowledge                                                                            1.1932      0.095     12.614      0.000       1.008       1.379
+outside_demo_knowledge:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]       -0.8466      0.189     -4.475      0.000      -1.217      -0.476
+outside_topical_knowledge                                                                         0.2211      0.067      3.307      0.001       0.090       0.352
+outside_topical_knowledge:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]    -0.0485      0.086     -0.561      0.575      -0.218       0.121
+overthinking                                                                                      2.2848      0.054     42.667      0.000       2.180       2.390
+overthinking:C(prompt_type, Treatment(reference="simple_prompt"))[T.full_prompt]                 -0.5883      0.068     -8.607      0.000      -0.722      -0.454
 =================================================================================================================================================================
