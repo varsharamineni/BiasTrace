@@ -228,20 +228,64 @@ plt.savefig(OUT_DIR / "fig_stereotype_failures.pdf")
 plt.close()
 
 
+
+
 # ======================
-# 4. Category-wise heatmap
+# 4. Category-wise heatmap + overall prevalence
+# ======================
+from matplotlib.colors import LinearSegmentedColormap
+
+# ======================
+# 4. Category-wise heatmap + overall prevalence (aligned order)
 # ======================
 cat_means = df.groupby("category")[JUDGE_LABELS].mean()
 cat_means.to_csv(OUT_DIR / "table_labels_by_category.csv")
 
-plt.figure(figsize=(10, 4))
-plt.imshow(cat_means.values, aspect="auto")
-plt.yticks(range(len(cat_means)), cat_means.index)
-plt.xticks(range(len(JUDGE_LABELS)), JUDGE_LABELS, rotation=45, ha="right")
-plt.colorbar(label="Proportion")
-plt.title("Judge Label Prevalence by BBQ Category")
+# Compute overall prevalence across all categories
+overall_prevalence = df[JUDGE_LABELS].mean()
+
+# Sort labels by overall prevalence (descending)
+sorted_labels = overall_prevalence.sort_values(ascending=False).index
+sorted_values = overall_prevalence[sorted_labels].values
+
+# Reorder columns of cat_means to match the sorted bar chart
+cat_means_sorted = cat_means[sorted_labels]
+
+# Set up figure with two rows: heatmap on top, bar chart below
+fig = plt.figure(figsize=(12, 14))  # wider figure
+gs = fig.add_gridspec(2, 1, height_ratios=[2, 2], hspace=0.4)
+
+# ---- Heatmap ----
+ax0 = fig.add_subplot(gs[0])
+cmap = LinearSegmentedColormap.from_list("white_to_blue", ["white", "blue"])
+im = ax0.imshow(cat_means_sorted.values, aspect="auto", cmap=cmap, vmin=0, vmax=1)
+
+# Show values inside cells
+for i in range(cat_means_sorted.shape[0]):
+    for j in range(cat_means_sorted.shape[1]):
+        ax0.text(
+            j, i,
+            f"{cat_means_sorted.values[i, j]:.2f}",
+            ha="center", va="center",
+            color="black" if cat_means_sorted.values[i, j] < 0.5 else "white"
+        )
+
+ax0.set_yticks(range(len(cat_means_sorted)))
+ax0.set_yticklabels(cat_means_sorted.index)
+ax0.set_xticks(range(len(sorted_labels)))
+ax0.set_xticklabels(sorted_labels, rotation=70, ha="right")
+fig.colorbar(im, ax=ax0, label="Proportion")
+ax0.set_title("Judge Label Prevalence by BBQ Category")
+
+# ---- Sorted overall prevalence bar chart ----
+ax1 = fig.add_subplot(gs[1])
+ax1.bar(sorted_labels, sorted_values, color="#1f77b4")
+ax1.set_ylabel("Overall Prevalence")
+ax1.set_ylim(0, 0.5)
+ax1.set_xticklabels(sorted_labels, rotation=20, ha="right")
+
 plt.tight_layout()
-plt.savefig(OUT_DIR / "fig_category_heatmap.pdf")
+plt.savefig(OUT_DIR / "fig_category_heatmap_aligned_bar.pdf")
 plt.close()
 
 # ======================
