@@ -1,6 +1,6 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-MODEL = "Qwen/Qwen3-1.7B"  # or "EleutherAI/pythia-70m"
+MODEL = "Qwen/Qwen3-8B" 
 tokenizer = AutoTokenizer.from_pretrained(MODEL, local_files_only=True)
 model = AutoModelForCausalLM.from_pretrained(MODEL, local_files_only=True)
 
