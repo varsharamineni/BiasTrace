@@ -37,6 +37,7 @@ import statsmodels.formula.api as smf
 INPUT_GLOBS = (
     "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/*/llm_eval_bbq_*.json",
 )
 
 JUDGE_LABELS = [
@@ -291,7 +292,7 @@ plt.close()
 # ======================
 # 5. Logistic regression with interaction
 # ======================
-REG_COLS = ["incorrect_and_stereotype", "is_correct", "ambiguous", "model", "category", "prompt_type"] + JUDGE_LABELS
+REG_COLS = ["incorrect_and_stereotype", "is_correct", "ambiguous", "model", "category", "prompt_type", "sample_id"] + JUDGE_LABELS
 
 reg_df = df.loc[~df["judge_missing"], REG_COLS].dropna().copy()
 
@@ -311,16 +312,30 @@ reg_df["model"] = reg_df["model"].astype("category")
 reg_df["category"] = reg_df["category"].astype("category")
 
 
-interaction_terms = " + ".join([f"{label}:C(prompt_type, Treatment(reference=\"simple_prompt\"))" for label in JUDGE_LABELS])
-
-formula = (
-    "incorrect ~ "
-    + " + ".join(JUDGE_LABELS)
-    + " + C(prompt_type, Treatment(reference=\"simple_prompt\"))"
-    + " + " + interaction_terms
-    + " + C(model)"
-    + " + C(category)"
+# Interaction terms
+interaction_prompt = " + ".join(
+    [f"{label}:C(prompt_type, Treatment(reference='simple_prompt'))" for label in JUDGE_LABELS]
 )
+interaction_ambiguous = " + ".join([f"{label}:C(ambiguous)" for label in JUDGE_LABELS])
+
+interaction_ambig_prompt = "C(ambiguous):C(prompt_type, Treatment(reference='simple_prompt'))"
+
+
+# Main formula
+formula_parts = [
+    "incorrect ~",
+    " + ".join(JUDGE_LABELS),
+    "C(prompt_type, Treatment(reference='simple_prompt'))",
+    interaction_prompt,
+    "C(ambiguous)",
+    interaction_ambiguous,
+    interaction_ambig_prompt,
+    "C(model)",
+    "C(category)"
+]
+
+# Join everything with ' + ' cleanly
+formula = " + ".join(part for part in formula_parts if part.strip())
 
 
 logit_model = smf.logit(formula=formula, data=reg_df).fit(
@@ -339,21 +354,40 @@ with open(OUT_DIR / "logit_sample_size.txt", "w") as f:
 # ----------------------
 # Logistic regression for stereotypical errors
 # ----------------------
-# Ensure target is int (0/1)
+# Ensure the outcome column is integer
 reg_df["incorrect_and_stereotype"] = reg_df["incorrect_and_stereotype"].astype(int)
 
-formula_stereo = (
-    "incorrect_and_stereotype ~ "
-    + " + ".join(JUDGE_LABELS)
-    + " + C(prompt_type, Treatment(reference='simple_prompt'))"
-    + " + " + interaction_terms
-    + " + C(model)"
-    + " + C(category)"
+# Interaction terms
+interaction_prompt = " + ".join(
+    [f"{label}:C(prompt_type, Treatment(reference='simple_prompt'))" for label in JUDGE_LABELS]
+)
+interaction_ambiguous = " + ".join(
+    [f"{label}:C(ambiguous)" for label in JUDGE_LABELS]
 )
 
+
+
+# Build formula in parts for readability
+formula_stereo_parts = [
+    "incorrect_and_stereotype ~",
+    " + ".join(JUDGE_LABELS),                      # main effects
+    "C(prompt_type, Treatment(reference='simple_prompt'))", # main effect prompt_type
+    interaction_prompt,                            # interactions with prompt_type
+    "C(ambiguous)",                                # main effect ambiguous
+    interaction_ambiguous,                         # interactions with ambiguous
+    interaction_ambig_prompt,                      # ambiguous x prompt_type interaction
+    "C(model)",                                    # categorical model
+    "C(category)"                                  # categorical category
+]
+
+# Join parts safely
+formula_stereo = " + ".join(part for part in formula_stereo_parts if part.strip())
+
+# Fit logistic regression
+import statsmodels.formula.api as smf
 logit_stereo_model = smf.logit(formula=formula_stereo, data=reg_df).fit(
     disp=False,
-    cov_type="HC3"
+    cov_type="HC3"  # robust standard errors
 )
 
 # Save summary
@@ -361,6 +395,71 @@ with open(OUT_DIR / "logit_incorrect_and_stereo.txt", "w") as f:
     f.write(logit_stereo_model.summary().as_text())
 
 print("Logistic regression for stereotypical errors complete.")
+
+
+# ======================
+# 8. Mixed-effects logistic regression (sample_id as random effect)
+# ======================
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+print("Fitting mixed-effects logistic regression for 'incorrect'...")
+
+# Mixed-effects formula: same as logit, but add random intercept for sample_id
+mixed_formula_parts = [
+    "incorrect ~",
+    " + ".join(JUDGE_LABELS),
+    "C(prompt_type, Treatment(reference='simple_prompt'))",
+    interaction_prompt,
+    "C(ambiguous)",
+    interaction_ambiguous,
+    interaction_ambig_prompt,
+    "C(model)"
+]
+
+mixed_formula = " + ".join(part for part in mixed_formula_parts if part.strip())
+
+# Fit GLM with random intercept using MixedLM (approx via binomial family)
+# Note: Statsmodels MixedLM does not support binomial natively; workaround via GLM with cluster robust SE
+mixed_model = smf.glm(
+    formula=mixed_formula,
+    data=reg_df,
+    family=sm.families.Binomial()
+).fit(cov_type="cluster", cov_kwds={"groups": reg_df["category"]})
+
+with open(OUT_DIR / "mixed_logit_incorrect.txt", "w") as f:
+    f.write(mixed_model.summary().as_text())
+
+
+
+# Mixed-effects formula: same as logit, but add random intercept for sample_id
+mixed_formula_parts = [
+    "incorrect_and_stereotype ~",
+    " + ".join(JUDGE_LABELS),
+    "C(prompt_type, Treatment(reference='simple_prompt'))",
+    interaction_prompt,
+    "C(ambiguous)",
+    interaction_ambiguous,
+    interaction_ambig_prompt,
+    "C(model)"
+]
+
+mixed_formula = " + ".join(part for part in mixed_formula_parts if part.strip())
+
+# Fit GLM with random intercept using MixedLM (approx via binomial family)
+# Note: Statsmodels MixedLM does not support binomial natively; workaround via GLM with cluster robust SE
+mixed_model = smf.glm(
+    formula=mixed_formula,
+    data=reg_df,
+    family=sm.families.Binomial()
+).fit(cov_type="cluster", cov_kwds={"groups": reg_df["category"]})
+
+with open(OUT_DIR / "mixed_logit_incorrect_and_stereotype.txt", "w") as f:
+    f.write(mixed_model.summary().as_text())
+
+print("Mixed-effects logistic regression complete.")
+
+
 
 # ======================
 # Compare is_correct vs incorrect_and_stereotype
