@@ -1,0 +1,38 @@
+                    Generalized Linear Model Regression Results                     
+====================================================================================
+Dep. Variable:     incorrect_and_stereotype   No. Observations:                86387
+Model:                                  GLM   Df Residuals:                    86364
+Model Family:                      Binomial   Df Model:                           22
+Link Function:                        Logit   Scale:                          1.0000
+Method:                                IRLS   Log-Likelihood:                -2528.3
+Date:                      Tue, 20 Jan 2026   Deviance:                       5056.6
+Time:                              15:59:00   Pearson chi2:                 7.55e+04
+No. Iterations:                          27   Pseudo R-squ. (CS):            0.04955
+Covariance Type:                    cluster                                         
+=================================================================================================================================================================
+                                                                                                    coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                                        -7.2947      0.959     -7.605      0.000      -9.175      -5.415
+C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                              -2.5975      0.305     -8.530      0.000      -3.194      -2.001
+C(ambiguous)[T.True]                                                                              1.0026      1.140      0.879      0.379      -1.232       3.237
+C(model)[T.Qwen/Qwen3-8B]                                                                        -0.0192      0.111     -0.173      0.863      -0.236       0.198
+C(ambiguous)[T.True]:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]          0.8405      0.669      1.257      0.209      -0.470       2.151
+group_assumption                                                                                  1.4109      1.046      1.349      0.177      -0.640       3.461
+group_assumption:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]             -1.0570      0.810     -1.305      0.192      -2.644       0.530
+group_assumption:C(ambiguous)[T.True]                                                             1.6625      1.269      1.310      0.190      -0.824       4.149
+bias_acknowledgement                                                                            -21.9939        nan        nan        nan         nan         nan
+bias_acknowledgement:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]         -1.2367      0.799     -1.547      0.122      -2.803       0.330
+bias_acknowledgement:C(ambiguous)[T.True]                                                        20.8925        nan        nan        nan         nan         nan
+meta_reflection                                                                                  -0.6948      0.248     -2.799      0.005      -1.181      -0.208
+meta_reflection:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]              -0.5083      0.569     -0.893      0.372      -1.623       0.607
+meta_reflection:C(ambiguous)[T.True]                                                             -0.0570      0.331     -0.172      0.863      -0.705       0.591
+outside_demo_knowledge                                                                            1.6485      0.336      4.909      0.000       0.990       2.307
+outside_demo_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]       -0.3236      0.375     -0.863      0.388      -1.059       0.412
+outside_demo_knowledge:C(ambiguous)[T.True]                                                      -0.3382      0.647     -0.523      0.601      -1.606       0.930
+outside_topical_knowledge                                                                        -0.4486      0.660     -0.680      0.496      -1.741       0.844
+outside_topical_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]    -0.6161      0.264     -2.338      0.019      -1.133      -0.100
+outside_topical_knowledge:C(ambiguous)[T.True]                                                    0.7470      0.522      1.432      0.152      -0.275       1.769
+overthinking                                                                                      2.1039      0.136     15.471      0.000       1.837       2.370
+overthinking:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                  2.9291      0.439      6.679      0.000       2.070       3.789
+overthinking:C(ambiguous)[T.True]                                                                 0.4257      0.426      0.999      0.318      -0.410       1.261
+=================================================================================================================================================================

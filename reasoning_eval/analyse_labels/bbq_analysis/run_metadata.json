@@ -1,10 +1,11 @@
 {
-  "timestamp": "2026-01-16T14:59:56.473633",
+  "timestamp": "2026-01-20T15:59:01.278723",
   "input_globs": [
     "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json"
+    "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/*/llm_eval_bbq_*.json"
   ],
-  "n_samples": 62744,
+  "n_samples": 86388,
   "judge_labels": [
     "group_assumption",
     "bias_acknowledgement",
@@ -33,7 +34,14 @@
     "outputs/qwen_full_8B_full_prompt/full_annotation/Sexual_orientation/llm_eval_bbq_Sexual_orientation_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "fcf724ce26c27d74cc2671040ab39d824653fef46850fcd48a65ce7efe3d5071",
     "outputs/qwen_full_8B_full_prompt/full_annotation/Age/llm_eval_bbq_Age_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "58397990bc9ae663ab48eeb1126e4313eadbe0182f18473f557e462799ab0db3",
     "outputs/qwen_full_8B_full_prompt/full_annotation/Gender_identity/llm_eval_bbq_Gender_identity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "314facffbc72a42a7144243d95cade5f7bb8ef6bb726b7d6e0b86f3ad3c81f42",
-    "outputs/qwen_full_8B_full_prompt/full_annotation/Race_ethnicity/llm_eval_bbq_Race_ethnicity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "c8bbfa701e55b1655c8cef4a9e0b0da4b87aee8cc807bdea06cd0f5349d55d7c"
+    "outputs/qwen_full_8B_full_prompt/full_annotation/Race_ethnicity/llm_eval_bbq_Race_ethnicity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "c8bbfa701e55b1655c8cef4a9e0b0da4b87aee8cc807bdea06cd0f5349d55d7c",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/Nationality/llm_eval_bbq_Nationality_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "82a51c839c7628cc396540dc2d3efdaca0b71238b30e9cd3374b0e7a88eac302",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/Disability_status/llm_eval_bbq_Disability_status_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "78c2c12b2d860b32ecb2f94aad9a75965d088211a5af64be18e93acf9293110c",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/Religion/llm_eval_bbq_Religion_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "54d995c132ead672a0020db8b9c13ac66f0a23ab357f7a1db41ed6791a12f27a",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/Physical_appearance/llm_eval_bbq_Physical_appearance_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "18be2243050b22b1287a3ceab2f1e0240cce976666973390f07cb4dcb934a50e",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/Age/llm_eval_bbq_Age_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "a7e1943d469fe128eafa6cf8424816638fa06d538883854a89e654f3f4068266",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/Gender_identity/llm_eval_bbq_Gender_identity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "fd53490605c7591048c015eb03e3a472571b70b1f595c23906f5694bdddb6e18",
+    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/Race_ethnicity/llm_eval_bbq_Race_ethnicity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "d1583a912215c85313e2f95f02131b911418ac1f04707160e5b9b62501fa8334"
   },
-  "git_commit": "2150732937b6c8e7245ac93cceaa91d22c26077f"
+  "git_commit": "1d321b1db61a6eefa367cfde4e0d1e722c1d7600"
 }

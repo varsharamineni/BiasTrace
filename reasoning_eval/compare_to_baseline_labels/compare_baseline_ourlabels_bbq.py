@@ -5,7 +5,6 @@ import json
 import argparse
 import pandas as pd
 import statsmodels.api as sm
-from scipy.stats import spearmanr
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -39,12 +38,15 @@ def parse_judge_output(r):
         score = sum(errors.values())
     return score, errors
 
-def load_folder(folder, baseline_type=None):
+def load_folder(folder, baseline_type=None, parent_folder_name=None):
+    """Load all JSON results in a folder"""
     rows = []
+    categories_seen = set()
     for f in find_jsons(folder):
         with open(f) as file:
             data = json.load(file)
         category = data.get("metadata", {}).get("bbq_category","unknown")
+        categories_seen.add(category)
         for r in data.get("results", []):
             score, errors = parse_judge_output(r)
             row = {
@@ -56,18 +58,16 @@ def load_folder(folder, baseline_type=None):
                 'stereotype_aligned': int(r.get('stereotype_alignment', False)),
                 'incorrect_and_stereotype': int(r.get('incorrect_and_stereotype', False)),
                 'baseline_score': score if baseline_type else None,
-                'baseline_type': baseline_type
+                'baseline_type': baseline_type,
+                'parent_folder': parent_folder_name
             }
             # Detailed errors for full_annotation
             if baseline_type is None:
                 row.update(errors)
                 row['agg_errors'] = sum(errors.values()) - errors['bias_acknowledgement']
             rows.append(row)
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows), categories_seen
 
-# ---------------------------
-# Logistic regression helper
-# ---------------------------
 def run_logistic(df, predictors, outcome='incorrect_and_stereotype'):
     df_clean = df.dropna(subset=predictors + [outcome])
     X = df_clean[predictors]
@@ -77,9 +77,6 @@ def run_logistic(df, predictors, outcome='incorrect_and_stereotype'):
     pseudo_r2 = 1 - model.llf / model.llnull
     return model, pseudo_r2
 
-# ---------------------------
-# Coverage analysis
-# ---------------------------
 def coverage_analysis(df, baseline_col='baseline', error_cols=error_labels, output_dir=None):
     coverage_results = []
     for val in df[baseline_col].dropna().unique():
@@ -112,23 +109,91 @@ def plot_coverage(coverage_df, baseline_col='baseline', output_dir=None):
         print(f"Saved coverage figure: {out_fig}")
     plt.close()
 
+def get_subfolders(parent_folder):
+    """Return dict with keys: baseline, baseline_0-5, full"""
+    mapping = {}
+    for name in os.listdir(parent_folder):
+        full_path = os.path.join(parent_folder, name)
+        if os.path.isdir(full_path):
+            if "baseline_0-5" in name:
+                mapping["baseline_0-5"] = full_path
+            elif "baseline" in name:
+                mapping["baseline"] = full_path
+            elif "full" in name:
+                mapping["full"] = full_path
+    return mapping
+
+def plot_correlation_heatmap(df, numeric_cols, output_dir, output_name="correlation_heatmap.png"):
+    """
+    Plots a Spearman correlation heatmap for selected numeric columns
+    """
+    # Compute Spearman correlation
+    corr_matrix = df[numeric_cols].corr(method='spearman')
+
+    plt.figure(figsize=(12,10))
+    sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", cbar=True)
+    plt.title("Spearman correlation between baseline scores, error labels, and outcome")
+    plt.tight_layout()
+
+    if output_dir:
+        out_fig = os.path.join(output_dir, output_name)
+        plt.savefig(out_fig, dpi=300)
+        print(f"Saved correlation heatmap: {out_fig}")
+    plt.close()
+
 # ---------------------------
 # Main
 # ---------------------------
-def main(baseline_folder, baseline_0_5_folder, full_annotation_folder, output_dir):
+def main(parent_folders, output_dir):
     os.makedirs(output_dir, exist_ok=True)
 
-    # Load data
-    df_baseline = load_folder(baseline_folder, baseline_type='baseline')
-    df_baseline_0_5 = load_folder(baseline_0_5_folder, baseline_type='baseline_0-5')
-    df_full = load_folder(full_annotation_folder, baseline_type=None)
+    df_baseline_list = []
+    df_baseline_0_5_list = []
+    df_full_list = []
 
-    # Pivot baselines
+    # Load each parent folder
+    for pf in parent_folders:
+        subfolders = get_subfolders(pf)
+        if not all(k in subfolders for k in ["baseline", "baseline_0-5", "full"]):
+            print(f"Skipping {pf}, missing required subfolders")
+            continue
+
+        df_b, cats_b = load_folder(subfolders["baseline"], "baseline", pf)
+        df_b05, cats_b05 = load_folder(subfolders["baseline_0-5"], "baseline_0-5", pf)
+        df_f, cats_f = load_folder(subfolders["full"], None, pf)
+
+        # Only keep categories that exist in all three subfolders
+        common_categories = cats_b & cats_b05 & cats_f
+        print(f"{pf}: keeping categories {sorted(common_categories)}")
+
+        df_b = df_b[df_b['bbq_category'].isin(common_categories)]
+        df_b05 = df_b05[df_b05['bbq_category'].isin(common_categories)]
+        df_f = df_f[df_f['bbq_category'].isin(common_categories)]
+
+        df_baseline_list.append(df_b)
+        df_baseline_0_5_list.append(df_b05)
+        df_full_list.append(df_f)
+
+    # Concatenate all parent folders
+    df_baseline = pd.concat(df_baseline_list, ignore_index=True).drop_duplicates(subset=['sample_id','baseline_type','model','prompt_type','parent_folder'])
+    df_baseline_0_5 = pd.concat(df_baseline_0_5_list, ignore_index=True).drop_duplicates(subset=['sample_id','baseline_type','model','prompt_type','parent_folder'])
+    df_full = pd.concat(df_full_list, ignore_index=True).drop_duplicates(subset=['sample_id','model','prompt_type','parent_folder'])
+
+    # Pivot baselines using multi-index
     baseline_wide = pd.concat([df_baseline, df_baseline_0_5])
-    baseline_wide = baseline_wide.pivot(index='sample_id', columns='baseline_type', values='baseline_score')
+    baseline_wide = baseline_wide.pivot_table(
+        index=['sample_id','model','prompt_type','parent_folder'],
+        columns='baseline_type',
+        values='baseline_score',
+        aggfunc='first'  # safe if duplicates exist
+    ).reset_index()
 
-    # Merge with full annotation (keep samples with both baselines)
-    final_df = df_full.set_index('sample_id').join(baseline_wide, how='inner')
+    # Merge with full annotation
+    final_df = df_full.set_index(['sample_id','model','prompt_type','parent_folder']).join(
+        baseline_wide.set_index(['sample_id','model','prompt_type','parent_folder']),
+        how='inner'
+    ).reset_index()
+
     print(f"Final df shape: {final_df.shape}")
 
     # Ensure all error columns exist
@@ -139,7 +204,7 @@ def main(baseline_folder, baseline_0_5_folder, full_annotation_folder, output_di
         final_df['agg_errors'] = final_df[error_labels].sum(axis=1) - final_df['bias_acknowledgement']
 
     # Save combined CSV
-    final_df.to_csv(os.path.join(output_dir, "combined_results.csv"))
+    final_df.to_csv(os.path.join(output_dir, "combined_results.csv"), index=False)
     print("Saved combined results")
 
     # ---------------------------
@@ -153,9 +218,6 @@ def main(baseline_folder, baseline_0_5_folder, full_annotation_folder, output_di
         'Baseline 0/1': ['baseline'],
         'Baseline 0-0.5': ['baseline_0-5']
     }
-
-    covariates = ['bbq_category', 'prompt_type']
-    numeric_covariates = ['ambiguous']
 
     logit_summaries = []
     for name, predictors in predictor_sets.items():
@@ -175,12 +237,19 @@ def main(baseline_folder, baseline_0_5_folder, full_annotation_folder, output_di
     logit_df.to_csv(os.path.join(output_dir, "logistic_regression_comparison.csv"), index=False)
     print("Saved logistic regression comparison")
 
+    final_df['incorrect'] = 1 - final_df['is_correct']
+
+    numeric_cols = error_labels + ['baseline', 'baseline_0-5', 'incorrect', 'incorrect_and_stereotype']
+
     # ---------------------------
     # Coverage analysis
     # ---------------------------
-    for baseline_col in ['baseline', 'baseline_0-5']:
-        cov_df = coverage_analysis(final_df, baseline_col=baseline_col, error_cols=error_labels, output_dir=output_dir)
-        plot_coverage(cov_df, baseline_col=baseline_col, output_dir=output_dir)
+    for baseline_col in ['baseline','baseline_0-5']:
+        if baseline_col in final_df.columns:
+            cov_df = coverage_analysis(final_df, baseline_col=baseline_col, error_cols=error_labels, output_dir=output_dir)
+            plot_coverage(cov_df, baseline_col=baseline_col, output_dir=output_dir)
+            plot_correlation_heatmap(final_df, numeric_cols=numeric_cols, output_dir=output_dir,
+                         output_name="baseline_error_correlation_heatmap.png")
 
     print("Analysis complete")
     return final_df, logit_df
@@ -190,10 +259,9 @@ def main(baseline_folder, baseline_0_5_folder, full_annotation_folder, output_di
 # ---------------------------
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--baseline_folder", required=True)
-    parser.add_argument("--baseline_0_5_folder", required=True)
-    parser.add_argument("--full_annotation_folder", required=True)
+    parser.add_argument("--parent_folders", nargs='+', required=True,
+                        help="List of parent folders, each containing baseline, baseline_0-5, full subfolders")
     parser.add_argument("--output_dir", required=True)
     args = parser.parse_args()
 
-    main(args.baseline_folder, args.baseline_0_5_folder, args.full_annotation_folder, args.output_dir)
+    main(args.parent_folders, args.output_dir)
