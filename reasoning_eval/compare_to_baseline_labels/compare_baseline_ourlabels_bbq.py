@@ -40,6 +40,18 @@ def parse_judge_output(r):
 
 def load_folder(folder, baseline_type=None, parent_folder_name=None):
     """Load all JSON results in a folder"""
+
+        # Coefficients from the first logistic regression (p < 0.05)
+    weighted_error_labels = {
+        'overthinking': 1.6833,
+        'group_assumption': 0.2675,
+        'bias_acknowledgement': 1.2012,
+        'meta_reflection': 0.4392,
+        'outside_demo_knowledge': 0.4775,
+        'outside_topical_knowledge': 0.1941
+    }
+
+
     rows = []
     categories_seen = set()
     for f in find_jsons(folder):
@@ -64,7 +76,10 @@ def load_folder(folder, baseline_type=None, parent_folder_name=None):
             # Detailed errors for full_annotation
             if baseline_type is None:
                 row.update(errors)
-                row['agg_errors'] = sum(errors.values()) - errors['bias_acknowledgement']
+                row['agg_errors'] = sum(errors.values()) 
+                row['agg_errors_minus'] = sum(errors.values()) - errors['bias_acknowledgement'] 
+                row['weighted_agg_errors'] = sum(errors[lbl] * weighted_error_labels[lbl] for lbl in error_labels)
+                row['at_least_one_error'] = int(any(errors[lbl] == 1 for lbl in error_labels))
             rows.append(row)
     return pd.DataFrame(rows), categories_seen
 
@@ -104,10 +119,35 @@ def plot_coverage(coverage_df, baseline_col='baseline', output_dir=None):
     plt.title("Coverage of error combinations per baseline score")
     plt.tight_layout()
     if output_dir:
-        out_fig = os.path.join(output_dir, f'coverage_{baseline_col}.png')
+        out_fig = os.path.join(output_dir, f'coverage_{baseline_col}.pdf')
         plt.savefig(out_fig, dpi=300)
         print(f"Saved coverage figure: {out_fig}")
     plt.close()
+
+def plot_coverage_stacked(df, baseline_col='baseline', error_cols=error_labels, output_dir=None):
+    """
+    Plot a stacked bar chart showing the breakdown of each error type per baseline score.
+    """
+    # Aggregate counts per baseline score
+    agg_counts = df.groupby(baseline_col)[error_cols].sum()
+
+    # Plot
+    plt.figure(figsize=(10,6))
+    agg_counts.plot(kind='bar', stacked=True, colormap='tab20', edgecolor='black')
+
+    plt.xlabel(f"{baseline_col} score")
+    plt.ylabel("Number of errors")
+    plt.title(f"Breakdown of error types per {baseline_col} score")
+    plt.xticks(rotation=0)
+    plt.legend(title="Error Type", bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.tight_layout()
+
+    if output_dir:
+        out_fig = os.path.join(output_dir, f'stacked_errors_{baseline_col}.pdf')
+        plt.savefig(out_fig, dpi=300)
+        print(f"Saved stacked error figure: {out_fig}")
+    plt.close()
+
 
 def get_subfolders(parent_folder):
     """Return dict with keys: baseline, baseline_0-5, full"""
@@ -123,22 +163,53 @@ def get_subfolders(parent_folder):
                 mapping["full"] = full_path
     return mapping
 
-def plot_correlation_heatmap(df, numeric_cols, output_dir, output_name="correlation_heatmap.png"):
+def plot_correlation_heatmap(df=None, numeric_cols=None, corr_matrix=None, output_dir=None, 
+                             output_name="correlation_heatmap.pdf", method="spearman"):
     """
-    Plots a Spearman correlation heatmap for selected numeric columns
+    Plots a correlation heatmap for selected numeric columns.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        DataFrame containing numeric columns (optional if corr_matrix is provided)
+    numeric_cols : list[str]
+        List of numeric columns to include in correlation (required if df is provided)
+    corr_matrix : pd.DataFrame
+        Precomputed correlation matrix (optional)
+    output_dir : str
+        Directory to save CSV and heatmap
+    output_name : str
+        Filename for heatmap PDF
+    method : str
+        Correlation method: 'spearman' or 'pearson'
     """
-    # Compute Spearman correlation
-    corr_matrix = df[numeric_cols].corr(method='spearman')
-
+    # Compute correlation if not provided
+    if corr_matrix is None:
+        if df is None or numeric_cols is None:
+            raise ValueError("Must provide either df + numeric_cols or a precomputed corr_matrix")
+        corr_matrix = df[numeric_cols].corr(method=method)
+    
+    # Plot heatmap
     plt.figure(figsize=(12,10))
     sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", cbar=True)
-    plt.title("Spearman correlation between baseline scores, error labels, and outcome")
+    plt.title(f"{method.capitalize()} correlation between baseline scores, error labels, and outcome")
     plt.tight_layout()
 
+    # Save CSV table
+    if output_dir:
+        out_csv = os.path.join(output_dir, f"correlation_table_{method}.csv")
+        corr_matrix.to_csv(out_csv)
+        print(f"Saved correlation table ({method}): {out_csv}")
+
+    # Print nicely in console
+    print(f"\n{method.capitalize()} Correlation Table:")
+    print(corr_matrix.round(3))
+
+    # Save heatmap
     if output_dir:
         out_fig = os.path.join(output_dir, output_name)
         plt.savefig(out_fig, dpi=300)
-        print(f"Saved correlation heatmap: {out_fig}")
+        print(f"Saved correlation heatmap ({method}): {out_fig}")
     plt.close()
 
 # ---------------------------
@@ -200,8 +271,6 @@ def main(parent_folders, output_dir):
     for lbl in error_labels:
         if lbl not in final_df.columns:
             final_df[lbl] = 0
-    if 'agg_errors' not in final_df.columns:
-        final_df['agg_errors'] = final_df[error_labels].sum(axis=1) - final_df['bias_acknowledgement']
 
     # Save combined CSV
     final_df.to_csv(os.path.join(output_dir, "combined_results.csv"), index=False)
@@ -239,7 +308,7 @@ def main(parent_folders, output_dir):
 
     final_df['incorrect'] = 1 - final_df['is_correct']
 
-    numeric_cols = error_labels + ['baseline', 'baseline_0-5', 'incorrect', 'incorrect_and_stereotype']
+    numeric_cols = error_labels + ['baseline', 'baseline_0-5', 'incorrect', 'incorrect_and_stereotype', 'agg_errors', 'agg_errors_minus', 'weighted_agg_errors', 'at_least_one_error']
 
     # ---------------------------
     # Coverage analysis
@@ -248,8 +317,13 @@ def main(parent_folders, output_dir):
         if baseline_col in final_df.columns:
             cov_df = coverage_analysis(final_df, baseline_col=baseline_col, error_cols=error_labels, output_dir=output_dir)
             plot_coverage(cov_df, baseline_col=baseline_col, output_dir=output_dir)
-            plot_correlation_heatmap(final_df, numeric_cols=numeric_cols, output_dir=output_dir,
-                         output_name="baseline_error_correlation_heatmap.png")
+            plot_coverage_stacked(final_df, baseline_col=baseline_col, error_cols=error_labels, output_dir=output_dir)
+            plot_correlation_heatmap(df=final_df, numeric_cols=numeric_cols, output_dir=output_dir,
+                         output_name="correlation_heatmap_spearman.pdf", method="spearman")
+            plot_correlation_heatmap(df=final_df, numeric_cols=numeric_cols, output_dir=output_dir,
+                         output_name="correlation_heatmap_pearson.pdf", method="pearson")
+
+
 
     print("Analysis complete")
     return final_df, logit_df
