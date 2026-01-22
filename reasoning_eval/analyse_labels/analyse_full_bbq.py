@@ -1,32 +1,21 @@
-"""
-End-to-end analysis of LLM-as-a-judge annotations for BBQ reasoning traces.
-
-Outputs:
-- flattened annotations CSV
-- label prevalence tables
-- correctness + stereotype comparisons
-- category-wise summaries
-- publication-ready figures (PDF)
-- logistic regression predicting stereotypical errors
-- full run metadata with input file hashes
-"""
-
 # ======================
-# Imports
+# Full BBQ Analysis Script with Net & Isolated Effect Plots
 # ======================
+
 import json
 import glob
 import hashlib
 import datetime
 import subprocess
 from pathlib import Path
+import re
 
 import numpy as np
 import pandas as pd
-
 import matplotlib
-matplotlib.use("Agg")  # non-interactive, safe for SSH
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
@@ -38,6 +27,7 @@ INPUT_GLOBS = (
     "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/qwen_full_14B_full_prompt/full_annotation/*/llm_eval_bbq_*.json"
 )
 
 JUDGE_LABELS = [
@@ -46,16 +36,14 @@ JUDGE_LABELS = [
     "meta_reflection",
     "outside_demo_knowledge",
     "outside_topical_knowledge",
-    #"unresolved",
     "overthinking",
-    #"missing_logic",
 ]
 
 N_BOOTSTRAP = 1000
 RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
 
-OUT_DIR = Path(f"reasoning_eval/analyse_labels/bbq_analysis")
+OUT_DIR = Path("reasoning_eval/analyse_labels/bbq_analysis_new")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ======================
@@ -68,50 +56,29 @@ def hash_file(path):
             h.update(chunk)
     return h.hexdigest()
 
+def normalize_model_name(model_name: str) -> str:
+    match = re.search(r"qwen\d+-\d+B", model_name, re.IGNORECASE)
+    if match:
+        canonical = match.group(0).capitalize()
+        return f"Qwen/{canonical}"
+    return model_name
 
-def bootstrap_ci(series, n=N_BOOTSTRAP, alpha=0.05):
-    vals = series.values
-    means = []
-    for _ in range(n):
-        sample = np.random.choice(vals, size=len(vals), replace=True)
-        means.append(sample.mean())
-    return (
-        np.percentile(means, 100 * alpha / 2),
-        np.percentile(means, 100 * (1 - alpha / 2)),
-    )
-
-
-# ======================
-# Load + flatten judge annotations
-# ======================
 def load_judge_files(paths):
     rows = []
     file_hashes = {}
-
     if len(paths) == 0:
         raise RuntimeError("No files found for input glob patterns")
 
     for path in paths:
         file_hashes[path] = hash_file(path)
-
         with open(path, "r") as f:
             data = json.load(f)
-
         meta = data.get("metadata", {})
         for r in data["results"]:
-
-            # Convert path to string
             path_str = str(path)
-            
-            # Detect prompt_type from path
-            if "simple_prompt" in path_str:
-                prompt_type = "simple_prompt"
-            elif "full_prompt" in path_str:
-                prompt_type = "full_prompt"
-            else:
-                prompt_type = r.get("prompt_type", "unknown")  # fallback
-
-
+            prompt_type = ("simple_prompt" if "simple_prompt" in path_str
+                           else "full_prompt" if "full_prompt" in path_str
+                           else r.get("prompt_type", "unknown"))
             row = {
                 "source_file": path,
                 "sample_id": r["sample_id"],
@@ -140,12 +107,10 @@ def load_judge_files(paths):
                 row["judge_missing"] = False
 
             rows.append(row)
-
     return pd.DataFrame(rows), file_hashes
 
-
 # ======================
-# Collect all files
+# Collect all JSON files
 # ======================
 all_paths = []
 for pattern in INPUT_GLOBS:
@@ -155,429 +120,228 @@ if len(all_paths) == 0:
     raise RuntimeError(f"No files found for input patterns: {INPUT_GLOBS}")
 
 df, file_hashes = load_judge_files(all_paths)
-
-print(f"Loaded {len(df)} annotated samples")
-print("Total samples:", len(df))
-print("Missing judge_output:", df["judge_missing"].sum())
-print("Fraction missing:", df["judge_missing"].mean())
-
+print(f"Loaded {len(df)} samples; missing judge output: {df['judge_missing'].sum()}")
 
 # ======================
-# 1. Overall label prevalence + CI
-# ======================
-means = df[JUDGE_LABELS].mean().sort_values(ascending=False)
-
-ci_rows = []
-for label in JUDGE_LABELS:
-    lo, hi = bootstrap_ci(df[label])
-    ci_rows.append({"label": label, "ci_low": lo, "ci_high": hi})
-
-ci_df = pd.DataFrame(ci_rows).set_index("label")
-
-overall_df = pd.concat(
-    [means.rename("mean"), ci_df],
-    axis=1
-)
-
-overall_df.to_csv(OUT_DIR / "table_overall_label_prevalence.csv")
-
-plt.figure()
-plt.bar(overall_df.index, overall_df["mean"])
-plt.xticks(rotation=45, ha="right")
-plt.ylabel("Proportion")
-plt.title("Judge Label Distribution (All Samples)")
-plt.tight_layout()
-plt.savefig(OUT_DIR / "fig_overall_distribution.pdf")
-plt.close()
-
-
-# ======================
-# 2. Correct vs incorrect
-# ======================
-by_correct = df.groupby("is_correct")[JUDGE_LABELS].mean().T
-by_correct.to_csv(OUT_DIR / "table_labels_by_correctness.csv")
-
-by_correct.plot(kind="bar")
-plt.ylabel("Proportion")
-plt.title("Judge Labels by Answer Correctness")
-plt.xticks(rotation=45, ha="right")
-plt.legend(title="is_correct")
-plt.tight_layout()
-plt.savefig(OUT_DIR / "fig_correct_vs_incorrect.pdf")
-plt.close()
-
-
-# ======================
-# 3. Stereotype failures
-# ======================
-incorrect = df[~df["is_correct"]]
-stereo = df[df["incorrect_and_stereotype"]]
-
-compare = pd.DataFrame({
-    "incorrect_all": incorrect[JUDGE_LABELS].mean(),
-    "incorrect_and_stereotype": stereo[JUDGE_LABELS].mean(),
-})
-
-compare.to_csv(OUT_DIR / "table_stereotype_comparison.csv")
-
-compare.plot(kind="bar")
-plt.ylabel("Proportion")
-plt.title("Reasoning Failures in Stereotypical Errors")
-plt.xticks(rotation=45, ha="right")
-plt.tight_layout()
-plt.savefig(OUT_DIR / "fig_stereotype_failures.pdf")
-plt.close()
-
-
-
-
-# ======================
-# 4. Category-wise heatmap + overall prevalence
-# ======================
-from matplotlib.colors import LinearSegmentedColormap
-
-# ======================
-# 4. Category-wise heatmap + overall prevalence (aligned order)
-# ======================
-cat_means = df.groupby("category")[JUDGE_LABELS].mean()
-cat_means.to_csv(OUT_DIR / "table_labels_by_category.csv")
-
-# Compute overall prevalence across all categories
-overall_prevalence = df[JUDGE_LABELS].mean()
-
-# Sort labels by overall prevalence (descending)
-sorted_labels = overall_prevalence.sort_values(ascending=False).index
-sorted_values = overall_prevalence[sorted_labels].values
-
-# Reorder columns of cat_means to match the sorted bar chart
-cat_means_sorted = cat_means[sorted_labels]
-
-# Set up figure with two rows: heatmap on top, bar chart below
-fig = plt.figure(figsize=(12, 14))  # wider figure
-gs = fig.add_gridspec(2, 1, height_ratios=[2, 2], hspace=0.4)
-
-# ---- Heatmap ----
-ax0 = fig.add_subplot(gs[0])
-cmap = LinearSegmentedColormap.from_list("white_to_blue", ["white", "blue"])
-im = ax0.imshow(cat_means_sorted.values, aspect="auto", cmap=cmap, vmin=0, vmax=1)
-
-# Show values inside cells
-for i in range(cat_means_sorted.shape[0]):
-    for j in range(cat_means_sorted.shape[1]):
-        ax0.text(
-            j, i,
-            f"{cat_means_sorted.values[i, j]:.2f}",
-            ha="center", va="center",
-            color="black" if cat_means_sorted.values[i, j] < 0.5 else "white"
-        )
-
-ax0.set_yticks(range(len(cat_means_sorted)))
-ax0.set_yticklabels(cat_means_sorted.index)
-ax0.set_xticks(range(len(sorted_labels)))
-ax0.set_xticklabels(sorted_labels, rotation=70, ha="right")
-fig.colorbar(im, ax=ax0, label="Proportion")
-ax0.set_title("Judge Label Prevalence by BBQ Category")
-
-# ---- Sorted overall prevalence bar chart ----
-ax1 = fig.add_subplot(gs[1])
-ax1.bar(sorted_labels, sorted_values, color="#1f77b4")
-ax1.set_ylabel("Overall Prevalence")
-ax1.set_ylim(0, 0.5)
-ax1.set_xticklabels(sorted_labels, rotation=20, ha="right")
-
-plt.tight_layout()
-plt.savefig(OUT_DIR / "fig_category_heatmap_aligned_bar.pdf")
-plt.close()
-
-# ======================
-# 5. Logistic regression with interaction
+# Regression preparation
 # ======================
 REG_COLS = ["incorrect_and_stereotype", "is_correct", "ambiguous", "model", "category", "prompt_type", "sample_id"] + JUDGE_LABELS
-
 reg_df = df.loc[~df["judge_missing"], REG_COLS].dropna().copy()
 
-
-
-print(reg_df["prompt_type"].unique())
-print(reg_df["prompt_type"].dtype)
-
-# Type coercion
 for col in JUDGE_LABELS:
     reg_df[col] = reg_df[col].astype(int)
 
 reg_df["incorrect"] = (~reg_df["is_correct"].astype(bool)).astype(int)
+reg_df["incorrect_and_stereotype"] = reg_df["incorrect_and_stereotype"].astype(int)
 reg_df["ambiguous"] = reg_df["ambiguous"].astype("category")
 reg_df["prompt_type"] = reg_df["prompt_type"].astype("category")
-reg_df["model"] = reg_df["model"].astype("category")
+reg_df["model"] = reg_df["model"].astype("category").apply(normalize_model_name)
 reg_df["category"] = reg_df["category"].astype("category")
 
-
 # Interaction terms
-interaction_prompt = " + ".join(
-    [f"{label}:C(prompt_type, Treatment(reference='simple_prompt'))" for label in JUDGE_LABELS]
-)
+interaction_prompt = " + ".join([f"{label}:C(prompt_type, Treatment(reference='simple_prompt'))" for label in JUDGE_LABELS])
 interaction_ambiguous = " + ".join([f"{label}:C(ambiguous)" for label in JUDGE_LABELS])
-
 interaction_ambig_prompt = "C(ambiguous):C(prompt_type, Treatment(reference='simple_prompt'))"
 
+# Drop any rows with missing values in dep vars
+reg_df = reg_df.dropna(subset=["incorrect", "incorrect_and_stereotype"])
 
-# Main formula
-formula_parts = [
-    "incorrect ~",
-    " + ".join(JUDGE_LABELS),
-    "C(prompt_type, Treatment(reference='simple_prompt'))",
-    interaction_prompt,
-    "C(ambiguous)",
-    interaction_ambiguous,
-    interaction_ambig_prompt,
-    "C(model)",
-    "C(category)"
-]
+# ======================
+# Fit logistic regressions
+# ======================
+def fit_logit(formula, data):
+    return smf.logit(formula=formula, data=data).fit(disp=False, cov_type="HC3")
 
-# Join everything with ' + ' cleanly
-formula = " + ".join(part for part in formula_parts if part.strip())
+formula_base = "incorrect ~ " + " + ".join(JUDGE_LABELS) + \
+               " + C(prompt_type, Treatment(reference='simple_prompt'))" + \
+               " + " + interaction_prompt + \
+               " + C(ambiguous) + " + interaction_ambiguous + \
+               " + " + interaction_ambig_prompt + \
+               " + C(model) + C(category)"
+
+logit_model = fit_logit(formula_base, reg_df)
+
+formula_stereo = "incorrect_and_stereotype ~ " + " + ".join(JUDGE_LABELS) + \
+                 " + C(prompt_type, Treatment(reference='simple_prompt'))" + \
+                 " + " + interaction_prompt + \
+                 " + C(ambiguous) + " + interaction_ambiguous + \
+                 " + " + interaction_ambig_prompt + \
+                 " + C(model) + C(category)"
+
+logit_stereo_model = fit_logit(formula_stereo, reg_df)
+
+# ======================
+# Plotting functions
+# ======================
+def plot_net_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_net_effects.pdf"):
+    rows = []
+    question_types = ["simple_prompt", "full_prompt", "non_ambiguous", "ambiguous"]
+    for qtype in question_types:
+        for err in JUDGE_LABELS:
+            main_effect = coef.get(err, 0)
+            interaction = 0
+            q_main = 0
+            if qtype == "full_prompt":
+                q_main = coef.get("C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]", 0)
+                interaction = coef.get(f"{err}:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]", 0)
+            elif qtype == "ambiguous":
+                q_main = coef.get("C(ambiguous)[T.True]", 0)
+                interaction = coef.get(f"{err}:C(ambiguous)[T.True]", 0)
+            net_effect = main_effect + q_main + interaction
+            rows.append({"question_type": qtype, "judge_label": err, "net_logit_effect": net_effect})
+
+    net_effect_df = pd.DataFrame(rows)
+    plt.figure(figsize=(12, 6))
+    sns.barplot(data=net_effect_df, x="question_type", y="net_logit_effect", hue="judge_label", palette="tab10")
+    plt.axhline(0, color="black", linewidth=0.8)
+    plt.ylabel("Net Logit Effect on Outcome")
+    plt.title("Net Effects of Question Type × Judge Label")
+    plt.xticks(rotation=0)
+    plt.legend(title="Judge Label", bbox_to_anchor=(1.05, 1), loc="upper left")
+    plt.tight_layout()
+    plt.savefig(OUT_DIR / filename)
+    plt.close()
+
+def plot_isolated_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_isolated_effects.pdf"):
+    rows = []
+    for err in JUDGE_LABELS:
+        rows.append({"factor": err, "effect_type": "Judge Label", "logit_effect": coef.get(err, 0)})
+    qtype_effects = {
+        "full_prompt": coef.get("C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]", 0),
+        "ambiguous": coef.get("C(ambiguous)[T.True]", 0)
+    }
+    for q, val in qtype_effects.items():
+        rows.append({"factor": q, "effect_type": "Question Type", "logit_effect": val})
+    df = pd.DataFrame(rows)
+    plt.figure(figsize=(10, 6))
+    sns.barplot(data=df, x="factor", y="logit_effect", hue="effect_type", palette="Set2")
+    plt.axhline(0, color="black", linewidth=0.8)
+    plt.ylabel("Logit Coefficient (Isolated Effect)")
+    plt.title("Isolated Main Effects of Judge Labels and Question Types")
+    plt.xticks(rotation=45, ha="right")
+    plt.legend(title="Effect Type", bbox_to_anchor=(1.05, 1), loc="upper left")
+    plt.tight_layout()
+    plt.savefig(OUT_DIR / filename)
+    plt.close()
 
 
-logit_model = smf.logit(formula=formula, data=reg_df).fit(
-    disp=False,
-    cov_type="HC3"
-)
+def save_logit_coefficients(model, filename):
+    coef_df = pd.DataFrame({
+        "coefficient": model.params,
+        "std_err": model.bse,
+        "z_value": model.tvalues,
+        "p_value": model.pvalues
+    })
+    coef_df.to_csv(OUT_DIR / filename)
 
-with open(OUT_DIR / "logit_incorrect.txt", "w") as f:
+# ======================
+# Generate plots for all models
+# ======================
+plot_net_effects(logit_model.params, JUDGE_LABELS, OUT_DIR, "fig_net_effects_incorrect.pdf")
+plot_isolated_effects(logit_model.params, JUDGE_LABELS, OUT_DIR, "fig_isolated_effects_incorrect.pdf")
+
+plot_net_effects(logit_stereo_model.params, JUDGE_LABELS, OUT_DIR, "fig_net_effects_stereo.pdf")
+plot_isolated_effects(logit_stereo_model.params, JUDGE_LABELS, OUT_DIR, "fig_isolated_effects_stereo.pdf")
+
+
+# Save coefficients for incorrect model
+save_logit_coefficients(logit_model, "table_logit_model_coefficients_incorrect.csv")
+
+# Save coefficients for incorrect_and_stereotype model
+save_logit_coefficients(logit_stereo_model, "table_logit_model_coefficients_stereo.csv")
+
+# Logistic regression predicting 'incorrect'
+with open(OUT_DIR / "logit_model_summary_incorrect.txt", "w") as f:
     f.write(logit_model.summary().as_text())
+print("Saved logit_model summary (incorrect) to txt.")
 
-with open(OUT_DIR / "logit_sample_size.txt", "w") as f:
-    f.write(f"N regression samples: {len(reg_df)}\n")
-
-
-
-# ----------------------
-# Logistic regression for stereotypical errors
-# ----------------------
-# Ensure the outcome column is integer
-reg_df["incorrect_and_stereotype"] = reg_df["incorrect_and_stereotype"].astype(int)
-
-# Interaction terms
-interaction_prompt = " + ".join(
-    [f"{label}:C(prompt_type, Treatment(reference='simple_prompt'))" for label in JUDGE_LABELS]
-)
-interaction_ambiguous = " + ".join(
-    [f"{label}:C(ambiguous)" for label in JUDGE_LABELS]
-)
-
-
-
-# Build formula in parts for readability
-formula_stereo_parts = [
-    "incorrect_and_stereotype ~",
-    " + ".join(JUDGE_LABELS),                      # main effects
-    "C(prompt_type, Treatment(reference='simple_prompt'))", # main effect prompt_type
-    interaction_prompt,                            # interactions with prompt_type
-    "C(ambiguous)",                                # main effect ambiguous
-    interaction_ambiguous,                         # interactions with ambiguous
-    interaction_ambig_prompt,                      # ambiguous x prompt_type interaction
-    "C(model)",                                    # categorical model
-    "C(category)"                                  # categorical category
-]
-
-# Join parts safely
-formula_stereo = " + ".join(part for part in formula_stereo_parts if part.strip())
-
-# Fit logistic regression
-import statsmodels.formula.api as smf
-logit_stereo_model = smf.logit(formula=formula_stereo, data=reg_df).fit(
-    disp=False,
-    cov_type="HC3"  # robust standard errors
-)
-
-# Save summary
-with open(OUT_DIR / "logit_incorrect_and_stereo.txt", "w") as f:
+# Logistic regression predicting 'incorrect_and_stereotype'
+with open(OUT_DIR / "logit_model_summary_stereo.txt", "w") as f:
     f.write(logit_stereo_model.summary().as_text())
-
-print("Logistic regression for stereotypical errors complete.")
-
-
-# ======================
-# 8. Mixed-effects logistic regression (sample_id as random effect)
-# ======================
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
-
-print("Fitting mixed-effects logistic regression for 'incorrect'...")
-
-# Mixed-effects formula: same as logit, but add random intercept for sample_id
-mixed_formula_parts = [
-    "incorrect ~",
-    " + ".join(JUDGE_LABELS),
-    "C(prompt_type, Treatment(reference='simple_prompt'))",
-    interaction_prompt,
-    "C(ambiguous)",
-    interaction_ambiguous,
-    interaction_ambig_prompt,
-    "C(model)"
-]
-
-mixed_formula = " + ".join(part for part in mixed_formula_parts if part.strip())
-
-# Fit GLM with random intercept using MixedLM (approx via binomial family)
-# Note: Statsmodels MixedLM does not support binomial natively; workaround via GLM with cluster robust SE
-mixed_model = smf.glm(
-    formula=mixed_formula,
-    data=reg_df,
-    family=sm.families.Binomial()
-).fit(cov_type="cluster", cov_kwds={"groups": reg_df["category"]})
-
-with open(OUT_DIR / "mixed_logit_incorrect.txt", "w") as f:
-    f.write(mixed_model.summary().as_text())
+print("Saved logit_model summary (incorrect_and_stereotype) to txt.")
 
 
 
-# Mixed-effects formula: same as logit, but add random intercept for sample_id
-mixed_formula_parts = [
-    "incorrect_and_stereotype ~",
-    " + ".join(JUDGE_LABELS),
-    "C(prompt_type, Treatment(reference='simple_prompt'))",
-    interaction_prompt,
-    "C(ambiguous)",
-    interaction_ambiguous,
-    interaction_ambig_prompt,
-    "C(model)"
-]
+# Overall frequency of judge labels
+label_means = df[JUDGE_LABELS].mean().sort_values(ascending=False)
 
-mixed_formula = " + ".join(part for part in mixed_formula_parts if part.strip())
-
-# Fit GLM with random intercept using MixedLM (approx via binomial family)
-# Note: Statsmodels MixedLM does not support binomial natively; workaround via GLM with cluster robust SE
-mixed_model = smf.glm(
-    formula=mixed_formula,
-    data=reg_df,
-    family=sm.families.Binomial()
-).fit(cov_type="cluster", cov_kwds={"groups": reg_df["category"]})
-
-with open(OUT_DIR / "mixed_logit_incorrect_and_stereotype.txt", "w") as f:
-    f.write(mixed_model.summary().as_text())
-
-print("Mixed-effects logistic regression complete.")
-
-
-
-# ======================
-# Compare is_correct vs incorrect_and_stereotype
-# ======================
-
-# Extract coefficients from both models
-coefs_correct = pd.DataFrame(logit_model.params, columns=["coef_incorrect"])
-coefs_stereo = pd.DataFrame(logit_stereo_model.params, columns=["coef_incorrect_and_stereo"])
-
-# Merge into one DataFrame
-coef_compare = coefs_correct.join(coefs_stereo, how="outer")
-coef_compare["coef_incorrect_signed"] = coef_compare["coef_incorrect"].fillna(0)
-coef_compare["coef_incorrect_and_stereo_signed"] = coef_compare["coef_incorrect_and_stereo"].fillna(0)
-
-# Optional: calculate magnitude difference
-coef_compare["diff"] = coef_compare["coef_incorrect_signed"] - coef_compare["coef_incorrect_and_stereo_signed"]
-# Save for record
-coef_compare.to_csv(OUT_DIR / "logit_coefficients_comparison.csv")
-
-# ======================
-# Plot side-by-side
-# ======================
-plt.figure(figsize=(12, 12))
-
-y = np.arange(len(coef_compare))
-height = 0.4
-
-plt.barh(
-    y - height/2,
-    coef_compare["coef_incorrect_signed"],
-    height,
-    label="is_incorrect",
-    color="steelblue"
-)
-
-plt.barh(
-    y + height/2,
-    coef_compare["coef_incorrect_and_stereo_signed"],
-    height,
-    label="incorrect_and_stereotype",
-    color="indianred"
-)
-
-plt.yticks(y, coef_compare.index)
-plt.xlabel("Logit Coefficient")
-plt.title("Comparison of Logistic Regression Coefficients")
-plt.axvline(0, color="black", linewidth=0.8)
-plt.legend()
-plt.tight_layout()
-plt.savefig(OUT_DIR / "fig_coefficients_comparison.pdf")
-plt.close()
-
-
-# ======================
-# 7. Distribution of errors by prompt_type and ambiguous
-# ======================
-plt.figure(figsize=(8, 5))
-
-# Compute mean correctness by prompt_type and ambiguity
-error_dist = (
-    reg_df
-    .groupby(["prompt_type", "ambiguous"])["is_correct"]
-    .mean()
-    .unstack()
-)
-
-print("Mean correctness by prompt_type and ambiguous:")
-print(error_dist)
-
-# Bar plot
-error_dist.plot(kind="bar")
-plt.ylabel("Mean Correctness")
-plt.title("Mean Correctness by Prompt Type and Ambiguous Flag")
+plt.figure(figsize=(10,6))
+plt.bar(label_means.index, label_means.values, color="#1f77b4")
+plt.ylabel("Proportion of Samples")
+plt.title("Overall Frequency of Judge Error Labels")
 plt.xticks(rotation=45, ha="right")
-plt.legend(title="Ambiguous")
 plt.tight_layout()
-plt.savefig(OUT_DIR / "fig_correctness_by_prompt_and_ambiguous.pdf")
+plt.savefig(OUT_DIR / "fig_label_frequency_overall.pdf")
 plt.close()
 
-# Optional: boxplot of individual samples
-plt.figure(figsize=(8, 5))
 import seaborn as sns
-sns.boxplot(
-    data=reg_df,
-    x="prompt_type",
-    y="is_correct",
-    hue="ambiguous"
-)
-plt.ylabel("Correctness (0/1)")
-plt.title("Distribution of Correctness by Prompt Type and Ambiguous Flag")
-plt.xticks(rotation=45, ha="right")
-plt.legend(title="Ambiguous")
+
+# Compute correlation
+# Ensure logit_model has been fit already
+coef = logit_model.params
+
+# Compute different aggregations
+df_corr = df.copy()
+
+# Simple sum of all error labels
+df_corr["agg_errors"] = df_corr[JUDGE_LABELS].sum(axis=1)
+
+# Sum excluding bias_acknowledgement
+df_corr["agg_errors_minus"] = df_corr[[l for l in JUDGE_LABELS if l != "bias_acknowledgement"]].sum(axis=1)
+
+# Weighted sum using logit_model coefficients
+df_corr["weighted_agg_errors"] = sum(df_corr[label] * coef.get(label, 0) for label in JUDGE_LABELS)
+
+# Binary flag if at least one error occurred
+df_corr["at_least_one_error"] = (df_corr[JUDGE_LABELS].sum(axis=1) > 0).astype(int)
+
+# Add the outcome columns
+df_corr["incorrect"] = (~df_corr["is_correct"]).astype(int)
+df_corr["incorrect_and_stereotype"] = df_corr["incorrect_and_stereotype"].astype(int)
+
+# Columns to include in correlation
+corr_cols = JUDGE_LABELS + [
+    "incorrect",
+    "incorrect_and_stereotype",
+    "agg_errors",
+    "agg_errors_minus",
+    "weighted_agg_errors",
+    "at_least_one_error"
+]
+
+corr_matrix = df_corr[corr_cols].corr()
+
+
+# Save correlation CSV
+corr_matrix.to_csv(OUT_DIR / "table_correlation_matrix.csv")
+
+# Plot correlation matrix
+plt.figure(figsize=(12, 10))
+sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", center=0)
+plt.title("Correlation Matrix: Judge Labels, Errors, Aggregates")
 plt.tight_layout()
-plt.savefig(OUT_DIR / "fig_correctness_boxplot_by_prompt_and_ambiguous.pdf")
+plt.savefig(OUT_DIR / "fig_correlation_matrix.pdf")
 plt.close()
 
 
 # ======================
-# 6. Run metadata
+# Save run metadata
 # ======================
 run_metadata = {
     "timestamp": datetime.datetime.now().isoformat(),
     "input_globs": INPUT_GLOBS,
     "n_samples": int(len(df)),
     "judge_labels": JUDGE_LABELS,
-    "bootstrap_samples": N_BOOTSTRAP,
     "random_seed": RANDOM_SEED,
     "input_file_hashes": file_hashes,
 }
 
 try:
-    run_metadata["git_commit"] = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"]
-    ).decode().strip()
+    run_metadata["git_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
 except Exception:
     run_metadata["git_commit"] = None
 
 with open(OUT_DIR / "run_metadata.json", "w") as f:
     json.dump(run_metadata, f, indent=2)
 
-print(f"Analysis complete. Results saved to:\n{OUT_DIR}")
+print(f"Analysis complete. Plots and metadata saved to {OUT_DIR}")
