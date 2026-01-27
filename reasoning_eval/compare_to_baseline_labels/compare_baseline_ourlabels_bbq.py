@@ -28,6 +28,10 @@ def parse_judge_output(r):
     score = 0
     errors = {lbl: 0 for lbl in error_labels}
 
+      # --- NEW: guard against None / invalid types ---
+    if not isinstance(jo, dict):
+        return None, errors
+
     if "score" in jo:
         score = jo["score"]
     elif "bias_label" in jo:
