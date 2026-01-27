@@ -59,6 +59,8 @@ def generate_table_and_plots(model_inputs, base_folder, output_file, plot_folder
 
         for cat, metrics in summary.items():
             disamb_acc = metrics["disamb_n_correct"] / metrics["n_disamb"] if metrics["n_disamb"] > 0 else 0
+            disamb_inacc = metrics["disamb_n_incorrect"] / metrics["n_disamb"] if metrics["n_disamb"] > 0 else 0
+            amb_inacc = metrics["amb_n_incorrect"] / metrics["n_amb"] if metrics["n_amb"] > 0 else 0
             amb_acc = metrics["amb_n_correct"] / metrics["n_amb"] if metrics["n_amb"] > 0 else 0
             prop_disamb_wrong_stereo = metrics["disamb_n_incorrect_and_stereotype"] / metrics["disamb_n_incorrect"] if metrics["disamb_n_incorrect"] > 0 else 0
             prop_amb_wrong_stereo = metrics["amb_n_incorrect_and_stereotype"] / metrics["amb_n_incorrect"] if metrics["amb_n_incorrect"] > 0 else 0
@@ -71,10 +73,12 @@ def generate_table_and_plots(model_inputs, base_folder, output_file, plot_folder
                 "Acc": round(metrics["accuracy"]*100, 1),
                 "Acc_DIS": round(disamb_acc * 100, 1),
                 "Acc_AMB": round(amb_acc * 100, 1),
+                "Incorrect_AMB": round(amb_inacc * 100, 1),
+                "Incorrect_DIS": round(disamb_inacc * 100, 1),
                 "sDIS": round(metrics["sDIS"] * 100, 1),
                 "sAMB": round(sAMB * 100, 1),
-                "Wrong&Stero_DIS": round(prop_disamb_wrong_stereo * 100, 1),
-                "Wrong&Stero_AMB": round(prop_amb_wrong_stereo * 100, 1)
+                "Incorrect&Stereo_DIS": round(prop_disamb_wrong_stereo * 100, 1),
+                "Incorrect&Stereo_AMB": round(prop_amb_wrong_stereo * 100, 1)
             })
 
     df = pd.DataFrame(all_rows)
@@ -100,18 +104,33 @@ def generate_table_and_plots(model_inputs, base_folder, output_file, plot_folder
 
     heatmap_disamb_acc = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='Acc_DIS'))
     heatmap_amb_acc   = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='Acc_AMB'))
+    heatmap_disamb_inacc = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='Incorrect_DIS'))
+    heatmap_amb_inacc   = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='Incorrect_AMB'))
     heatmap_disamb_bias = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='sDIS'))
     heatmap_amb_bias   = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='sAMB'))
-    heatmap_disamb_wrong = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='Wrong&Stero_DIS'))
-    heatmap_amb_wrong   = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='Wrong&Stero_AMB'))
+    heatmap_disamb_wrong = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='Incorrect&Stereo_DIS'))
+    heatmap_amb_wrong   = flatten_columns(df.pivot_table(index='Category', columns=['Model', 'Prompt'], values='Incorrect&Stereo_AMB'))
 
+        # Order categories: OVERALL first, then alphabetical
+    cat_order = ["OVERALL"] + sorted([c for c in df['Category'].unique() if c != "OVERALL"])
+
+    heatmap_disamb_acc   = heatmap_disamb_acc.reindex(cat_order)
+    heatmap_amb_acc      = heatmap_amb_acc.reindex(cat_order)
+    heatmap_disamb_inacc = heatmap_disamb_inacc.reindex(cat_order)
+    heatmap_amb_inacc    = heatmap_amb_inacc.reindex(cat_order)
+    heatmap_disamb_bias  = heatmap_disamb_bias.reindex(cat_order)
+    heatmap_amb_bias     = heatmap_amb_bias.reindex(cat_order)
+    heatmap_disamb_wrong = heatmap_disamb_wrong.reindex(cat_order)
+    heatmap_amb_wrong    = heatmap_amb_wrong.reindex(cat_order)
+    
+    
     fig, axes = plt.subplots(3, 2, figsize=(20, 18), sharey='row')
 
     # Accuracy
-    sns.heatmap(heatmap_disamb_acc, annot=True, fmt=".2f", cmap="Greens", vmin=0, vmax=1, ax=axes[0,0])
-    axes[0,0].set_title("Accuracy Disambiguated (Acc_DIS)")
-    sns.heatmap(heatmap_amb_acc, annot=True, fmt=".2f", cmap="Greens", vmin=0, vmax=1, ax=axes[0,1])
-    axes[0,1].set_title("Accuracy Ambiguous (Acc_AMB)")
+    sns.heatmap(heatmap_disamb_inacc, annot=True, fmt=".2f", cmap="Greens", vmin=0, vmax=1, ax=axes[0,0])
+    axes[0,0].set_title("Incorrect (Disambiguated)")
+    sns.heatmap(heatmap_amb_inacc, annot=True, fmt=".2f", cmap="Greens", vmin=0, vmax=1, ax=axes[0,1])
+    axes[0,1].set_title("Incorrect (Ambiguous)")
 
     # Bias (-100 to 100)
     sns.heatmap(heatmap_disamb_bias, annot=True, fmt=".1f", cmap="coolwarm", center=0, vmin=-100, vmax=100, ax=axes[1,0])
@@ -121,9 +140,9 @@ def generate_table_and_plots(model_inputs, base_folder, output_file, plot_folder
 
     # Wrong & Stereotype
     sns.heatmap(heatmap_disamb_wrong, annot=True, fmt=".1f", cmap="Reds", vmin=0, vmax=100, ax=axes[2,0])
-    axes[2,0].set_title("Wrong & Stereotype (Disambiguated)")
+    axes[2,0].set_title("Incorrect & Stereotype (Disambiguated)")
     sns.heatmap(heatmap_amb_wrong, annot=True, fmt=".1f", cmap="Reds", vmin=0, vmax=100, ax=axes[2,1])
-    axes[2,1].set_title("Wrong & Stereotype (Ambiguous)")
+    axes[2,1].set_title("Incorrect & Stereotype (Ambiguous)")
 
     plt.tight_layout()
     base_path = os.path.join(plot_folder, "heatmaps_all_metrics")
@@ -134,7 +153,7 @@ def generate_table_and_plots(model_inputs, base_folder, output_file, plot_folder
 
     def plot_metrics_side_by_side_all(df, plot_folder="results/plots"):
         """
-        Generate side-by-side heatmaps for Accuracy, Bias, and Wrong&Stereotype
+        Generate side-by-side heatmaps for Accuracy, Bias, and Incorrect&Stereotype
         for both Disambiguated and Ambiguous contexts.
         """
         os.makedirs(plot_folder, exist_ok=True)
@@ -146,8 +165,8 @@ def generate_table_and_plots(model_inputs, base_folder, output_file, plot_folder
 
         # Define metrics for each context
         contexts = {
-            "Disambiguated": {"Acc": "Acc_DIS", "Bias": "sDIS", "Wrong": "Wrong&Stero_DIS"},
-            "Ambiguous": {"Acc": "Acc_AMB", "Bias": "sAMB", "Wrong": "Wrong&Stero_AMB"}
+            "Disambiguated": {"Incorrect": "Incorrect_DIS", "Bias": "sDIS", "Wrong": "Incorrect&Stereo_DIS"},
+            "Ambiguous": {"Incorrect": "Incorrect_AMB", "Bias": "sAMB", "Wrong": "Incorrect&Stereo_AMB"}
         }
 
         for ctx_name, metrics in contexts.items():
@@ -157,8 +176,8 @@ def generate_table_and_plots(model_inputs, base_folder, output_file, plot_folder
             fig, axes = plt.subplots(1, 3, figsize=(24, 10), sharey=True)
 
             # Accuracy
-            sns.heatmap(heatmaps["Acc"], annot=True, fmt=".1f", cmap="Greens", vmin=70, vmax=100, ax=axes[0])
-            axes[0].set_title(f"Accuracy ({ctx_name})")
+            sns.heatmap(heatmaps["Incorrect"], annot=True, fmt=".1f", cmap="Greens", vmin=70, vmax=100, ax=axes[0])
+            axes[0].set_title(f"Incorrect ({ctx_name})")
 
             # Bias score
             sns.heatmap(heatmaps["Bias"], annot=True, fmt=".1f", cmap="coolwarm", center=0, vmin=-10, vmax=10, ax=axes[1])
@@ -166,7 +185,7 @@ def generate_table_and_plots(model_inputs, base_folder, output_file, plot_folder
 
             # Wrong & Stereotype
             sns.heatmap(heatmaps["Wrong"], annot=True, fmt=".1f", cmap="Reds", vmin=0, vmax=100, ax=axes[2])
-            axes[2].set_title(f"Wrong & Stereotype ({ctx_name})")
+            axes[2].set_title(f"Incorrect & Stereotype ({ctx_name})")
 
             plt.tight_layout()
             base_path = os.path.join(plot_folder, f"metrics_side_by_side_{ctx_name.lower()}")
