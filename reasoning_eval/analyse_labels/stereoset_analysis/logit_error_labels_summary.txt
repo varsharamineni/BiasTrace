@@ -3,8 +3,8 @@
 Dep. Variable:                   bias   No. Observations:                 4229
 Model:                          Logit   Df Residuals:                     4217
 Method:                           MLE   Df Model:                           11
-Date:                Thu, 22 Jan 2026   Pseudo R-squ.:                 0.07851
-Time:                        15:54:01   Log-Likelihood:                -2601.4
+Date:                Wed, 28 Jan 2026   Pseudo R-squ.:                 0.07851
+Time:                        15:02:18   Log-Likelihood:                -2601.4
 converged:                       True   LL-Null:                       -2823.0
 Covariance Type:                  HC3   LLR p-value:                 3.936e-88
 =============================================================================================

@@ -1,18 +1,19 @@
                            Logit Regression Results                           
 ==============================================================================
 Dep. Variable:                   bias   No. Observations:                 4229
-Model:                          Logit   Df Residuals:                     4224
-Method:                           MLE   Df Model:                            4
-Date:                Thu, 22 Jan 2026   Pseudo R-squ.:                 0.02097
-Time:                        15:54:01   Log-Likelihood:                -2763.8
+Model:                          Logit   Df Residuals:                     4223
+Method:                           MLE   Df Model:                            5
+Date:                Wed, 28 Jan 2026   Pseudo R-squ.:                 0.02664
+Time:                        15:02:18   Log-Likelihood:                -2747.8
 converged:                       True   LL-Null:                       -2823.0
-Covariance Type:                  HC3   LLR p-value:                 1.163e-24
+Covariance Type:                  HC3   LLR p-value:                 1.078e-30
 ==========================================================================================
                              coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------------------
-Intercept                 -0.0213      0.136     -0.156      0.876      -0.288       0.245
-category[T.profession]    -0.2336      0.112     -2.089      0.037      -0.453      -0.014
-category[T.race]          -0.6134      0.109     -5.613      0.000      -0.828      -0.399
-category[T.religion]      -0.6428      0.191     -3.362      0.001      -1.018      -0.268
-baseline_label             0.4478      0.051      8.856      0.000       0.349       0.547
+Intercept                  0.0792      0.137      0.577      0.564      -0.190       0.348
+category[T.profession]    -0.2551      0.112     -2.285      0.022      -0.474      -0.036
+category[T.race]          -0.6898      0.110     -6.272      0.000      -0.905      -0.474
+category[T.religion]      -0.6547      0.192     -3.418      0.001      -1.030      -0.279
+baseline_label             0.3839      0.052      7.365      0.000       0.282       0.486
+baseline01                 0.5972      0.108      5.517      0.000       0.385       0.809
 ==========================================================================================

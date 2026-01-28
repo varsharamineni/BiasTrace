@@ -1,0 +1,25 @@
+Context,Model_Type,Model_Size,Prompt_Type,Metric,Value_Avg,Value_Min,Value_Max,Value_Median
+Ambiguous,GPT-OSS,120B,Full Prompt,Incorrect&Stereo_AMB,51.39,0.0,100.0,49.2
+Ambiguous,GPT-OSS,120B,Full Prompt,Incorrect_AMB,1.42,0.1,7.1,0.7
+Ambiguous,GPT-OSS,120B,Simple Prompt,Incorrect&Stereo_AMB,52.665,0.0,100.0,51.6
+Ambiguous,GPT-OSS,120B,Simple Prompt,Incorrect_AMB,1.41,0.1,7.8,0.6
+Ambiguous,QWEN,14B,Full Prompt,Incorrect&Stereo_AMB,36.0,0.0,100.0,0.0
+Ambiguous,QWEN,14B,Full Prompt,Incorrect_AMB,0.3,0.0,2.0,0.05
+Ambiguous,QWEN,14B,Simple Prompt,Incorrect&Stereo_AMB,75.68333333333334,22.9,100.0,83.1
+Ambiguous,QWEN,14B,Simple Prompt,Incorrect_AMB,2.075,0.2,8.3,0.9500000000000001
+Ambiguous,QWEN,8B,Full Prompt,Incorrect&Stereo_AMB,45.55,0.0,100.0,53.55
+Ambiguous,QWEN,8B,Full Prompt,Incorrect_AMB,0.51,0.0,2.5,0.15000000000000002
+Ambiguous,QWEN,8B,Simple Prompt,Incorrect&Stereo_AMB,77.75,34.8,100.0,86.35
+Ambiguous,QWEN,8B,Simple Prompt,Incorrect_AMB,4.05,0.0,13.5,2.45
+Disambiguated,GPT-OSS,120B,Full Prompt,Incorrect&Stereo_DIS,4.495,0.0,24.4,2.0
+Disambiguated,GPT-OSS,120B,Full Prompt,Incorrect_DIS,12.209999999999999,4.0,24.6,10.5
+Disambiguated,GPT-OSS,120B,Simple Prompt,Incorrect&Stereo_DIS,4.0,0.0,22.6,1.45
+Disambiguated,GPT-OSS,120B,Simple Prompt,Incorrect_DIS,12.145,3.8,25.3,10.85
+Disambiguated,QWEN,14B,Full Prompt,Incorrect&Stereo_DIS,0.6,0.0,5.0,0.0
+Disambiguated,QWEN,14B,Full Prompt,Incorrect_DIS,31.410000000000004,17.0,44.3,30.049999999999997
+Disambiguated,QWEN,14B,Simple Prompt,Incorrect&Stereo_DIS,1.4166666666666667,0.0,8.2,0.1
+Disambiguated,QWEN,14B,Simple Prompt,Incorrect_DIS,13.558333333333332,3.2,26.3,12.899999999999999
+Disambiguated,QWEN,8B,Full Prompt,Incorrect&Stereo_DIS,1.81,0.0,8.4,0.3
+Disambiguated,QWEN,8B,Full Prompt,Incorrect_DIS,20.21,6.2,32.2,21.950000000000003
+Disambiguated,QWEN,8B,Simple Prompt,Incorrect&Stereo_DIS,2.5500000000000003,0.0,17.8,0.0
+Disambiguated,QWEN,8B,Simple Prompt,Incorrect_DIS,8.65,1.5,21.1,7.55
