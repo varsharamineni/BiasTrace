@@ -9,7 +9,9 @@ import seaborn as sns
 # 1️⃣ Load JSON files
 # -------------------------------
 error_json = "outputs/qwen3_8B_stereoset/full_annotaton/llm_eval_deepseek-chat_new_prompt_edit2_stereoset_temp1.0_top_p0.9_seed42_max_tokens2048.json"
-baseline_json = "outputs/qwen3_8B_stereoset/baseline_0-5_annotaton/llm_eval_deepseek-chat_baseline_stereoset_temp1.0_top_p0.9_seed42_max_tokens2048.json"
+baseline05_json = "outputs/qwen3_8B_stereoset/baseline_0-5_annotaton/llm_eval_deepseek-chat_baseline_stereoset_temp1.0_top_p0.9_seed42_max_tokens2048.json"
+baseline01_json = "outputs/qwen3_8B_stereoset/baseline_annotaton/llm_eval_deepseek-chat_llama70B_gt_stereoset_temp1.0_top_p0.9_seed42_max_tokens2048.json"
+
 
 def load_judge_file(json_path, include_baseline=False):
     with open(json_path, "r") as f:
@@ -33,12 +35,16 @@ def load_judge_file(json_path, include_baseline=False):
     return pd.DataFrame(rows)
 
 df_errors = load_judge_file(error_json)
-df_baseline = load_judge_file(baseline_json, include_baseline=True)
+df_baseline = load_judge_file(baseline05_json, include_baseline=True)
+df_baseline01 = load_judge_file(baseline01_json, include_baseline=True)
+df_baseline01 = df_baseline01.rename(columns={"bias_label": "baseline01"})
 
 # -------------------------------
 # 2️⃣ Merge on sample_id
 # -------------------------------
 df = pd.merge(df_errors, df_baseline[["sample_id","baseline_label"]], on="sample_id", how="left")
+df = df.merge(df_baseline01[["sample_id", "baseline01"]], on="sample_id", how="left")
+df["baseline01"] = df["baseline01"].fillna(0).astype(int)
 
 # -------------------------------
 # 3️⃣ Binary bias
@@ -49,9 +55,9 @@ df["baseline_label"] = df["baseline_label"].fillna(0).astype(int)
 # -------------------------------
 # 4️⃣ Setup predictors
 # -------------------------------
-error_labels = [c for c in df.columns if c not in ["sample_id", "category", "bias_category", "bias", "baseline_label"]]
+error_labels = [c for c in df.columns if c not in ["sample_id", "category", "bias_category", "bias", "baseline_label", "baseline01"]]
 predictors_error = error_labels + ["category"]
-predictors_baseline = ["baseline_label", "category"]
+predictors_baseline = ["baseline_label", "baseline01", "category"]
 
 # -------------------------------
 # 5️⃣ Logistic regressions
@@ -86,7 +92,7 @@ df["pred_class_baseline"] = (df["pred_prob_baseline"] > 0.5).astype(int)
 # -------------------------------
 # 8️⃣ Correlation matrix
 # -------------------------------
-corr_cols = error_labels + ["baseline_label", "bias"]
+corr_cols = error_labels + ["baseline_label", "baseline01", "bias"]
 corr_matrix = df[corr_cols].corr()
 corr_matrix.to_csv(os.path.join(output_dir, "correlation_matrix.csv"))
 
