@@ -62,7 +62,9 @@ metrics = [
      {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_metric5_temp1.0_top_p0.9_seed42_max_tokens2048.json",
      "col": "bias05"},
       {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_metric6_temp1.0_top_p0.9_seed42_max_tokens2048.json",
-     "col": "bias01_reason"}
+     "col": "bias01_reason"},
+     {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_metric7_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_reason1"}
 ]
 
 # ---------------------------
