@@ -326,6 +326,72 @@ plt.close()
 
 
 # ======================
+# Hold-out Evaluation of Predictive Performance
+# ======================
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix, classification_report
+
+print("\n📊 Running hold-out evaluation for predictive performance...")
+
+# Define features and target
+X_cols = JUDGE_LABELS + ["ambiguous", "prompt_type", "model", "category"]
+y_cols = ["incorrect", "incorrect_and_stereotype"]
+
+# One-hot encode categorical vars
+X = pd.get_dummies(reg_df[X_cols], drop_first=True)
+
+results_holdout = {}
+
+for y_col in y_cols:
+    y = reg_df[y_col]
+
+    # Split train/test
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=RANDOM_SEED, stratify=y
+    )
+
+    # Fit logistic regression
+    clf = LogisticRegression(max_iter=1000, solver="liblinear")
+    clf.fit(X_train, y_train)
+
+    # Predict on test set
+    y_pred = clf.predict(X_test)
+    y_proba = clf.predict_proba(X_test)[:,1]
+
+    # Metrics
+    acc = accuracy_score(y_test, y_pred)
+    auc = roc_auc_score(y_test, y_proba)
+    cm = confusion_matrix(y_test, y_pred)
+
+    print(f"\nTarget: {y_col}")
+    print(f"Hold-out Accuracy: {acc:.3f}")
+    print(f"ROC-AUC: {auc:.3f}")
+    print("Confusion Matrix:")
+    print(cm)
+    print(classification_report(y_test, y_pred))
+
+    results_holdout[y_col] = {
+        "accuracy": acc,
+        "roc_auc": auc,
+        "confusion_matrix": cm.tolist(),  # convert to list for JSON saving
+    }
+
+# Optionally save hold-out metrics
+with open(OUT_DIR / "holdout_evaluation.json", "w") as f:
+    import json
+    json.dump(results_holdout, f, indent=2)
+
+print("✅ Hold-out evaluation metrics saved.")
+
+
+
+
+
+
+
+
+# ======================
 # Save run metadata
 # ======================
 run_metadata = {
@@ -346,3 +412,5 @@ with open(OUT_DIR / "run_metadata.json", "w") as f:
     json.dump(run_metadata, f, indent=2)
 
 print(f"Analysis complete. Plots and metadata saved to {OUT_DIR}")
+
+
