@@ -3,8 +3,8 @@
 Dep. Variable:              incorrect   No. Observations:               156859
 Model:                          Logit   Df Residuals:                   156827
 Method:                           MLE   Df Model:                           31
-Date:                Mon, 26 Jan 2026   Pseudo R-squ.:                  0.2865
-Time:                        12:16:42   Log-Likelihood:                -33774.
+Date:                Thu, 29 Jan 2026   Pseudo R-squ.:                  0.2865
+Time:                        15:26:20   Log-Likelihood:                -33774.
 converged:                       True   LL-Null:                       -47332.
 Covariance Type:                  HC3   LLR p-value:                     0.000
 =================================================================================================================================================================

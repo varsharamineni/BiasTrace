@@ -1,0 +1,30 @@
+{
+  "incorrect": {
+    "accuracy": 0.9071783756215733,
+    "roc_auc": 0.8578742826716541,
+    "confusion_matrix": [
+      [
+        28234,
+        325
+      ],
+      [
+        2587,
+        226
+      ]
+    ]
+  },
+  "incorrect_and_stereotype": {
+    "accuracy": 0.993784266224659,
+    "roc_auc": 0.9704585868424018,
+    "confusion_matrix": [
+      [
+        31141,
+        32
+      ],
+      [
+        163,
+        36
+      ]
+    ]
+  }
+}

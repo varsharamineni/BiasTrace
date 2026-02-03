@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-26T12:16:43.273670",
+  "timestamp": "2026-01-29T15:26:22.485889",
   "input_globs": [
     "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
@@ -64,5 +64,5 @@
     "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/20251217_110543/full_annotation/Gender_identity/llm_eval_bbq_Gender_identity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "7e4c4192e3baf8a3f68b28d5f9dde21b272554b969c5beae242a1e36914b240b",
     "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/20251217_110543/full_annotation/Race_ethnicity/llm_eval_bbq_Race_ethnicity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "22ea5fd4a5eb186cfeeab5cce428f8cdb3a0d1eb098d74faf249b5003837a02e"
   },
-  "git_commit": "a3c17f40a7aac70d47d3744317a321af4ebcf65a"
+  "git_commit": "374441bd6016e9657478fe0bae0392a73387c472"
 }
