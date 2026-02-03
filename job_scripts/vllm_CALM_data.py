@@ -46,13 +46,13 @@ def parse_args():
 # Task inference
 # -----------------------
 def infer_task(example: Dict[str, Any]) -> str:
-    src = example.get("source_dataset", "").lower()
-    if src in ["qamr", "squad", "newsqa", "qa"]:
+    calm_config = example.get("calm_config", "")
+    if calm_config.startswith("qa"):
         return "qa"
-    elif src in ["sst2", "sentiment"]:
-        return "sentiment"
-    elif src in ["mnli", "snli", "nli"]:
+    elif calm_config.startswith("nli"):
         return "nli"
+    elif calm_config.startswith("sentiment"):
+        return "sentiment"
     else:
         return "unknown"
 
@@ -82,7 +82,7 @@ Return your final answer inside <answer> tags.
 <answer>...</answer>
 """
     elif task == "sentiment":
-        sentence = example.get("sentence") or example.get("context")
+        sentence = example.get("sentence")
         content = f"""
 Classify the sentiment of the sentence.
 
@@ -144,9 +144,9 @@ def process_batch(
     batch,
     sampling_params: SamplingParams,
     enable_thinking: bool,
+    start_idx: int = 0
 ):
     messages = [create_messages(ex) for ex in batch]
-
     outputs = llm.chat(
         messages,
         sampling_params,
@@ -155,22 +155,28 @@ def process_batch(
     )
 
     results = []
-    for ex, out in zip(batch, outputs):
+    for i, (ex, out) in enumerate(zip(batch, outputs)):
         text = out.outputs[0].text
         reasoning, answer = extract_reasoning_and_answer(text)
+
         task = infer_task(ex)
 
-        # normalize fields for output
+        # generate an id if missing
+        example_id = ex.get("id")
+        if example_id is None:
+            example_id = f"{ex.get('calm_config', 'unknown')}-{start_idx + i}"
+
+        # normalize fields
         input_fields = {}
         if task == "qa":
-            input_fields = {"context": ex["context"], "question": ex["question"]}
+            input_fields = {"context": ex.get("context"), "question": ex.get("question")}
         elif task == "nli":
-            input_fields = {"premise": ex["premise"], "hypothesis": ex["hypothesis"]}
+            input_fields = {"premise": ex.get("premise"), "hypothesis": ex.get("hypothesis")}
         elif task == "sentiment":
-            input_fields = {"sentence": ex.get("sentence") or ex.get("context")}
+            input_fields = {"sentence": ex.get("sentence")}
 
         results.append({
-            "id": ex.get("id"),
+            "id": example_id,
             "task": task,
             "calm_config": ex.get("calm_config"),
             "gender": ex.get("gender"),
@@ -180,6 +186,7 @@ def process_batch(
             "model_reasoning": reasoning,
             "raw_output": text,
         })
+
     return results
 
 
@@ -235,7 +242,7 @@ def main():
         )
 
         if args.test_mode:
-            dataset = dataset.select(range(5))
+            dataset = dataset.select(range(10))
 
         # tag config for all examples
         dataset = dataset.add_column("calm_config", [config] * len(dataset))
@@ -249,9 +256,11 @@ def main():
                     batch_ds,
                     sampling_params,
                     enable_thinking=args.enable_thinking,
+                    start_idx=i,   # pass current index
                 )
                 all_results.extend(batch_results)
                 pbar.update(len(batch_ds))
+
 
     # save unified JSON
     output_path = os.path.join(args.output_dir, "calm_results.json")
