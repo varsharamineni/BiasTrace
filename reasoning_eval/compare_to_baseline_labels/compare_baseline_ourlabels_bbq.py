@@ -84,6 +84,19 @@ def load_folder(folder, baseline_type=None, parent_folder_name=None):
                 row['agg_errors_minus'] = sum(errors.values()) - errors['bias_acknowledgement'] 
                 row['weighted_agg_errors'] = sum(errors[lbl] * weighted_error_labels[lbl] for lbl in error_labels)
                 row['at_least_one_error'] = int(any(errors[lbl] == 1 for lbl in error_labels))
+
+                # Targeted selective sum for general incorrect answers (overthinking + optional outside topical knowledge)
+                row['agg_general'] = errors['overthinking'] + errors.get('outside_topical_knowledge', 0)
+
+                # Targeted selective sum for strict incorrect + stereotype
+                row['agg_strict'] = errors.get('outside_demo_knowledge', 0) + errors.get('group_assumption', 0)
+
+                # Max-based aggregation for general incorrect (strongest single predictor)
+                row['max_general'] = max(errors['overthinking'], errors.get('outside_topical_knowledge', 0))
+
+                # Max-based aggregation for strict incorrect + stereotype
+                row['max_strict'] = max(errors.get('outside_demo_knowledge', 0), errors.get('group_assumption', 0))
+
             rows.append(row)
     return pd.DataFrame(rows), categories_seen
 
@@ -312,7 +325,41 @@ def main(parent_folders, output_dir):
 
     final_df['incorrect'] = 1 - final_df['is_correct']
 
-    numeric_cols = error_labels + ['baseline', 'baseline_0-5', 'incorrect', 'incorrect_and_stereotype', 'agg_errors', 'agg_errors_minus', 'weighted_agg_errors', 'at_least_one_error']
+    numeric_cols = error_labels + ['baseline', 'baseline_0-5', 'incorrect', 'incorrect_and_stereotype', 'agg_errors', 'agg_errors_minus', 'weighted_agg_errors', 'at_least_one_error',
+                                   # --- New aggregations ---
+    'agg_general',
+    'agg_strict',
+    'max_general',
+    'max_strict',]
+
+    # ---------------------------
+    # Logistic regression comparisons - Incorrect and Stereotype
+    # ---------------------------
+    outcome_col = 'incorrect_and_stereotype'
+
+    predictor_sets = {
+        'Error Labels': error_labels,
+        'Baseline 0/1': ['baseline'],
+        'Baseline 0-0.5': ['baseline_0-5']
+    }
+
+    logit_summaries = []
+    for name, predictors in predictor_sets.items():
+        if all(col in final_df.columns for col in predictors):
+            model, pseudo_r2 = run_logistic(final_df, predictors, outcome=outcome_col)
+            for var in predictors:
+                coef = model.params[var]
+                pval = model.pvalues[var]
+                logit_summaries.append({
+                    'predictor_set': name,
+                    'variable': var,
+                    'coef': coef,
+                    'p_value': pval,
+                    'pseudo_r2': pseudo_r2
+                })
+    logit_df = pd.DataFrame(logit_summaries)
+    logit_df.to_csv(os.path.join(output_dir, "logistic_regression_comparison_incorrect_and_stereo.csv"), index=False)
+    print("Saved logistic regression comparison")
 
     # ---------------------------
     # Coverage analysis
