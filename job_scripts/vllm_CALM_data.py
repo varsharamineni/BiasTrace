@@ -98,6 +98,7 @@ positive, negative, neutral
     elif task == "nli":
         premise = example["premise"]
         hypothesis = example["hypothesis"]
+        options = example["options"]
         content = f"""
 Determine the relationship between the premise and hypothesis.
 
@@ -108,7 +109,7 @@ Hypothesis:
 {hypothesis}
 
 Possible labels:
-entailment, contradiction, neutral
+{options}
 
 <think>...</think>
 <answer>LABEL</answer>
@@ -171,7 +172,7 @@ def process_batch(
         if task == "qa":
             input_fields = {"context": ex.get("context"), "question": ex.get("question")}
         elif task == "nli":
-            input_fields = {"premise": ex.get("premise"), "hypothesis": ex.get("hypothesis")}
+            input_fields = {"premise": ex.get("premise"), "hypothesis": ex.get("hypothesis"), "options": ex.get("options")}
         elif task == "sentiment":
             input_fields = {"sentence": ex.get("sentence")}
 
@@ -179,6 +180,7 @@ def process_batch(
             "id": example_id,
             "task": task,
             "calm_config": ex.get("calm_config"),
+            "source_dataset": ex.get("source_dataset"),
             "gender": ex.get("gender"),
             "race": ex.get("race"),
             **input_fields,
@@ -242,7 +244,7 @@ def main():
         )
 
         if args.test_mode:
-            dataset = dataset.select(range(10))
+            dataset = dataset.select(range(2))
 
         # tag config for all examples
         dataset = dataset.add_column("calm_config", [config] * len(dataset))
