@@ -28,6 +28,12 @@ BBQ data saved to `datasets/bbq_data_all_cat`
 
 You should also download the templates to `datasets/bbq_templates`[https://github.com/nyu-mll/BBQ/tree/main/templates] folder and the metadata `datasets/bbq_additional_metadata.csv`[https://github.com/nyu-mll/BBQ/tree/main/supplemental]  
 
+
+## Download CALM data
+
+Ground Truth `scripts/download_data/download_CALM_gt.sh`, saved in `datasets/CALM_gt`
+
+
 ## Download Models to Cache
 
 The `snapshot_download.py` script downloads models from Hugging Face and saves them locally
