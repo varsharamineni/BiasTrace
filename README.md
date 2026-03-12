@@ -39,8 +39,6 @@ Also download manually:
 - **Templates** → `datasets/bbq_templates/` — from [BBQ GitHub](https://github.com/nyu-mll/BBQ/tree/main/templates)
 - **Metadata** → `datasets/bbq_additional_metadata.csv` — from [BBQ supplemental](https://github.com/nyu-mll/BBQ/tree/main/supplemental)
 
-You should also download the templates to `datasets/bbq_templates`[https://github.com/nyu-mll/BBQ/tree/main/templates] folder and the metadata `datasets/bbq_additional_metadata.csv`[https://github.com/nyu-mll/BBQ/tree/main/supplemental]  
-
 ### CALM Dataset Ground Truth
 ```bash
 bash scripts/download_data/download_CALM_gt.sh
