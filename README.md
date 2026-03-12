@@ -1,157 +1,165 @@
-# Bias-Reasoning-LLM
+# BIAS-TRACE: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
+
+
+## Repository Structure
+
+```
+bias-reasoning-LLM/
+├── datasets/               # BBQ data, templates, and metadata
+├── scripts/                # Data download, generation, and evaluation scripts
+├── reasoning_eval/         # LLM judge scripts, prompts, and ground truth samples
+├── job_scripts/            # SLURM job scripts for cluster execution
+├── outputs/                # Model outputs (reasoning traces + merged results)
+└── eval_results/           # Accuracy/bias scores and figures per model
+```
 
 ## Installation
 
-We recommend using **Poetry** for dependency management:
-
+**Recommended (Poetry):**
 ```bash
 poetry install
 poetry shell
 source $(poetry env info --path)/bin/activate
 ```
-If you prefer pip, you can use:
-
-
+**Recommended (Poetry):**
 ```bash
 pip install -r requirements.txt
 ```
 
-## Download BBQ Data 
+## Data Setup
 
-Downloads BBQ data from Hugging Face and saves them locally
+### Download BBQ Data 
 
+Download all BBQ question categories from Hugging Face:
 ```bash 
 python scripts/download_data/download_bbq_all_cat.py
+# Saves to: datasets/bbq_data_all_cat/data/
 ```
-
-BBQ data saved to `datasets/bbq_data_all_cat`
+Also download manually:
+- **Templates** → `datasets/bbq_templates/` — from [BBQ GitHub](https://github.com/nyu-mll/BBQ/tree/main/templates)
+- **Metadata** → `datasets/bbq_additional_metadata.csv` — from [BBQ supplemental](https://github.com/nyu-mll/BBQ/tree/main/supplemental)
 
 You should also download the templates to `datasets/bbq_templates`[https://github.com/nyu-mll/BBQ/tree/main/templates] folder and the metadata `datasets/bbq_additional_metadata.csv`[https://github.com/nyu-mll/BBQ/tree/main/supplemental]  
 
-
-## Download CALM data
-
-Ground Truth `scripts/download_data/download_CALM_gt.sh`, saved in `datasets/CALM_gt`
-
-
-## Download Models to Cache
-
-The `snapshot_download.py` script downloads models from Hugging Face and saves them locally
-
-Note: Replace `base_cache_dir` with your desired local folder
-
+### CALM Dataset Ground Truth
 ```bash
- python scripts/download_models/snapshot_download.py
+bash scripts/download_data/download_CALM_gt.sh
+# Saves to: datasets/CALM_gt/
 ```
 
-## Generate Reasoning Traces  
+### Model Weights
 
-Can use `job_scripts` to run these and get reasoning traces, can edit model and folders and paramters as needed
-
+Download models from Hugging Face (update `base_cache_dir` in the script first):
 ```bash
-job_scripts/run_full.sh
-``` 
+python scripts/download_models/snapshot_download.py
+```
 
-These rely on these depending on the type of prompt used.
+## Generating Reasoning Traces
 
-With full prompt - qwen3 models
-`scripts/generate_bbq_outputs_vllm_qwen.py`
+Scripts are provided for Qwen3 and GPT-OSS models. Job scripts are configured for SLURM cluster execution but can be run directly.
 
-With simple prompt - qwen3 models 
-`scripts/generate_bbq_outputs_vllm_qwen_simple.py`
+### Qwen3 Models
 
-
+**Full prompt:**
 ```bash
-job_scripts/run_full_gpt-oss.sh
-``` 
+bash job_scripts/run_full.sh
+# Calls: scripts/generate_bbq_outputs_vllm_qwen.py
+```
 
-for GPT-OSS
-`scripts/generate_bbq_outputs_vllm_gpt-oss.py`
+**Simple prompt:**
+```bash
+# Edit job_scripts/run_full.sh to use:
+# scripts/generate_bbq_outputs_vllm_qwen_simple.py
+```
 
+### GPT-OSS Models
+```bash
+bash job_scripts/run_full_gpt-oss.sh
+# Calls: scripts/generate_bbq_outputs_vllm_gpt-oss.py
+```
+
+> **Special tokens:** All generation scripts use `<think>`/`</think>` for reasoning content and `<answer>`/`</answer>` for final answers.
+
+---
 ## Saved Reasoning Traces
 
-Full Generated Traces are available at: 
+Pre-generated traces for all models are available on Google Drive:
 
-[Google Drive Link](https://drive.google.com/drive/folders/1avhCGFPHafxfV80AtVIbEFRfT08Vsb67?usp=sharing)
+**[Download Reasoning Traces](https://drive.google.com/drive/folders/1avhCGFPHafxfV80AtVIbEFRfT08Vsb67?usp=sharing)**
 
-## Process Results
+---
 
-Merge model outputs with the original BBQ dataset and optional metadata useful for further analysis
+## Processing & Evaluation
 
+### Step 1 — Merge Outputs with BBQ Data
 ```bash
-python scripts/process_bbq_results.py --base_folders <folder1> <folder2> ... --meta_file <metadata_csv>
+python scripts/process_bbq_results.py \
+  --base_folders <folder1> <folder2> \
+  --meta_file <metadata_csv>
 ```
+Merges model outputs with the original BBQ dataset and optional metadata for downstream analysis.
 
-## Accuracy and Bias scores 
-
+### Step 2 — Compute Accuracy and Bias Scores
 ```bash
 python scripts/calculate_bbq_acc_and_bias_plot.py
-```
-
-```bash
 python scripts/create_bbq_metrics_table.py
-
 ```
 
-## LLM Judge 
+---
 
-Use the processed output files for the LLM Judge - `bbq_{category}_results_merged.json`
+## LLM Judge
 
-Judge scripts are in `reasoning_eval` folder.
+The LLM judge evaluates the quality of model reasoning traces. Use the merged output files (`bbq_{category}_results_merged.json`) as input.
 
+All judge scripts are in the `reasoning_eval/` folder.
 
-LLM Judge Annotations for test set 
+### Validate on Test Set
+
+**Annotate:**
 ```bash
-python reasoning_eval/llm_judge_script_vllm.py     --model deepseek-chat     --prompt new_prompt_edit2     --output_dir reasoning_eval/llm_judge_samples/test_set/our_labels     --data_path reasoning_eval/ground_truth_samples/test_set.json --temperature 1.0 --top_p 0.9 --reasoning_prompt_text "<think>\nPlease carefully reason through the given reasoning trace step by step"
+python reasoning_eval/llm_judge_script_vllm.py \
+  --model deepseek-chat \
+  --prompt new_prompt_edit2 \
+  --output_dir reasoning_eval/llm_judge_samples/test_set/our_labels \
+  --data_path reasoning_eval/ground_truth_samples/test_set.json \
+  --temperature 1.0 --top_p 0.9 \
+  --reasoning_prompt_text "<think>\nPlease carefully reason through the given reasoning trace step by step"
 ```
 
-Evaluation Metrics for test set 
+**Evaluate against human labels:**
+```bash
+python reasoning_eval/compare_llm_to_human.py \
+  --human_file reasoning_eval/ground_truth_samples/test_set.json \
+  --llm_folder reasoning_eval/llm_judge_samples/test_set/our_labels \
+  --output_prefix reasoning_eval/llm_judge_eval_metrics_val
+```
+
+### Run on Full BBQ Dataset
 
 ```bash
-python reasoning_eval/compare_llm_to_human.py   --human_file reasoning_eval/ground_truth_samples/test_set.json   --llm_folder reasoning_eval/llm_judge_samples/test_set/our_labels   --output_prefix reasoning_eval/llm_judge_eval_metrics_val 
-```
-
-LLM Judge on Full BBQ Data
-
-```bash 
-CATEGORIES=(
-  Age
-  Disability_status
-  Gender_identity
-  Nationality
-  Physical_appearance
-  Race_ethnicity
-  Religion
-  SES
-  Sexual_orientation
-)
+CATEGORIES=(Age Disability_status Gender_identity Nationality Physical_appearance Race_ethnicity Religion SES Sexual_orientation)
 
 for CAT in "${CATEGORIES[@]}"; do
   python reasoning_eval/llm_judge_script_vllm_multiple.py \
     --model deepseek-chat \
     --prompt new_prompt_edit2 \
     --output_dir outputs/qwen_full_8B_full_prompt/full_annotation/${CAT}/ \
-    --temperature 1.0 \
-    --top_p 0.9 \
+    --temperature 1.0 --top_p 0.9 \
     --data_paths outputs/qwen_full_8B_full_prompt/bbq_${CAT}_results_merged.json
 done
 ```
 
+---
 
 ## Prompts
 
-Baseline Score 0-5 Prompt: baseline.txt
-Baseline Score 0/1 Prompt: llama70b_gt.txt
+| Prompt File | Description |
+|---|---|
+| `baseline.txt` | Baseline rubric (0–5 score) |
+| `llama70b_gt.txt` | Baseline binary rubric (0/1 score) |
+| `new_prompt_edit2.txt` | **Final prompt used in paper** |
 
-Final Prompt Chosen: new_prompt_edit2.txt
-
-
-
-## Note on Special Tokens
-
-All scripts use the following special tokens for extracting reasoning and answers:
-- `<think>` and `</think>` for reasoning content
-- `<answer>` and `</answer>` for final answers
+---
 
 # Old Results
 
