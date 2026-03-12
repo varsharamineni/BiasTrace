@@ -69,13 +69,16 @@ def load_judge_files(paths, judge_labels):
 # -------------------------
 # 1️⃣ Load multiple JSON files instead of CSV
 # -------------------------
-INPUT_GLOBS = [
+INPUT_GLOBS = (
     "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/qwen_full_14B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_14B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/20251217_110543/full_annotation/*/llm_eval_bbq_*.json"
-]
+    "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/gpt-oss-120b_simple_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/gpt-oss-120b_full_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/gpt-oss-120b_full_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+)
 
 # Collect all files
 all_paths = []

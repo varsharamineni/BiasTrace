@@ -26,9 +26,12 @@ import statsmodels.formula.api as smf
 INPUT_GLOBS = (
     "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/qwen_full_14B_simple_prompt/20250828_215719/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/qwen_full_14B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_14B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/20251217_110543/full_annotation/*/llm_eval_bbq_*.json"
+    "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/gpt-oss-120b_simple_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/gpt-oss-120b_full_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+    "outputs/gpt-oss-120b_full_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
 )
 
 JUDGE_LABELS = [
