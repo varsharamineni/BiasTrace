@@ -7,6 +7,7 @@ import pandas as pd
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 import seaborn as sns
+from itertools import combinations
 
 # ---------------------------
 # Error labels
@@ -69,6 +70,7 @@ def load_folder(folder, baseline_type=None, parent_folder_name=None):
                 'sample_id': r.get('sample_id'),
                 'bbq_category': category,
                 'model': r.get('model','unknown'),
+                'ambiguous': int(r.get('ambiguous', False)),
                 'prompt_type': r.get('prompt_type','unknown'),
                 'is_correct': int(r.get('is_correct', False)),
                 'stereotype_aligned': int(r.get('stereotype_alignment', False)),
@@ -229,6 +231,29 @@ def plot_correlation_heatmap(df=None, numeric_cols=None, corr_matrix=None, outpu
         print(f"Saved correlation heatmap ({method}): {out_fig}")
     plt.close()
 
+
+
+def compute_bias_pathways(df, behavior_cols, outcome_col, min_support=100):
+    """
+    Compute all combinations of behaviors that lead to outcome_col=1.
+    Returns a DataFrame sorted by bias_rate descending.
+    """
+    results = []
+    for r in range(1, 4):
+        for combo in combinations(behavior_cols, r):
+            mask = df[list(combo)].all(axis=1)
+            n_samples = mask.sum()
+            if n_samples < min_support:
+                continue
+            bias_rate = df.loc[mask, outcome_col].mean()
+            results.append({
+                "combo": " + ".join(combo),
+                "size": r,
+                "n_samples": n_samples,
+                "bias_rate": bias_rate
+            })
+    return pd.DataFrame(results).sort_values(by="bias_rate", ascending=False)
+
 # ---------------------------
 # Main
 # ---------------------------
@@ -375,6 +400,133 @@ def main(parent_folders, output_dir):
                          output_name="correlation_heatmap_pearson.pdf", method="pearson")
 
 
+
+        # ---------------------------
+    # Correct-answer analysis: flagged reasoning and baselines
+    # ---------------------------
+    df_correct = final_df[final_df['is_correct'] == 1].copy()
+    print(f"Found {len(df_correct)} samples with correct answers")
+
+    # ---------------------------
+    # Ensure error columns are integers
+    # ---------------------------
+    df_correct[error_labels] = df_correct[error_labels].fillna(0).astype(int)
+
+    # ---------------------------
+    # Weighted sum of error labels
+    # ---------------------------
+    weighted_error_labels = {
+        'overthinking': 1.6833,
+        'group_assumption': 0.2675,
+        'bias_acknowledgement': 1.2012,
+        'meta_reflection': 0.4392,
+        'outside_demo_knowledge': 0.4775,
+        'outside_topical_knowledge': 0.1941
+    }
+
+    df_correct['weighted_errors'] = df_correct[error_labels].apply(
+        lambda row: sum(row[lbl] * weighted_error_labels[lbl] for lbl in error_labels), axis=1
+    )
+
+    # ---------------------------
+    # Filter baseline columns that actually exist
+    # ---------------------------
+    baseline_cols = [c for c in ['baseline','baseline_0-5'] if c in df_correct.columns]
+
+    # ---------------------------
+    # Summary table: counts and fractions
+    # ---------------------------
+    summary_correct = pd.DataFrame({
+        'error_counts': df_correct[error_labels].sum(),
+        'error_fraction': df_correct[error_labels].mean()
+    }).reset_index().rename(columns={'index':'error_label'})
+
+    for col in baseline_cols:
+        summary_correct[f'{col}_count'] = df_correct[col].notnull().sum()
+        summary_correct[f'{col}_fraction'] = df_correct[col].mean(skipna=True)
+
+    summary_csv_path = os.path.join(output_dir, "correct_answer_error_summary.csv")
+    summary_correct.to_csv(summary_csv_path, index=False)
+    print(f"Saved summary of errors for correct answers: {summary_csv_path}")
+
+    # ---------------------------
+    # Stacked bar plot: reasoning errors among correct answers
+    # ---------------------------
+    plt.figure(figsize=(10,6))
+    df_correct[error_labels].sum().plot(kind='bar', color=plt.cm.tab20.colors, edgecolor='black')
+    plt.ylabel("Number of samples with flagged reasoning")
+    plt.title("Reasoning errors among correct answers")
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    stacked_fig_path = os.path.join(output_dir, "correct_answer_error_stacked.pdf")
+    plt.savefig(stacked_fig_path, dpi=300)
+    plt.close()
+    print(f"Saved stacked bar plot: {stacked_fig_path}")
+
+    # ---------------------------
+    # Correlation heatmap: correct answers only
+    # ---------------------------
+    numeric_cols_correct = error_labels + baseline_cols + ['weighted_errors']
+    numeric_cols_correct = [c for c in numeric_cols_correct if c in df_correct.columns]
+
+    if numeric_cols_correct:
+        plot_correlation_heatmap(
+            df=df_correct,
+            numeric_cols=numeric_cols_correct,
+            output_dir=output_dir,
+            output_name="correlation_heatmap_correct_answers.pdf",
+            method="spearman"
+        )
+    else:
+        print("No numeric columns found for correlation heatmap among correct answers")
+
+
+
+    # ---------------------------
+    # Bias pathway analysis
+    # ---------------------------
+    print("\nRunning bias pathway analysis...")
+
+    df_amb = final_df[final_df['ambiguous'] == 1]   # ambiguous questions
+    df_nonamb = final_df[final_df['ambiguous'] == 0]  # non-ambiguous questions
+
+    behavior_cols = [
+    "overthinking",
+    "meta_reflection",
+    "group_assumption",
+    "bias_acknowledgement",
+    "outside_demo_knowledge",
+    "outside_topical_knowledge"
+]
+        
+    # Define outputs
+    bias_configs = [
+        ("incorrect", df_amb, "ambiguous_incorrect.csv"),
+        ("incorrect", df_nonamb, "nonambiguous_incorrect.csv"),
+        ("incorrect_and_stereotype", df_amb, "ambiguous_stereotype.csv"),
+        ("incorrect_and_stereotype", df_nonamb, "nonambiguous_stereotype.csv"),
+        ("incorrect", final_df, "overall_incorrect.csv"),
+        ("incorrect_and_stereotype", final_df, "overall_stereotype.csv")
+    ]
+
+    overall_incorrect_rate = final_df["incorrect"].mean()
+    overall_stereotype_rate = final_df["incorrect_and_stereotype"].mean()
+
+    for target_col, df_sub, fname in bias_configs:
+        bias_df = compute_bias_pathways(df_sub, behavior_cols, target_col)
+        
+        # compute lift
+        if target_col == "incorrect":
+            bias_df["lift"] = bias_df["bias_rate"] / overall_incorrect_rate
+        else:
+            bias_df["lift"] = bias_df["bias_rate"] / overall_stereotype_rate
+
+        # Save CSV
+        out_path = os.path.join(output_dir, fname)
+        os.makedirs(output_dir, exist_ok=True)
+        bias_df.to_csv(out_path, index=False)
+        print(f"Saved bias pathways for {target_col} ({fname}) to {out_path}")
+        print(bias_df.head(10))
 
     print("Analysis complete")
     return final_df, logit_df
