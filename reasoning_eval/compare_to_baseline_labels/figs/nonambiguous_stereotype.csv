@@ -1,0 +1,32 @@
+combo,size,n_samples,bias_rate,lift
+group_assumption + outside_demo_knowledge + outside_topical_knowledge,3,295,0.04406779661016949,8.510563444800733
+outside_demo_knowledge + outside_topical_knowledge,2,365,0.03561643835616438,6.878400592373194
+overthinking + outside_demo_knowledge + outside_topical_knowledge,3,145,0.034482758620689655,6.659459459459459
+overthinking + group_assumption + outside_topical_knowledge,3,152,0.03289473684210526,6.352773826458036
+group_assumption + outside_topical_knowledge,2,402,0.03233830845771144,6.245313970687104
+group_assumption + outside_demo_knowledge,2,555,0.02702702702702703,5.219576333089846
+overthinking + group_assumption + outside_demo_knowledge,3,205,0.024390243902439025,4.710349373764008
+outside_demo_knowledge,1,656,0.022865853658536585,4.415952537903757
+overthinking + outside_demo_knowledge,2,242,0.02066115702479339,3.99017199017199
+overthinking + meta_reflection + group_assumption,3,136,0.014705882352941176,2.840063593004769
+overthinking + group_assumption,2,682,0.01466275659824047,2.8317349607672186
+group_assumption,1,1946,0.011819116135662899,2.2825588178106164
+meta_reflection + group_assumption,2,250,0.008,1.5449945945945944
+overthinking,1,11961,0.005685143382660312,1.0979394744631763
+overthinking + meta_reflection + outside_topical_knowledge,3,456,0.0043859649122807015,0.8470365101944048
+overthinking + meta_reflection,2,1846,0.004333694474539545,0.8369418172235072
+overthinking + outside_topical_knowledge,2,2071,0.0028971511347175277,0.559510355357772
+meta_reflection,1,3533,0.002830455703368242,0.5466298452429219
+meta_reflection + outside_topical_knowledge,2,765,0.00261437908496732,0.504900194311959
+outside_topical_knowledge,1,9843,0.0024382810118866198,0.4708913729334332
+bias_acknowledgement,1,3912,0.0002556237218813906,0.04936715856961256
+overthinking + bias_acknowledgement,2,635,0.0,0.0
+meta_reflection + bias_acknowledgement,2,714,0.0,0.0
+group_assumption + bias_acknowledgement,2,505,0.0,0.0
+overthinking + meta_reflection + bias_acknowledgement,3,248,0.0,0.0
+bias_acknowledgement + outside_demo_knowledge,2,140,0.0,0.0
+bias_acknowledgement + outside_topical_knowledge,2,392,0.0,0.0
+overthinking + group_assumption + bias_acknowledgement,3,174,0.0,0.0
+meta_reflection + group_assumption + bias_acknowledgement,3,152,0.0,0.0
+meta_reflection + bias_acknowledgement + outside_topical_knowledge,3,118,0.0,0.0
+group_assumption + bias_acknowledgement + outside_demo_knowledge,3,112,0.0,0.0
