@@ -1,40 +1,41 @@
 combo,size,n_samples,bias_rate,lift
-overthinking + group_assumption,2,330,0.36363636363636365,70.22702702702702
-overthinking + group_assumption + outside_demo_knowledge,3,219,0.3607305936073059,69.66585215352337
-overthinking + outside_demo_knowledge,2,220,0.35909090909090907,69.34918918918918
-overthinking + group_assumption + outside_topical_knowledge,3,146,0.3561643835616438,68.78400592373194
-overthinking + meta_reflection + outside_demo_knowledge,3,164,0.3353658536585366,64.7673038892551
-overthinking + outside_demo_knowledge + outside_topical_knowledge,3,122,0.32786885245901637,63.31945059813911
-overthinking + meta_reflection + group_assumption,3,235,0.3276595744680851,63.27903392754455
-overthinking + outside_topical_knowledge,2,172,0.313953488372093,60.63205531112507
-overthinking + meta_reflection + outside_topical_knowledge,3,138,0.26811594202898553,51.779710144927535
-overthinking + group_assumption + bias_acknowledgement,3,106,0.2358490566037736,45.54818969913309
-overthinking,1,581,0.23407917383820998,45.206382285900354
-overthinking + meta_reflection,2,361,0.2188365650969529,42.262663771805045
-overthinking + bias_acknowledgement,2,120,0.20833333333333334,40.234234234234236
-overthinking + meta_reflection + bias_acknowledgement,3,109,0.1926605504587156,37.20743863129184
-group_assumption + outside_demo_knowledge + outside_topical_knowledge,3,1097,0.14676390154968094,28.343679321983785
-group_assumption + outside_demo_knowledge,2,3254,0.13829133374308544,26.70742038904301
-outside_demo_knowledge + outside_topical_knowledge,2,1362,0.11820851688693099,22.828939953169026
-outside_demo_knowledge,1,3869,0.11630912380460068,22.46212094751769
-group_assumption + outside_topical_knowledge,2,1720,0.10465116279069768,20.21068510370836
-meta_reflection + group_assumption + outside_topical_knowledge,3,713,0.08415147265077139,16.25169629657708
-group_assumption,1,8378,0.07794222964908093,15.052540437310071
-meta_reflection + outside_demo_knowledge + outside_topical_knowledge,3,625,0.0736,14.213950270270269
-meta_reflection + group_assumption + outside_demo_knowledge,3,1331,0.067618332081142,13.05874469510833
-meta_reflection + outside_demo_knowledge,2,1669,0.05392450569203116,10.414133726296697
-bias_acknowledgement + outside_demo_knowledge + outside_topical_knowledge,3,641,0.0421216848673947,8.134721929417717
-meta_reflection + group_assumption,2,2901,0.040675629093416064,7.855453385132805
-group_assumption + bias_acknowledgement + outside_topical_knowledge,3,780,0.035897435897435895,6.932668052668052
-meta_reflection + outside_topical_knowledge,2,2182,0.02841429880843263,5.487492258528005
-outside_topical_knowledge,1,6563,0.02834069785159226,5.473278123468585
-group_assumption + bias_acknowledgement + outside_demo_knowledge,3,1747,0.025186033199771037,4.8640356441157815
-meta_reflection + bias_acknowledgement + outside_demo_knowledge,3,1275,0.023529411764705882,4.5441017488076305
-bias_acknowledgement + outside_demo_knowledge,2,2237,0.019669199821189094,3.7986009254672646
-meta_reflection + bias_acknowledgement + outside_topical_knowledge,3,1212,0.018151815181518153,3.5055570421907056
-meta_reflection + group_assumption + bias_acknowledgement,3,2292,0.01614310645724258,3.1176265270506103
-bias_acknowledgement + outside_topical_knowledge,2,2292,0.012216404886561954,2.359284939389651
-group_assumption + bias_acknowledgement,2,5356,0.010268857356235997,1.983166138505944
-meta_reflection,1,13940,0.00860832137733142,1.6624762495637673
-meta_reflection + bias_acknowledgement,2,8772,0.00421796625626995,0.8145918832649338
-bias_acknowledgement,1,25550,0.002152641878669276,0.4157275083302481
+overthinking + group_assumption + outside_demo_knowledge,3,703,0.3883357041251778,59.392408091724946
+overthinking + outside_demo_knowledge,2,708,0.3855932203389831,58.972970181472654
+overthinking + outside_demo_knowledge + outside_topical_knowledge,3,325,0.3446153846153846,52.705783527867624
+overthinking + group_assumption,2,1278,0.3411580594679186,52.17701714382714
+overthinking + meta_reflection + outside_demo_knowledge,3,495,0.3393939393939394,51.90721105017266
+overthinking + group_assumption + outside_topical_knowledge,3,441,0.3378684807256236,51.673906044237725
+overthinking + meta_reflection + group_assumption,3,864,0.30092592592592593,46.023878845329186
+overthinking + outside_topical_knowledge,2,526,0.2946768060836502,45.068132896800854
+overthinking + bias_acknowledgement + outside_demo_knowledge,3,178,0.29213483146067415,44.67936103636451
+overthinking + meta_reflection + outside_topical_knowledge,3,396,0.2474747474747475,37.84900805741757
+overthinking,1,1898,0.24710221285563752,37.792032281326314
+overthinking + meta_reflection,2,1211,0.22047894302229562,33.720245706254524
+overthinking + group_assumption + bias_acknowledgement,3,381,0.2204724409448819,33.71925127274996
+overthinking + bias_acknowledgement,2,405,0.2074074074074074,31.72107341954996
+overthinking + meta_reflection + bias_acknowledgement,3,358,0.19832402234636873,30.331852426814283
+group_assumption + outside_demo_knowledge + outside_topical_knowledge,3,1774,0.16741826381059752,25.60509821945675
+group_assumption + outside_demo_knowledge,2,5339,0.14628207529499906,22.372510742984574
+outside_demo_knowledge + outside_topical_knowledge,2,2112,0.140625,21.5073126142596
+outside_demo_knowledge,1,6137,0.1272608766498289,19.463391699005157
+group_assumption + outside_topical_knowledge,2,2866,0.12107466852756454,18.517267524908007
+meta_reflection + group_assumption + outside_topical_knowledge,3,1259,0.10007942811755362,15.306236777106117
+meta_reflection + group_assumption + outside_demo_knowledge,3,2427,0.09394313967861558,14.367747363790508
+meta_reflection + outside_demo_knowledge + outside_topical_knowledge,3,1008,0.09325396825396826,14.262344872948164
+group_assumption,1,14024,0.0803622361665716,12.290671897709611
+meta_reflection + outside_demo_knowledge,2,2889,0.07892004153686397,12.070101367919545
+meta_reflection + group_assumption,2,5537,0.059779664078020586,9.142755010143386
+bias_acknowledgement + outside_demo_knowledge + outside_topical_knowledge,3,880,0.04090909090909091,6.256672760511884
+outside_topical_knowledge,1,9518,0.03761294389577642,5.752557103708948
+meta_reflection + outside_topical_knowledge,2,3560,0.03707865168539326,5.670841977692419
+group_assumption + bias_acknowledgement + outside_topical_knowledge,3,1139,0.03687445127304653,5.639611384950717
+group_assumption + bias_acknowledgement + outside_demo_knowledge,3,2664,0.03415915915915916,5.224332193253583
+meta_reflection + bias_acknowledgement + outside_demo_knowledge,3,1973,0.031424227065382664,4.806049245558489
+bias_acknowledgement + outside_demo_knowledge,2,3283,0.02771855010660981,4.239299714537784
+meta_reflection + group_assumption + bias_acknowledgement,3,3897,0.023094688221709007,3.532122164004656
+meta_reflection + bias_acknowledgement + outside_topical_knowledge,3,1681,0.01903628792385485,2.9114268116864075
+group_assumption + bias_acknowledgement,2,8247,0.015763307869528315,2.4108543302027656
+meta_reflection,1,21762,0.0155776123518059,2.382453892508737
+bias_acknowledgement + outside_topical_knowledge,2,3017,0.013921113689095127,2.12910751324457
+meta_reflection + bias_acknowledgement,2,12238,0.007354142833796372,1.124749147992004
+bias_acknowledgement,1,31431,0.00413604403296109,0.6325702542452423
