@@ -64,14 +64,26 @@ def load_folder(folder, baseline_type=None, parent_folder_name=None):
             data = json.load(file)
         category = data.get("metadata", {}).get("bbq_category","unknown")
         categories_seen.add(category)
+
+
         for r in data.get("results", []):
+
+            # Extract prompt_type from JSON or filename
+            if "full_prompt" in parent_folder_name.lower():
+                prompt_type = "full_prompt"
+            elif "simple_prompt" in parent_folder_name.lower():
+                prompt_type = "simple_prompt"
+            else:
+                prompt_type = "unknown"
+
+
             score, errors = parse_judge_output(r)
             row = {
                 'sample_id': r.get('sample_id'),
                 'bbq_category': category,
                 'model': r.get('model','unknown'),
                 'ambiguous': int(r.get('ambiguous', False)),
-                'prompt_type': r.get('prompt_type','unknown'),
+                'prompt_type': prompt_type,                
                 'is_correct': int(r.get('is_correct', False)),
                 'stereotype_aligned': int(r.get('stereotype_alignment', False)),
                 'incorrect_and_stereotype': int(r.get('incorrect_and_stereotype', False)),
@@ -232,7 +244,6 @@ def plot_correlation_heatmap(df=None, numeric_cols=None, corr_matrix=None, outpu
     plt.close()
 
 
-
 def compute_bias_pathways(df, behavior_cols, outcome_col, min_support=100):
     """
     Compute all combinations of behaviors that lead to outcome_col=1.
@@ -252,7 +263,11 @@ def compute_bias_pathways(df, behavior_cols, outcome_col, min_support=100):
                 "n_samples": n_samples,
                 "bias_rate": bias_rate
             })
-    return pd.DataFrame(results).sort_values(by="bias_rate", ascending=False)
+
+    # Ensure DataFrame has correct columns even if empty
+    cols = ["combo", "size", "n_samples", "bias_rate"]
+    bias_df = pd.DataFrame(results, columns=cols)
+    return bias_df.sort_values(by="bias_rate", ascending=False)
 
 # ---------------------------
 # Main
@@ -312,11 +327,13 @@ def main(parent_folders, output_dir):
     # Ensure all error columns exist
     for lbl in error_labels:
         if lbl not in final_df.columns:
-            final_df[lbl] = 0
+            final_df[lbl] = None
 
-    # Save combined CSV
-    final_df.to_csv(os.path.join(output_dir, "combined_results.csv"), index=False)
-    print("Saved combined results")
+    if 'prompt_type' in final_df.columns:
+        print(final_df['prompt_type'].value_counts())
+    else:
+        print("prompt_type does not exist in final_df")
+
 
     # ---------------------------
     # Logistic regression comparisons
@@ -506,11 +523,18 @@ def main(parent_folders, output_dir):
         ("incorrect_and_stereotype", df_amb, "ambiguous_stereotype.csv"),
         ("incorrect_and_stereotype", df_nonamb, "nonambiguous_stereotype.csv"),
         ("incorrect", final_df, "overall_incorrect.csv"),
-        ("incorrect_and_stereotype", final_df, "overall_stereotype.csv")
+        ("incorrect", final_df[final_df['prompt_type'] == "simple_prompt"], "overall_incorrect_simple_prompt.csv"),
+        ("incorrect", final_df[final_df['prompt_type'] == "full_prompt"], "overall_incorrect_full_prompt.csv"),
+        ("incorrect_and_stereotype", final_df, "overall_stereotype.csv"),
+        ("incorrect_and_stereotype", final_df[final_df['prompt_type'] == "simple_prompt"], "overall_stereotype_simple_prompt.csv"),
+        ("incorrect_and_stereotype", final_df[final_df['prompt_type'] == "full_prompt"], "overall_stereotype_full_prompt.csv"),
     ]
 
     overall_incorrect_rate = final_df["incorrect"].mean()
     overall_stereotype_rate = final_df["incorrect_and_stereotype"].mean()
+
+
+    top_pathways_all = []
 
     for target_col, df_sub, fname in bias_configs:
         bias_df = compute_bias_pathways(df_sub, behavior_cols, target_col)
@@ -521,12 +545,39 @@ def main(parent_folders, output_dir):
         else:
             bias_df["lift"] = bias_df["bias_rate"] / overall_stereotype_rate
 
+        
+        # ---- get top 3 pathways ----
+        top3 = bias_df.sort_values(by="bias_rate", ascending=False).head(1).copy()
+
+        # add identifiers
+        top3["target"] = target_col
+        top3["subset"] = fname  # or cleaner label if you prefer
+
+        # store
+        top_pathways_all.append(top3)
+
         # Save CSV
         out_path = os.path.join(output_dir, fname)
         os.makedirs(output_dir, exist_ok=True)
         bias_df.to_csv(out_path, index=False)
         print(f"Saved bias pathways for {target_col} ({fname}) to {out_path}")
         print(bias_df.head(10))
+
+        # combine all top-3 results
+    top_pathways_df = pd.concat(top_pathways_all, ignore_index=True)
+
+    # optional: reorder columns
+    top_pathways_df = top_pathways_df[
+        ["target", "subset", "combo", "size", "n_samples", "bias_rate", "lift"]
+    ]
+
+    # save summary
+    summary_path = os.path.join(output_dir, "top3_bias_pathways_summary.csv")
+    top_pathways_df.to_csv(summary_path, index=False)
+
+    print("\nSaved top-3 pathways summary table to:", summary_path)
+    print(top_pathways_df.head(20))
+
 
     print("Analysis complete")
     return final_df, logit_df
