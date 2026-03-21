@@ -127,10 +127,19 @@ def plot_metrics(df, metrics, output_dir=None):
     for m in metrics:
         col = m["col"]
         plt.figure(figsize=(6,4))
-        sns.barplot(x=col, y="is_correct", data=df)
+        
+        if df[col].dtype in [float, int] and df[col].nunique() > 10:
+            # Continuous: bin into 5 categories
+            df[col+"_bin"] = pd.cut(df[col], bins=5)
+            plot_col = col+"_bin"
+        else:
+            plot_col = col
+        
+        sns.barplot(x=plot_col, y="is_correct", data=df)
         plt.title(f"Answer correctness vs {col}")
         plt.ylabel("Fraction Correct")
         plt.xlabel(col)
+        plt.xticks(rotation=45)
         plt.tight_layout()
         if output_dir:
             os.makedirs(output_dir, exist_ok=True)
