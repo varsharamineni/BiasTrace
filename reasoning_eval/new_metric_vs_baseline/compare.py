@@ -144,7 +144,8 @@ if __name__ == "__main__":
         "baseline05": "baseline_0-5_annotation",
         "baseline01": "baseline_annotation",
         "bias01": "new_metric_annotation",
-        "bias01_pathways": "new_metric_pathways_annotation"
+        "bias01_pathways": "new_metric_pathways_annotation",
+        "baseline-frm": "fairness-prm_0-5_annotation"
     }
 
     # 1. Discover all files and group by category
