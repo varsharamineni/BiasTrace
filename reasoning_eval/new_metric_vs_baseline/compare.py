@@ -143,7 +143,8 @@ if __name__ == "__main__":
     metric_subfolders = {
         "baseline05": "baseline_0-5_annotation",
         "baseline01": "baseline_annotation",
-        "bias01": "new_metric_annotation"
+        "bias01": "new_metric_annotation",
+        "bias01_pathways": "new_metric_pathways_annotation"
     }
 
     # 1. Discover all files and group by category
@@ -161,14 +162,14 @@ if __name__ == "__main__":
     valid_categories = {
         cat: files
         for cat, files in category_files.items()
-        if all(k in files for k in ["baseline05","baseline01","bias01"]) or \
-        all(len(files[k]) > 0 for k in ["baseline05","baseline01","bias01"])
+        if all(k in files for k in ["baseline05","baseline01","bias01", "bias01_pathways"]) or \
+        all(len(files[k]) > 0 for k in ["baseline05","baseline01","bias01", "bias01_pathways"])
     }
 
     # 3. Flatten into a list for your loading loop
     metrics_to_load = []
     for cat, files in valid_categories.items():
-        for col in ["baseline05", "baseline01", "bias01"]:
+        for col in ["baseline05", "baseline01", "bias01", "bias01_pathways"]:
             metrics_to_load.append({
                 "file": files[col][0],  # pick first JSON file
                 "col": col,
