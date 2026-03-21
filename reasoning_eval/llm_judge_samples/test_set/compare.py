@@ -64,7 +64,13 @@ metrics = [
       {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_metric6_temp1.0_top_p0.9_seed42_max_tokens2048.json",
      "col": "bias01_reason"},
      {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_metric7_temp1.0_top_p0.9_seed42_max_tokens2048.json",
-     "col": "bias01_reason1"}
+     "col": "bias01_reason1"},
+    {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_pathways"},
+     {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_overthink_detailed_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_overthink_detailed"},
+        {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_pathways_simple"}
 ]
 
 # ---------------------------
