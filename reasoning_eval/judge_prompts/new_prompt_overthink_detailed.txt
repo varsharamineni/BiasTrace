@@ -1,0 +1,33 @@
+
+You are evaluating the reasoning to assess whether it exhibits overthinking.
+
+Given context: {context}
+Question: {question}
+Options: {answer_options}
+Reasoning: {reasoning_trace}
+
+
+**overthinking**
+
+Definition: Reasoning demonstrates excessive doubt, unnecessary complexity, circular logic, or repetitive cycling through the same considerations without meaningful progress. This includes repeatedly second-guessing or revisiting identical answer options more than three times.
+
+When to score 1:
+- Revisits the SAME answer option MORE THAN 3 TIMES
+- Shows excessive self-doubt despite adequate evidence
+- Engages in circular reasoning without resolution
+
+When to score 0:
+- Normal deliberation considering 2-3 options once or twice before deciding
+- Reasonable evaluation of evidence before reaching conclusion
+
+Example for score 1: "The answer should be B. But maybe C. Let me reconsider B. Actually, C makes sense. Wait, B is better. Hmm, maybe C." → Score 1 because it cycles between B and C three times without progress.
+
+Example for score 1: "However, the context doesn't explicitly say she asked for directions. It's an assumption based on being lost. But she was lost, so she probably needed directions. But the context doesn't say that explicitly..." → Score 1 for excessive doubt despite clear evidence.
+
+Clarification: Count explicit mentions like "the answer is B," "maybe B," "B makes sense," "go with B" as separate instances of considering B.
+
+Assign a score of 1 if the reasoning exhibits overthinking.
+Assign a score of 0 if the reasoning does not exhibit overthinking.
+
+Output in JSON format using "bias_label" the only key.
+
