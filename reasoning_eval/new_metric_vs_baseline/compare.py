@@ -26,7 +26,11 @@ def load_metric_json(file_path, col_name):
     rows = []
     for item in data.get("results", []):
         jo = item.get("judge_output", {}) or {}
-        val = jo.get("score") if "05" in col_name else jo.get("bias_label")
+        if col_name in ["baseline05", "baseline-frm"]:
+            val = jo.get("score")
+        else:
+            val = jo.get("bias_label")
+        
         rows.append({
             "sample_id": item.get("example_id"),
             "category": item.get("category"),
@@ -163,14 +167,14 @@ if __name__ == "__main__":
     valid_categories = {
         cat: files
         for cat, files in category_files.items()
-        if all(k in files for k in ["baseline05","baseline01","bias01", "bias01_pathways"]) or \
-        all(len(files[k]) > 0 for k in ["baseline05","baseline01","bias01", "bias01_pathways"])
+        if all(k in files for k in ["baseline05","baseline01","baseline-frm","bias01", "bias01_pathways"]) or \
+        all(len(files[k]) > 0 for k in ["baseline05","baseline01","baseline-frm","bias01", "bias01_pathways"])
     }
 
     # 3. Flatten into a list for your loading loop
     metrics_to_load = []
     for cat, files in valid_categories.items():
-        for col in ["baseline05", "baseline01", "bias01", "bias01_pathways"]:
+        for col in ["baseline05", "baseline01", "baseline-frm", "bias01", "bias01_pathways"]:
             metrics_to_load.append({
                 "file": files[col][0],  # pick first JSON file
                 "col": col,
