@@ -1,0 +1,11 @@
+target,subset,combo,size,n_samples,bias_rate,lift
+incorrect,ambiguous_incorrect.csv,overthinking + group_assumption + outside_demo_knowledge,3,703,0.4566145092460882,5.786089219052117
+incorrect,nonambiguous_incorrect.csv,meta_reflection + bias_acknowledgement + outside_topical_knowledge,3,138,0.5507246376811594,6.978626005587533
+incorrect_and_stereotype,ambiguous_stereotype.csv,overthinking + group_assumption + outside_demo_knowledge,3,703,0.3883357041251778,59.392408091724946
+incorrect_and_stereotype,nonambiguous_stereotype.csv,overthinking + outside_demo_knowledge + outside_topical_knowledge,3,214,0.04672897196261682,7.146770546794467
+incorrect,overall_incorrect.csv,overthinking + outside_demo_knowledge,2,1059,0.43153918791312557,5.468341877495941
+incorrect,overall_incorrect_simple_prompt.csv,overthinking + outside_demo_knowledge,2,844,0.4395734597156398,5.570149885165729
+incorrect,overall_incorrect_full_prompt.csv,overthinking + meta_reflection + outside_topical_knowledge,3,349,0.4183381088825215,5.301061557856191
+incorrect_and_stereotype,overall_stereotype.csv,overthinking + meta_reflection + outside_demo_knowledge,3,575,0.2956521739130435,45.21730652041438
+incorrect_and_stereotype,overall_stereotype_simple_prompt.csv,overthinking + group_assumption + outside_demo_knowledge,3,820,0.3207317073170732,49.052992672522706
+incorrect_and_stereotype,overall_stereotype_full_prompt.csv,overthinking + outside_demo_knowledge + outside_topical_knowledge,3,161,0.11180124223602485,17.09898145729956
