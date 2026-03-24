@@ -32,24 +32,29 @@ class FairnessPRM:
             overall_score: float
         """
         steps = self.split_steps(trace)
+        step_scores = []
 
-        texts = [
-            f"{question} {step}" if i == 0 else step
-            for i, step in enumerate(steps)
-        ]
+        for i, step in enumerate(steps):
+                # Match baseline behavior
+                if i == 0:
+                    text = f"{question} {step}"
+                else:
+                    text = step
 
-        inputs = self.tokenizer(
-            texts,
-            return_tensors="pt",
-            truncation=True,
-            max_length=4096,
-            padding=True
-        ).to(self.model.device)
+                inputs = self.tokenizer(
+                    text,
+                    return_tensors="pt",
+                    truncation=True,
+                    max_length=4096,
+                    padding=False
+                ).to(self.model.device)
 
-        with torch.no_grad():
-            outputs = self.model(**inputs)
-            logits = outputs.logits.squeeze(-1)
-            step_scores = torch.sigmoid(logits).tolist()
+                with torch.no_grad():
+                    outputs = self.model(**inputs)
+                    logits = outputs.logits.squeeze(-1)
+                    score = torch.sigmoid(logits).item()
+
+                step_scores.append(score)
 
         # overall score = mean (you can change this)
         overall_score = sum(step_scores) / len(step_scores)
