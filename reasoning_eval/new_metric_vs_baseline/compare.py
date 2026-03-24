@@ -115,14 +115,24 @@ def plot_metrics(df, metric_cols, output_dir=None):
 # ---------------------------
 if __name__ == "__main__":
     base_dirs = [
+        "outputs/qwen_full_8B_simple_prompt/20250827_163953",
         "outputs/qwen_full_8B_full_prompt",
-        "outputs/qwen_full_8B_simple_prompt/20250827_163953"
+        "outputs/qwen_full_14B_simple_prompt/20250828_215719",
+        "outputs/qwen_full_14B_full_prompt",
+        "outputs/gpt-oss-120b_simple_prompt_low_reasoning/20251216_114545",
+        "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/20251217_110543",
+        "outputs/gpt-oss-120b_full_prompt_low_reasoning/20251218_140849",
+        "outputs/gpt-oss-120b_full_prompt_low_reasoning/20251225_204037",
+        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251218_113157",
+        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251225_224835",
+        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251226_123752"
+
     ]
 
     metric_subfolders = {
         "baseline05": "baseline_0-5_annotation",
         "baseline01": "baseline_annotation",
-        "bias01_pathways": "new_metric_pathways_annotation",
+        #"bias01_pathways": "new_metric_pathways_annotation",
         "baseline-frm": "fairness-prm_0-5_annotation"
     }
 
