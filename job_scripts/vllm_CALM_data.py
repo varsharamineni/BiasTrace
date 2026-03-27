@@ -263,13 +263,34 @@ def main():
                 all_results.extend(batch_results)
                 pbar.update(len(batch_ds))
 
+    # -----------------------
+    # Save results with metadata
+    # -----------------------
+    metadata = {
+        "model": args.model,
+        "output_dir": args.output_dir,
+        "batch_size": args.batch_size,
+        "temperature": args.temperature,
+        "top_p": args.top_p,
+        "top_k": args.top_k,
+        "max_tokens": args.max_tokens,
+        "seed": args.seed,
+        "enable_thinking": args.enable_thinking,
+        "cuda_device": args.cuda_device,
+        "num_samples": len(dataset),
+        "dataset": "AiresPucrs/COMPAS"
+    }
 
-    # save unified JSON
-    output_path = os.path.join(args.output_dir, "calm_results.json")
+    final_output = {
+        "metadata": metadata,
+        "results": all_results
+    }
+
+    output_path = os.path.join(args.output_dir, "compas_results.json")
     with open(output_path, "w") as f:
-        json.dump(all_results, f, indent=2)
+        json.dump(final_output, f, indent=2)
 
-    print(f"\nSaved results to {output_path}")
+    print(f"\nSaved results with metadata to {output_path}")
 
 
 if __name__ == "__main__":
