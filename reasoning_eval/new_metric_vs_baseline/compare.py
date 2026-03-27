@@ -5,6 +5,10 @@ import json
 import pandas as pd
 import glob
 import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import cohen_kappa_score
+import numpy as np
 
 # ---------------------------
 # Helper: extract model_type and prompt_type from folder
@@ -35,6 +39,26 @@ def parse_model_prompt(base_dir):
         prompt_type = "_".join(p[1:])
     return model_type, prompt_type
 
+
+
+def is_unknown_option_selected(item):
+    """
+    Returns 1 if the model selected an 'unknown' type answer option.
+    """
+    answer = (item.get("model_answer") or "").strip().lower()
+    options = item.get("answer_options") or []
+
+    unknown_phrases = [
+        "can't be determined",
+        "cannot be determined",
+        "not enough information",
+        "unknown",
+        "cannot answer"
+    ]
+
+    # Check if the selected answer itself is an unknown-type option
+    return int(any(p in answer for p in unknown_phrases))
+
 # ---------------------------
 # Load a single JSON metric file
 # ---------------------------
@@ -53,14 +77,14 @@ def load_json_file(file_path, metric_name, model_type, prompt_type):
         else:
             metric_val = jo.get("bias_label")
 
-
         rows.append({
             "sample_id": item.get("sample_id"),
             "model_type": model_type,
             "prompt_type": prompt_type,
             metric_name: metric_val,
             "is_correct": item.get("is_correct"),
-            "stereotype_alignment": item.get("stereotype_alignment")
+            "stereotype_alignment": item.get("stereotype_alignment"),
+            "unknown_selected": is_unknown_option_selected(item)
         })
     return pd.DataFrame(rows)
 
@@ -84,35 +108,64 @@ def merge_all_metrics(base_dirs, metric_subfolders):
     # Pivot to have one row per sample_id x model_type x prompt_type
     metric_cols = list(metric_subfolders.keys())
     df_metrics = df_all.pivot_table(
-        index=["sample_id","model_type","prompt_type","is_correct","stereotype_alignment"],
+        index=["sample_id","model_type","prompt_type","is_correct","stereotype_alignment", "unknown_selected"],
         values=metric_cols,
         aggfunc='first'
     ).reset_index()
 
     return df_metrics
 
+
+# ---------------------------
+# 6. Cohen's Kappa matrix
+# ---------------------------
+def cohen_kappa_matrix(df, cols):
+    """
+    Compute a Cohen's Kappa matrix for a list of columns.
+    Returns a DataFrame where (i,j) is Cohen's kappa between cols[i] and cols[j].
+    """
+    n = len(cols)
+    kappa_mat = np.zeros((n, n))
+    
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                kappa_mat[i, j] = 1.0
+            else:
+                # Drop NaNs for pairwise comparison
+                valid_idx = df[[cols[i], cols[j]]].dropna().index
+                if len(valid_idx) == 0:
+                    kappa = np.nan
+                else:
+                    kappa = cohen_kappa_score(df.loc[valid_idx, cols[i]], df.loc[valid_idx, cols[j]])
+                kappa_mat[i, j] = kappa
+    
+    return pd.DataFrame(kappa_mat, index=cols, columns=cols)
+
+
 # ---------------------------
 # Main
 # ---------------------------
 if __name__ == "__main__":
     base_dirs = [
-        "outputs/qwen_full_8B_simple_prompt/20250827_163953",
-        "outputs/qwen_full_8B_full_prompt",
-        "outputs/qwen_full_14B_simple_prompt/20250828_215719",
-        "outputs/qwen_full_14B_full_prompt",
-        "outputs/gpt-oss-120b_simple_prompt_low_reasoning/20251216_114545",
+        #"outputs/qwen_full_8B_simple_prompt/20250827_163953",
+        #"outputs/qwen_full_8B_full_prompt",
+        #"outputs/qwen_full_14B_simple_prompt/20250828_215719",
+        #"outputs/qwen_full_14B_full_prompt",
+        #"outputs/gpt-oss-120b_simple_prompt_low_reasoning/20251216_114545",
         "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/20251217_110543",
-        "outputs/gpt-oss-120b_full_prompt_low_reasoning/20251218_140849",
-        "outputs/gpt-oss-120b_full_prompt_low_reasoning/20251225_204037",
-        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251218_113157",
-        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251225_224835",
-        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251226_123752"
+        #"outputs/gpt-oss-120b_full_prompt_low_reasoning/20251218_140849",
+        #"outputs/gpt-oss-120b_full_prompt_low_reasoning/20251225_204037",
+        #"outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251218_113157",
+        #"outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251225_224835",
+        #"outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251226_123752"
     ]
 
     metric_subfolders = {
         "baseline05": "baseline_0-5_annotation",
         "baseline01": "baseline_annotation",
         "bias01_pathways": "new_metric_pathways_annotation",
+        "bias01_pathways_diff": "new_metric_pathways_diff_annotation",
         "baseline-frm": "fairness-prm_0-5_annotation"
     }
 
@@ -130,7 +183,7 @@ if __name__ == "__main__":
     print(df.groupby(["model_type","prompt_type"]).size())
 
     # List of metric columns
-    metric_cols = ["baseline05", "baseline01", "bias01_pathways", "baseline-frm"]
+    metric_cols = ["baseline05", "baseline01", "bias01_pathways", "bias01_pathways_diff", "baseline-frm"]
 
     # Keep only rows where all metrics exist (non-NaN)
     df = df.dropna(subset=metric_cols).copy()
@@ -146,11 +199,15 @@ if __name__ == "__main__":
     df["incorrect_and_stereotype"] = (
         (~df["is_correct"].astype(bool) & df["stereotype_alignment"].astype(bool))
     ).astype(int)
+    df["incorrect_because_unknown"] = (
+    (~df["is_correct"].astype(bool)) & (df["unknown_selected"] == 1)
+    ).astype(int)
+    df["baseline05_bin"] = df["baseline05"].apply(lambda x: 1 if x > 0 else 0)
 
     # ---------------------------
     # 2. List of metric columns
     # ---------------------------
-    metric_cols = ["baseline05", "baseline01", "bias01_pathways", "baseline-frm"]
+    metric_cols = ["baseline05", "baseline05_bin", "baseline01", "bias01_pathways", "bias01_pathways_diff", "baseline-frm"]
     derived_cols = ["incorrect", "incorrect_and_stereotype"]
     corr_cols = metric_cols + derived_cols
 
@@ -170,3 +227,61 @@ if __name__ == "__main__":
         print(f"\n--- {model} | {prompt} (n={len(df_group)}) ---")
         group_corr = df_group[corr_cols].corr(method="pearson")
         print(group_corr)
+
+
+
+    # ---------------------------
+    # Cohens kappa
+    # ---------------------------
+
+    kappa_cols = ["bias01_pathways", "bias01_pathways_diff", "baseline01", "baseline05_bin", "incorrect", "incorrect_and_stereotype"]
+
+    print("\n=== Overall Cohen's Kappa Matrix ===")
+    kappa_overall = cohen_kappa_matrix(df, kappa_cols)
+    print(kappa_overall)
+
+    print("\n=== Grouped Cohen's Kappa Matrices ===")
+    for (model, prompt), df_group in df.groupby(group_cols):
+        print(f"\n--- {model} | {prompt} (n={len(df_group)}) ---")
+        kappa_group = cohen_kappa_matrix(df_group, kappa_cols)
+        print(kappa_group)
+
+
+    # Create plots folder if it doesn't exist
+    os.makedirs("plots", exist_ok=True)
+
+    # ---------------------------
+    # 5. Bar plots of incorrect / incorrect_and_stereotype per metric
+    # ---------------------------
+
+    plot_cols = ["incorrect"]
+
+    for derived_col in plot_cols:
+        for metric in metric_cols:
+            # Aggregate mean of derived_col per metric value
+            agg_df = df.groupby(metric)[derived_col].mean().reset_index()
+
+            plt.figure(figsize=(6,4))
+            sns.barplot(
+                data=agg_df,
+                x=metric,
+                y=derived_col,
+                color="skyblue"
+            )
+            plt.title(f"Average {derived_col} per {metric}")
+            plt.ylabel(f"Average {derived_col}")
+            plt.xlabel(metric)
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+
+            # Save figure
+            save_path = f"plots/{derived_col}_bar_vs_{metric}.png"
+            plt.savefig(save_path, dpi=300)
+            plt.close()
+            print(f"Saved bar plot: {save_path}")
+
+    
+
+
+
+ 
