@@ -34,7 +34,7 @@ def parse_args():
     parser.add_argument("--temperature", type=float, default=0.6)
     parser.add_argument("--top_p", type=float, default=0.95)
     parser.add_argument("--top_k", type=float, default=20)
-    parser.add_argument("--max_tokens", type=int, default=512)
+    parser.add_argument("--max_tokens", type=int, default=2048)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--enable_thinking", action="store_true", default=True)
     parser.add_argument("--cuda_device", type=str, default="0")
