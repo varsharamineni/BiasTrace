@@ -70,7 +70,13 @@ metrics = [
      {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_overthink_detailed_temp1.0_top_p0.9_seed42_max_tokens2048.json",
      "col": "bias01_overthink_detailed"},
         {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_temp1.0_top_p0.9_seed42_max_tokens2048.json",
-     "col": "bias01_pathways_simple"}
+     "col": "bias01_pathways_simple"},
+            {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_example_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_pathways_simple_example"},
+        {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_nolead_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_pathways_simple_noload"},
+         {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_diff_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_pathways_simple_diff_pathways"}
 ]
 
 # ---------------------------
@@ -149,3 +155,136 @@ for col1 in categorical_cols:
 cramers_matrix = cramers_matrix.astype(float)
 print("\nCramér's V matrix:")
 print(cramers_matrix)
+
+
+# ---------------------------
+# 10. Cohen's d
+# ---------------------------
+def cohens_d(x, y):
+    """
+    Compute Cohen's d between two groups x and y
+    """
+    x = np.array(x.dropna())
+    y = np.array(y.dropna())
+    
+    nx, ny = len(x), len(y)
+    if nx < 2 or ny < 2:
+        return np.nan
+
+    mean_x, mean_y = np.mean(x), np.mean(y)
+    std_x, std_y = np.std(x, ddof=1), np.std(y, ddof=1)
+
+    # pooled std
+    pooled_std = np.sqrt(((nx - 1)*std_x**2 + (ny - 1)*std_y**2) / (nx + ny - 2))
+    
+    if pooled_std == 0:
+        return np.nan
+
+    return (mean_x - mean_y) / pooled_std
+
+print("\nCohen's d (effect size):")
+
+outcomes = ["is_correct", "incorrect", "incorrect_and_stereotype"]
+
+for col in [m["col"] for m in metrics]:
+    
+    # Use binarized version if needed
+    if df[col].nunique() > 2:
+        continue  # skip non-binary for now (or handle separately)
+
+    print(f"\nMetric: {col}")
+    
+    group0 = df[df[col] == 0]
+    group1 = df[df[col] == 1]
+
+    for outcome in outcomes:
+        d = cohens_d(group0[outcome], group1[outcome])
+        print(f"  {outcome}: d = {d:.4f}")
+
+
+# ---------------------------
+# 11. Cohen's d with flexible binarization
+# ---------------------------
+def binarize_metric(series):
+    """
+    Binarize a metric for effect size calculation:
+    - If integer 0/1 → return as-is
+    - If 0-5 metric → 0 if 0, 1 if >0
+    - If float → 0 if <0.5, 1 if >=0.5
+    """
+    if series.dtype.kind in 'biu':  # already int/bool
+        if series.nunique() == 2:
+            return series
+        elif series.max() <= 5:  # assume 0-5 scale
+            return (series > 0).astype(int)
+        else:  # other integers, treat >0 as 1
+            return (series > 0).astype(int)
+    else:  # float
+        return (series >= 0.5).astype(int)
+
+
+def cohens_d(x, y):
+    """
+    Compute Cohen's d between two groups x and y
+    """
+    x = np.array(x.dropna())
+    y = np.array(y.dropna())
+    
+    nx, ny = len(x), len(y)
+    if nx < 2 or ny < 2:
+        return np.nan
+
+    mean_x, mean_y = np.mean(x), np.mean(y)
+    std_x, std_y = np.std(x, ddof=1), np.std(y, ddof=1)
+
+    pooled_std = np.sqrt(((nx - 1)*std_x**2 + (ny - 1)*std_y**2) / (nx + ny - 2))
+    
+    if pooled_std == 0:
+        return np.nan
+
+    return (mean_x - mean_y) / pooled_std
+
+
+# Compute Cohen's d for all metrics
+outcomes = ["is_correct", "incorrect", "incorrect_and_stereotype"]
+
+print("\nCohen's d (effect size) with thresholding:")
+
+for col in [m["col"] for m in metrics]:
+    metric_bin = binarize_metric(df[col])
+    
+    group0 = df[metric_bin == 0]
+    group1 = df[metric_bin == 1]
+    
+    print(f"\nMetric: {col}")
+    for outcome in outcomes:
+        d = cohens_d(group0[outcome], group1[outcome])
+        print(f"  {outcome}: d = {d:.4f}")
+
+# ---------------------------
+# 12. Cohen's d matrix
+# ---------------------------
+outcomes = ["is_correct", "incorrect", "incorrect_and_stereotype"]
+
+# Initialize empty DataFrame
+d_matrix = pd.DataFrame(index=[m["col"] for m in metrics], columns=outcomes, dtype=float)
+
+# Compute Cohen's d for each metric x outcome
+for col in [m["col"] for m in metrics]:
+    metric_bin = binarize_metric(df[col])
+    group0 = df[metric_bin == 0]
+    group1 = df[metric_bin == 1]
+    
+    for outcome in outcomes:
+        d_matrix.loc[col, outcome] = cohens_d(group0[outcome], group1[outcome])
+
+print("\nCohen's d matrix:")
+print(d_matrix)
+
+# Optional: plot as a heatmap
+plt.figure(figsize=(10,6))
+sns.heatmap(d_matrix, annot=True, fmt=".2f", cmap="vlag", center=0)
+plt.title("Cohen's d (Effect Size) Matrix")
+plt.ylabel("Metric")
+plt.xlabel("Outcome")
+plt.show()
