@@ -1,0 +1,27 @@
+Loading model: meta-llama/Llama-3.2-3B-Instruct
+[1;36m(EngineCore_0 pid=2788209)[0;0m [1;36m(EngineCore_0 pid=2788209)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+[1;36m(EngineCore_0 pid=2788209)[0;0m [1;36m(EngineCore_0 pid=2788209)[0;0m Loading safetensors checkpoint shards:  50% Completed | 1/2 [00:00<00:00,  1.15it/s]
+[1;36m(EngineCore_0 pid=2788209)[0;0m [1;36m(EngineCore_0 pid=2788209)[0;0m Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.42it/s]
+[1;36m(EngineCore_0 pid=2788209)[0;0m [1;36m(EngineCore_0 pid=2788209)[0;0m Loading safetensors checkpoint shards: 100% Completed | 2/2 [00:01<00:00,  1.37it/s]
+[1;36m(EngineCore_0 pid=2788209)[0;0m [1;36m(EngineCore_0 pid=2788209)[0;0m 
+[1;36m(EngineCore_0 pid=2788209)[0;0m [1;36m(EngineCore_0 pid=2788209)[0;0m Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/67 [00:00<?, ?it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   3%|▎         | 2/67 [00:00<00:04, 15.31it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   6%|▌         | 4/67 [00:00<00:04, 15.38it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   9%|▉         | 6/67 [00:00<00:03, 15.49it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  12%|█▏        | 8/67 [00:00<00:03, 15.48it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  15%|█▍        | 10/67 [00:00<00:03, 15.75it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  18%|█▊        | 12/67 [00:00<00:03, 15.87it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  21%|██        | 14/67 [00:00<00:03, 16.02it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  24%|██▍       | 16/67 [00:01<00:03, 16.06it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  28%|██▊       | 19/67 [00:01<00:02, 17.62it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  33%|███▎      | 22/67 [00:01<00:02, 18.54it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  36%|███▌      | 24/67 [00:01<00:02, 18.86it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  40%|████      | 27/67 [00:01<00:02, 19.66it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  45%|████▍     | 30/67 [00:01<00:01, 20.16it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  49%|████▉     | 33/67 [00:01<00:01, 20.62it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  54%|█████▎    | 36/67 [00:01<00:01, 21.50it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  58%|█████▊    | 39/67 [00:02<00:01, 22.08it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  63%|██████▎   | 42/67 [00:02<00:01, 22.95it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  67%|██████▋   | 45/67 [00:02<00:00, 24.07it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  72%|███████▏  | 48/67 [00:02<00:00, 24.17it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  78%|███████▊  | 52/67 [00:02<00:00, 26.17it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  84%|████████▎ | 56/67 [00:02<00:00, 27.57it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  90%|████████▉ | 60/67 [00:02<00:00, 29.38it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  94%|█████████▍| 63/67 [00:02<00:00, 27.22it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 67/67 [00:03<00:00, 28.81it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 67/67 [00:03<00:00, 21.83it/s]
+=== CALM config: qa_gender ===
+qa_gender:   0%|          | 0/2 [00:00<?, ?examples/s]qa_gender: 100%|██████████| 2/2 [00:01<00:00,  1.40examples/s]qa_gender: 100%|██████████| 2/2 [00:01<00:00,  1.40examples/s]
+
+=== CALM config: qa_race ===
+qa_race:   0%|          | 0/2 [00:00<?, ?examples/s]qa_race: 100%|██████████| 2/2 [00:00<00:00, 16.31examples/s]qa_race: 100%|██████████| 2/2 [00:00<00:00, 16.28examples/s]
+
+=== CALM config: nli_gender ===
+nli_gender:   0%|          | 0/2 [00:00<?, ?examples/s]nli_gender: 100%|██████████| 2/2 [00:00<00:00,  3.21examples/s]nli_gender: 100%|██████████| 2/2 [00:00<00:00,  3.20examples/s]
+
+=== CALM config: nli_race ===
+nli_race:   0%|          | 0/2 [00:00<?, ?examples/s]nli_race: 100%|██████████| 2/2 [00:00<00:00,  2.81examples/s]nli_race: 100%|██████████| 2/2 [00:00<00:00,  2.81examples/s]
+
+=== CALM config: sentiment_gender ===
+sentiment_gender:   0%|          | 0/2 [00:00<?, ?examples/s]sentiment_gender: 100%|██████████| 2/2 [00:00<00:00, 18.72examples/s]sentiment_gender: 100%|██████████| 2/2 [00:00<00:00, 18.68examples/s]
+
+=== CALM config: sentiment_race ===
+sentiment_race:   0%|          | 0/2 [00:00<?, ?examples/s]sentiment_race: 100%|██████████| 2/2 [00:00<00:00, 19.22examples/s]sentiment_race: 100%|██████████| 2/2 [00:00<00:00, 19.18examples/s]
+
+
+Saved results to outputs/calm_results/llama/calm_results.json
