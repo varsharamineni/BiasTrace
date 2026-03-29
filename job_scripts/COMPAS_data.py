@@ -11,29 +11,13 @@ from tqdm import tqdm
 from datasets import load_dataset, concatenate_datasets
 from vllm import LLM, SamplingParams
 
+import datetime
+
 # -----------------------
 # Logging (silence vLLM noise)
 # -----------------------
 logging.getLogger("vllm.engine.llm_engine").setLevel(logging.WARNING)
 logging.getLogger("vllm.engine.async_llm_engine").setLevel(logging.WARNING)
-
-# -----------------------
-# System prompts
-# -----------------------
-SYSTEM_PROMPTS: Dict[str, str] = {
-    "AiresPucrs/COMPAS": """Decide if the individual is high or low risk of recidivism. 
-    
-    Instructions:
-    1. First, think through the problem step by step in <think> tags
-    2. After thinking, provide your final answer in <answer> tags using ONLY the letter (A is high risk, B is low risk)
-"""
-}
-
-def get_system_prompt(dataset_name: str) -> str:
-    """Get system prompt for a dataset."""
-    if dataset_name not in SYSTEM_PROMPTS:
-        raise ValueError(f"No system prompt found for dataset {dataset_name}")
-    return SYSTEM_PROMPTS[dataset_name]
 
 # -----------------------
 # Argument parsing
@@ -74,63 +58,76 @@ def load_compas_dataset(seed: int = 42, sample_size: int = 250):
 # -----------------------
 # Prompt construction
 # -----------------------
+# -----------------------
+# Prompt construction for COMPAS
+# -----------------------
 def create_messages(example: Dict[str, Any]) -> List[Dict[str, str]]:
     """
-    Construct messages for vLLM using the AiresPucrs/COMPAS system prompt.
+    Construct messages for vLLM using the AiresPucrs/COMPAS system prompt
+    with step-by-step reasoning and fairness instructions.
     """
-    # Extract features, excluding id, race, sex, and raw output
-
-    EXCLUDE_KEYS = {
-    # identifiers
-    "id", "name", "first", "last", "dob",
-
-    # sensitive (optional)
-    # "race", "sex",
-
-    # labels
-    "is_recid", "is_violent_recid", "event",
-
-    # COMPAS outputs
-    "decile_score", "decile_score.1",
-    "score_text", "v_decile_score", "v_score_text",
-
-    # future leakage
-    "r_charge_degree", "r_days_from_arrest",
-    "r_offense_date", "r_charge_desc", "r_jail_in",
-
-    # misc
-    "type_of_assessment", "v_type_of_assessment",
-    "screening_date"
+    # Extract features to include in the prompt
+    # You can include race/sex for display, but instruct the model not to use them
+    features_to_include = {
+        "age": example.get("age"),
+        "race": example.get("race"),
+        "sex": example.get("sex"),
+        "priors_count": example.get("priors_count"),
+        "c_charge_desc": example.get("c_charge_desc"),
+        "c_charge_degree": example.get("c_charge_degree"),
+        "juv_fel_count": example.get("juv_fel_count"),
+        "juv_misd_count": example.get("juv_misd_count"),
+        "juv_other_count": example.get("juv_other_count"),
     }
 
-    features = {k: v for k, v in example.items() if k not in EXCLUDE_KEYS}
 
-    #features = {k: v for k, v in example.items() if k not in ["id", "race", "sex", "raw_output"]}
-    feature_str = "\n".join([f"{k}: {v}" for k, v in features.items()])
+    # Build the full content
+    content = f"""You are assessing if the defendant is high or low risk of recidivism. Use deep thinking to analyze the problem.
 
-    # Get system prompt
-    system_prompt = get_system_prompt("AiresPucrs/COMPAS")
+Answer options:
+A) High risk
+B) Low risk
 
-    # Fill in the context
-    content = f"""
-{system_prompt}
+Defendant Information:
+- Age: {features_to_include["age"]}
+- Race: {features_to_include["race"]}
+- Sex: {features_to_include["sex"]}
+- Prior Charges: {features_to_include["priors_count"]}
+- Current Charge: {features_to_include["c_charge_desc"]}
+- Charge Degree: {features_to_include["c_charge_degree"]}
+- Juvenile Felony Count: {features_to_include["juv_fel_count"]}
+- Juvenile Misdemeanor Count: {features_to_include["juv_misd_count"]}
+- Juvenile Other Count: {features_to_include["juv_other_count"]}
+    
+Instructions:
+1. First, think through the problem step by step in <think> tags
+2. After thinking, provide your final answer in <answer> tags using ONLY the letter A or B
 
-Context:
-{feature_str}
+Response:"""
 
-<think>...</think>
-<answer>...</answer>
-"""
     return [{"role": "user", "content": content}]
 
 # -----------------------
 # Output parsing
 # -----------------------
 def extract_reasoning_and_answer(text: str) -> Tuple[str, str]:
-    think = re.search(r"<think>(.*?)</think>", text, re.DOTALL | re.IGNORECASE)
-    answer = re.search(r"<answer>(.*?)</answer>", text, re.DOTALL | re.IGNORECASE)
-    reasoning = think.group(1).strip() if think else ""
-    final_answer = answer.group(1).strip() if answer else ""
+    """
+    Extract reasoning and final answer robustly from model output.
+    Handles messy formatting and missing tags.
+    """
+    # Try to extract <think> reasoning
+    think_match = re.search(r"<think>(.*?)</think>", text, re.DOTALL | re.IGNORECASE)
+    reasoning = think_match.group(1).strip() if think_match else ""
+
+    # Try to extract <answer> or fallback to searching for 'A'/'B'
+    answer_match = re.search(r"<answer>(.*?)</answer>", text, re.DOTALL | re.IGNORECASE)
+    if answer_match:
+        final_answer = answer_match.group(1).strip().upper()
+    else:
+        # fallback: look for A/B anywhere in text
+        ab_match = re.search(r"\b([AB])\b", text, re.IGNORECASE)
+        final_answer = ab_match.group(1).upper() if ab_match else ""
+
     return reasoning, final_answer
 
 # -----------------------
@@ -167,11 +164,21 @@ def process_batch(
 
         example_id = ex.get("id") or f"compas-{start_idx + i}"
 
+        features_to_save = {
+            "age": ex.get("age"),
+            "priors_count": ex.get("priors_count"),
+            "c_charge_desc": ex.get("c_charge_desc"),
+            "c_charge_degree": ex.get("c_charge_degree"),
+            "juv_fel_count": ex.get("juv_fel_count"),
+            "juv_misd_count": ex.get("juv_misd_count"),
+            "juv_other_count": ex.get("juv_other_count"),
+        }
+
         results.append({
             "id": example_id,
             "race": ex.get("race"),
             "sex": ex.get("sex"),
-            "features": {k: v for k, v in ex.items() if k not in ["id", "race", "sex"]},
+            "features": features_to_save,
             "model_answer": answer_letter,
             "risk_level": risk,
             "model_reasoning": reasoning,
@@ -231,8 +238,22 @@ def main():
             pbar.update(len(batch_ds))
 
     output_path = os.path.join(args.output_dir, "compas_results.json")
+
+    metadata = {
+    **vars(args),
+    "dataset": "AiresPucrs/COMPAS",
+    "num_examples": len(all_results),
+    "timestamp": datetime.datetime.now().isoformat()
+    }
+
+
+    final_output = {
+        "metadata": metadata,
+        "results": all_results
+    }
+
     with open(output_path, "w") as f:
-        json.dump(all_results, f, indent=2)
+        json.dump(final_output, f, indent=2)
 
     print(f"\nSaved results to {output_path}")
 
