@@ -1,0 +1,39 @@
+combo,size,n_samples,bias_rate,lift
+overthinking + meta_reflection + outside_topical_knowledge,3,349,0.4183381088825215,4.3428534585911525
+overthinking + outside_topical_knowledge,2,1682,0.406064209274673,4.215435596745547
+overthinking + outside_demo_knowledge,2,215,0.4,4.152481800132363
+overthinking + group_assumption + outside_demo_knowledge,3,189,0.3915343915343915,4.064598587431148
+overthinking + meta_reflection + bias_acknowledgement,3,197,0.36548223350253806,3.794145807227539
+overthinking + bias_acknowledgement,2,567,0.35802469135802467,3.7167275371555095
+overthinking,1,10089,0.35642779264545543,3.700149805054013
+overthinking + outside_demo_knowledge + outside_topical_knowledge,3,161,0.34782608695652173,3.6108537392455324
+overthinking + meta_reflection,2,1445,0.33217993079584773,3.4484277924974633
+overthinking + group_assumption + bias_acknowledgement,3,132,0.3181818181818182,3.303110522832561
+overthinking + group_assumption + outside_topical_knowledge,3,174,0.2988505747126437,3.1024289311333746
+overthinking + group_assumption,2,549,0.2987249544626594,3.101124841628905
+overthinking + meta_reflection + group_assumption,3,118,0.2627118644067797,2.727265589069984
+outside_topical_knowledge,1,8616,0.15749767873723305,1.635015611298635
+meta_reflection + outside_topical_knowledge,2,1556,0.14845758354755784,1.5411685344321588
+outside_demo_knowledge + outside_topical_knowledge,2,856,0.1133177570093458,1.1763748090328245
+group_assumption + outside_demo_knowledge + outside_topical_knowledge,3,652,0.1058282208588957,1.0986244026423813
+meta_reflection,1,10346,0.08670017398028224,0.9000522363035784
+group_assumption + outside_topical_knowledge,2,1015,0.08669950738916256,0.900045316284847
+outside_demo_knowledge,1,2174,0.07865685372585096,0.8165528838806738
+group_assumption + outside_demo_knowledge,2,1731,0.07567879838243789,0.7856370823473995
+meta_reflection + group_assumption + outside_topical_knowledge,3,261,0.07279693486590039,0.755719867840181
+bias_acknowledgement + outside_topical_knowledge,2,1920,0.06875,0.7137078093977498
+meta_reflection + outside_demo_knowledge + outside_topical_knowledge,3,271,0.06273062730627306,0.6512194705004627
+meta_reflection + bias_acknowledgement + outside_topical_knowledge,3,738,0.058265582655826556,0.6048669288810691
+group_assumption,1,6078,0.05742020401447845,0.5960908803250224
+bias_acknowledgement,1,20189,0.05374213680717222,0.5579081124800155
+meta_reflection + group_assumption + outside_demo_knowledge,3,516,0.04263565891472868,0.4426094942001549
+bias_acknowledgement + outside_demo_knowledge + outside_topical_knowledge,3,381,0.04199475065616798,0.4359560945020853
+meta_reflection + bias_acknowledgement,2,6165,0.03990267639902676,0.41423784380882445
+group_assumption + bias_acknowledgement,2,4158,0.036315536315536315,0.37699900903077604
+bias_acknowledgement + outside_demo_knowledge,2,1407,0.03553660270078181,0.36891273988382756
+group_assumption + bias_acknowledgement + outside_demo_knowledge,3,1053,0.03513770180436847,0.3647716681027953
+meta_reflection + group_assumption,2,1395,0.034408602150537634,0.357202735495257
+meta_reflection + outside_demo_knowledge,2,728,0.034340659340659344,0.35649740729158336
+group_assumption + bias_acknowledgement + outside_topical_knowledge,3,445,0.033707865168539325,0.34992824158418784
+meta_reflection + group_assumption + bias_acknowledgement,3,1131,0.02564102564102564,0.26618473077771554
+meta_reflection + bias_acknowledgement + outside_demo_knowledge,3,581,0.020654044750430294,0.2144138623132029

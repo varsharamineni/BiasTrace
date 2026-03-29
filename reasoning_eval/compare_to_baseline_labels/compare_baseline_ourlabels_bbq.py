@@ -12,8 +12,11 @@ from itertools import combinations
 # ---------------------------
 # Error labels
 # ---------------------------
-error_labels = ['group_assumption','bias_acknowledgement','meta_reflection',
-                'outside_demo_knowledge','outside_topical_knowledge',
+error_labels = ['group_assumption',
+                'bias_acknowledgement',
+                'meta_reflection',
+                'outside_demo_knowledge',
+                'outside_topical_knowledge',
                 'overthinking']
 
 # ---------------------------
