@@ -74,10 +74,10 @@ INPUT_GLOBS = (
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_14B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_14B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/gpt-oss-120b_simple_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/gpt-oss-120b_full_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
-    "outputs/gpt-oss-120b_full_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+   # "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+   # "outputs/gpt-oss-120b_simple_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+   # "outputs/gpt-oss-120b_full_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
+   # "outputs/gpt-oss-120b_full_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
 )
 
 # Collect all files
@@ -94,9 +94,9 @@ error_cols = [
     'meta_reflection',
     'outside_demo_knowledge',
     'outside_topical_knowledge',
-    'unresolved',
-    'overthinking',
-    'missing_logic'
+    #'unresolved',
+    'overthinking'
+    #'missing_logic'
 ]
 
 df = load_judge_files(all_paths, judge_labels=error_cols)
@@ -127,16 +127,6 @@ df['model'] = df['model'].apply(normalize_model_name)
 # -------------------------
 # 2️⃣ Define error columns
 # -------------------------
-error_cols = [
-    'group_assumption',
-    'bias_acknowledgement',
-    'meta_reflection',
-    'outside_demo_knowledge',
-    'outside_topical_knowledge',
-    'unresolved',
-    'overthinking',
-    'missing_logic'
-]
 
 # Normalize model names
 def normalize_model_name(model_str):
