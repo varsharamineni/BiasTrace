@@ -15,6 +15,13 @@ def load_reasoning_data(path: str) -> List[Dict[str, Any]]:
     """Load model reasoning traces or evaluation data."""
     with open(path, "r") as f:
         data = json.load(f)
+
+    if isinstance(data, dict) and "results" in data:
+        data = data["results"]
+    elif isinstance(data, list):
+        pass  # already in correct format
+    else:
+        raise ValueError(f"Unsupported JSON format in {path}")
     print(f"✅ Loaded {len(data)} samples from {path}")
     return data
 
