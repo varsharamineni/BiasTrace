@@ -113,20 +113,19 @@ Response:"""
 def extract_reasoning_and_answer(text: str) -> Tuple[str, str]:
     """
     Extract reasoning and final answer robustly from model output.
-    Handles messy formatting and missing tags.
+    Handles missing closing tags.
     """
-    # Try to extract <think> reasoning
-    think_match = re.search(r"<think>(.*?)</think>", text, re.DOTALL | re.IGNORECASE)
+    # Capture reasoning up to <answer>
+    think_match = re.search(r"<think>(.*?)(<answer>|$)", text, re.DOTALL | re.IGNORECASE)
     reasoning = think_match.group(1).strip() if think_match else ""
 
-    # Try to extract <answer> or fallback to searching for 'A'/'B'
-    answer_match = re.search(r"<answer>(.*?)</answer>", text, re.DOTALL | re.IGNORECASE)
+    # Extract final answer
+    answer_match = re.search(r"<answer>(.*?)($|\n)", text, re.DOTALL | re.IGNORECASE)
     if answer_match:
         final_answer = answer_match.group(1).strip().upper()
     else:
-        # fallback: look for A/B anywhere in text
-        ab_match = re.search(r"\b([AB])\b", text, re.IGNORECASE)
-        final_answer = ab_match.group(1).upper() if ab_match else ""
+        ab_match = re.search(r"\b([A-D])\b", text, re.IGNORECASE)
+        final_answer = ab_match.group(1).upper() if ab_match else "Unknown"
 
     return reasoning, final_answer
 
