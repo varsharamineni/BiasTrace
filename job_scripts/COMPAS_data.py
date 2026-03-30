@@ -201,7 +201,7 @@ def main():
     print("Loading model:", args.model)
     llm = LLM(
         model=args.model,
-        tensor_parallel_size=1,
+        tensor_parallel_size=2,
         gpu_memory_utilization=0.9,
         trust_remote_code=True,
         max_model_len=32768,

@@ -429,7 +429,7 @@ def main(args):
         top_p=args.top_p
     )
 
-    results = parse_outputs(data, outputs, args.model, args.prompt, args.reasoning_level)
+    results = parse_outputs(data, outputs, args.model, args.prompt)
 
     params = {
         "max_tokens": 2048,
