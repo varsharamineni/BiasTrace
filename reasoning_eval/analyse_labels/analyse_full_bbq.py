@@ -153,8 +153,10 @@ reg_df = reg_df.dropna(subset=["incorrect", "incorrect_and_stereotype"])
 # ======================
 # Fit logistic regressions
 # ======================
-def fit_logit(formula, data):
-    return smf.logit(formula=formula, data=data).fit(disp=False, cov_type="HC3")
+def fit_logit(formula, data, alpha=0.01):
+    """Fit logistic regression with L1 regularization to mitigate quasi-separation"""
+    model = smf.logit(formula=formula, data=data)
+    return model.fit_regularized(method="l1", alpha=alpha, disp=False)
 
 formula_base = "incorrect ~ " + " + ".join(JUDGE_LABELS) + \
                " + C(prompt_type, Treatment(reference='simple_prompt'))" + \
