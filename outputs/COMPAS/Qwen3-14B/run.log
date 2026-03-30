@@ -1,0 +1,63 @@
+Loading model: Qwen/Qwen3-14B
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m 2026-03-30 10:50:10,246	INFO worker.py:1927 -- Started a local Ray instance.
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m Process EngineCore_0:
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m Traceback (most recent call last):
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/multiprocessing/process.py", line 314, in _bootstrap
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     self.run()
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/multiprocessing/process.py", line 108, in run
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     self._target(*self._args, **self._kwargs)
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 704, in run_engine_core
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     raise e
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 691, in run_engine_core
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     engine_core = EngineCoreProc(*args, **kwargs)
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 492, in __init__
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     super().__init__(vllm_config, executor_class, log_stats,
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/core.py", line 80, in __init__
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     self.model_executor = executor_class(vllm_config)
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/executor/executor_base.py", line 264, in __init__
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     super().__init__(*args, **kwargs)
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/executor/executor_base.py", line 54, in __init__
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     self._init_executor()
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/executor/ray_distributed_executor.py", line 49, in _init_executor
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     super()._init_executor()
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/executor/ray_distributed_executor.py", line 98, in _init_executor
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     initialize_ray_cluster(self.parallel_config)
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/executor/ray_utils.py", line 374, in initialize_ray_cluster
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     _wait_until_pg_ready(current_placement_group)
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m   File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/executor/ray_utils.py", line 246, in _wait_until_pg_ready
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m     raise ValueError(
+[1;36m(EngineCore_0 pid=1936105)[0;0m [1;36m(EngineCore_0 pid=1936105)[0;0m ValueError: Cannot provide a placement group of placement_group_specs=[{'node:192.168.0.103': 0.001, 'GPU': 1.0}, {'GPU': 1.0}] within 1800 seconds. See `ray status` and `ray list nodes` to make sure the cluster has enough resources.
+Traceback (most recent call last):
+  File "/home/vramineni/bias-reasoning-LLM/job_scripts/COMPAS_data.py", line 260, in <module>
+    main()
+  File "/home/vramineni/bias-reasoning-LLM/job_scripts/COMPAS_data.py", line 202, in main
+    llm = LLM(
+          ^^^^
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/entrypoints/llm.py", line 285, in __init__
+    self.llm_engine = LLMEngine.from_engine_args(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/engine/llm_engine.py", line 490, in from_engine_args
+    return engine_cls.from_vllm_config(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/llm_engine.py", line 127, in from_vllm_config
+    return cls(vllm_config=vllm_config,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/llm_engine.py", line 104, in __init__
+    self.engine_core = EngineCoreClient.make_client(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 80, in make_client
+    return SyncMPClient(vllm_config, executor_class, log_stats)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 600, in __init__
+    super().__init__(
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/core_client.py", line 446, in __init__
+    with launch_core_engines(vllm_config, executor_class,
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/utils.py", line 706, in launch_core_engines
+    wait_for_engine_startup(
+  File "/home/vramineni/miniconda3/envs/reasoning-bias-llm/lib/python3.11/site-packages/vllm/v1/engine/utils.py", line 759, in wait_for_engine_startup
+    raise RuntimeError("Engine core initialization failed. "
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {'EngineCore_0': 1}

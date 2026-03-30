@@ -1,3 +1,0 @@
-COMPAS evaluation:   0%|          | 0/5 [00:00<?, ?it/s]COMPAS evaluation:  20%|██        | 1/5 [00:04<00:17,  4.45s/it]COMPAS evaluation:  40%|████      | 2/5 [00:07<00:10,  3.54s/it]COMPAS evaluation:  60%|██████    | 3/5 [00:10<00:06,  3.18s/it]COMPAS evaluation:  80%|████████  | 4/5 [00:12<00:02,  2.87s/it]COMPAS evaluation: 100%|██████████| 5/5 [00:17<00:00,  3.55s/it]COMPAS evaluation: 100%|██████████| 5/5 [00:17<00:00,  3.45s/it]
-
-Saved results to outputs/COMPAS/gpt-oss-120b/test/compas_results.json

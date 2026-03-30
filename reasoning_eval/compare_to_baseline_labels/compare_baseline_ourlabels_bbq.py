@@ -8,6 +8,9 @@ import statsmodels.api as sm
 import matplotlib.pyplot as plt
 import seaborn as sns
 from itertools import combinations
+import numpy as np
+from sklearn.metrics import cohen_kappa_score
+
 
 # ---------------------------
 # Error labels
@@ -472,6 +475,7 @@ def main(parent_folders, output_dir):
     # ---------------------------
     # Stacked bar plot: reasoning errors among correct answers
     # ---------------------------
+    import matplotlib.pyplot as plt 
     plt.figure(figsize=(10,6))
     df_correct[error_labels].sum().plot(kind='bar', color=plt.cm.tab20.colors, edgecolor='black')
     plt.ylabel("Number of samples with flagged reasoning")
@@ -580,6 +584,57 @@ def main(parent_folders, output_dir):
 
     print("\nSaved top-3 pathways summary table to:", summary_path)
     print(top_pathways_df.head(20))
+
+
+    # ---------------------------
+    # Cohen's Kappa matrix: errors + outcomes + baselines
+    # ---------------------------
+
+    # Binarize baseline_0-5 if exists
+    if 'baseline_0-5' in final_df.columns:
+        final_df['baseline_0-5_bin'] = (final_df['baseline_0-5'] > 0).astype(int)
+
+    # Columns for Kappa
+    kappa_cols = error_labels + ['incorrect', 'incorrect_and_stereotype'] + [c for c in ['baseline','baseline_0-5_bin'] if c in final_df.columns]
+
+    # Ensure all columns are integer Series
+    for c in kappa_cols:
+        # Convert to 1D int Series
+        if c in final_df.columns:
+            s = final_df[c]
+            if isinstance(s, pd.DataFrame):
+                s = s.iloc[:, 0]  # take first column if somehow 2D
+            final_df[c] = s.fillna(0).astype(int)
+
+    # Compute Kappa matrix
+    n = len(kappa_cols)
+    matrix = np.zeros((n, n))
+
+    for i, col1 in enumerate(kappa_cols):
+        for j, col2 in enumerate(kappa_cols):
+            # Force 1D Series
+            x = final_df[col1].fillna(0).astype(int).squeeze()
+            y = final_df[col2].fillna(0).astype(int).squeeze()
+            matrix[i, j] = cohen_kappa_score(x, y)
+
+    kappa_matrix = pd.DataFrame(matrix, index=kappa_cols, columns=kappa_cols)
+
+    # Save CSV
+    kappa_csv_path = os.path.join(output_dir, "cohens_kappa_matrix.csv")
+    kappa_matrix.to_csv(kappa_csv_path)
+    print(f"Saved Cohen's Kappa matrix CSV: {kappa_csv_path}")
+
+    # Heatmap
+    plt.figure(figsize=(12,10))
+    sns.heatmap(kappa_matrix, annot=True, fmt=".2f", cmap="coolwarm", vmin=-1, vmax=1)
+    plt.title("Cohen's Kappa Matrix (Errors + Outcomes + Baselines)")
+    plt.tight_layout()
+    heatmap_path = os.path.join(output_dir, "cohens_kappa_matrix.pdf")
+    plt.savefig(heatmap_path, dpi=300)
+    plt.close()
+    print(f"Saved Cohen's Kappa heatmap: {heatmap_path}")
+
+
 
 
     print("Analysis complete")
