@@ -1,229 +1,575 @@
+#!/usr/bin/env python
 import json
 import numpy as np
 from collections import defaultdict
+from datasets import load_dataset, concatenate_datasets
+from scipy.stats import spearmanr, mannwhitneyu, ks_2samp
+from sklearn.metrics import roc_auc_score, average_precision_score, roc_curve, precision_recall_curve
+import argparse
+import os
+import warnings
+warnings.filterwarnings("ignore")
+
+# =========================
+# 0. ARGPARSE
+# =========================
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--model_dir",
+    type=str,
+    help="Path to model outputs, e.g. outputs/COMPAS/gpt-oss-120b",
+    default="outputs/COMPAS/gpt-oss-120b"
+)
+parser.add_argument(
+    "--plot", action="store_true",
+    help="Save matplotlib plots to --model_dir/fairness_plots/"
+)
+args = parser.parse_args()
+BASE = args.model_dir
+print(f"🔍 Evaluating model directory: {BASE}")
 
 # =========================
 # 1. LOAD DATA
 # =========================
+main_file = os.path.join(BASE, "compas_results_corrected.json")
+if not os.path.exists(main_file):
+    main_file = os.path.join(BASE, "compas_results.json")
 
-with open("outputs/COMPAS/new/compas_results.json") as f:
-    results = json.load(f)
+with open(main_file) as f:
+    results = json.load(f)["results"]
 
-with open("outputs/COMPAS/new/llm_judge/llm_eval_deepseek-chat_COMPAS_new_prompt_explain_temp1.0_top_p0.9_seed42_max_tokens2048.json") as f:
-    bias_data = json.load(f)
+bias_file = os.path.join(
+    BASE,
+    "new_metric_pathways_annotation",
+    "llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_temp1.0_top_p0.9_seed42_max_tokens2048.json"
+)
+with open(bias_file) as f:
+    bias_data = json.load(f)["results"]
 
-with open("outputs/COMPAS/new/llm_judge_baseline05/llm_eval_deepseek-chat_COMPAS_baseline_temp1.0_top_p0.9_seed42_max_tokens2048.json") as f:
-    baseline_data = json.load(f)
+baseline_paths = {
+    "baseline_0_5": os.path.join(
+        BASE, "baseline_0-5_annotation",
+        "llm_eval_deepseek-chat_baseline_temp1.0_top_p0.9_seed42_max_tokens2048.json"
+    ),
+    "baseline_0_1": os.path.join(
+        BASE, "baseline_annotation",
+        "llm_eval_deepseek-chat_llama70B_gt_temp1.0_top_p0.9_seed42_max_tokens2048.json"
+    ),
+    "baseline_frm": os.path.join(
+        BASE, "fairness-prm_compas",
+        "compas_results_corrected_fairness-prm.json"
+        if os.path.exists(os.path.join(BASE, "fairness-prm_compas", "compas_results_corrected_fairness-prm.json"))
+        else "compas_results_fairness-prm.json"
+    ),
+}
+
+baseline_data_dict = {}
+for name, path in baseline_paths.items():
+    with open(path) as f:
+        baseline_data_dict[name] = json.load(f)["results"]
 
 # =========================
-# 2. UNWRAP RESULTS
+# 2. ALIGN DATA
 # =========================
+all_lengths = [len(results), len(bias_data)] + [len(v) for v in baseline_data_dict.values()]
+min_len = min(all_lengths)
 
-bias_data = bias_data["results"]
-baseline_data = baseline_data["results"]
-
-print("Lengths:")
-print("results:", len(results))
-print("bias_data:", len(bias_data))
-print("baseline_data:", len(baseline_data))
-
-# =========================
-# 3. ALIGN DATA (SAFE)
-# =========================
-
-min_len = min(len(results), len(bias_data), len(baseline_data))
-print(f"Truncating to {min_len} samples")
-
-results = results[:min_len]
+results    = results[:min_len]
+bias_data  = bias_data[:min_len]
+for k in baseline_data_dict:
+    baseline_data_dict[k] = baseline_data_dict[k][:min_len]
 
 # =========================
-# 4. EXTRACT SCORE (robust)
+# 3. EXTRACT BIAS SCORES
 # =========================
-
 def extract_bias_score(entry):
-    """
-    Extract numeric bias score from judge_output in multiple formats:
-    1. {"bias_label": 1}
-    2. {"bias_label": {"score": 1}}
-    3. {"bias_label": {"explanation": "...", "score": 1}}
-    4. {"score": 3}
-    Returns 0.0 if no numeric score is found.
-    """
     jo = entry.get("judge_output", {})
-
-    # Case 4: top-level "score" key
     if "score" in jo:
         return float(jo["score"])
-
-    # Case 1/2/3: "bias_label" key
-    label = jo.get("bias_label", 0)
+    label = jo.get("bias_label", None)
     if isinstance(label, dict):
-        # try to extract "score" from dict
-        return float(label.get("score", 0))
-    else:
-        # assume it's already numeric
-        try:
-            return float(label)
-        except (TypeError, ValueError):
-            return 0.0
+        return float(label.get("score", None))
+    try:
+        return float(label)
+    except (TypeError, ValueError):
+        return None
 
 for i in range(min_len):
     results[i]["bias_score"] = extract_bias_score(bias_data[i])
-    results[i]["baseline_score"] = 1 if extract_bias_score(baseline_data[i]) > 0 else 0
+    for name, data_list in baseline_data_dict.items():
+        results[i][f"{name}_score"] = extract_bias_score(data_list[i])
 
 # =========================
-# 5. FAIRNESS METRICS
+# 4. LOAD GROUND TRUTH
 # =========================
+def load_compas_dataset(seed=42, sample_size=250):
+    dataset = load_dataset("AiresPucrs/COMPAS", split="train")
+    aa   = dataset.filter(lambda x: x["race"]=="African-American" and x["sex"]=="Male")
+    aa   = aa.shuffle(seed=seed).select(range(min(len(aa), sample_size)))
+    cauc = dataset.filter(lambda x: x["race"]=="Caucasian" and x["sex"]=="Male")
+    cauc = cauc.shuffle(seed=seed).select(range(min(len(cauc), sample_size)))
+    return concatenate_datasets([aa, cauc])
 
+dataset = load_compas_dataset().select(range(len(results)))
+for i, r in enumerate(results):
+    r["features"]["is_recid"] = dataset[i]["is_recid"]
+
+# =========================
+# 5. FAIRNESS UTILITIES
+# =========================
 def compute_group_stats(results):
-    groups = defaultdict(lambda: {
-        "TP":0, "FP":0, "TN":0, "FN":0,
-        "count_Y1":0, "count_Y0":0
-    })
-
+    groups = defaultdict(lambda: {"TP":0,"FP":0,"TN":0,"FN":0,"count_Y1":0,"count_Y0":0})
     for r in results:
-        race = r["race"]
-        y_true = r["features"].get("is_recid", 0)
-        y_pred = 1 if r["model_answer"].strip().upper() == "A" else 0
-
+        race   = r["race"]
+        y_true = r["features"]["is_recid"]
+        y_pred = 1 if r["model_answer"].strip().upper()=="A" else 0
         if y_true == 1:
             groups[race]["count_Y1"] += 1
-            if y_pred == 1:
-                groups[race]["TP"] += 1
-            else:
-                groups[race]["FN"] += 1
+            if y_pred == 1: groups[race]["TP"] += 1
+            else:           groups[race]["FN"] += 1
         else:
             groups[race]["count_Y0"] += 1
-            if y_pred == 1:
-                groups[race]["FP"] += 1
-            else:
-                groups[race]["TN"] += 1
-
+            if y_pred == 1: groups[race]["FP"] += 1
+            else:           groups[race]["TN"] += 1
     return groups
 
 def compute_fairness(results):
-    groups = compute_group_stats(results)
-
-    fairness_metrics = {}
+    groups  = compute_group_stats(results)
+    races   = list(groups.keys())
+    metrics = {}
     for race, g in groups.items():
         TPR = g["TP"] / g["count_Y1"] if g["count_Y1"] > 0 else 0
         FPR = g["FP"] / g["count_Y0"] if g["count_Y0"] > 0 else 0
-        fairness_metrics[race] = {"TPR": TPR, "FPR": FPR}
+        metrics[race] = {"TPR": TPR, "FPR": FPR}
+    r1, r2 = races
+    eo_diff_TPR = abs(metrics[r1]["TPR"] - metrics[r2]["TPR"])
+    eo_diff_FPR = abs(metrics[r1]["FPR"] - metrics[r2]["FPR"])
+    return metrics, eo_diff_TPR + eo_diff_FPR, eo_diff_TPR
 
-    races = list(fairness_metrics.keys())
-    if len(races) == 2:
-        r1, r2 = races
-        eo_diff_TPR = abs(fairness_metrics[r1]["TPR"] - fairness_metrics[r2]["TPR"])
-        eo_diff_FPR = abs(fairness_metrics[r1]["FPR"] - fairness_metrics[r2]["FPR"])
-        eq_opp = eo_diff_TPR
-        eo = eo_diff_TPR + eo_diff_FPR
-    else:
-        eo_diff_TPR = eo_diff_FPR = eq_opp = eo = None
-
-    return fairness_metrics, eo, eq_opp
+def auc_trap(y):
+    y = np.array(y, dtype=float)
+    y = y[~np.isnan(y)]
+    return float(np.trapz(y))
 
 # =========================
-# 6. PER-SAMPLE CONTRIBUTION
+# 6. PER-SAMPLE FAIRNESS CONTRIBUTION
 # =========================
-
 groups = compute_group_stats(results)
-races = list(groups.keys())
+races  = list(groups.keys())
+a, b   = races
 
-if len(races) != 2:
-    raise ValueError("Script assumes exactly 2 groups")
-
-a, b = races[0], races[1]
 denoms = {race: {"Y1": groups[race]["count_Y1"], "Y0": groups[race]["count_Y0"]} for race in races}
 
 for r in results:
-    race = r["race"]
-    y_true = r["features"].get("is_recid", 0)
-    y_pred = 1 if r["model_answer"].strip().upper() == "A" else 0
-
-    if y_true == 1:
-        c = y_pred / max(denoms[race]["Y1"], 1)
-        if race != a: c = -c
-    else:
-        c = y_pred / max(denoms[race]["Y0"], 1)
-        if race != a: c = -c
-
+    race   = r["race"]
+    y_true = r["features"]["is_recid"]
+    y_pred = 1 if r["model_answer"].strip().upper()=="A" else 0
+    c = y_pred / max(denoms[race]["Y1" if y_true==1 else "Y0"], 1)
+    if race != a:
+        c = -c
     r["fairness_contribution"] = c
-    r["abs_contribution"] = abs(c)
+    r["abs_contribution"]      = abs(c)
+
+# Signed contribution for directional analysis
+contrib     = np.array([r["abs_contribution"] for r in results])
+contrib_sgn = np.array([r["fairness_contribution"] for r in results])
+
+# Binary label: top-25% absolute contributors are "fairness-critical" samples
+contrib_threshold  = np.percentile(contrib, 75)
+fairness_labels    = (contrib >= contrib_threshold).astype(int)
 
 # =========================
-# 7. CORRELATION + OVERLAP
+# 7. INCORRECT ANSWER LABEL
 # =========================
-
-bias = np.array([r["bias_score"] for r in results])
-baseline = np.array([r["baseline_score"] for r in results])
-contrib = np.array([r["abs_contribution"] for r in results])
-
-print("\n=== Correlation with fairness contribution ===")
-print("Your method:", np.corrcoef(bias, contrib)[0,1])
-print("Baseline:", np.corrcoef(baseline, contrib)[0,1])
-
-def topk_overlap(scores1, scores2, k=0.1):
-    n = len(scores1)
-    k_n = max(int(n*k), 1)
-    idx1 = np.argsort(scores1)[-k_n:]
-    idx2 = np.argsort(scores2)[-k_n:]
-    return len(set(idx1) & set(idx2)) / k_n
-
-print("\n=== Top-K overlap (10%) ===")
-print("Your method:", topk_overlap(bias, contrib))
-print("Baseline:", topk_overlap(baseline, contrib))
+is_incorrect = np.array([
+    1 if r["model_answer"].strip().upper() != ("A" if r["features"]["is_recid"]==1 else "B") else 0
+    for r in results
+])
 
 # =========================
-# 8. REMOVAL EXPERIMENT
+# 8. COLLECT ALL SCORES
 # =========================
+bias_scores = np.array([r["bias_score"] for r in results])
+all_scores  = {"your_method": bias_scores}
+all_scores.update({name: np.array([r[f"{name}_score"] for r in results]) for name in baseline_data_dict})
 
-def compute_eo(results):
-    _, eo, _ = compute_fairness(results)
-    return eo
+# Helper: valid (non-NaN) mask for a score array
+def valid(s):
+    return ~np.isnan(s)
 
-def removal_curve(results, score_key, steps=20, min_size=50):
-    results_sorted = sorted(results, key=lambda x: x[score_key], reverse=True)
-    n = len(results)
-    fractions = np.linspace(0, 0.5, steps)
-    eo_values = []
-    for frac in fractions:
-        k = int(n*frac)
-        remaining = results_sorted[k:]
-        if len(remaining) < min_size:
-            eo_values.append(np.nan)
+DIVIDER = "=" * 65
+
+# =========================
+# 9. ANALYSIS 1 — CORRELATION WITH FAIRNESS CONTRIBUTION
+# =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 1: Correlation with Per-Sample Fairness Contribution")
+print(DIVIDER)
+print(f"{'Score':<20} {'Pearson':>10} {'Spearman':>12} {'Spearman-p':>12}")
+print("-" * 56)
+
+corr_results = {}
+for name, scores in all_scores.items():
+    mask = valid(scores)
+    pearson  = np.corrcoef(scores[mask], contrib[mask])[0, 1]
+    sp_r, sp_p = spearmanr(scores[mask], contrib[mask])
+    corr_results[name] = {"pearson": pearson, "spearman": sp_r, "spearman_p": sp_p}
+    print(f"{name:<20} {pearson:>10.4f} {sp_r:>12.4f} {sp_p:>12.4e}")
+
+# =========================
+# 10. ANALYSIS 2 — AUROC / AVERAGE PRECISION
+#     Binary target: is this sample a top-25% fairness contributor?
+# =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 2: AUROC & Average Precision (Fairness-Critical Sample Detection)")
+print("  Target = top-25% absolute fairness contributors")
+print(DIVIDER)
+print(f"{'Score':<20} {'AUROC':>8} {'Avg Prec':>10} {'Baseline AUROC gain':>20}")
+print("-" * 60)
+
+auroc_results = {}
+for name, scores in all_scores.items():
+    mask = valid(scores)
+    try:
+        auroc = roc_auc_score(fairness_labels[mask], scores[mask])
+        ap    = average_precision_score(fairness_labels[mask], scores[mask])
+    except Exception:
+        auroc, ap = np.nan, np.nan
+    auroc_results[name] = {"auroc": auroc, "ap": ap}
+
+your_auroc = auroc_results["your_method"]["auroc"]
+for name, res in auroc_results.items():
+    gain = res["auroc"] - your_auroc if name != "your_method" else 0.0
+    gain_str = f"{gain:+.4f} (baseline)" if name != "your_method" else "  (your method)"
+    print(f"{name:<20} {res['auroc']:>8.4f} {res['ap']:>10.4f}  {gain_str}")
+
+# =========================
+# 11. ANALYSIS 3 — INCORRECT ANSWER CORRELATION
+# =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 3: Correlation with Incorrect Model Answers")
+print(DIVIDER)
+print(f"{'Score':<20} {'Pearson':>10} {'Spearman':>12} {'Spearman-p':>12}")
+print("-" * 56)
+
+for name, scores in all_scores.items():
+    mask     = valid(scores)
+    pearson  = np.corrcoef(scores[mask], is_incorrect[mask])[0, 1]
+    sp_r, sp_p = spearmanr(scores[mask], is_incorrect[mask])
+    print(f"{name:<20} {pearson:>10.4f} {sp_r:>12.4f} {sp_p:>12.4e}")
+
+# =========================
+# 12. ANALYSIS 4 — TOP-K OVERLAP
+# =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 4: Top-K Overlap with Fairness Contribution Ranking")
+print(DIVIDER)
+
+for k_frac in [0.05, 0.10, 0.20]:
+    n   = len(contrib)
+    k_n = max(int(n * k_frac), 1)
+    ref_idx = set(np.argsort(contrib)[-k_n:])
+    print(f"\n  Top-{int(k_frac*100)}% (k={k_n}):")
+    for name, scores in all_scores.items():
+        mask = valid(scores)
+        # Use only valid indices; fallback gracefully
+        masked_scores = np.full(len(scores), -np.inf)
+        masked_scores[mask] = scores[mask]
+        pred_idx = set(np.argsort(masked_scores)[-k_n:])
+        overlap  = len(ref_idx & pred_idx) / k_n
+        print(f"    {name:<20} overlap = {overlap:.4f}")
+
+# =========================
+# 13. ANALYSIS 5 — REMOVAL CURVE
+# =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 5: Removal Curve & AUC")
+print("  Samples ranked high by each score are removed; EO gap is recomputed.")
+print(DIVIDER)
+
+def removal_curve(results, score_key, fracs=np.linspace(0, 0.5, 20)):
+    results_sorted = sorted(results, key=lambda x: x.get(score_key, -np.inf) or -np.inf, reverse=True)
+    n   = len(results_sorted)
+    eos = []
+    for f in fracs:
+        k   = int(n * f)
+        rem = results_sorted[k:]
+        if len(rem) > 50:
+            _, eo, _ = compute_fairness(rem)
+            eos.append(eo)
         else:
-            eo_values.append(compute_eo(remaining))
-    return fractions, eo_values
+            eos.append(np.nan)
+    return fracs, eos
 
-fractions, eo_yours = removal_curve(results, "bias_score")
-_, eo_baseline = removal_curve(results, "baseline_score")
-rand_results = [{**r, "rand": np.random.rand()} for r in results]
-_, eo_random = removal_curve(rand_results, "rand")
+fracs = np.linspace(0, 0.5, 20)
+removal_results = {}
 
-# Print results
-for i in range(len(fractions)):
-    print(f"Remove {fractions[i]:.2f} | Yours: {eo_yours[i]:.4f} | Baseline: {eo_baseline[i]:.4f} | Random: {eo_random[i]:.4f}")
+for name in all_scores:
+    key = "bias_score" if name == "your_method" else f"{name}_score"
+    _, eos = removal_curve(results, key, fracs)
+    removal_results[name] = eos
 
-def area_under_curve(y):
-    y = np.array(y)
-    y = y[~np.isnan(y)]
-    return np.trapz(y)
+# Table header
+header = f"{'Fraction':>9}"
+for name in removal_results:
+    header += f" | {name[:14]:>14}"
+print(header)
+print("-" * (10 + 17 * len(removal_results)))
 
-print("\n=== Removal AUC (lower is better) ===")
-print("Your method:", area_under_curve(eo_yours))
-print("Baseline:", area_under_curve(eo_baseline))
-print("Random:", area_under_curve(eo_random))
+for i, f in enumerate(fracs):
+    row = f"{f:>9.2f}"
+    for name in removal_results:
+        val = removal_results[name][i]
+        row += f" | {val:>14.4f}" if not np.isnan(val) else f" | {'NaN':>14}"
+    print(row)
+
+print("\n  Removal AUC (lower = score removes high-EO samples more effectively):")
+for name, eos in removal_results.items():
+    print(f"    {name:<20} AUC = {auc_trap(eos):.4f}")
 
 # =========================
-# 9. FINAL FAIRNESS
+# 14. ANALYSIS 6 — GROUP SCORE DISTRIBUTION SEPARATION
+#     Does your score differ significantly between racial groups?
+#     This mirrors what equalized odds measures at the group level.
 # =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 6: Score Distribution Separation Between Groups")
+print("  A good bias score should be significantly higher for the")
+print("  disadvantaged group. Tests: Mann-Whitney U, KS statistic.")
+print(DIVIDER)
 
-fairness_metrics, eo, eq_opp = compute_fairness(results)
+r1_mask = np.array([r["race"] == a for r in results])
+r2_mask = ~r1_mask
 
-print("\n=== Per-group metrics ===")
-for race, m in fairness_metrics.items():
-    print(race, m)
+print(f"  Groups: '{a}' (n={r1_mask.sum()}) vs '{b}' (n={r2_mask.sum()})\n")
+print(f"{'Score':<20} {'Mean G1':>9} {'Mean G2':>9} {'MW U-stat':>11} {'MW p':>10} {'KS stat':>9} {'KS p':>10}")
+print("-" * 80)
 
-print("\n=== Overall fairness ===")
-print("Equalized Odds:", eo)
-print("Equalized Opportunity:", eq_opp)
+for name, scores in all_scores.items():
+    s1 = scores[r1_mask & valid(scores)]
+    s2 = scores[r2_mask & valid(scores)]
+    if len(s1) < 2 or len(s2) < 2:
+        print(f"{name:<20}  insufficient data")
+        continue
+    mw_stat, mw_p = mannwhitneyu(s1, s2, alternative="two-sided")
+    ks_stat, ks_p = ks_2samp(s1, s2)
+    print(f"{name:<20} {np.mean(s1):>9.4f} {np.mean(s2):>9.4f} "
+          f"{mw_stat:>11.1f} {mw_p:>10.4e} {ks_stat:>9.4f} {ks_p:>10.4e}")
+
+# =========================
+# 15. ANALYSIS 7 — BOOTSTRAP SLICE CORRELATION
+#     Compute EO gap on random subsets; correlate mean bias score per subset
+#     with EO gap — shows your score "predicts" group-level unfairness.
+# =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 7: Bootstrap Slice Correlation")
+print("  For each bootstrap sample, compute mean bias score (per group)")
+print("  and EO gap; report Spearman r between mean-score-gap and EO gap.")
+print(DIVIDER)
+
+rng = np.random.default_rng(42)
+N_BOOT = 500
+
+def bootstrap_slice_corr(results, score_key, n_boot=N_BOOT, min_group=20):
+    n = len(results)
+    eo_gaps     = []
+    score_gaps  = []
+
+    for _ in range(n_boot):
+        idx = rng.choice(n, size=n, replace=True)
+        sample = [results[i] for i in idx]
+
+        # Need both groups present with enough samples
+        g = defaultdict(list)
+        for r in sample:
+            sc = r.get(score_key)
+            if sc is not None and not (isinstance(sc, float) and np.isnan(sc)):
+                g[r["race"]].append(sc)
+
+        if len(g) < 2 or any(len(v) < min_group for v in g.values()):
+            continue
+
+        try:
+            _, eo, _ = compute_fairness(sample)
+        except Exception:
+            continue
+
+        group_means = [np.mean(v) for v in g.values()]
+        score_gap   = abs(group_means[0] - group_means[1])
+
+        eo_gaps.append(eo)
+        score_gaps.append(score_gap)
+
+    if len(eo_gaps) < 10:
+        return np.nan, np.nan, len(eo_gaps)
+
+    sp_r, sp_p = spearmanr(score_gaps, eo_gaps)
+    return sp_r, sp_p, len(eo_gaps)
+
+print(f"{'Score':<20} {'Spearman r':>12} {'p-value':>12} {'n_boot':>8}")
+print("-" * 56)
+
+for name in all_scores:
+    key = "bias_score" if name == "your_method" else f"{name}_score"
+    sp_r, sp_p, n_used = bootstrap_slice_corr(results, key)
+    print(f"{name:<20} {sp_r:>12.4f} {sp_p:>12.4e} {n_used:>8d}")
+
+# =========================
+# 16. ANALYSIS 8 — OVERALL SUMMARY TABLE
+# =========================
+print(f"\n{DIVIDER}")
+print("SUMMARY: Score Alignment with Equalized Odds")
+print(DIVIDER)
+print(f"{'Metric':<35} {'your_method':>12}", end="")
+for name in baseline_data_dict:
+    print(f" {name[:14]:>14}", end="")
+print()
+print("-" * (36 + 13 + 15 * len(baseline_data_dict)))
+
+metrics_summary = {
+    "Pearson (vs abs contrib)":   {n: corr_results[n]["pearson"]  for n in corr_results},
+    "Spearman (vs abs contrib)":  {n: corr_results[n]["spearman"] for n in corr_results},
+    "AUROC (fairness-critical)":  {n: auroc_results[n]["auroc"]   for n in auroc_results},
+    "Avg Precision (fair-crit.)": {n: auroc_results[n]["ap"]      for n in auroc_results},
+    "Removal AUC":                {n: auc_trap(removal_results[n]) for n in removal_results},
+}
+
+for metric_name, vals in metrics_summary.items():
+    row = f"{metric_name:<35} {vals.get('your_method', np.nan):>12.4f}"
+    for name in baseline_data_dict:
+        row += f" {vals.get(name, np.nan):>14.4f}"
+    print(row)
+
+# =========================
+# 17. FINAL FAIRNESS METRICS
+# =========================
+print(f"\n{DIVIDER}")
+print("FINAL FAIRNESS METRICS (full dataset)")
+print(DIVIDER)
+fm, eo, eq = compute_fairness(results)
+for k, v in fm.items():
+    print(f"  {k}: TPR={v['TPR']:.4f}, FPR={v['FPR']:.4f}")
+print(f"\n  Equalized Odds gap:       {eo:.4f}")
+print(f"  Equalized Opportunity gap: {eq:.4f}")
+
+# =========================
+# 18. OPTIONAL PLOTS
+# =========================
+if args.plot:
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        from matplotlib.gridspec import GridSpec
+
+        plot_dir = os.path.join(BASE, "fairness_plots")
+        os.makedirs(plot_dir, exist_ok=True)
+
+        colors = ["#2563EB", "#DC2626", "#16A34A", "#D97706"]
+        score_names = list(all_scores.keys())
+        score_colors = {n: colors[i % len(colors)] for i, n in enumerate(score_names)}
+
+        # --- Plot 1: Removal Curve ---
+        fig, ax = plt.subplots(figsize=(8, 5))
+        for name, eos in removal_results.items():
+            vals = np.array(eos, dtype=float)
+            ax.plot(fracs * 100, vals,
+                    label=name,
+                    color=score_colors[name],
+                    linewidth=2.5 if name == "your_method" else 1.5,
+                    linestyle="-" if name == "your_method" else "--",
+                    marker="o" if name == "your_method" else None,
+                    markersize=4)
+        ax.set_xlabel("Fraction of samples removed (%)", fontsize=12)
+        ax.set_ylabel("Equalized Odds Gap", fontsize=12)
+        ax.set_title("Removal Curve: EO Gap vs Fraction Removed", fontsize=13)
+        ax.legend(fontsize=10)
+        ax.grid(alpha=0.3)
+        fig.tight_layout()
+        fig.savefig(os.path.join(plot_dir, "removal_curve.png"), dpi=150)
+        plt.close(fig)
+        print(f"\n  📊 Saved removal_curve.png")
+
+        # --- Plot 2: ROC Curves ---
+        fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+
+        for name, scores in all_scores.items():
+            mask = valid(scores)
+            lw   = 2.5 if name == "your_method" else 1.5
+            ls   = "-" if name == "your_method" else "--"
+            try:
+                fpr_c, tpr_c, _ = roc_curve(fairness_labels[mask], scores[mask])
+                auroc = roc_auc_score(fairness_labels[mask], scores[mask])
+                axes[0].plot(fpr_c, tpr_c, label=f"{name} (AUC={auroc:.3f})",
+                             color=score_colors[name], lw=lw, ls=ls)
+
+                prec, rec, _ = precision_recall_curve(fairness_labels[mask], scores[mask])
+                ap = average_precision_score(fairness_labels[mask], scores[mask])
+                axes[1].plot(rec, prec, label=f"{name} (AP={ap:.3f})",
+                             color=score_colors[name], lw=lw, ls=ls)
+            except Exception:
+                pass
+
+        axes[0].plot([0,1],[0,1],"k:", lw=1)
+        axes[0].set_xlabel("False Positive Rate"); axes[0].set_ylabel("True Positive Rate")
+        axes[0].set_title("ROC Curve — Fairness-Critical Sample Detection"); axes[0].legend(fontsize=9)
+        axes[0].grid(alpha=0.3)
+
+        axes[1].set_xlabel("Recall"); axes[1].set_ylabel("Precision")
+        axes[1].set_title("Precision-Recall Curve — Fairness-Critical Detection"); axes[1].legend(fontsize=9)
+        axes[1].grid(alpha=0.3)
+
+        fig.tight_layout()
+        fig.savefig(os.path.join(plot_dir, "roc_pr_curves.png"), dpi=150)
+        plt.close(fig)
+        print(f"  📊 Saved roc_pr_curves.png")
+
+        # --- Plot 3: Score Distributions by Group ---
+        n_scores = len(all_scores)
+        fig, axes = plt.subplots(1, n_scores, figsize=(5 * n_scores, 4), sharey=False)
+        if n_scores == 1:
+            axes = [axes]
+
+        for ax, (name, scores) in zip(axes, all_scores.items()):
+            s1 = scores[r1_mask & valid(scores)]
+            s2 = scores[r2_mask & valid(scores)]
+            bins = np.linspace(np.nanmin(scores), np.nanmax(scores), 25)
+            ax.hist(s1, bins=bins, alpha=0.6, label=a, color="#2563EB", density=True)
+            ax.hist(s2, bins=bins, alpha=0.6, label=b, color="#DC2626", density=True)
+            ax.axvline(np.mean(s1), color="#2563EB", lw=2, ls="--")
+            ax.axvline(np.mean(s2), color="#DC2626", lw=2, ls="--")
+            ax.set_title(name, fontsize=11)
+            ax.set_xlabel("Bias Score"); ax.set_ylabel("Density")
+            ax.legend(fontsize=9)
+            ax.grid(alpha=0.3)
+
+        fig.suptitle("Score Distributions by Racial Group", fontsize=13, y=1.02)
+        fig.tight_layout()
+        fig.savefig(os.path.join(plot_dir, "score_distributions.png"), dpi=150, bbox_inches="tight")
+        plt.close(fig)
+        print(f"  📊 Saved score_distributions.png")
+
+        # --- Plot 4: Scatter — bias score vs fairness contribution ---
+        fig, axes = plt.subplots(1, n_scores, figsize=(5 * n_scores, 4))
+        if n_scores == 1:
+            axes = [axes]
+
+        for ax, (name, scores) in zip(axes, all_scores.items()):
+            mask = valid(scores)
+            sp_r, _ = spearmanr(scores[mask], contrib[mask])
+            ax.scatter(scores[mask], contrib[mask], alpha=0.4, s=18,
+                       color=score_colors[name], edgecolors="none")
+            ax.set_xlabel("Bias Score"); ax.set_ylabel("|Fairness Contribution|")
+            ax.set_title(f"{name}\nSpearman r={sp_r:.3f}", fontsize=11)
+            ax.grid(alpha=0.3)
+
+        fig.suptitle("Bias Score vs Per-Sample Fairness Contribution", fontsize=13, y=1.02)
+        fig.tight_layout()
+        fig.savefig(os.path.join(plot_dir, "scatter_score_vs_contribution.png"), dpi=150, bbox_inches="tight")
+        plt.close(fig)
+        print(f"  📊 Saved scatter_score_vs_contribution.png")
+
+        print(f"\n  All plots saved to: {plot_dir}/")
+
+    except ImportError:
+        print("\n  ⚠️  matplotlib not installed — skipping plots. Run: pip install matplotlib")
