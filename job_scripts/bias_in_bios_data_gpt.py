@@ -24,7 +24,7 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=1)  # GPT API sequential
     parser.add_argument("--temperature", type=float, default=0.6)
     parser.add_argument("--top_p", type=float, default=0.95)
-    parser.add_argument("--max_tokens", type=int, default=1024)
+    parser.add_argument("--max_tokens", type=int, default=2048)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--test_mode", action="store_true")
     return parser.parse_args()
