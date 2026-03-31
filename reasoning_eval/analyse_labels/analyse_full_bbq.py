@@ -1,5 +1,6 @@
 # ======================
 # Full BBQ Analysis Script with Net & Isolated Effect Plots
+# Three model types: L1 regularized, standard MLE (full), MLE (bias_acknowledgement removed)
 # ======================
 
 import json
@@ -28,10 +29,6 @@ INPUT_GLOBS = (
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_14B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_14B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
-    #"outputs/gpt-oss-120b_simple_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
-    #"outputs/gpt-oss-120b_simple_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
-    #"outputs/gpt-oss-120b_full_prompt_low_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
-    #"outputs/gpt-oss-120b_full_prompt_medium_reasoning/**/full_annotation/*/llm_eval_bbq_*.json",
 )
 
 JUDGE_LABELS = [
@@ -42,6 +39,9 @@ JUDGE_LABELS = [
     "outside_topical_knowledge",
     "overthinking",
 ]
+
+# bias_acknowledgement excluded due to separation-driven non-convergence in MLE
+JUDGE_LABELS_NO_BIAS = [l for l in JUDGE_LABELS if l != "bias_acknowledgement"]
 
 N_BOOTSTRAP = 1000
 RANDOM_SEED = 42
@@ -142,44 +142,36 @@ reg_df["prompt_type"] = reg_df["prompt_type"].astype("category")
 reg_df["model"] = reg_df["model"].astype("category").apply(normalize_model_name)
 reg_df["category"] = reg_df["category"].astype("category")
 
+reg_df = reg_df.dropna(subset=["incorrect", "incorrect_and_stereotype"])
+
 # Interaction terms
 interaction_prompt = " + ".join([f"{label}:C(prompt_type, Treatment(reference='simple_prompt'))" for label in JUDGE_LABELS])
 interaction_ambiguous = " + ".join([f"{label}:C(ambiguous)" for label in JUDGE_LABELS])
 interaction_ambig_prompt = "C(ambiguous):C(prompt_type, Treatment(reference='simple_prompt'))"
 
-# Drop any rows with missing values in dep vars
-reg_df = reg_df.dropna(subset=["incorrect", "incorrect_and_stereotype"])
+# ======================
+# Model fitting functions
+# ======================
 
-# ======================
-# Fit logistic regressions
-# ======================
-def fit_logit(formula, data, alpha=0.01):
-    """Fit logistic regression with L1 regularization to mitigate quasi-separation"""
+def fit_logit_l1(formula, data, alpha=0.01):
+    """Fit logistic regression with L1 regularization to mitigate quasi-separation.
+    NOTE: p-values from this model are not valid for inference."""
     model = smf.logit(formula=formula, data=data)
     return model.fit_regularized(method="l1", alpha=alpha, disp=False)
 
-formula_base = "incorrect ~ " + " + ".join(JUDGE_LABELS) + \
-               " + C(prompt_type, Treatment(reference='simple_prompt'))" + \
-               " + " + interaction_prompt + \
-               " + C(ambiguous) + " + interaction_ambiguous + \
-               " + " + interaction_ambig_prompt + \
-               " + C(model) + C(category)"
 
-logit_model = fit_logit(formula_base, reg_df)
+def fit_logit_mle(formula, data):
+    """Fit standard (unregularized) logistic regression via MLE.
+    Provides valid p-values but may be unstable under quasi-separation."""
+    model = smf.logit(formula=formula, data=data)
+    return model.fit(disp=False, maxiter=200)
 
-formula_stereo = "incorrect_and_stereotype ~ " + " + ".join(JUDGE_LABELS) + \
-                 " + C(prompt_type, Treatment(reference='simple_prompt'))" + \
-                 " + " + interaction_prompt + \
-                 " + C(ambiguous) + " + interaction_ambiguous + \
-                 " + " + interaction_ambig_prompt + \
-                 " + C(model) + C(category)"
-
-logit_stereo_model = fit_logit(formula_stereo, reg_df)
 
 # ======================
-# Plotting functions
+# Plotting functions (shared by all model types)
 # ======================
-def plot_net_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_net_effects.pdf"):
+
+def plot_net_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_net_effects.pdf", title_suffix=""):
     rows = []
     question_types = ["simple_prompt", "full_prompt", "non_ambiguous", "ambiguous"]
     for qtype in question_types:
@@ -201,14 +193,15 @@ def plot_net_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_net_effects.pdf"
     sns.barplot(data=net_effect_df, x="question_type", y="net_logit_effect", hue="judge_label", palette="tab10")
     plt.axhline(0, color="black", linewidth=0.8)
     plt.ylabel("Net Logit Effect on Outcome")
-    plt.title("Net Effects of Question Type × Judge Label")
+    plt.title(f"Net Effects of Question Type × Judge Label{title_suffix}")
     plt.xticks(rotation=0)
     plt.legend(title="Judge Label", bbox_to_anchor=(1.05, 1), loc="upper left")
     plt.tight_layout()
     plt.savefig(OUT_DIR / filename)
     plt.close()
 
-def plot_isolated_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_isolated_effects.pdf"):
+
+def plot_isolated_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_isolated_effects.pdf", title_suffix=""):
     rows = []
     for err in JUDGE_LABELS:
         rows.append({"factor": err, "effect_type": "Judge Label", "logit_effect": coef.get(err, 0)})
@@ -218,12 +211,12 @@ def plot_isolated_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_isolated_ef
     }
     for q, val in qtype_effects.items():
         rows.append({"factor": q, "effect_type": "Question Type", "logit_effect": val})
-    df = pd.DataFrame(rows)
+    df_plot = pd.DataFrame(rows)
     plt.figure(figsize=(10, 6))
-    sns.barplot(data=df, x="factor", y="logit_effect", hue="effect_type", palette="Set2")
+    sns.barplot(data=df_plot, x="factor", y="logit_effect", hue="effect_type", palette="Set2")
     plt.axhline(0, color="black", linewidth=0.8)
     plt.ylabel("Logit Coefficient (Isolated Effect)")
-    plt.title("Isolated Main Effects of Judge Labels and Question Types")
+    plt.title(f"Isolated Main Effects of Judge Labels and Question Types{title_suffix}")
     plt.xticks(rotation=45, ha="right")
     plt.legend(title="Effect Type", bbox_to_anchor=(1.05, 1), loc="upper left")
     plt.tight_layout()
@@ -231,48 +224,136 @@ def plot_isolated_effects(coef, JUDGE_LABELS, OUT_DIR, filename="fig_isolated_ef
     plt.close()
 
 
-def save_logit_coefficients(model, filename):
+def save_statsmodels_coefficients(model, OUT_DIR, filename):
+    """Save coefficients for a statsmodels result object (L1 or MLE)."""
     coef_df = pd.DataFrame({
         "coefficient": model.params,
         "std_err": model.bse,
         "z_value": model.tvalues,
         "p_value": model.pvalues,
-        "OR_value": np.exp(model.params)
+        "OR_value": np.exp(model.params),
     })
     coef_df.to_csv(OUT_DIR / filename)
 
+
+def save_firth_coefficients(results_df, OUT_DIR, filename):
+    """Save coefficients for a Firth model results DataFrame."""
+    results_df["OR_value"] = np.exp(results_df["coefficient"])
+    results_df.to_csv(OUT_DIR / filename)
+
+
 # ======================
-# Generate plots for all models
+# Build formulas
 # ======================
-plot_net_effects(logit_model.params, JUDGE_LABELS, OUT_DIR, "fig_net_effects_incorrect.pdf")
-plot_isolated_effects(logit_model.params, JUDGE_LABELS, OUT_DIR, "fig_isolated_effects_incorrect.pdf")
 
-plot_net_effects(logit_stereo_model.params, JUDGE_LABELS, OUT_DIR, "fig_net_effects_stereo.pdf")
-plot_isolated_effects(logit_stereo_model.params, JUDGE_LABELS, OUT_DIR, "fig_isolated_effects_stereo.pdf")
+def build_formula(outcome, labels):
+    interaction_prompt = " + ".join([f"{l}:C(prompt_type, Treatment(reference='simple_prompt'))" for l in labels])
+    interaction_ambiguous = " + ".join([f"{l}:C(ambiguous)" for l in labels])
+    return (
+        f"{outcome} ~ "
+        + " + ".join(labels)
+        + " + C(prompt_type, Treatment(reference='simple_prompt'))"
+        + " + " + interaction_prompt
+        + " + C(ambiguous) + " + interaction_ambiguous
+        + " + C(ambiguous):C(prompt_type, Treatment(reference='simple_prompt'))"
+        + " + C(model) + C(category)"
+    )
 
-
-# Save coefficients for incorrect model
-save_logit_coefficients(logit_model, "table_logit_model_coefficients_incorrect.csv")
-
-# Save coefficients for incorrect_and_stereotype model
-save_logit_coefficients(logit_stereo_model, "table_logit_model_coefficients_stereo.csv")
-
-# Logistic regression predicting 'incorrect'
-with open(OUT_DIR / "logit_model_summary_incorrect.txt", "w") as f:
-    f.write(logit_model.summary().as_text())
-print("Saved logit_model summary (incorrect) to txt.")
-
-# Logistic regression predicting 'incorrect_and_stereotype'
-with open(OUT_DIR / "logit_model_summary_stereo.txt", "w") as f:
-    f.write(logit_stereo_model.summary().as_text())
-print("Saved logit_model summary (incorrect_and_stereotype) to txt.")
+formula_base        = build_formula("incorrect",                JUDGE_LABELS)
+formula_stereo      = build_formula("incorrect_and_stereotype", JUDGE_LABELS)
+formula_base_nb     = build_formula("incorrect",                JUDGE_LABELS_NO_BIAS)
+formula_stereo_nb   = build_formula("incorrect_and_stereotype", JUDGE_LABELS_NO_BIAS)
 
 
+# ======================
+# Fit all models
+# ======================
 
+print("Fitting L1 models...")
+logit_l1_incorrect = fit_logit_l1(formula_base, reg_df)
+logit_l1_stereo    = fit_logit_l1(formula_stereo, reg_df)
+
+print("Fitting standard MLE models (full)...")
+logit_mle_incorrect = fit_logit_mle(formula_base, reg_df)
+logit_mle_stereo    = fit_logit_mle(formula_stereo, reg_df)
+
+print("Fitting MLE models without bias_acknowledgement...")
+logit_mle_nb_incorrect = fit_logit_mle(formula_base_nb, reg_df)
+logit_mle_nb_stereo    = fit_logit_mle(formula_stereo_nb, reg_df)
+
+print("All models fitted.")
+
+
+# ======================
+# Generate plots — one set per model type per outcome
+# ======================
+
+MODEL_CONFIGS = [
+    # (label, coef_dict, judge_labels_list, outcome_tag)
+    ("[L1]",      logit_l1_incorrect.params,      JUDGE_LABELS,         "incorrect"),
+    ("[MLE]",     logit_mle_incorrect.params,      JUDGE_LABELS,         "incorrect"),
+    ("[MLE_nb]",  logit_mle_nb_incorrect.params,   JUDGE_LABELS_NO_BIAS, "incorrect"),
+    ("[L1]",      logit_l1_stereo.params,           JUDGE_LABELS,         "stereo"),
+    ("[MLE]",     logit_mle_stereo.params,          JUDGE_LABELS,         "stereo"),
+    ("[MLE_nb]",  logit_mle_nb_stereo.params,       JUDGE_LABELS_NO_BIAS, "stereo"),
+]
+
+for model_label, coef_dict, labels, outcome in MODEL_CONFIGS:
+    tag = model_label.strip("[]").lower()
+    plot_net_effects(
+        coef_dict, labels, OUT_DIR,
+        filename=f"fig_net_effects_{outcome}_{tag}.pdf",
+        title_suffix=f" {model_label} — {outcome}",
+    )
+    plot_isolated_effects(
+        coef_dict, labels, OUT_DIR,
+        filename=f"fig_isolated_effects_{outcome}_{tag}.pdf",
+        title_suffix=f" {model_label} — {outcome}",
+    )
+
+
+# ======================
+# Save coefficients
+# ======================
+
+# L1
+save_statsmodels_coefficients(logit_l1_incorrect,     OUT_DIR, "table_coef_incorrect_l1.csv")
+save_statsmodels_coefficients(logit_l1_stereo,        OUT_DIR, "table_coef_stereo_l1.csv")
+
+# MLE (full)
+save_statsmodels_coefficients(logit_mle_incorrect,    OUT_DIR, "table_coef_incorrect_mle.csv")
+save_statsmodels_coefficients(logit_mle_stereo,       OUT_DIR, "table_coef_stereo_mle.csv")
+
+# MLE without bias_acknowledgement
+save_statsmodels_coefficients(logit_mle_nb_incorrect, OUT_DIR, "table_coef_incorrect_mle_nb.csv")
+save_statsmodels_coefficients(logit_mle_nb_stereo,    OUT_DIR, "table_coef_stereo_mle_nb.csv")
+
+
+# ======================
+# Save model summaries (text where available)
+# ======================
+
+for model, name in [
+    (logit_l1_incorrect,     "logit_summary_incorrect_l1.txt"),
+    (logit_l1_stereo,        "logit_summary_stereo_l1.txt"),
+    (logit_mle_incorrect,    "logit_summary_incorrect_mle.txt"),
+    (logit_mle_stereo,       "logit_summary_stereo_mle.txt"),
+    (logit_mle_nb_incorrect, "logit_summary_incorrect_mle_nb.txt"),
+    (logit_mle_nb_stereo,    "logit_summary_stereo_mle_nb.txt"),
+]:
+    with open(OUT_DIR / name, "w") as f:
+        f.write(model.summary().as_text())
+
+print("Saved all summaries and coefficient tables.")
+
+
+# ======================
 # Overall frequency of judge labels
+# ======================
+
 label_means = df[JUDGE_LABELS].mean().sort_values(ascending=False)
 
-plt.figure(figsize=(10,6))
+plt.figure(figsize=(10, 6))
 plt.bar(label_means.index, label_means.values, color="#1f77b4")
 plt.ylabel("Proportion of Samples")
 plt.title("Overall Frequency of Judge Error Labels")
@@ -281,48 +362,31 @@ plt.tight_layout()
 plt.savefig(OUT_DIR / "fig_label_frequency_overall.pdf")
 plt.close()
 
-import seaborn as sns
 
-# Compute correlation
-# Ensure logit_model has been fit already
-coef = logit_model.params
+# ======================
+# Correlation matrix
+# ======================
 
-# Compute different aggregations
+coef_for_weighting = logit_mle_incorrect.params  # use MLE for weighting (interpretable)
+
 df_corr = df.copy()
-
-# Simple sum of all error labels
 df_corr["agg_errors"] = df_corr[JUDGE_LABELS].sum(axis=1)
-
-# Sum excluding bias_acknowledgement
 df_corr["agg_errors_minus"] = df_corr[[l for l in JUDGE_LABELS if l != "bias_acknowledgement"]].sum(axis=1)
-
-# Weighted sum using logit_model coefficients
-df_corr["weighted_agg_errors"] = sum(df_corr[label] * coef.get(label, 0) for label in JUDGE_LABELS)
-
-# Binary flag if at least one error occurred
+df_corr["weighted_agg_errors"] = sum(
+    df_corr[label] * coef_for_weighting.get(label, 0) for label in JUDGE_LABELS
+)
 df_corr["at_least_one_error"] = (df_corr[JUDGE_LABELS].sum(axis=1) > 0).astype(int)
-
-# Add the outcome columns
 df_corr["incorrect"] = (~df_corr["is_correct"]).astype(int)
 df_corr["incorrect_and_stereotype"] = df_corr["incorrect_and_stereotype"].astype(int)
 
-# Columns to include in correlation
 corr_cols = JUDGE_LABELS + [
-    "incorrect",
-    "incorrect_and_stereotype",
-    "agg_errors",
-    "agg_errors_minus",
-    "weighted_agg_errors",
-    "at_least_one_error"
+    "incorrect", "incorrect_and_stereotype",
+    "agg_errors", "agg_errors_minus", "weighted_agg_errors", "at_least_one_error",
 ]
 
 corr_matrix = df_corr[corr_cols].corr()
-
-
-# Save correlation CSV
 corr_matrix.to_csv(OUT_DIR / "table_correlation_matrix.csv")
 
-# Plot correlation matrix
 plt.figure(figsize=(12, 10))
 sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", center=0)
 plt.title("Correlation Matrix: Judge Labels, Errors, Aggregates")
@@ -332,19 +396,17 @@ plt.close()
 
 
 # ======================
-# Hold-out Evaluation of Predictive Performance
+# Hold-out evaluation
 # ======================
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix, classification_report
 
-print("\n📊 Running hold-out evaluation for predictive performance...")
+print("\nRunning hold-out evaluation for predictive performance...")
 
-# Define features and target
 X_cols = JUDGE_LABELS + ["ambiguous", "prompt_type", "model", "category"]
 y_cols = ["incorrect", "incorrect_and_stereotype"]
 
-# One-hot encode categorical vars
 X = pd.get_dummies(reg_df[X_cols], drop_first=True)
 
 results_holdout = {}
@@ -352,20 +414,16 @@ results_holdout = {}
 for y_col in y_cols:
     y = reg_df[y_col]
 
-    # Split train/test
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=RANDOM_SEED, stratify=y
     )
 
-    # Fit logistic regression
     clf = LogisticRegression(max_iter=1000, solver="liblinear")
     clf.fit(X_train, y_train)
 
-    # Predict on test set
     y_pred = clf.predict(X_test)
-    y_proba = clf.predict_proba(X_test)[:,1]
+    y_proba = clf.predict_proba(X_test)[:, 1]
 
-    # Metrics
     acc = accuracy_score(y_test, y_pred)
     auc = roc_auc_score(y_test, y_proba)
     cm = confusion_matrix(y_test, y_pred)
@@ -380,32 +438,114 @@ for y_col in y_cols:
     results_holdout[y_col] = {
         "accuracy": acc,
         "roc_auc": auc,
-        "confusion_matrix": cm.tolist(),  # convert to list for JSON saving
+        "confusion_matrix": cm.tolist(),
     }
 
-# Optionally save hold-out metrics
 with open(OUT_DIR / "holdout_evaluation.json", "w") as f:
-    import json
     json.dump(results_holdout, f, indent=2)
 
-print("✅ Hold-out evaluation metrics saved.")
+print("Hold-out evaluation metrics saved.")
 
 
+# ======================
+# Top L1 Predictors with 95% Bootstrap CIs (Forest Plots)
+# ======================
+from tqdm import tqdm
+
+def bootstrap_l1_coefs(model_formula, data, labels, n_bootstrap=500, alpha=0.05):
+    """
+    Bootstrap L1 logistic regression coefficients to get empirical 95% CIs.
+    Returns a DataFrame with median, lower, upper CI for each predictor.
+    """
+    coefs = {label: [] for label in labels}
+
+    for _ in tqdm(range(n_bootstrap), desc="Bootstrapping L1 coefficients"):
+        sample_df = data.sample(frac=1, replace=True, random_state=None)
+        try:
+            fit = fit_logit_l1(model_formula, sample_df)
+            for label in coefs.keys():
+                coefs[label].append(fit.params.get(label, 0))
+        except Exception:
+            continue  # skip failed iteration
+
+    rows = []
+    for label, values in coefs.items():
+        arr = np.array(values)
+        median = np.median(arr)
+        lower = np.percentile(arr, 100 * alpha/2)
+        upper = np.percentile(arr, 100 * (1-alpha/2))
+        rows.append({"predictor": label, "median": median, "ci_lower": lower, "ci_upper": upper})
+
+    df = pd.DataFrame(rows)
+    df = df.sort_values("median", key=abs, ascending=False)  # rank by absolute effect
+    return df
 
 
+def plot_top_l1_forest(bootstrap_df, top_n=10, title="Top L1 Predictors (95% CI)", out_path=None):
+    """Plot a forest plot of top L1 predictors with 95% bootstrap CIs."""
+    df_top = bootstrap_df.head(top_n).copy()
+    df_top = df_top[::-1]  # reverse for plotting top at top
 
+    plt.figure(figsize=(8, 6))
+    sns.pointplot(
+        x="median", y="predictor", data=df_top,
+        join=False, color="blue", ci=None
+    )
+    # Add horizontal error bars manually
+    for i, row in enumerate(df_top.itertuples()):
+        plt.plot([row.ci_lower, row.ci_upper], [i, i], color="blue", lw=2)
+        plt.scatter(row.median, i, color="blue", s=50)
+
+    plt.axvline(0, color="black", lw=0.8)
+    plt.xlabel("Logit Coefficient")
+    plt.ylabel("Predictor")
+    plt.title(title)
+    plt.tight_layout()
+    if out_path:
+        plt.savefig(out_path)
+    plt.show()
+
+
+# ======================
+# Generate bootstrap CIs and forest plots for L1 models
+# ======================
+print("\nBootstrapping top L1 predictors for 'incorrect' outcome...")
+bootstrap_df_incorrect = bootstrap_l1_coefs(
+    formula_base, reg_df, list(logit_l1_incorrect.params.index), n_bootstrap=500
+)
+
+plot_top_l1_forest(
+    bootstrap_df_incorrect,
+    top_n=10,
+    title="Top 10 L1 Predictors for 'incorrect' Outcome",
+    out_path=OUT_DIR / "forest_top10_l1_incorrect.pdf"
+)
+
+print("\nBootstrapping top L1 predictors for 'incorrect_and_stereotype' outcome...")
+bootstrap_df_stereo = bootstrap_l1_coefs(
+    formula_stereo, reg_df, list(logit_l1_stereo.params.index), n_bootstrap=500
+)
+
+plot_top_l1_forest(
+    bootstrap_df_stereo,
+    top_n=10,
+    title="Top 10 L1 Predictors for 'incorrect_and_stereotype' Outcome",
+    out_path=OUT_DIR / "forest_top10_l1_stereo.pdf"
+)
 
 
 
 # ======================
 # Save run metadata
 # ======================
+
 run_metadata = {
     "timestamp": datetime.datetime.now().isoformat(),
     "input_globs": INPUT_GLOBS,
     "n_samples": int(len(df)),
     "judge_labels": JUDGE_LABELS,
     "random_seed": RANDOM_SEED,
+    "models_fitted": ["l1", "mle", "mle_no_bias_acknowledgement"],
     "input_file_hashes": file_hashes,
 }
 
@@ -417,6 +557,8 @@ except Exception:
 with open(OUT_DIR / "run_metadata.json", "w") as f:
     json.dump(run_metadata, f, indent=2)
 
-print(f"Analysis complete. Plots and metadata saved to {OUT_DIR}")
-
-
+print(f"\nAnalysis complete. All plots and tables saved to {OUT_DIR}")
+print("\nOutput files per model type:")
+print("  L1:     table_coef_*_l1.csv, logit_summary_*_l1.txt  (no valid p-values)")
+print("  MLE:    table_coef_*_mle.csv, logit_summary_*_mle.txt  (check convergence warnings)")
+print("  MLE_nb: table_coef_*_mle_nb.csv, logit_summary_*_mle_nb.txt  (bias_acknowledgement removed; use for inference)")
