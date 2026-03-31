@@ -73,7 +73,7 @@ def load_json_file(file_path, metric_name, model_type, prompt_type):
             metric_val = jo.get("score")
         elif metric_name == "baseline-frm":
             score = jo.get("score")
-            metric_val = 1.0 - score if score is not None else None
+            metric_val = score 
         else:
             metric_val = jo.get("bias_label")
 
@@ -147,25 +147,37 @@ def cohen_kappa_matrix(df, cols):
 # Main
 # ---------------------------
 if __name__ == "__main__":
+
+    # Ensure plots folder exists
+    os.makedirs("plots", exist_ok=True)
+
+    # --- Full table display settings ---
+    pd.set_option("display.max_rows", None)
+    pd.set_option("display.max_columns", None)
+    pd.set_option("display.width", None)
+    pd.set_option("display.max_colwidth", None)
+    pd.set_option("display.float_format", lambda x: f"{x:.6f}")
+
+
     base_dirs = [
-        #"outputs/qwen_full_8B_simple_prompt/20250827_163953",
-        #"outputs/qwen_full_8B_full_prompt",
-        #"outputs/qwen_full_14B_simple_prompt/20250828_215719",
-        #"outputs/qwen_full_14B_full_prompt",
-        #"outputs/gpt-oss-120b_simple_prompt_low_reasoning/20251216_114545",
+        "outputs/qwen_full_8B_simple_prompt/20250827_163953",
+        "outputs/qwen_full_8B_full_prompt",
+        "outputs/qwen_full_14B_simple_prompt/20250828_215719",
+        "outputs/qwen_full_14B_full_prompt",
+        "outputs/gpt-oss-120b_simple_prompt_low_reasoning/20251216_114545",
         "outputs/gpt-oss-120b_simple_prompt_medium_reasoning/20251217_110543",
-        #"outputs/gpt-oss-120b_full_prompt_low_reasoning/20251218_140849",
-        #"outputs/gpt-oss-120b_full_prompt_low_reasoning/20251225_204037",
-        #"outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251218_113157",
-        #"outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251225_224835",
-        #"outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251226_123752"
+        "outputs/gpt-oss-120b_full_prompt_low_reasoning/20251218_140849",
+        "outputs/gpt-oss-120b_full_prompt_low_reasoning/20251225_204037",
+        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251218_113157",
+        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251225_224835",
+        "outputs/gpt-oss-120b_full_prompt_medium_reasoning/20251226_123752"
     ]
 
     metric_subfolders = {
         "baseline05": "baseline_0-5_annotation",
         "baseline01": "baseline_annotation",
         "bias01_pathways": "new_metric_pathways_annotation",
-        "bias01_pathways_diff": "new_metric_pathways_diff_annotation",
+        "bias01_pathways_diff": "new_metric_pathways_annotation",
         "baseline-frm": "fairness-prm_0-5_annotation"
     }
 
@@ -216,6 +228,7 @@ if __name__ == "__main__":
     # ---------------------------
     print("\n=== Overall Pearson Correlation ===")
     overall_corr = df[corr_cols].corr(method="pearson")
+    overall_corr.to_csv("plots/overall_pearson_corr.csv")
     print(overall_corr)
 
     # ---------------------------
@@ -226,6 +239,7 @@ if __name__ == "__main__":
     for (model, prompt), df_group in df.groupby(group_cols):
         print(f"\n--- {model} | {prompt} (n={len(df_group)}) ---")
         group_corr = df_group[corr_cols].corr(method="pearson")
+        group_corr.to_csv(f"plots/pearson_corr_{model}_{prompt}.csv")
         print(group_corr)
 
 
@@ -244,6 +258,7 @@ if __name__ == "__main__":
     for (model, prompt), df_group in df.groupby(group_cols):
         print(f"\n--- {model} | {prompt} (n={len(df_group)}) ---")
         kappa_group = cohen_kappa_matrix(df_group, kappa_cols)
+        kappa_group.to_csv(f"plots/cohen_kappa_{model}_{prompt}.csv")
         print(kappa_group)
 
 
