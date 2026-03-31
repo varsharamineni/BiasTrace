@@ -236,7 +236,8 @@ def save_logit_coefficients(model, filename):
         "coefficient": model.params,
         "std_err": model.bse,
         "z_value": model.tvalues,
-        "p_value": model.pvalues
+        "p_value": model.pvalues,
+        "OR_value": np.exp(model.params)
     })
     coef_df.to_csv(OUT_DIR / filename)
 

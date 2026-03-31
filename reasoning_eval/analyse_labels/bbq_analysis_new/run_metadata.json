@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-30T20:17:57.566802",
+  "timestamp": "2026-03-30T22:06:48.106236",
   "input_globs": [
     "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
@@ -54,5 +54,5 @@
     "outputs/qwen_full_14B_full_prompt/full_annotation/Gender_identity/llm_eval_bbq_Gender_identity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "0c885b91522ff9419da52e48932ac8ee6f8c10c4c180eefb3eab553ec64a56cb",
     "outputs/qwen_full_14B_full_prompt/full_annotation/Race_ethnicity/llm_eval_bbq_Race_ethnicity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "64e381ee39da853bc102652809c2446af34f775c6e48872398fb22903caeaf4a"
   },
-  "git_commit": "af9b41bb3d4e3897a4a9a14974322c89018841e3"
+  "git_commit": "b19af27de28dac9d828fc15117b1ddfffe28706a"
 }
