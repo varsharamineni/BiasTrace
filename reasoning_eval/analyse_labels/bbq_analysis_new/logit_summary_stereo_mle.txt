@@ -1,0 +1,48 @@
+                              Logit Regression Results                              
+====================================================================================
+Dep. Variable:     incorrect_and_stereotype   No. Observations:               125487
+Model:                                Logit   Df Residuals:                   125456
+Method:                                 MLE   Df Model:                           30
+Date:                      Tue, 31 Mar 2026   Pseudo R-squ.:                  0.5190
+Time:                              23:14:41   Log-Likelihood:                -2571.0
+converged:                            False   LL-Null:                       -5345.5
+Covariance Type:                  nonrobust   LLR p-value:                     0.000
+=================================================================================================================================================================
+                                                                                                    coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                                        -6.6871      0.263    -25.472      0.000      -7.202      -6.173
+C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                              -1.5636      0.398     -3.931      0.000      -2.343      -0.784
+C(ambiguous)[T.True]                                                                              1.0592      0.301      3.516      0.000       0.469       1.650
+C(model)[T.Qwen/Qwen3-8b]                                                                         0.1852      0.086      2.145      0.032       0.016       0.355
+C(category)[T.Disability_status]                                                                 -1.3551      0.183     -7.414      0.000      -1.713      -0.997
+C(category)[T.Gender_identity]                                                                   -3.3706      0.429     -7.851      0.000      -4.212      -2.529
+C(category)[T.Nationality]                                                                       -1.5383      0.178     -8.640      0.000      -1.887      -1.189
+C(category)[T.Physical_appearance]                                                                0.9485      0.137      6.939      0.000       0.681       1.216
+C(category)[T.Race_ethnicity]                                                                    -2.3202      0.241     -9.636      0.000      -2.792      -1.848
+C(category)[T.Religion]                                                                          -0.0534      0.141     -0.378      0.705      -0.330       0.223
+C(category)[T.SES]                                                                               -0.8216      0.128     -6.425      0.000      -1.072      -0.571
+C(category)[T.Sexual_orientation]                                                                -1.2281      0.327     -3.761      0.000      -1.868      -0.588
+C(ambiguous)[T.True]:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]          0.2481      0.399      0.621      0.534      -0.535       1.031
+group_assumption                                                                                  0.7165      0.382      1.876      0.061      -0.032       1.465
+group_assumption:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]             -0.8520      0.428     -1.992      0.046      -1.690      -0.014
+group_assumption:C(ambiguous)[T.True]                                                             1.7333      0.410      4.228      0.000       0.930       2.537
+bias_acknowledgement                                                                            -21.3406   2.17e+04     -0.001      0.999   -4.25e+04    4.25e+04
+bias_acknowledgement:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]         -1.5705      0.767     -2.048      0.041      -3.073      -0.068
+bias_acknowledgement:C(ambiguous)[T.True]                                                        20.2706   2.17e+04      0.001      0.999   -4.25e+04    4.25e+04
+meta_reflection                                                                                  -0.6315      0.397     -1.590      0.112      -1.410       0.147
+meta_reflection:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]              -0.2421      0.376     -0.645      0.519      -0.978       0.494
+meta_reflection:C(ambiguous)[T.True]                                                             -0.0757      0.403     -0.188      0.851      -0.866       0.715
+outside_demo_knowledge                                                                            1.9235      0.468      4.113      0.000       1.007       2.840
+outside_demo_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]       -0.4652      0.484     -0.962      0.336      -1.413       0.483
+outside_demo_knowledge:C(ambiguous)[T.True]                                                      -0.4804      0.472     -1.018      0.309      -1.405       0.444
+outside_topical_knowledge                                                                        -0.2093      0.337     -0.621      0.534      -0.870       0.451
+outside_topical_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]    -0.6718      0.415     -1.620      0.105      -1.485       0.141
+outside_topical_knowledge:C(ambiguous)[T.True]                                                    0.9209      0.344      2.674      0.007       0.246       1.596
+overthinking                                                                                      2.0645      0.281      7.352      0.000       1.514       2.615
+overthinking:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                  1.8118      0.377      4.805      0.000       1.073       2.551
+overthinking:C(ambiguous)[T.True]                                                                 0.6051      0.294      2.055      0.040       0.028       1.182
+=================================================================================================================================================================
+
+Possibly complete quasi-separation: A fraction 0.33 of observations can be
+perfectly predicted. This might indicate that there is complete
+quasi-separation. In this case some parameters will not be identified.

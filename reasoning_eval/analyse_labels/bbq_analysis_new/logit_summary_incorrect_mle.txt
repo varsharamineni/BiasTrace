@@ -1,0 +1,44 @@
+                           Logit Regression Results                           
+==============================================================================
+Dep. Variable:              incorrect   No. Observations:               125487
+Model:                          Logit   Df Residuals:                   125456
+Method:                           MLE   Df Model:                           30
+Date:                Tue, 31 Mar 2026   Pseudo R-squ.:                  0.2974
+Time:                        23:14:41   Log-Likelihood:                -27942.
+converged:                       True   LL-Null:                       -39772.
+Covariance Type:            nonrobust   LLR p-value:                     0.000
+=================================================================================================================================================================
+                                                                                                    coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                                        -2.8065      0.043    -64.597      0.000      -2.892      -2.721
+C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                               1.2315      0.035     34.853      0.000       1.162       1.301
+C(ambiguous)[T.True]                                                                             -2.7550      0.109    -25.203      0.000      -2.969      -2.541
+C(model)[T.Qwen/Qwen3-8b]                                                                        -0.6682      0.022    -29.985      0.000      -0.712      -0.625
+C(category)[T.Disability_status]                                                                 -0.8015      0.072    -11.142      0.000      -0.942      -0.661
+C(category)[T.Gender_identity]                                                                    0.3699      0.042      8.900      0.000       0.288       0.451
+C(category)[T.Nationality]                                                                        0.2287      0.047      4.823      0.000       0.136       0.322
+C(category)[T.Physical_appearance]                                                                0.9556      0.052     18.233      0.000       0.853       1.058
+C(category)[T.Race_ethnicity]                                                                    -0.1982      0.043     -4.602      0.000      -0.283      -0.114
+C(category)[T.Religion]                                                                           0.5693      0.058      9.832      0.000       0.456       0.683
+C(category)[T.SES]                                                                                0.4862      0.040     12.185      0.000       0.408       0.564
+C(category)[T.Sexual_orientation]                                                                 0.3771      0.069      5.487      0.000       0.242       0.512
+C(ambiguous)[T.True]:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]         -2.1379      0.156    -13.720      0.000      -2.443      -1.833
+group_assumption                                                                                  0.2743      0.084      3.261      0.001       0.109       0.439
+group_assumption:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]             -0.6094      0.117     -5.197      0.000      -0.839      -0.380
+group_assumption:C(ambiguous)[T.True]                                                             2.0276      0.147     13.817      0.000       1.740       2.315
+bias_acknowledgement                                                                              1.2019      0.089     13.449      0.000       1.027       1.377
+bias_acknowledgement:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]         -0.3408      0.098     -3.470      0.001      -0.533      -0.148
+bias_acknowledgement:C(ambiguous)[T.True]                                                        -2.5558      0.132    -19.348      0.000      -2.815      -2.297
+meta_reflection                                                                                   0.4455      0.054      8.195      0.000       0.339       0.552
+meta_reflection:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]              -0.1241      0.072     -1.734      0.083      -0.264       0.016
+meta_reflection:C(ambiguous)[T.True]                                                             -1.2963      0.107    -12.066      0.000      -1.507      -1.086
+outside_demo_knowledge                                                                            0.4526      0.127      3.569      0.000       0.204       0.701
+outside_demo_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]        0.1091      0.167      0.655      0.513      -0.217       0.436
+outside_demo_knowledge:C(ambiguous)[T.True]                                                       1.0332      0.152      6.795      0.000       0.735       1.331
+outside_topical_knowledge                                                                         0.1848      0.051      3.645      0.000       0.085       0.284
+outside_topical_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]     0.0736      0.062      1.189      0.235      -0.048       0.195
+outside_topical_knowledge:C(ambiguous)[T.True]                                                    0.1537      0.100      1.538      0.124      -0.042       0.350
+overthinking                                                                                      1.6759      0.039     42.478      0.000       1.599       1.753
+overthinking:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                 -0.6542      0.048    -13.508      0.000      -0.749      -0.559
+overthinking:C(ambiguous)[T.True]                                                                 1.6611      0.099     16.739      0.000       1.467       1.856
+=================================================================================================================================================================

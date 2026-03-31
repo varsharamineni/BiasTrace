@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-30T22:06:48.106236",
+  "timestamp": "2026-03-31T23:11:23.559812",
   "input_globs": [
     "outputs/qwen_full_8B_simple_prompt/**/full_annotation/*/llm_eval_bbq_*.json",
     "outputs/qwen_full_8B_full_prompt/full_annotation/*/llm_eval_bbq_*.json",
@@ -16,6 +16,11 @@
     "overthinking"
   ],
   "random_seed": 42,
+  "models_fitted": [
+    "l1",
+    "mle",
+    "mle_no_bias_acknowledgement"
+  ],
   "input_file_hashes": {
     "outputs/qwen_full_8B_simple_prompt/20250827_163953/full_annotation/Nationality/llm_eval_bbq_Nationality_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "3d0230f644c874a6365380d6225342a458dffa6250e09553b0de11d66bd554d7",
     "outputs/qwen_full_8B_simple_prompt/20250827_163953/full_annotation/SES/llm_eval_bbq_SES_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "d03d4dfd8074003b5622829dd926760c5af0f57016d5064de68bfbe4b4224175",
@@ -54,5 +59,5 @@
     "outputs/qwen_full_14B_full_prompt/full_annotation/Gender_identity/llm_eval_bbq_Gender_identity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "0c885b91522ff9419da52e48932ac8ee6f8c10c4c180eefb3eab553ec64a56cb",
     "outputs/qwen_full_14B_full_prompt/full_annotation/Race_ethnicity/llm_eval_bbq_Race_ethnicity_deepseek-chat_new_prompt_edit2_temp1.0_top_p0.9_seed42_max_tokens2048_reasoning.json": "64e381ee39da853bc102652809c2446af34f775c6e48872398fb22903caeaf4a"
   },
-  "git_commit": "b19af27de28dac9d828fc15117b1ddfffe28706a"
+  "git_commit": "56c6345d5314d7973ec95dbc74d97006d3ac8b2a"
 }
