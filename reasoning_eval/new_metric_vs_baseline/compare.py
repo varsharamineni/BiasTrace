@@ -242,6 +242,7 @@ if __name__ == "__main__":
         group_corr.to_csv(f"plots/pearson_corr_{model}_{prompt}.csv")
         print(group_corr)
 
+    
 
 
     # ---------------------------
@@ -270,9 +271,10 @@ if __name__ == "__main__":
     # ---------------------------
 
     plot_cols = ["incorrect"]
+    metric_cols_new = ["baseline05", "baseline05_bin", "baseline01", "bias01_pathways", "bias01_pathways_diff"]
 
     for derived_col in plot_cols:
-        for metric in metric_cols:
+        for metric in metric_cols_new:
             # Aggregate mean of derived_col per metric value
             agg_df = df.groupby(metric)[derived_col].mean().reset_index()
 
@@ -295,8 +297,99 @@ if __name__ == "__main__":
             plt.close()
             print(f"Saved bar plot: {save_path}")
 
-    
+    # ---------------------------
+    # 0. Manual mapping
+    # ---------------------------
+    group_mapping = {
+        "gpt-oss-120b | simple_prompt_low_reasoning": "GPT-OSS-120B | Simple | Low",
+        "gpt-oss-120b | simple_prompt_medium_reasoning": "GPT-OSS-120B | Simple | Medium",
+        "gpt-oss-120b | full_prompt_low_reasoning": "GPT-OSS-120B | Guided | Low",
+        "gpt-oss-120b | full_prompt_medium_reasoning": "GPT-OSS-120B | Guided | Medium",
+        "qwen_full_14B | simple_prompt": "Qwen3-14B | Simple",
+        "qwen_full_14B | full_prompt": "Qwen3-14B | Guided",
+        "qwen_full_8B | simple_prompt": "Qwen3-8B | Simple",
+        "qwen_full_8B | full_prompt": "Qwen3-8B | Guided",
+    }
 
+    # Create a temporary combined key
+    df["group_key"] = df["model_type"] + " | " + df["prompt_type"]
+
+    # Map to publication-ready labels
+    df["group_label"] = df["group_key"].map(group_mapping)
+
+    # Drop rows that are not in the mapping
+    df = df.dropna(subset=["group_label"])
+
+    desired_order = list(group_mapping.values())  # preserves dict order
+    df["group_label"] = pd.Categorical(df["group_label"], categories=desired_order, ordered=True)
+    # ---------------------------
+    # 1. Metrics and target
+    # ---------------------------
+    metric_cols = ["bias01_pathways", "baseline01", "baseline05", "baseline05_bin", "baseline-frm"]
+    target_col = "incorrect_and_stereotype"
+
+    rename_dict = {
+        "baseline01": "Baseline 0/1",
+        "baseline05": "Baseline 0-5",
+        "baseline05_bin": "Baseline 0-5 bin",
+        "baseline-frm": "Baseline FRM",
+        "bias01_pathways": "BiasTrace Prompt"
+    }
+
+    # ---------------------------
+    # 2. Compute correlations per group using mapped labels
+    # ---------------------------
+    corr_records = []
+
+    for label, df_group in df.groupby("group_label"):
+        corr_series = df_group[metric_cols + [target_col]].corr(method="pearson")[target_col].loc[metric_cols]
+        
+        for metric, corr_val in corr_series.items():
+            corr_records.append({
+                "group_label": label,
+                "metric": rename_dict[metric],
+                "correlation": corr_val
+            })
+
+    corr_df = pd.DataFrame(corr_records)
+
+    # ---------------------------
+    # 3. Pivot and reorder metrics
+    # ---------------------------
+    corr_matrix = corr_df.pivot(index="group_label", columns="metric", values="correlation")
+    ordered_cols = ["BiasTrace Prompt", "Baseline 0/1", "Baseline 0-5", "Baseline 0-5 bin", "Baseline FRM"]
+    corr_matrix = corr_matrix[ordered_cols]
+
+    # ---------------------------
+    # 4. Plot heatmap
+    # ---------------------------
+    plt.figure(figsize=(8, max(5, len(corr_matrix)*0.5)))
+    sns.set(style="whitegrid")
+
+    ax = sns.heatmap(
+        corr_matrix,
+        annot=True,
+        fmt=".2f",
+        cmap="coolwarm",
+        center=0,
+        cbar=False,
+        linewidths=0.5,
+        linecolor="gray"
+    )
+
+    #plt.title("Correlation of Reasoning Evaluation with Biased Outcomes", fontsize=14)
+    plt.xlabel("Reasoning Bias Score", fontsize=12)
+    plt.ylabel("Model | Prompt | Reasoning", fontsize=12)
+    plt.xticks(rotation=45, ha="right")
+    plt.yticks(rotation=0)
+    plt.tight_layout()
+
+    # ---------------------------
+    # 5. Save as PDF
+    # ---------------------------
+    os.makedirs("plots", exist_ok=True)
+    plt.savefig("plots/corr_incorrect_stereotype_vertical.pdf", format="pdf")
+    plt.show()
 
 
  
