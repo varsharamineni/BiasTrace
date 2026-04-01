@@ -100,6 +100,7 @@ for i in range(min_len):
     for name, data_list in baseline_data_dict.items():
         results[i][f"{name}_score"] = extract_bias_score(data_list[i])
 
+
 # =========================
 # 4. LOAD GROUND TRUTH
 # =========================

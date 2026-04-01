@@ -21,10 +21,10 @@ JUDGE_LABELS_NO_BIAS = [
 ]
 
 LABEL_NAMES = {
-    "group_assumption":          "Group assumption",
-    "meta_reflection":           "Meta-reflection",
-    "outside_demo_knowledge":    "Outside demo. knowledge",
-    "outside_topical_knowledge": "Outside topical knowledge",
+    "group_assumption":          "Group Assumption",
+    "meta_reflection":           "Meta Reflection",
+    "outside_demo_knowledge":    "Outside Demo. knowledge",
+    "outside_topical_knowledge": "Outside Topical knowledge",
     "overthinking":              "Overthinking",
     "full_prompt":               "Guided prompt",
     "ambiguous":                 "Ambiguous context",
@@ -192,7 +192,7 @@ for bar, (_, row) in zip(bars, df_plot.iterrows()):
 # Styling
 plt.axvline(0, color="black", linewidth=0.8)
 plt.xlabel("Odds Ratio")
-plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
+#plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
 
 # Divider between behaviours and conditions
 plt.axhline(len(behaviours_df) - 0.5, color="gray", linestyle="--", linewidth=0.8, alpha=0.6)

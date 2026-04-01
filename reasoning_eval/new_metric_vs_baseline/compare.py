@@ -385,7 +385,7 @@ if __name__ == "__main__":
         annot_kws={"size": 9}
     )
 
-    plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=14, color="black")
+    #plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=14, color="black")
     plt.xlabel("Reasoning Bias Score", fontsize=12, color="black")
     plt.ylabel("Model | Prompt | Reasoning Level", fontsize=12, color="black")
     plt.xticks(rotation=0, ha="center")
