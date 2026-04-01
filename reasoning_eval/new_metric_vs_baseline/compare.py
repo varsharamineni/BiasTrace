@@ -363,7 +363,7 @@ if __name__ == "__main__":
     # ---------------------------
     # 4. Plot heatmap
     # ---------------------------
-    plt.figure(figsize=(8, max(5, len(corr_matrix)*0.5)))
+    plt.figure(figsize=(10, max(5, len(corr_matrix)*0.5)))
     sns.set(style="whitegrid")
 
     ax = sns.heatmap(
@@ -377,10 +377,10 @@ if __name__ == "__main__":
         linecolor="gray"
     )
 
-    #plt.title("Correlation of Reasoning Evaluation with Biased Outcomes", fontsize=14)
-    plt.xlabel("Reasoning Bias Score", fontsize=12)
-    plt.ylabel("Model | Prompt | Reasoning", fontsize=12)
-    plt.xticks(rotation=45, ha="right")
+    plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=12)
+    plt.xlabel("Reasoning Bias Score", fontsize=11)
+    plt.ylabel("Model | Prompt | Reasoning Level", fontsize=11)
+    plt.xticks(rotation=60, ha="right")
     plt.yticks(rotation=0)
     plt.tight_layout()
 
