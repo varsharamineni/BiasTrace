@@ -123,7 +123,7 @@ for bar, (_, row) in zip(bars, df.iterrows()):
 
 # Styling
 plt.axhline(0, color="black", linewidth=0.8)
-plt.ylabel("Logit coefficient")
+plt.ylabel("Odds Ratio)")
 plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
 plt.xticks(rotation=20, ha="right")
 
@@ -191,7 +191,7 @@ for bar, (_, row) in zip(bars, df_plot.iterrows()):
 
 # Styling
 plt.axvline(0, color="black", linewidth=0.8)
-plt.xlabel("Logit coefficient")
+plt.xlabel("Odds Ratio")
 plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
 
 # Divider between behaviours and conditions
