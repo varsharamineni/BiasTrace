@@ -3,12 +3,13 @@ import json
 import numpy as np
 from collections import defaultdict
 from datasets import load_dataset, concatenate_datasets
-from scipy.stats import spearmanr, mannwhitneyu, ks_2samp
+from scipy.stats import spearmanr, mannwhitneyu, ks_2samp, pearsonr
 from sklearn.metrics import roc_auc_score, average_precision_score, roc_curve, precision_recall_curve
 import argparse
 import os
 import warnings
 warnings.filterwarnings("ignore")
+import matplotlib.pyplot as plt
 
 # =========================
 # 0. ARGPARSE
@@ -157,6 +158,7 @@ def auc_trap(y):
 groups = compute_group_stats(results)
 races  = list(groups.keys())
 a, b   = races
+print(a, b)
 
 denoms = {race: {"Y1": groups[race]["count_Y1"], "Y0": groups[race]["count_Y0"]} for race in races}
 
@@ -265,7 +267,7 @@ print(f"\n{DIVIDER}")
 print("ANALYSIS 4: Top-K Overlap with Fairness Contribution Ranking")
 print(DIVIDER)
 
-for k_frac in [0.05, 0.10, 0.20]:
+for k_frac in [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00]:
     n   = len(contrib)
     k_n = max(int(n * k_frac), 1)
     ref_idx = set(np.argsort(contrib)[-k_n:])
@@ -278,6 +280,9 @@ for k_frac in [0.05, 0.10, 0.20]:
         pred_idx = set(np.argsort(masked_scores)[-k_n:])
         overlap  = len(ref_idx & pred_idx) / k_n
         print(f"    {name:<20} overlap = {overlap:.4f}")
+
+
+
 
 # =========================
 # 13. ANALYSIS 5 — REMOVAL CURVE
@@ -404,15 +409,16 @@ def bootstrap_slice_corr(results, score_key, n_boot=N_BOOT, min_group=20):
         return np.nan, np.nan, len(eo_gaps)
 
     sp_r, sp_p = spearmanr(score_gaps, eo_gaps)
-    return sp_r, sp_p, len(eo_gaps)
+    pear_r, pear_p = pearsonr(score_gaps, eo_gaps)
+    return pear_r, pear_p, sp_r, sp_p, len(eo_gaps)
 
-print(f"{'Score':<20} {'Spearman r':>12} {'p-value':>12} {'n_boot':>8}")
-print("-" * 56)
+print(f"{'Score':<20} {'Pearson r':>10} {'p-value':>10} {'Spearman r':>12} {'p-value':>10} {'n_boot':>8}")
+print("-" * 70)
 
 for name in all_scores:
     key = "bias_score" if name == "your_method" else f"{name}_score"
-    sp_r, sp_p, n_used = bootstrap_slice_corr(results, key)
-    print(f"{name:<20} {sp_r:>12.4f} {sp_p:>12.4e} {n_used:>8d}")
+    pear_r, pear_p, spea_r, spea_p, n_used = bootstrap_slice_corr(results, key)
+    print(f"{name:<20} {pear_r:>10.4f} {pear_p:>10.4e} {spea_r:>12.4f} {spea_p:>10.4e} {n_used:>8d}")
 
 # =========================
 # 16. ANALYSIS 8 — OVERALL SUMMARY TABLE
@@ -570,6 +576,77 @@ if args.plot:
         print(f"  📊 Saved scatter_score_vs_contribution.png")
 
         print(f"\n  All plots saved to: {plot_dir}/")
+
+
+
+                # --- Plot 5: Top-K Overlap ---
+        topk_fracs_plot = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.0]
+        fig, ax = plt.subplots(figsize=(8, 5))
+
+        for name in all_scores:
+            overlaps = []
+            scores = all_scores[name]
+            n_samples = len(contrib)
+            mask = valid(scores)
+            masked_scores = np.full(len(scores), -np.inf)
+            masked_scores[mask] = scores[mask]
+            
+            for k_frac in topk_fracs_plot:
+                k_n = max(int(n_samples * k_frac), 1)
+                ref_idx = set(np.argsort(contrib)[-k_n:])
+                pred_idx = set(np.argsort(masked_scores)[-k_n:])
+                overlap = len(ref_idx & pred_idx) / k_n
+                overlaps.append(overlap)
+            
+            lw = 2.5 if name == "your_method" else 1.5
+            ls = "-" if name == "your_method" else "--"
+            mk = "o" if name == "your_method" else None
+            ax.plot([f*100 for f in topk_fracs_plot], overlaps, label=name, color=score_colors[name],
+                    linewidth=lw, linestyle=ls, marker=mk, markersize=4)
+
+        ax.set_xlabel("Top-K fraction (%)", fontsize=12)
+        ax.set_ylabel("Overlap with fairness-critical samples", fontsize=12)
+        ax.set_title("Top-K Overlap with Fairness Contribution Ranking", fontsize=13)
+        ax.set_xticks([5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+        ax.set_ylim(0, 1)
+        ax.grid(alpha=0.3)
+        ax.legend(fontsize=10)
+        fig.tight_layout()
+        fig.savefig(os.path.join(plot_dir, "topk_overlap.png"), dpi=150)
+        plt.close(fig)
+        print(f"  📊 Saved topk_overlap.png")
+
+
+
+                # --- Plot 6: Correlation with Per-Sample Fairness Contribution ---
+        fig, axes = plt.subplots(1, len(all_scores), figsize=(5 * len(all_scores), 4))
+        if len(all_scores) == 1:
+            axes = [axes]
+
+        for ax, (name, scores) in zip(axes, all_scores.items()):
+            mask = valid(scores)
+            x = scores[mask]
+            y = contrib[mask]
+            
+            sp_r, _ = spearmanr(x, y)
+            pear_r, _ = pearsonr(x, y)
+            
+            ax.scatter(x, y, alpha=0.4, s=20, color=score_colors[name], edgecolors="none")
+            
+            # Optional: regression line
+            coef = np.polyfit(x, y, 1)
+            ax.plot(x, np.polyval(coef, x), color="#000000", lw=1.5, linestyle="--")
+            
+            ax.set_xlabel("Bias Score")
+            ax.set_ylabel("|Fairness Contribution|")
+            ax.set_title(f"{name}\nSpearman r={sp_r:.3f}, Pearson r={pear_r:.3f}", fontsize=11)
+            ax.grid(alpha=0.3)
+
+        fig.suptitle("Correlation: Bias Score vs Per-Sample Fairness Contribution", fontsize=13, y=1.02)
+        fig.tight_layout()
+        fig.savefig(os.path.join(plot_dir, "correlation_score_vs_contribution.png"), dpi=150, bbox_inches="tight")
+        plt.close(fig)
+        print(f"  📊 Saved correlation_score_vs_contribution.png")
 
     except ImportError:
         print("\n  ⚠️  matplotlib not installed — skipping plots. Run: pip install matplotlib")
