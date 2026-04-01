@@ -1,23 +1,17 @@
+from pathlib import Path
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pandas as pd
-from pathlib import Path
 
 # ======================
-# Load data (reuse yours)
+# Config (same as main script)
 # ======================
 
 COEF_CSV = Path("reasoning_eval/analyse_labels/bbq_analysis_new/table_coef_stereo_mle_nb.csv")
-coef_df = pd.read_csv(COEF_CSV, index_col=0)
+OUT_DIR  = Path("reasoning_eval/analyse_labels/bbq_analysis_new/publication_plot")
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-coef  = coef_df["coefficient"].to_dict()
-pvals = coef_df["p_value"].to_dict()
-
-# ======================
-# Labels
-# ======================
-
-JUDGE_LABELS = [
+JUDGE_LABELS_NO_BIAS = [
     "group_assumption",
     "meta_reflection",
     "outside_demo_knowledge",
@@ -38,6 +32,10 @@ LABEL_NAMES = {
 PROMPT_KEY    = "C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]"
 AMBIGUOUS_KEY = "C(ambiguous)[T.True]"
 
+# ======================
+# Significance helper
+# ======================
+
 def sig_stars(p):
     if p < 0.001: return "***"
     if p < 0.01:  return "**"
@@ -45,85 +43,104 @@ def sig_stars(p):
     return ""
 
 # ======================
-# Build dataframe
+# Load coefficients
 # ======================
 
+coef_df = pd.read_csv(COEF_CSV, index_col=0)
+coef    = coef_df["coefficient"].to_dict()
+pvals   = coef_df["p_value"].to_dict()
+
+# ======================
+# Build isolated effects
+# ======================
+
+items = JUDGE_LABELS_NO_BIAS + ["full_prompt", "ambiguous"]
+
 rows = []
+for item in items:
+    if item in JUDGE_LABELS_NO_BIAS:
+        c = coef.get(item, 0)
+        p = pvals.get(item, 1.0)
+        group = "Reasoning behaviour"
+    elif item == "full_prompt":
+        c = coef.get(PROMPT_KEY, 0)
+        p = pvals.get(PROMPT_KEY, 1.0)
+        group = "Condition"
+    else:
+        c = coef.get(AMBIGUOUS_KEY, 0)
+        p = pvals.get(AMBIGUOUS_KEY, 1.0)
+        group = "Condition"
 
-# reasoning behaviours
-for label in JUDGE_LABELS:
     rows.append({
-        "label": LABEL_NAMES[label],
-        "coef":  coef.get(label, 0),
-        "p":     pvals.get(label, 1.0),
-        "group": "Reasoning behaviour",
-        "stars": sig_stars(pvals.get(label, 1.0)),
+        "label": LABEL_NAMES[item],
+        "coef":  c,
+        "stars": sig_stars(p),
+        "group": group,
     })
-
-# conditions
-rows.append({
-    "label": LABEL_NAMES["full_prompt"],
-    "coef":  coef.get(PROMPT_KEY, 0),
-    "p":     pvals.get(PROMPT_KEY, 1.0),
-    "group": "Condition",
-    "stars": sig_stars(pvals.get(PROMPT_KEY, 1.0)),
-})
-
-rows.append({
-    "label": LABEL_NAMES["ambiguous"],
-    "coef":  coef.get(AMBIGUOUS_KEY, 0),
-    "p":     pvals.get(AMBIGUOUS_KEY, 1.0),
-    "group": "Condition",
-    "stars": sig_stars(pvals.get(AMBIGUOUS_KEY, 1.0)),
-})
 
 df = pd.DataFrame(rows)
 
 # ======================
-# Plot
+# Colours (same palette)
 # ======================
 
-plt.figure(figsize=(7, 4.5))
+behaviour_labels  = [LABEL_NAMES[l] for l in JUDGE_LABELS_NO_BIAS]
+palette           = sns.color_palette("tab10", n_colors=len(behaviour_labels))
+colour_map        = dict(zip(behaviour_labels, palette))
+condition_colours = {"Guided prompt": "#888888", "Ambiguous context": "#bbbbbb"}
 
-palette = sns.color_palette("tab10", n_colors=5)
-colour_map = dict(zip(
-    [LABEL_NAMES[l] for l in JUDGE_LABELS],
-    palette
-))
-
-condition_colours = {
-    "Guided prompt": "#888888",
-    "Ambiguous context": "#bbbbbb"
-}
-
-colors = [
+bar_colours = [
     colour_map[row["label"]] if row["group"] == "Reasoning behaviour"
     else condition_colours[row["label"]]
     for _, row in df.iterrows()
 ]
 
-bars = plt.bar(df["label"], df["coef"], color=colors, edgecolor="white")
+# ======================
+# Plot
+# ======================
 
-# stars
+plt.figure(figsize=(7, 5.5))
+
+bars = plt.bar(
+    df["label"], df["coef"],
+    color=bar_colours,
+    edgecolor="white",
+    linewidth=0.6,
+    width=0.6,
+)
+
+# Stars
+STAR_PAD = 0.10
 for bar, (_, row) in zip(bars, df.iterrows()):
     if not row["stars"]:
         continue
-    x = bar.get_x() + bar.get_width()/2
-    y = row["coef"]
-    offset = 0.1 if y >= 0 else -0.1
-    plt.text(x, y + offset, row["stars"], ha="center",
-             va="bottom" if y >= 0 else "top", fontsize=9)
+    x = bar.get_x() + bar.get_width() / 2
+    val = row["coef"]
+    y = val + STAR_PAD if val >= 0 else val - STAR_PAD
+    va = "bottom" if val >= 0 else "top"
+    plt.text(x, y, row["stars"], ha="center", va=va, fontsize=9)
 
+# Styling
 plt.axhline(0, color="black", linewidth=0.8)
-
 plt.ylabel("Logit coefficient")
-plt.xticks(rotation=30, ha="right")
-plt.title("Isolated Effects of Reasoning Behaviours")
+plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
+plt.xticks(rotation=35, ha="right")
+
+# Divider between behaviours and conditions
+n_behaviours = len(JUDGE_LABELS_NO_BIAS)
+plt.axvline(n_behaviours - 0.5, color="gray", linestyle="--", linewidth=0.8, alpha=0.6)
 
 sns.despine()
 plt.tight_layout()
 
-plt.savefig("isolated_effects.pdf")
-plt.savefig("isolated_effects.png", dpi=300)
+# ======================
+# Save
+# ======================
 
-print("Saved isolated_effects.pdf/png")
+out_pdf = OUT_DIR / "fig_isolated_effects.pdf"
+out_png = OUT_DIR / "fig_isolated_effects.png"
+
+plt.savefig(out_pdf, bbox_inches="tight")
+plt.savefig(out_png, dpi=300, bbox_inches="tight")
+
+print(f"Saved:\n  {out_pdf}\n  {out_png}")
