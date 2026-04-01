@@ -150,13 +150,13 @@ for qtype in QUESTION_TYPES:
         main_sig  = main_p < 0.05
         int_sig   = min(int_p_used, int_a_used) < 0.05
 
-        if main_sig and int_sig:
-            stars    = sig_stars(min(main_p, int_p_used, int_a_used))
-            sig_note = "both"
-        elif main_sig:
-            stars    = sig_stars(main_p)
-            sig_note = "main"
-        elif int_sig:
+        # if main_sig and int_sig:
+        #     stars    = sig_stars(min(main_p, int_p_used, int_a_used))
+        #     sig_note = "both"
+        # elif main_sig:
+        #     stars    = sig_stars(main_p)
+        #     sig_note = "main"
+        if int_sig:
             stars    = sig_stars(min(int_p_used, int_a_used))
             sig_note = "interaction"
         else:
@@ -273,20 +273,25 @@ for qidx, qtype in enumerate(QUESTION_TYPES):
 
         is_int_only = row["sig_note"] == "interaction"
 
+        # ax_net.text(
+        #     x_pos, y_pos, row["stars"],
+        #     ha="center", va=va,
+        #     fontsize=STAR_FS,
+        #     fontweight="bold" if is_int_only else "normal",
+        # )
+
+        # if is_int_only:
+        #     int_label_y = (y_pos + 0.22) if val >= 0 else (y_pos - 0.22)
+        #     ax_net.text(
+        #         x_pos, int_label_y, "int.",
+        #         ha="center", va=va,
+        #         fontsize=6.5, color="dimgray", style="italic",
+        #     )
         ax_net.text(
             x_pos, y_pos, row["stars"],
             ha="center", va=va,
             fontsize=STAR_FS,
-            fontweight="bold" if is_int_only else "normal",
-        )
-
-        if is_int_only:
-            int_label_y = (y_pos + 0.22) if val >= 0 else (y_pos - 0.22)
-            ax_net.text(
-                x_pos, int_label_y, "int.",
-                ha="center", va=va,
-                fontsize=6.5, color="dimgray", style="italic",
-            )
+)
 
 ax_net.axhline(0, color="black", linewidth=0.8, zorder=0)
 ax_net.set_ylabel("Net logit effect on biased output", fontsize=AXIS_FS)
@@ -309,12 +314,10 @@ sns.despine(ax=ax_net)
 
 fig.text(
     0.01, -0.05,
-    "* p < .05   ** p < .01   *** p < .001"
-    "Panel (b): stars reflect significant term(s) — main effect, interaction, or both. "
-    "Bold * with 'int.' below = significance from interaction term only.",
+    "* p < .05   ** p < .01   *** p < .001\n"
+    "Panel (b): stars indicate significant interaction terms only.",
     fontsize=7.5, color="black", va="top",
 )
-
 fig.tight_layout()
 
 # ======================
