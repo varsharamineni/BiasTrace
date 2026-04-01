@@ -99,7 +99,7 @@ bar_colours = [
 # Plot
 # ======================
 
-plt.figure(figsize=(7, 5.5))
+plt.figure(figsize=(10, 5))
 
 bars = plt.bar(
     df["label"], df["coef"],
@@ -124,7 +124,7 @@ for bar, (_, row) in zip(bars, df.iterrows()):
 plt.axhline(0, color="black", linewidth=0.8)
 plt.ylabel("Logit coefficient")
 plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
-plt.xticks(rotation=35, ha="right")
+plt.xticks(rotation=20, ha="right")
 
 # Divider between behaviours and conditions
 n_behaviours = len(JUDGE_LABELS_NO_BIAS)
@@ -139,6 +139,70 @@ plt.tight_layout()
 
 out_pdf = OUT_DIR / "fig_isolated_effects.pdf"
 out_png = OUT_DIR / "fig_isolated_effects.png"
+
+plt.savefig(out_pdf, bbox_inches="tight")
+plt.savefig(out_png, dpi=300, bbox_inches="tight")
+
+print(f"Saved:\n  {out_pdf}\n  {out_png}")
+
+# ======================
+# Reorder rows: behaviours by magnitude, then conditions
+# ======================
+
+# Separate reasoning behaviours and conditions
+behaviours_df = df[df["group"] == "Reasoning behaviour"].copy()
+conditions_df = df[df["group"] == "Condition"].copy()
+
+# Sort behaviours by absolute coefficient magnitude (descending)
+behaviours_df = behaviours_df.loc[behaviours_df["coef"].abs().sort_values(ascending=False).index]
+
+# Concatenate back (behaviours first, then conditions)
+df_plot = pd.concat([behaviours_df, conditions_df], ignore_index=True)
+
+# ======================
+# Plot (horizontal, ordered)
+# ======================
+
+plt.figure(figsize=(8, 4))
+
+bars = plt.barh(
+    df_plot["label"], df_plot["coef"],
+    color=[
+        colour_map[row["label"]] if row["group"] == "Reasoning behaviour" 
+        else condition_colours[row["label"]]
+        for _, row in df_plot.iterrows()
+    ],
+    edgecolor="white",
+    linewidth=0.6,
+    height=0.6,
+)
+
+# Stars
+STAR_PAD = 0.05
+for bar, (_, row) in zip(bars, df_plot.iterrows()):
+    if not row["stars"]:
+        continue
+    y = bar.get_y() + bar.get_height() / 2
+    val = row["coef"]
+    x = val + STAR_PAD if val >= 0 else val - STAR_PAD
+    ha = "left" if val >= 0 else "right"
+    plt.text(x, y, row["stars"], va="center", ha=ha, fontsize=9)
+
+# Styling
+plt.axvline(0, color="black", linewidth=0.8)
+plt.xlabel("Logit coefficient")
+plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
+
+# Divider between behaviours and conditions
+plt.axhline(len(behaviours_df) - 0.5, color="gray", linestyle="--", linewidth=0.8, alpha=0.6)
+
+plt.gca().invert_yaxis()  # largest bars at top
+sns.despine(left=True, bottom=False)
+plt.tight_layout()
+
+# Save
+out_pdf = OUT_DIR / "fig_isolated_effects_horizontal_ordered.pdf"
+out_png = OUT_DIR / "fig_isolated_effects_horizontal_ordered.png"
 
 plt.savefig(out_pdf, bbox_inches="tight")
 plt.savefig(out_png, dpi=300, bbox_inches="tight")
