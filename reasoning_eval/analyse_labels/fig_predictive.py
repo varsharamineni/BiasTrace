@@ -49,12 +49,12 @@ LABEL_NAMES = {
     "ambiguous":                 "Ambiguous context",
 }
 
-QUESTION_TYPES = ["simple_prompt", "full_prompt", "non_ambiguous", "ambiguous"]
+QUESTION_TYPES = ["simple_disambig", "guided_disambig", "simple_ambig", "guided_ambig"]
 QTYPE_NAMES = {
-    "simple_prompt":  "Simple Prompt\n(unambiguous context)",
-    "full_prompt":    "Guided Prompt\n(unambiguous context)",
-    "non_ambiguous":  "Simple Prompt\n(disambiguous context)",
-    "ambiguous":      "Simple Prompt\n(ambiguous context)",
+    "simple_disambig":  "Simple\n(disambiguous)",
+    "guided_disambig":  "Guided\n(disambiguous)",
+    "simple_ambig":     "Simple\n(ambiguous)",
+    "guided_ambig":     "Guided\n(ambiguous)",
 }
 
 PROMPT_KEY    = "C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]"
@@ -126,30 +126,38 @@ for qtype in QUESTION_TYPES:
         main_c = coef.get(label, 0)
         main_p = pvals.get(label, 1.0)
 
-        int_c, int_p, q_c = 0.0, 1.0, 0.0
+        prompt_c  = coef.get(PROMPT_KEY, 0)
+        ambig_c   = coef.get(AMBIGUOUS_KEY, 0)
+        int_p_c   = coef.get(int_key_prompt(label), 0)
+        int_p_p   = pvals.get(int_key_prompt(label), 1.0)
+        int_a_c   = coef.get(int_key_ambig(label), 0)
+        int_a_p   = pvals.get(int_key_ambig(label), 1.0)
 
-        if qtype == "full_prompt":
-            q_c   = coef.get(PROMPT_KEY, 0)
-            int_c = coef.get(int_key_prompt(label), 0)
-            int_p = pvals.get(int_key_prompt(label), 1.0)
-        elif qtype == "ambiguous":
-            q_c   = coef.get(AMBIGUOUS_KEY, 0)
-            int_c = coef.get(int_key_ambig(label), 0)
-            int_p = pvals.get(int_key_ambig(label), 1.0)
+        if qtype == "simple_disambig":
+            net   = main_c
+            int_p_used, int_a_used = 1.0, 1.0
+        elif qtype == "guided_disambig":
+            net   = main_c + prompt_c + int_p_c
+            int_p_used, int_a_used = int_p_p, 1.0
+        elif qtype == "simple_ambig":
+            net   = main_c + ambig_c + int_a_c
+            int_p_used, int_a_used = 1.0, int_a_p
+        elif qtype == "guided_ambig":
+            net   = main_c + prompt_c + ambig_c + int_p_c + int_a_c
+            int_p_used, int_a_used = int_p_p, int_a_p
 
-        net = main_c + q_c + int_c
-
-        main_sig = main_p < 0.05
-        int_sig  = int_p  < 0.05
+        # Significance: any relevant term sig?
+        main_sig  = main_p < 0.05
+        int_sig   = min(int_p_used, int_a_used) < 0.05
 
         if main_sig and int_sig:
-            stars    = sig_stars(min(main_p, int_p))
+            stars    = sig_stars(min(main_p, int_p_used, int_a_used))
             sig_note = "both"
         elif main_sig:
             stars    = sig_stars(main_p)
             sig_note = "main"
         elif int_sig:
-            stars    = sig_stars(int_p)
+            stars    = sig_stars(min(int_p_used, int_a_used))
             sig_note = "interaction"
         else:
             stars    = ""
@@ -224,10 +232,10 @@ ax_iso.tick_params(axis="y", labelsize=LABEL_FS - 1)
 n_behaviours = len(JUDGE_LABELS_NO_BIAS)
 ax_iso.axvline(n_behaviours - 0.5, color="gray", linewidth=0.8, linestyle="--", alpha=0.6)
 ymin, ymax = ax_iso.get_ylim()
-ax_iso.text(
-    n_behaviours - 0.38, ymin + 0.05 * (ymax - ymin),
-    "Conditions →", fontsize=7.5, color="gray", va="bottom",
-)
+# ax_iso.text(
+#     n_behaviours - 0.38, ymin + 0.05 * (ymax - ymin),
+#     "Conditions →", fontsize=7.5, color="gray", va="bottom",
+# )
 
 sns.despine(ax=ax_iso)
 
@@ -263,9 +271,22 @@ for qidx, qtype in enumerate(QUESTION_TYPES):
         y_pos        = val + STAR_PAD if val >= 0 else val - STAR_PAD
         va           = "bottom" if val >= 0 else "top"
 
-        # Superscript i when significance is from interaction term only
-        star_text = row["stars"] + ("ⁱ" if row["sig_note"] == "interaction" else "")
-        ax_net.text(x_pos, y_pos, star_text, ha="center", va=va, fontsize=STAR_FS)
+        is_int_only = row["sig_note"] == "interaction"
+
+        ax_net.text(
+            x_pos, y_pos, row["stars"],
+            ha="center", va=va,
+            fontsize=STAR_FS,
+            fontweight="bold" if is_int_only else "normal",
+        )
+
+        if is_int_only:
+            int_label_y = (y_pos + 0.22) if val >= 0 else (y_pos - 0.22)
+            ax_net.text(
+                x_pos, int_label_y, "int.",
+                ha="center", va=va,
+                fontsize=6.5, color="dimgray", style="italic",
+            )
 
 ax_net.axhline(0, color="black", linewidth=0.8, zorder=0)
 ax_net.set_ylabel("Net logit effect on biased output", fontsize=AXIS_FS)
@@ -288,10 +309,10 @@ sns.despine(ax=ax_net)
 
 fig.text(
     0.01, -0.05,
-    "* p < .05   ** p < .01   *** p < .001\n"
-    "Panel (b): stars reflect the significant term(s) — main effect, interaction, or both. "
-    "ⁱ = significance from interaction term only.",
-    fontsize=7.5, color="dimgray", va="top",
+    "* p < .05   ** p < .01   *** p < .001"
+    "Panel (b): stars reflect significant term(s) — main effect, interaction, or both. "
+    "Bold * with 'int.' below = significance from interaction term only.",
+    fontsize=7.5, color="black", va="top",
 )
 
 fig.tight_layout()
