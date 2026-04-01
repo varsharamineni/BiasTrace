@@ -51,10 +51,10 @@ LABEL_NAMES = {
 
 QUESTION_TYPES = ["simple_prompt", "full_prompt", "non_ambiguous", "ambiguous"]
 QTYPE_NAMES = {
-    "simple_prompt":  "Simple\n(unambiguous)",
-    "full_prompt":    "Guided\n(unambiguous)",
-    "non_ambiguous":  "Simple\n(disambiguous)",
-    "ambiguous":      "Simple\n(ambiguous)",
+    "simple_prompt":  "Simple Prompt\n(unambiguous context)",
+    "full_prompt":    "Guided Prompt\n(unambiguous context)",
+    "non_ambiguous":  "Simple Prompt\n(disambiguous context)",
+    "ambiguous":      "Simple Prompt\n(ambiguous context)",
 }
 
 PROMPT_KEY    = "C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]"
