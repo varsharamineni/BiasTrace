@@ -312,13 +312,13 @@ sns.despine(ax=ax_net)
 
 # ── Shared footnote ────────────────────────────────────────────────────────────
 
-fig.text(
-    0.01, -0.05,
-    "* p < .05   ** p < .01   *** p < .001\n"
-    "Panel (b): stars indicate significant interaction terms only.",
-    fontsize=7.5, color="black", va="top",
-)
-fig.tight_layout()
+# fig.text(
+#     0.01, -0.05,
+#     "* p < .05   ** p < .01   *** p < .001\n"
+#     "Panel (b): stars indicate significant interaction terms only.",
+#     fontsize=7.5, color="black", va="top",
+# )
+# fig.tight_layout()
 
 # ======================
 # Save
