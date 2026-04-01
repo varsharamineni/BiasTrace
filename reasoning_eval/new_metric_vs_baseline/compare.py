@@ -363,32 +363,38 @@ if __name__ == "__main__":
     # ---------------------------
     # 4. Plot heatmap
     # ---------------------------
-    plt.figure(figsize=(10, max(5, len(corr_matrix)*0.5)))
-    sns.set(style="whitegrid")
+    plt.figure(figsize=(10, max(5, len(corr_matrix)*0.4)))
+    #sns.set_style("whitegrid", font_scale=0.9)
+    sns.set()
 
     ax = sns.heatmap(
         corr_matrix,
         annot=True,
         fmt=".2f",
-        cmap="coolwarm",
+        cmap="RdBu_r",
         center=0,
         cbar=False,
         linewidths=0.5,
-        linecolor="gray"
+        #linecolor="white",
+        annot_kws={"size": 9, "weight": "bold"}
     )
 
-    plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=12)
-    plt.xlabel("Reasoning Bias Score", fontsize=11)
-    plt.ylabel("Model | Prompt | Reasoning Level", fontsize=11)
+    plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=14, weight="bold", color="black")
+    plt.xlabel("Reasoning Bias Score", fontsize=12, color="black")
+    plt.ylabel("Model | Prompt | Reasoning Level", fontsize=12, color="black")
     plt.xticks(rotation=0, ha="center")
     plt.yticks(rotation=0)
     plt.tight_layout()
+
+    os.makedirs("plots", exist_ok=True)
+    plt.savefig("plots/corr_incorrect_stereotype_vertical.pdf", format="pdf", bbox_inches='tight')
+    plt.show()
 
     # ---------------------------
     # 5. Save as PDF
     # ---------------------------
     os.makedirs("plots", exist_ok=True)
-    plt.savefig("plots/corr_incorrect_stereotype_vertical.pdf", format="pdf")
+    plt.savefig("plots/corr_incorrect_stereotype_vertical.pdf", format="pdf", bbox_inches="tight")
     plt.show()
 
 
