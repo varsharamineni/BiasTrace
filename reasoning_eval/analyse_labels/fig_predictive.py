@@ -189,9 +189,9 @@ condition_colours = {"Guided prompt": "#888888", "Ambiguous context": "#bbbbbb"}
 # ======================
 
 STAR_PAD = 0.10
-STAR_FS  = 8
-LABEL_FS = 9
-AXIS_FS  = 10
+STAR_FS  = 11
+LABEL_FS =11
+AXIS_FS  = 11
 
 fig, (ax_iso, ax_net) = plt.subplots(
     1, 2,
@@ -300,12 +300,23 @@ ax_net.set_title("(b) Net effects by condition", fontsize=AXIS_FS + 1, loc="left
 ax_net.set_xticklabels(qtype_order, fontsize=LABEL_FS)
 ax_net.tick_params(axis="y", labelsize=LABEL_FS - 1)
 
-legend = ax_net.get_legend()
-legend.set_title("Reasoning behaviour", prop={"size": LABEL_FS})
-for t in legend.get_texts():
-    t.set_fontsize(LABEL_FS - 1)
-legend.set_bbox_to_anchor((1.01, 1))
-legend.set_loc("upper left")
+# 1. Get the handles and labels from the current axis
+handles, labels = ax_net.get_legend_handles_labels()
+
+# 2. Re-create the legend with ncol set to the number of labels
+legend = ax_net.legend(
+    handles, 
+    labels,
+    #title="Reasoning behaviour",
+    loc="upper center",
+    bbox_to_anchor=(0.5, -0.15),
+    ncol=len(labels),          # This forces the horizontal layout
+    fontsize=LABEL_FS - 1,
+    frameon=True
+)
+
+# 3. Fine-tune the title and frame
+legend.get_title().set_fontsize(LABEL_FS)
 legend.get_frame().set_linewidth(0.5)
 
 sns.despine(ax=ax_net)
