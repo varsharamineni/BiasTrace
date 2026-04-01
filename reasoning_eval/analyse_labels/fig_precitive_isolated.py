@@ -2,6 +2,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 # ======================
 # Config (same as main script)
@@ -73,7 +74,7 @@ for item in items:
 
     rows.append({
         "label": LABEL_NAMES[item],
-        "coef":  c,
+        "coef":  np.exp(c),
         "stars": sig_stars(p),
         "group": group,
     })
