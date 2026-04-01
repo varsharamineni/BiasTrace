@@ -322,6 +322,7 @@ if __name__ == "__main__":
 
     desired_order = list(group_mapping.values())  # preserves dict order
     df["group_label"] = pd.Categorical(df["group_label"], categories=desired_order, ordered=True)
+    
     # ---------------------------
     # 1. Metrics and target
     # ---------------------------
@@ -359,13 +360,18 @@ if __name__ == "__main__":
     corr_matrix = corr_df.pivot(index="group_label", columns="metric", values="correlation")
     ordered_cols = ["BiasTrace Prompt", "Baseline 0/1", "Baseline 0-5", "Baseline 0-5 bin", "Baseline FRM"]
     corr_matrix = corr_matrix[ordered_cols]
+    corr_matrix["Baseline FRM"] = corr_matrix["Baseline FRM"].abs()
 
     # ---------------------------
     # 4. Plot heatmap
     # ---------------------------
+    sns.reset_defaults()
+    plt.rcParams.update(plt.rcParamsDefault)
+
     plt.figure(figsize=(10, max(5, len(corr_matrix)*0.4)))
     #sns.set_style("whitegrid", font_scale=0.9)
     sns.set()
+    sns.set_theme(style="white")
 
     ax = sns.heatmap(
         corr_matrix,
@@ -376,10 +382,10 @@ if __name__ == "__main__":
         cbar=False,
         linewidths=0.5,
         #linecolor="white",
-        annot_kws={"size": 9, "weight": "bold"}
+        annot_kws={"size": 9}
     )
 
-    plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=14, weight="bold", color="black")
+    plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=14, color="black")
     plt.xlabel("Reasoning Bias Score", fontsize=12, color="black")
     plt.ylabel("Model | Prompt | Reasoning Level", fontsize=12, color="black")
     plt.xticks(rotation=0, ha="center")
