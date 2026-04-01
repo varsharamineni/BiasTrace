@@ -380,7 +380,7 @@ if __name__ == "__main__":
     plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=12)
     plt.xlabel("Reasoning Bias Score", fontsize=11)
     plt.ylabel("Model | Prompt | Reasoning Level", fontsize=11)
-    plt.xticks(rotation=60, ha="right")
+    plt.xticks(rotation=0, ha="center")
     plt.yticks(rotation=0)
     plt.tight_layout()
 
