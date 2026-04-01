@@ -506,32 +506,32 @@ def plot_top_l1_forest(bootstrap_df, top_n=10, title="Top L1 Predictors (95% CI)
     plt.show()
 
 
-# ======================
-# Generate bootstrap CIs and forest plots for L1 models
-# ======================
-print("\nBootstrapping top L1 predictors for 'incorrect' outcome...")
-bootstrap_df_incorrect = bootstrap_l1_coefs(
-    formula_base, reg_df, list(logit_l1_incorrect.params.index), n_bootstrap=500
-)
+# # ======================
+# # Generate bootstrap CIs and forest plots for L1 models
+# # ======================
+# print("\nBootstrapping top L1 predictors for 'incorrect' outcome...")
+# bootstrap_df_incorrect = bootstrap_l1_coefs(
+#     formula_base, reg_df, list(logit_l1_incorrect.params.index), n_bootstrap=500
+# )
 
-plot_top_l1_forest(
-    bootstrap_df_incorrect,
-    top_n=10,
-    title="Top 10 L1 Predictors for 'incorrect' Outcome",
-    out_path=OUT_DIR / "forest_top10_l1_incorrect.pdf"
-)
+# plot_top_l1_forest(
+#     bootstrap_df_incorrect,
+#     top_n=10,
+#     title="Top 10 L1 Predictors for 'incorrect' Outcome",
+#     out_path=OUT_DIR / "forest_top10_l1_incorrect.pdf"
+# )
 
-print("\nBootstrapping top L1 predictors for 'incorrect_and_stereotype' outcome...")
-bootstrap_df_stereo = bootstrap_l1_coefs(
-    formula_stereo, reg_df, list(logit_l1_stereo.params.index), n_bootstrap=500
-)
+# print("\nBootstrapping top L1 predictors for 'incorrect_and_stereotype' outcome...")
+# bootstrap_df_stereo = bootstrap_l1_coefs(
+#     formula_stereo, reg_df, list(logit_l1_stereo.params.index), n_bootstrap=500
+# )
 
-plot_top_l1_forest(
-    bootstrap_df_stereo,
-    top_n=10,
-    title="Top 10 L1 Predictors for 'incorrect_and_stereotype' Outcome",
-    out_path=OUT_DIR / "forest_top10_l1_stereo.pdf"
-)
+# plot_top_l1_forest(
+#     bootstrap_df_stereo,
+#     top_n=10,
+#     title="Top 10 L1 Predictors for 'incorrect_and_stereotype' Outcome",
+#     out_path=OUT_DIR / "forest_top10_l1_stereo.pdf"
+# )
 
 
 
