@@ -1,6 +1,10 @@
 # BiasTrace: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
 
 
+## Annotated Dataset of Reasoning Traces
+
+[to be added soon]
+
 ## Repository Structure
 
 ```
@@ -11,7 +15,6 @@ bias-reasoning-LLM/
 ├── job_scripts/            # SLURM job scripts for cluster execution
 ├── outputs/                # Model outputs (reasoning traces + merged results)
 ```
-
 ## Installation
 
 **Recommended (Poetry):**
@@ -76,13 +79,6 @@ bash job_scripts/run_full_gpt-oss.sh
 ```
 
 > **Special tokens:** All generation scripts use `<think>`/`</think>` for reasoning content and `<answer>`/`</answer>` for final answers.
-
----
-## Saved Reasoning Traces
-
-Pre-generated traces for all models are available on Google Drive:
-
-**[Download Reasoning Traces](https://drive.google.com/drive/folders/1avhCGFPHafxfV80AtVIbEFRfT08Vsb67?usp=sharing)**
 
 ---
 
