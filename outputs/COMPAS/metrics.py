@@ -182,6 +182,29 @@ contrib_threshold  = np.percentile(contrib, 75)
 fairness_labels    = (contrib >= contrib_threshold).astype(int)
 
 # =========================
+# 6B. PER-SAMPLE FPR-ONLY CONTRIBUTION
+# =========================
+
+for r in results:
+    race   = r["race"]
+    y_true = r["features"]["is_recid"]
+    y_pred = 1 if r["model_answer"].strip().upper()=="A" else 0
+
+    if y_true == 0:  # only negatives contribute to FPR
+        c_fpr = y_pred / max(denoms[race]["Y0"], 1)
+        if race != a:
+            c_fpr = -c_fpr
+    else:
+        c_fpr = 0.0
+
+    r["fpr_contribution"] = c_fpr
+    r["abs_fpr_contribution"] = abs(c_fpr)
+
+contrib_fpr     = np.array([r["abs_fpr_contribution"] for r in results])
+contrib_fpr_sgn = np.array([r["fpr_contribution"] for r in results])
+
+
+# =========================
 # 7. INCORRECT ANSWER LABEL
 # =========================
 is_incorrect = np.array([
@@ -214,9 +237,25 @@ print("-" * 56)
 corr_results = {}
 for name, scores in all_scores.items():
     mask = valid(scores)
-    pearson  = np.corrcoef(scores[mask], contrib[mask])[0, 1]
-    sp_r, sp_p = spearmanr(scores[mask], contrib[mask])
+    pearson  = np.corrcoef(scores[mask], contrib_sgn[mask])[0, 1]
+    sp_r, sp_p = spearmanr(scores[mask], contrib_sgn[mask])
     corr_results[name] = {"pearson": pearson, "spearman": sp_r, "spearman_p": sp_p}
+    print(f"{name:<20} {pearson:>10.4f} {sp_r:>12.4f} {sp_p:>12.4e}")
+
+
+# =========================
+# 9B. ANALYSIS 1 (FPR ONLY)
+# =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 1B: Correlation with FPR-Only Contribution")
+print(DIVIDER)
+print(f"{'Score':<20} {'Pearson':>10} {'Spearman':>12} {'Spearman-p':>12}")
+print("-" * 56)
+
+for name, scores in all_scores.items():
+    mask = valid(scores)
+    pearson  = np.corrcoef(scores[mask], contrib_fpr_sgn[mask])[0, 1]
+    sp_r, sp_p = spearmanr(scores[mask], contrib_fpr_sgn[mask])
     print(f"{name:<20} {pearson:>10.4f} {sp_r:>12.4f} {sp_p:>12.4e}")
 
 # =========================
@@ -420,6 +459,55 @@ for name in all_scores:
     key = "bias_score" if name == "your_method" else f"{name}_score"
     pear_r, pear_p, spea_r, spea_p, n_used = bootstrap_slice_corr(results, key)
     print(f"{name:<20} {pear_r:>10.4f} {pear_p:>10.4e} {spea_r:>12.4f} {spea_p:>10.4e} {n_used:>8d}")
+
+# =========================
+# 15b. ANALYSIS 7b — BOOTSTRAP OVERALL MEAN CORRELATION
+#     Reuse bootstrap indices from original Analysis 7,
+#     compute overall mean bias score (ignore groups), and correlate with EO gap
+# =========================
+print(f"\n{DIVIDER}")
+print("ANALYSIS 7b: Bootstrap Overall Mean Score vs EO Gap")
+print(DIVIDER)
+
+# Generate bootstrap indices once (reuse for all methods)
+n = len(results)
+bootstrap_indices = [rng.choice(n, size=n, replace=True) for _ in range(N_BOOT)]
+
+print(f"{'Score':<20} {'Pearson r':>10} {'p-value':>10} {'Spearman r':>12} {'p-value':>10} {'n_boot':>8}")
+print("-" * 70)
+
+for name in all_scores:
+    key = "bias_score" if name == "your_method" else f"{name}_score"
+    mean_scores  = []
+    eo_gaps = []
+    
+    for idx in bootstrap_indices:
+        sample = [results[i] for i in idx]
+        
+        # Collect valid scores
+        scores_sample = [r[key] for r in sample if r[key] is not None and not (isinstance(r[key], float) and np.isnan(r[key]))]
+        if len(scores_sample) == 0:
+            continue
+        
+        # Compute overall mean
+        mean_scores.append(np.mean(scores_sample))
+        
+        # Compute EO gap on this sample
+        try:
+            _, eo, _ = compute_fairness(sample)
+            eo_gaps.append(eo)
+        except Exception:
+            continue
+
+    # Ensure enough samples
+    if len(mean_scores) < 10:
+        print(f"{name:<20} insufficient bootstrap samples")
+        continue
+
+    # Correlate overall mean score with EO gap
+    pear_r, pear_p = pearsonr(mean_scores, eo_gaps)
+    spea_r, spea_p = spearmanr(mean_scores, eo_gaps)
+    print(f"{name:<20} {pear_r:>10.4f} {pear_p:>10.4e} {spea_r:>12.4f} {spea_p:>10.4e} {len(mean_scores):>8d}")
 
 # =========================
 # 16. ANALYSIS 8 — OVERALL SUMMARY TABLE

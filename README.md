@@ -10,7 +10,6 @@ bias-reasoning-LLM/
 ├── reasoning_eval/         # LLM judge scripts, prompts, and ground truth samples
 ├── job_scripts/            # SLURM job scripts for cluster execution
 ├── outputs/                # Model outputs (reasoning traces + merged results)
-└── eval_results/           # Accuracy/bias scores and figures per model
 ```
 
 ## Installation
@@ -158,72 +157,3 @@ done
 | `new_prompt_edit2.txt` | **Final prompt used in paper** |
 
 ---
-
-# Old Results
-
-## Generate Reasoning Traces - Deepseek and Qwen (Old)
-
-Generate outputs on the BBQ dataset
-
-This uses `scripts/generate_bbq_outputs_vllm.py` and `scripts/generate_bbq_outputs_vllm_qwen.py`
-
-```bash
-sbatch generate_bbq_traces/generate_bbq.slurm deepseek-70B 16 0.6 0.95 50 2048
-```
-
-```bash
-sbatch generate_bbq_traces/generate_bbq_Gender.slurm deepseek-70B 16 0.6 0.95 50 2048
-```
-
-```bash 
-sbatch generate_bbq_traces/generate_bbq_qwen.slurm qwen3-32B 16 0.6 0.95 20 32768
-```
-
-```bash 
-sbatch generate_bbq_traces/generate_bbq_qwen_Gender.slurm qwen3-32B 16 0.6 0.95 20 32768
-```
-
-```bash
-sbatch generate_bbq_traces/generate_bbq_qwen.slurm qwen3-14B 16 0.6 0.95 20 32768
-```
-
-```bash
-sbatch generate_bbq_traces/generate_bbq_qwen_Gender.slurm qwen3-14B 16 0.6 0.95 20 32768
-```
-
-Outputs saved in folder `outputs/backup_outputs`
-
-### Evaluate Reasoning Traces
-
-`python run_all_models_bbq_evaluation`
-
-- Scans `backup_outputs/` for model folders named `bbq_results_{model_name}`.
-- For each model:
-  - Creates output directory in `eval_results/{model_name}`.
-  - Finds category JSON files named `bbq_{category}_results.json`.
-  - Extracts categories from filenames.
-  - Runs `evaluate_bbq_outputs.py` with the model’s results, output path, and categories.
-
-saved to `eval_results/{model_name}/`
-
-example: `eval_results/deepseek-70B/Religion_detailed_per_trace.json`
-
-
-`python scripts/evaluate_bbq_outputs_with_metadata.py`
-
-The script will:
-
-- Detect all models by folder names under `eval_results/`
-- Detect all categories by matching JSON files for each model
-- For each model-category pair:
-  - Load outputs and metadata
-  - Assign example IDs
-  - Calculate accuracy grouped by one or more specified metadata columns (customizable in the script)
-  - Save accuracy bar plots under `eval_results/{model_name}/figs/`
-  - Save CSV summaries under `eval_results/{model_name}/extra_eval/`
-
-
-
-## Acknowledgments
-
-This repository was orginally derived from an earlier fork of [Reasoning-Towards-Fairness](https://github.com/Sanchit-404/Reasoing-Towards-Fairness), but due to complete change and diversion from this, it has been restructured into a new standalone repository.
