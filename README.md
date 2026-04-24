@@ -1,4 +1,4 @@
-# BIAS-TRACE: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
+# BiasTrace: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
 
 
 ## Repository Structure
