@@ -9,6 +9,7 @@ dataset where the model should have selected answer option ‘unknown’ but ins
 the stereotypical answer. This example shows demonstrates how bias outputs could arise
 from different reasoning behaviours such as overthinking rather than from stereotypical
 language.
+<br />
 
 
 ## Annotated Dataset of Reasoning Traces
