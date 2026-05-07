@@ -19,7 +19,7 @@ BiasTrace/
 ├── scripts/                # Scripts for data download, reasoning generation, processing and evaluation scripts
 ├── reasoning_eval/         # LLM judge scripts, prompts, and ground truth samples
 ├── job_scripts/            # SLURM job scripts for cluster execution
-├── outputs/                # Model outputs (reasoning traces + processed outputs)
+├── outputs/                # Model outputs (reasoning traces + processed outputs + judge labels)
 ```
 
 
