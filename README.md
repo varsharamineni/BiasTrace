@@ -2,6 +2,10 @@
 
 ![Figure 1](BiasTrace_Fig1.pdf)
 
+<p align="center">
+  <img src="BiasTrace_Fig1.png" width="600">
+</p>
+
 
 ## Annotated Dataset of Reasoning Traces
 
