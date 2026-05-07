@@ -37,30 +37,25 @@ poetry shell
 source $(poetry env info --path)/bin/activate
 ```
 
+**pip + requirements.txt:**
+
 ```bash
 pip install -r requirements.txt
 ```
-
-## Data Setup
-
-### Download BBQ Data 
+## Download BBQ Data 
 
 Download all BBQ question categories from Hugging Face:
 ```bash 
 python scripts/download_data/download_bbq_all_cat.py
 # Saves to: datasets/bbq_data_all_cat/data/
+
 ```
 Also download manually:
 - **Templates** → `datasets/bbq_templates/` — from [BBQ GitHub](https://github.com/nyu-mll/BBQ/tree/main/templates)
 - **Metadata** → `datasets/bbq_additional_metadata.csv` — from [BBQ supplemental](https://github.com/nyu-mll/BBQ/tree/main/supplemental)
 
-### CALM Dataset Ground Truth
-```bash
-bash scripts/download_data/download_CALM_gt.sh
-# Saves to: datasets/CALM_gt/
-```
 
-### Model Weights
+## Download Model Weights
 
 Download models from Hugging Face (update `base_cache_dir` in the script first):
 ```bash
@@ -90,20 +85,18 @@ bash job_scripts/run_full.sh
 bash job_scripts/run_full_gpt-oss.sh
 # Calls: scripts/generate_bbq_outputs_vllm_gpt-oss.py
 ```
-
-> **Special tokens:** All generation scripts use `<think>`/`</think>` for reasoning content and `<answer>`/`</answer>` for final answers.
-
 ---
 
 ## Processing & Evaluation
 
 ### Step 1 — Merge Outputs with BBQ Data
+Merges model outputs with the original BBQ dataset and optional metadata for downstream analysis.
+
 ```bash
 python scripts/process_bbq_results.py \
   --base_folders <folder1> <folder2> \
   --meta_file <metadata_csv>
 ```
-Merges model outputs with the original BBQ dataset and optional metadata for downstream analysis.
 
 ### Step 2 — Compute Accuracy and Bias Scores
 ```bash
@@ -117,7 +110,7 @@ python scripts/create_bbq_metrics_table.py
 
 The LLM judge evaluates the quality of model reasoning traces. Use the merged output files (`bbq_{category}_results_merged.json`) as input.
 
-All judge scripts are in the `reasoning_eval/` folder.
+All judge scripts are in the `reasoning_eval/` folder. 
 
 ### Validate on Test Set
 
