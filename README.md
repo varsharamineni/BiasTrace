@@ -1,31 +1,33 @@
 # BiasTrace: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
 
 <p align="center">
-  <img src="BiasTrace_Fig1.png" width="600">
+  <img src="paper_figs/BiasTrace_Fig1.png" width="600">
 </p>
 Figure 1: Our framework applies the BiasTrace annotation scheme to link reasoning
 behaviours to biased outcomes. We present a redacted trace from Qwen3-8B on the BBQ
 dataset where the model should have selected answer option ‘unknown’ but instead chose
-the stereotypical answer. This example shows demonstrates how bias outputs could arise
-from different reasoning behaviours such as overthinking rather than from stereotypical
+the stereotypical answer. This example demonstrates how biased outputs could arise
+from different reasoning behaviours such as overthinking, rather than from stereotypical
 language.
 <br />
+
+## Repository Structure
+
+```
+BiasTrace/
+├── datasets/               # Data, templates, and metadata
+├── scripts/                # Scripts for data download, reasoning generation, processing and evaluation scripts
+├── reasoning_eval/         # LLM judge scripts, prompts, and ground truth samples
+├── job_scripts/            # SLURM job scripts for cluster execution
+├── outputs/                # Model outputs (reasoning traces + processed outputs)
+```
 
 
 ## Annotated Dataset of Reasoning Traces
 
 [to be added soon]
 
-## Repository Structure
 
-```
-bias-reasoning-LLM/
-├── datasets/               # BBQ data, templates, and metadata
-├── scripts/                # Data download, generation, and evaluation scripts
-├── reasoning_eval/         # LLM judge scripts, prompts, and ground truth samples
-├── job_scripts/            # SLURM job scripts for cluster execution
-├── outputs/                # Model outputs (reasoning traces + processed outputs)
-```
 ## Installation
 
 **Recommended (Poetry):**
