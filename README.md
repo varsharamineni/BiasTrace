@@ -1,10 +1,14 @@
 # BiasTrace: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
 
-![Figure 1](BiasTrace_Fig1.pdf)
-
 <p align="center">
   <img src="BiasTrace_Fig1.png" width="600">
 </p>
+Figure 1: Our framework applies the BiasTrace annotation scheme to link reasoning
+behaviours to biased outcomes. We present a redacted trace from Qwen3-8B on the BBQ
+dataset where the model should have selected answer option ‘unknown’ but instead chose
+the stereotypical answer. This example shows demonstrates how bias outputs could arise
+from different reasoning behaviours such as overthinking rather than from stereotypical
+language.
 
 
 ## Annotated Dataset of Reasoning Traces
