@@ -1,5 +1,7 @@
 # BiasTrace: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
 
+![Figure 1](BiasTrace_Fig1.pdf)
+
 
 ## Annotated Dataset of Reasoning Traces
 
@@ -13,7 +15,7 @@ bias-reasoning-LLM/
 ├── scripts/                # Data download, generation, and evaluation scripts
 ├── reasoning_eval/         # LLM judge scripts, prompts, and ground truth samples
 ├── job_scripts/            # SLURM job scripts for cluster execution
-├── outputs/                # Model outputs (reasoning traces + merged results)
+├── outputs/                # Model outputs (reasoning traces + processed outputs)
 ```
 ## Installation
 
@@ -23,7 +25,7 @@ poetry install
 poetry shell
 source $(poetry env info --path)/bin/activate
 ```
-**Recommended (Poetry):**
+
 ```bash
 pip install -r requirements.txt
 ```
