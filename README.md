@@ -106,11 +106,18 @@ python scripts/create_bbq_metrics_table.py
 
 ---
 
-## LLM Judge
+## Annotate Reasoning Traces using LLM-as-a-Judge
 
 The LLM judge evaluates the quality of model reasoning traces. Use the merged output files (`bbq_{category}_results_merged.json`) as input.
 
 All judge scripts are in the `reasoning_eval/` folder. 
+
+Configure your API credentials:
+
+```bash
+LLM_BASE_URL="https://api.deepseek.com/v1"
+export LLM_API_KEY=" "
+```
 
 ### Validate on Test Set
 
