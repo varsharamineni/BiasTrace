@@ -12,6 +12,9 @@ outputs/qwen_full_14B_full_prompt/
 outputs/qwen3_8B_stereoset/
 outputs/wrong_traces_all.json
 
+combine_BiasTrace_annotation_data.py
+merged_dataset_outputs
+
 outputs/gpt-oss*
 outputs/*_CALM*/
 
