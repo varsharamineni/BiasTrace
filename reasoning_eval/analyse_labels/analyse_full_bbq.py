@@ -21,6 +21,8 @@ import seaborn as sns
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
+from sklearn.metrics import average_precision_score, roc_auc_score, classification_report, confusion_matrix
+
 # ======================
 # Config
 # ======================
@@ -47,7 +49,7 @@ N_BOOTSTRAP = 1000
 RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
 
-OUT_DIR = Path("reasoning_eval/analyse_labels/bbq_analysis_new")
+OUT_DIR = Path("reasoning_eval/analyse_labels/bbq_analysis_new_review")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ======================
@@ -421,16 +423,25 @@ for y_col in y_cols:
     clf = LogisticRegression(max_iter=1000, solver="liblinear")
     clf.fit(X_train, y_train)
 
+    pos_rate = y.mean()
+    test_pos_rate = y_test.mean()
+    train_pos_rate = y_train.mean()
+    print(f"Positive rate: {pos_rate:.4f}")
+    print(f"Train positive rate: {train_pos_rate:.4f}")
+    print(f"Test positive rate: {test_pos_rate:.4f}")
+
     y_pred = clf.predict(X_test)
     y_proba = clf.predict_proba(X_test)[:, 1]
 
     acc = accuracy_score(y_test, y_pred)
     auc = roc_auc_score(y_test, y_proba)
     cm = confusion_matrix(y_test, y_pred)
+    pr_auc = average_precision_score(y_test, y_proba)
 
     print(f"\nTarget: {y_col}")
     print(f"Hold-out Accuracy: {acc:.3f}")
     print(f"ROC-AUC: {auc:.3f}")
+    print(f"PR-AUC: {pr_auc:.3f}")
     print("Confusion Matrix:")
     print(cm)
     print(classification_report(y_test, y_pred))
@@ -438,10 +449,74 @@ for y_col in y_cols:
     results_holdout[y_col] = {
         "accuracy": acc,
         "roc_auc": auc,
+        "pr_auc": pr_auc,
         "confusion_matrix": cm.tolist(),
     }
 
 with open(OUT_DIR / "holdout_evaluation.json", "w") as f:
+    json.dump(results_holdout, f, indent=2)
+
+print("Hold-out evaluation metrics saved.")
+
+
+
+# ======================
+# Hold-out evaluation - no bias acknowledgement
+# ======================
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, roc_auc_score, confusion_matrix, classification_report
+
+print("\nRunning hold-out evaluation for predictive performance...")
+
+X_cols = JUDGE_LABELS_NO_BIAS + ["ambiguous", "prompt_type", "model", "category"]
+y_cols = ["incorrect", "incorrect_and_stereotype"]
+
+X = pd.get_dummies(reg_df[X_cols], drop_first=True)
+
+results_holdout = {}
+
+for y_col in y_cols:
+    y = reg_df[y_col]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=RANDOM_SEED, stratify=y
+    )
+
+    pos_rate = y.mean()
+    test_pos_rate = y_test.mean()
+    train_pos_rate = y_train.mean()
+    print(f"Positive rate: {pos_rate:.4f}")
+    print(f"Train positive rate: {train_pos_rate:.4f}")
+    print(f"Test positive rate: {test_pos_rate:.4f}")
+
+    clf = LogisticRegression(max_iter=1000, solver="liblinear")
+    clf.fit(X_train, y_train)
+
+    y_pred = clf.predict(X_test)
+    y_proba = clf.predict_proba(X_test)[:, 1]
+
+    acc = accuracy_score(y_test, y_pred)
+    auc = roc_auc_score(y_test, y_proba)
+    cm = confusion_matrix(y_test, y_pred)
+    pr_auc = average_precision_score(y_test, y_proba)
+
+    print(f"\nTarget: {y_col}")
+    print(f"Hold-out Accuracy: {acc:.3f}")
+    print(f"ROC-AUC: {auc:.3f}")
+    print(f"PR-AUC: {pr_auc:.3f}")
+    print("Confusion Matrix:")
+    print(cm)
+    print(classification_report(y_test, y_pred))
+
+    results_holdout[y_col] = {
+        "accuracy": acc,
+        "roc_auc": auc,
+        "pr_auc": pr_auc,
+        "confusion_matrix": cm.tolist(),
+    }
+
+with open(OUT_DIR / "holdout_evaluation_nb.json", "w") as f:
     json.dump(results_holdout, f, indent=2)
 
 print("Hold-out evaluation metrics saved.")
