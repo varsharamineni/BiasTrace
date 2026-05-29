@@ -1,0 +1,4 @@
+model,key,coef,se,p_value,OR,OR_CI_lower,OR_CI_upper
+M1b: overthinking × full_prompt,"overthinking:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]",2.3323485823471164,0.5015708304812785,3.317931632173748e-06,10.302108493032033,3.8546096917138972,27.534159847715227
+M1b: length × full_prompt,"log_reasoning_tokens:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]",-0.05108953759361965,0.4058942412146632,0.8998355529569061,0.9501935886760685,0.4288524964165982,2.1053109484153194
+M1b: overthinking × ambiguous,overthinking:C(ambiguous)[T.True],1.5725648331577582,0.3965312605354773,7.314928432036859e-05,4.818992267918595,2.2152462308947767,10.483117476687523

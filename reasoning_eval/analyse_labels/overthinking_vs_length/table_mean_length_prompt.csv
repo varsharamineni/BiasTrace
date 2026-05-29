@@ -1,0 +1,3 @@
+prompt_type,mean_tokens,median_tokens,n
+full_prompt,564.9869310212929,470.75,62744
+simple_prompt,527.8311484946528,435.25,62743

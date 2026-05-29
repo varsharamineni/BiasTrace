@@ -1,0 +1,5 @@
+prompt_type,ambiguous,overthinking_rate,n
+full_prompt,False,0.3140698712227464,31372
+full_prompt,True,0.007522631646053806,31372
+simple_prompt,False,0.23361596327935738,31372
+simple_prompt,True,0.05297886583150043,31371

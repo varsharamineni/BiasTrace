@@ -1,0 +1,10 @@
+{
+  "n_total": 125487,
+  "pointbiserial_r_overthinking_length": 0.7029744979850755,
+  "spearman_r_overthinking_length": 0.5526929126683708,
+  "OR_m1_overthinking": 7.556268208855379,
+  "OR_m1b_overthinking_with_length_ctrl": 3.074672666075209,
+  "OR_m1b_length_covariate": 3.1392895654177444,
+  "OR_m2_length_only": 5.592276281317884,
+  "OR_pct_change_overthinking_m1_to_m1b": -59.30964093529762
+}

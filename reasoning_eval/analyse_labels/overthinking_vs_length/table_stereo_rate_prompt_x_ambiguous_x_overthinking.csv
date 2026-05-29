@@ -1,0 +1,9 @@
+prompt_type,ambiguous,overthinking,stereo_rate,n
+full_prompt,False,0,0.00018588224359868024,21519
+full_prompt,False,1,0.005074596569572719,9853
+full_prompt,True,0,0.00028905447070914697,31136
+full_prompt,True,1,0.1483050847457627,236
+simple_prompt,False,0,0.0005822900636359855,24043
+simple_prompt,False,1,0.006412880338381771,7329
+simple_prompt,True,0,0.010367228785889797,29709
+simple_prompt,True,1,0.2611311672683514,1662

@@ -1,0 +1,9 @@
+prompt_type,ambiguous,overthinking,mean_tokens,median_tokens,n
+full_prompt,False,0,519.3115851108323,494.75,21519
+full_prompt,False,1,1043.363214249467,983.5,9853
+full_prompt,True,0,440.53999389773895,423.0,31136
+full_prompt,True,1,1176.114406779661,1136.125,236
+simple_prompt,False,0,429.11503348167867,390.5,24043
+simple_prompt,False,1,1012.0338722881703,946.0,7329
+simple_prompt,True,0,454.46739203608337,416.0,29709
+simple_prompt,True,1,1132.0872442839952,1088.75,1662
