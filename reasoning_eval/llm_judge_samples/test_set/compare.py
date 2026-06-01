@@ -13,7 +13,7 @@ def load_label_json(file_path, col_name, field="bias_label"):
     Generic loader for JSON metrics (0/1 or other labels)
     """
 
-    if "05" in col_name:
+    if "05" in col_name or col_name == "bias01_pathways_simple_diff_pathways_ab2":
         field = "score"
     else:
         field = "bias_label"
@@ -76,7 +76,13 @@ metrics = [
         {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_nolead_temp1.0_top_p0.9_seed42_max_tokens2048.json",
      "col": "bias01_pathways_simple_noload"},
          {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_diff_temp1.0_top_p0.9_seed42_max_tokens2048.json",
-     "col": "bias01_pathways_simple_diff_pathways"}
+     "col": "bias01_pathways_simple_diff_pathways"},
+        {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_ab1_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_pathways_simple_diff_pathways_ab1"},
+     {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_ab2_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_pathways_simple_diff_pathways_ab2"},
+     {"file": "reasoning_eval/llm_judge_samples/test_set/new_metric_labels/llm_eval_deepseek-chat_new_prompt_bias_pathways_simple_structure_temp1.0_top_p0.9_seed42_max_tokens2048.json",
+     "col": "bias01_pathways_simple_diff_pathways_structure"}
 ]
 
 # ---------------------------
