@@ -371,6 +371,64 @@ print(med_table.round(1))
 med_table.to_csv(OUT_DIR / "table_median_length_by_overthinking_model.csv")
 
 
+
+# ======================
+# Additional Robustness Check:
+# Residualised Overthinking (controls for reasoning length explicitly)
+# ======================
+
+from sklearn.linear_model import LinearRegression
+
+# Step 1: regress overthinking on reasoning length
+# This isolates the component of overthinking not explained by verbosity
+lr = LinearRegression()
+X = df[["log_reasoning_tokens"]].values
+y = df["overthinking"].values
+
+lr.fit(X, y)
+
+# Residual = overthinking beyond what is predicted by length
+df["overthinking_resid"] = y - lr.predict(X)
+
+# Step 2: Fit model replacing overthinking with residualised version
+LABELS_RESID = JUDGE_LABELS_NO_BIAS.copy()
+LABELS_RESID[LABELS_RESID.index("overthinking")] = "overthinking_resid"
+
+formula_resid = build_formula(
+    "incorrect_and_stereotype",
+    LABELS_RESID
+)
+
+print("\nFitting M3 (residualised overthinking controlling for length)...")
+m3 = fit_logit_mle(formula_resid, df)
+
+# Save summary
+with open(OUT_DIR / "logit_summary_m3_overthinking_residual.txt", "w") as f:
+    f.write(m3.summary().as_text())
+
+# Extract key coefficient
+resid_summary = extract_coef(m3, "overthinking_resid")
+
+print("\n--- Residualised Overthinking Effect ---")
+print({
+    "OR": resid_summary["OR"],
+    "CI_lower": resid_summary["OR_CI_lower"],
+    "CI_upper": resid_summary["OR_CI_upper"],
+    "p_value": resid_summary["p_value"]
+})
+
+# Save result
+pd.DataFrame([resid_summary]).to_csv(
+    OUT_DIR / "table_residualised_overthinking_effect.csv",
+    index=False
+)
+
+print("Saved residualised overthinking robustness results.")
+
+
+
+
+
 # ======================
 # Plots
 # ======================
