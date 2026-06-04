@@ -3,8 +3,8 @@
 Dep. Variable:     incorrect_and_stereotype   No. Observations:               125487
 Model:                                Logit   Df Residuals:                   125459
 Method:                                 MLE   Df Model:                           27
-Date:                      Wed, 27 May 2026   Pseudo R-squ.:                  0.5073
-Time:                              13:57:28   Log-Likelihood:                -2633.9
+Date:                      Thu, 04 Jun 2026   Pseudo R-squ.:                  0.5073
+Time:                              14:24:50   Log-Likelihood:                -2633.9
 converged:                             True   LL-Null:                       -5345.5
 Covariance Type:                  nonrobust   LLR p-value:                     0.000
 =================================================================================================================================================================

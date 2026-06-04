@@ -1,0 +1,3 @@
+reasoning_effort,n,mean_tokens,std_tokens,median_tokens,min_tokens,max_tokens,mean_log_tokens
+low,62744,0.0,0.0,0.0,0,0,0.0
+medium,62744,0.0,0.0,0.0,0,0,0.0

@@ -151,6 +151,27 @@ interaction_prompt = " + ".join([f"{label}:C(prompt_type, Treatment(reference='s
 interaction_ambiguous = " + ".join([f"{label}:C(ambiguous)" for label in JUDGE_LABELS])
 interaction_ambig_prompt = "C(ambiguous):C(prompt_type, Treatment(reference='simple_prompt'))"
 
+
+# ======================
+# Outcome prevalence (full dataset)
+# ======================
+
+prevalence_incorrect = reg_df["incorrect"].mean()
+prevalence_stereo = reg_df["incorrect_and_stereotype"].mean()
+
+print("Prevalence (incorrect):", prevalence_incorrect)
+print("Prevalence (stereotype):", prevalence_stereo)
+
+prevalence_stats = {
+    "n_total": len(reg_df),
+    "prevalence_incorrect": float(prevalence_incorrect),
+    "prevalence_incorrect_and_stereotype": float(prevalence_stereo),
+}
+
+with open(OUT_DIR / "prevalence.json", "w") as f:
+    json.dump(prevalence_stats, f, indent=2)
+
+
 # ======================
 # Model fitting functions
 # ======================

@@ -1,0 +1,9 @@
+metric,group1,group2,cohens_d
+incorrect_and_stereotype,low,medium,0.06956694237671927
+incorrect,low,medium,-0.01830982069575046
+group_assumption,low,medium,-0.015350216315503266
+bias_acknowledgement,low,medium,-0.27860911943920547
+meta_reflection,low,medium,-0.0396118733303991
+outside_demo_knowledge,low,medium,-0.01062440534024503
+outside_topical_knowledge,low,medium,-0.17366076220303356
+overthinking,low,medium,

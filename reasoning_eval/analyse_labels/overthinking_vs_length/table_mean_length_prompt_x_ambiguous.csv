@@ -1,5 +1,5 @@
 prompt_type,ambiguous,mean_tokens,median_tokens,n
-full_prompt,False,683.9004127884738,587.75,31372
-full_prompt,True,446.07344925411195,424.0,31372
-simple_prompt,False,565.2941795231417,450.75,31372
-simple_prompt,True,490.3669232730866,425.25,31371
+full_prompt,False,577.3474117047049,494.0,31372
+full_prompt,True,361.87262527094225,341.0,31372
+simple_prompt,False,479.8381996684942,383.0,31372
+simple_prompt,True,400.42902680819867,344.0,31371

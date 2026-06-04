@@ -71,6 +71,16 @@ RANDOM_SEED = 42
 np.random.seed(RANDOM_SEED)
 
 
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen3-8B")
+
+def count_tokens(text: str) -> int:
+    if not text:
+        return 0
+    return len(tokenizer.encode(text, add_special_tokens=False))
+
+
 # ======================
 # build_formula — exact copy from main analysis script
 # ======================
@@ -169,7 +179,7 @@ def load_result_files(base_dirs):
                     "model":            model_type,
                     "prompt_type":      prompt_type,
                     "reasoning_level":  reasoning_level,
-                    "reasoning_tokens": approx_tokens(reasoning_text),
+                    "reasoning_tokens": count_tokens(reasoning_text),
                 })
     df = pd.DataFrame(rows)
     print(f"Result files: {len(df)} rows")
