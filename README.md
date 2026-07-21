@@ -25,12 +25,9 @@ BiasTrace/
 
 ## Annotated Dataset of Reasoning Traces
 
-[to be added soon]
+[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md.svg)](https://huggingface.co/datasets/varsharamineni/BiasTrace)
 
-
-## Ground Truth Dataset
-
-[to be added soon]
+[to be released publicly upon publication]
 
 
 ## Installation
