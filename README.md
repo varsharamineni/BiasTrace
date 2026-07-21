@@ -25,7 +25,7 @@ BiasTrace/
 
 ## Annotated Dataset of Reasoning Traces
 
-[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-md.svg)](https://huggingface.co/datasets/varsharamineni/BiasTrace)
+https://huggingface.co/datasets/XXX/BiasTrace
 
 [to be released publicly upon publication]
 
