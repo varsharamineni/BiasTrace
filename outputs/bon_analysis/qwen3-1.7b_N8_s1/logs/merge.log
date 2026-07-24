@@ -1,0 +1,24 @@
+
+===== 2026-07-24 15:42:50 =====
+/home/vramineni/miniconda3/envs/reasoning-bias-llm/bin/python bon_new/merge_and_compare.py --base_folders outputs/bon_analysis/qwen3-1.7b_N8_s1 --data_dir datasets/bbq_dataset_all_cat/data --meta_file datasets/bbq_additional_metadata.csv
+
+
+=== outputs/bon_analysis/qwen3-1.7b_N8_s1 ===
+Category: Physical_appearance
+  NOTE: 100 results vs 1576 dataset rows (--num_samples/--test_mode run); merging by prefix order.
+  merged -> outputs/bon_analysis/qwen3-1.7b_N8_s1/bbq_Physical_appearance_results_merged.json
+
+  [Physical_appearance]
+  method                   acc    bias  unbias  amb acc  amb bias  dis acc  dis bias  acc|pass bias|pass
+  first_sample          82.00%   9.00%  91.00%   78.00%    10.00%   86.00%     8.00%    84.21%     6.32%
+  majority_all          85.00%   9.00%  91.00%   86.00%    10.00%   84.00%     8.00%    88.42%     6.32%
+  filtered_majority     87.00%   7.00%  93.00%   92.00%     6.00%   82.00%     8.00%    90.53%     4.21%
+
+
+===== OVERALL (all categories) =====
+  method                   acc    bias  unbias  amb acc  amb bias  dis acc  dis bias  acc|pass bias|pass
+  first_sample          82.00%   9.00%  91.00%   78.00%    10.00%   86.00%     8.00%    84.21%     6.32%
+  majority_all          85.00%   9.00%  91.00%   86.00%    10.00%   84.00%     8.00%    88.42%     6.32%
+  filtered_majority     87.00%   7.00%  93.00%   92.00%     6.00%   82.00%     8.00%    90.53%     4.21%
+
+Comparison table saved to outputs/bon_analysis/qwen3-1.7b_N8_s1/bon_method_comparison.csv

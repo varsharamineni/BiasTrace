@@ -1,0 +1,44 @@
+{
+  "model": "Qwen/Qwen3-1.7B",
+  "seed": 1,
+  "best_of_n": 8,
+  "judge_model": "deepseek-chat",
+  "judge_prompt": "reasoning_eval/judge_prompts/new_prompt_bias_pathways_simple.txt",
+  "total_judge_api_calls": 800,
+  "categories": {
+    "Physical_appearance": {
+      "total_samples": 100,
+      "correct": 87,
+      "accuracy": 87.0,
+      "unambiguous_accuracy": 82.0,
+      "ambiguous_accuracy": 92.0,
+      "unambiguous_samples": 50,
+      "ambiguous_samples": 50,
+      "baseline_accuracy_first_sample": 82.0,
+      "majority_vote_accuracy_all": 85.0,
+      "oracle_accuracy_pass_at_n": 98.0,
+      "baseline_unambiguous_accuracy": 86.0,
+      "baseline_ambiguous_accuracy": 78.0,
+      "majority_all_unambiguous_accuracy": 84.0,
+      "majority_all_ambiguous_accuracy": 86.0,
+      "questions_with_a_passing_candidate": 95.0,
+      "avg_passing_candidates": 7.05,
+      "candidate_pass_rate": 88.125,
+      "fallback_used_pct": 5.0,
+      "accuracy_when_filtered": 90.52631578947368,
+      "majority_all_accuracy_when_filtered": 88.42105263157895
+    }
+  },
+  "overall": {
+    "total_samples": 100,
+    "correct": 87,
+    "accuracy_filtered_majority": 87.0,
+    "majority_vote_accuracy_all": 85.0,
+    "baseline_accuracy_first_sample": 82.0,
+    "oracle_accuracy_pass_at_n": 98.0,
+    "questions_with_a_passing_candidate": 95.0,
+    "candidate_pass_rate": 88.125,
+    "fallback_used_pct": 5.0,
+    "filtering_changed_answer": 4.0
+  }
+}

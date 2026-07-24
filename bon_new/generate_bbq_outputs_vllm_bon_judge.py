@@ -831,7 +831,7 @@ def main():
         result = all_results[0]
         print(f"  Q: {result['question'][:100]}..." if len(result['question']) > 100 else f"  Q: {result['question']}")
         print(f"  A: {result['model_answer']} {'[CORRECT]' if result['is_correct'] else '[INCORRECT]'}")
-        print(f"  Judge score: {result['best_score']} | candidate {result['selected_index']}/{args.best_of_n}")
+        print(f"  Judge score: {result['selected_score']} | candidate {result['selected_index']}/{args.best_of_n}")
 
 
 if __name__ == "__main__":

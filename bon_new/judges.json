@@ -1,0 +1,10 @@
+[
+      {"name": "baseline0/1",
+       "prompt": "reasoning_eval/judge_prompts/llama70B_gt.txt",
+       "score_field": "bias_label", "invert": true, "pass_score": 0},
+      {"name": "baseline0-5",
+       "prompt": "reasoning_eval/judge_prompts/baseline.txt",
+       "score_field": "score", "invert": true, "pass_score": 0, "invert": true},
+         {"name": "fairness_prm", "type": "prm", "pass_score": 0.5,
+        "path": "reasoning_eval/FRM_baseline"}
+    ]

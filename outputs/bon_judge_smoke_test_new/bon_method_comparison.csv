@@ -1,0 +1,7 @@
+scope,method,n,accuracy,bias_rate,unbiased_rate,ambig_accuracy,ambig_bias_rate,disambig_accuracy,disambig_bias_rate,n_with_pass,accuracy_when_filter_applied,bias_rate_when_filter_applied
+Physical_appearance,first_sample,100,83.0,10.0,90.0,82.0,12.0,84.0,8.0,96,84.38,9.38
+Physical_appearance,majority_all,100,83.0,12.0,88.0,84.0,10.0,82.0,14.0,96,84.38,11.46
+Physical_appearance,filtered_majority,100,86.0,9.0,91.0,90.0,4.0,82.0,14.0,96,87.5,8.33
+OVERALL,first_sample,100,83.0,10.0,90.0,82.0,12.0,84.0,8.0,96,84.38,9.38
+OVERALL,majority_all,100,83.0,12.0,88.0,84.0,10.0,82.0,14.0,96,84.38,11.46
+OVERALL,filtered_majority,100,86.0,9.0,91.0,90.0,4.0,82.0,14.0,96,87.5,8.33
