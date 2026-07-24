@@ -44,6 +44,7 @@ source $(poetry env info --path)/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
 ## Download BBQ Data 
 
 Download all BBQ question categories from Hugging Face:
@@ -108,7 +109,7 @@ python scripts/create_bbq_metrics_table.py
 
 ---
 
-## Annotate Reasoning Traces using LLM-as-a-Judge
+## Annotate Reasoning Traces with BiasTrace Behaviours using LLM-as-a-Judge
 
 The LLM judge evaluates the quality of model reasoning traces. Use the merged output files (`bbq_{category}_results_merged.json`) as input.
 
@@ -123,7 +124,7 @@ export LLM_API_KEY=" "
 
 ### Validate on Test Set
 
-**Annotate:**
+**Annotate Reasoning Behaviours:**
 ```bash
 python reasoning_eval/llm_judge_script_vllm.py \
   --model deepseek-chat \
@@ -159,12 +160,18 @@ done
 
 ---
 
-## Prompts
+## Improved Bias Evaluation on Downstream Task Using BIASTRACE Behaviours 
+
+### Prompts
 
 | Prompt File | Description |
 |---|---|
 | `baseline.txt` | Baseline rubric (0–5 score) |
 | `llama70b_gt.txt` | Baseline binary rubric (0/1 score) |
-| `new_prompt_edit2.txt` | **Final prompt used in paper** |
+| `new_prompt_edit2.txt` | **Final prompt used in paper which incorporates BiasTrace behaviours** |
+
+FRM baseline `reasoning_eval/FRM_baseline`
+
+
 
 ---
