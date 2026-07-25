@@ -3,6 +3,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import matplotlib as mpl
+
+mpl.rcParams["pdf.fonttype"] = 42
+mpl.rcParams["ps.fonttype"] = 42
+mpl.rcParams["font.family"] = "DejaVu Sans"
+
 
 # ======================
 # Config (same as main script)
@@ -164,7 +170,7 @@ df_plot = pd.concat([behaviours_df, conditions_df], ignore_index=True)
 # Plot (horizontal, ordered)
 # ======================
 
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(9, 5))
 
 bars = plt.barh(
     df_plot["label"], df_plot["coef"],
@@ -191,9 +197,9 @@ for bar, (_, row) in zip(bars, df_plot.iterrows()):
 
 # Styling
 plt.axvline(0, color="black", linewidth=0.8)
-plt.xlabel("Odds Ratio", size=14)
-plt.xticks(fontsize=14)
-plt.yticks(fontsize=14)
+plt.xlabel("Odds Ratio", size=14, weight="medium")
+plt.xticks(fontsize=14, weight="medium")
+plt.yticks(fontsize=14, weight="medium")
 #plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
 
 # Divider between behaviours and conditions
@@ -211,3 +217,8 @@ plt.savefig(out_pdf, bbox_inches="tight")
 plt.savefig(out_png, dpi=300, bbox_inches="tight")
 
 print(f"Saved:\n  {out_pdf}\n  {out_png}")
+
+
+
+print(mpl.rcParams["pdf.fonttype"])
+print(mpl.rcParams["ps.fonttype"])
