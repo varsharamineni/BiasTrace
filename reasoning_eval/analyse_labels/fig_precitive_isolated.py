@@ -191,7 +191,9 @@ for bar, (_, row) in zip(bars, df_plot.iterrows()):
 
 # Styling
 plt.axvline(0, color="black", linewidth=0.8)
-plt.xlabel("Odds Ratio")
+plt.xlabel("Odds Ratio", size=12)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
 #plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
 
 # Divider between behaviours and conditions
@@ -202,8 +204,8 @@ sns.despine(left=True, bottom=False)
 plt.tight_layout()
 
 # Save
-out_pdf = OUT_DIR / "fig_isolated_effects_horizontal_ordered.pdf"
-out_png = OUT_DIR / "fig_isolated_effects_horizontal_ordered.png"
+out_pdf = OUT_DIR / "fig_isolated_effects_horizontal_ordered_aaai.pdf"
+out_png = OUT_DIR / "fig_isolated_effects_horizontal_ordered_aaai.png"
 
 plt.savefig(out_pdf, bbox_inches="tight")
 plt.savefig(out_png, dpi=300, bbox_inches="tight")
