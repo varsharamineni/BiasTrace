@@ -164,7 +164,7 @@ df_plot = pd.concat([behaviours_df, conditions_df], ignore_index=True)
 # Plot (horizontal, ordered)
 # ======================
 
-plt.figure(figsize=(8, 4))
+plt.figure(figsize=(8, 5))
 
 bars = plt.barh(
     df_plot["label"], df_plot["coef"],
@@ -191,9 +191,9 @@ for bar, (_, row) in zip(bars, df_plot.iterrows()):
 
 # Styling
 plt.axvline(0, color="black", linewidth=0.8)
-plt.xlabel("Odds Ratio", size=12)
-plt.xticks(fontsize=12)
-plt.yticks(fontsize=12)
+plt.xlabel("Odds Ratio", size=14)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 #plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
 
 # Divider between behaviours and conditions
