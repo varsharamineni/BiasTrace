@@ -21,13 +21,11 @@
     "tensor_parallel_size": 1,
     "gpu_memory_utilization": 0.9,
     "judge_prompt": "reasoning_eval/judge_prompts/new_prompt_bias_pathways_simple.txt",
-    "judge_model": "deepseek-chat",
+    "judge_model": "deepseek-v4-flash",
     "score_field": "bias_label",
     "invert_score": true,
     "pass_score": 0,
-    "quiet": true,
-    "num_samples": 100
-  },
+    "num_samples": 100  },
   "judges_config": "bon_new/judges.json",
   "judge_extra_args": [],
   "runs": [

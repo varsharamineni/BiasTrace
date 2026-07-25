@@ -381,6 +381,6 @@
       "final_answer_agreement_pct": 95.0
     }
   },
-  "judge_api_calls_this_run": 1600,
-  "prm_traces_scored_this_run": 800
+  "judge_api_calls_this_run": 0,
+  "prm_traces_scored_this_run": 0
 }
