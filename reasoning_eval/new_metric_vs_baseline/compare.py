@@ -365,10 +365,14 @@ if __name__ == "__main__":
     # ---------------------------
     # 4. Plot heatmap
     # ---------------------------
+    import matplotlib as mpl
+    mpl.rcParams["pdf.fonttype"] = 42
+    mpl.rcParams["ps.fonttype"] = 42
+
     sns.reset_defaults()
     plt.rcParams.update(plt.rcParamsDefault)
 
-    plt.figure(figsize=(10, max(5, len(corr_matrix)*0.4)))
+    plt.figure(figsize=(10, 6))
     #sns.set_style("whitegrid", font_scale=0.9)
     sns.set()
     sns.set_theme(style="white")
@@ -382,19 +386,15 @@ if __name__ == "__main__":
         cbar=False,
         linewidths=0.5,
         #linecolor="white",
-        annot_kws={"size": 9}
+        annot_kws={"size": 16}
     )
 
     #plt.title("Correlation of Reasoning Evaluation with Biased Outcomes on BBQ Dataset", fontsize=14, color="black")
-    plt.xlabel("Reasoning Bias Score", fontsize=12, color="black")
-    plt.ylabel("Model | Prompt | Reasoning Level", fontsize=12, color="black")
-    plt.xticks(rotation=0, ha="center")
-    plt.yticks(rotation=0)
+    plt.xlabel("Reasoning Bias Score", fontsize=16, color="black", fontweight="medium")
+    plt.ylabel("Model | Prompt | Reasoning Level", fontsize=16, color="black", fontweight="medium")
+    plt.xticks(rotation=20, ha="right", fontsize=16, fontweight="medium")
+    plt.yticks(rotation=0, fontsize=16, fontweight="medium")
     plt.tight_layout()
-
-    os.makedirs("plots", exist_ok=True)
-    plt.savefig("plots/corr_incorrect_stereotype_vertical.pdf", format="pdf", bbox_inches='tight')
-    plt.show()
 
     # ---------------------------
     # 5. Save as PDF
