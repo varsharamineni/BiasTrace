@@ -149,6 +149,15 @@ def extract_reasoning_and_answer(text: str, answer_options: List[str], item_id: 
             thinking = before if before else after
             thinking_match = orphan
 
+    # Missing </think> entirely (the case the old correction script fixed):
+    # take everything between <think> and <answer> (or end) as the reasoning.
+    if not thinking_match:
+        open_think = re.search(r'<think>(.*?)(?:<answer>|$)', text,
+                               re.DOTALL | re.IGNORECASE)
+        if open_think and open_think.group(1).strip():
+            thinking = open_think.group(1).strip()
+            thinking_match = open_think
+
     if not thinking_match and not quiet:
         print(f"WARNING: No <think> tags found" + (f" for item {item_id}" if item_id else ""))
 
@@ -160,6 +169,14 @@ def extract_reasoning_and_answer(text: str, answer_options: List[str], item_id: 
         if open_answer:
             extracted_answer = open_answer.group(1).strip()
             answer_match = open_answer
+
+    # Letter right after <answer> (correction-script rule, restricted to the
+    # actual option letters so prose like "The answer..." can't yield 'T')
+    if not extracted_answer:
+        letter = re.search(r'<answer>\W*([ABab])\b', text, re.IGNORECASE)
+        if letter:
+            extracted_answer = letter.group(1).upper()
+            answer_match = letter
 
     if not answer_match and not quiet:
         print(f"WARNING: No <answer> tags found" + (f" for item {item_id}" if item_id else ""))
@@ -213,6 +230,14 @@ def normalize_answer(answer: str, answer_options: List[str], full_text: str) -> 
     for option in answer_options:
         if answer_lower in option.lower() or option.lower() in answer_lower:
             return option
+
+    # Prose inside the answer tag, e.g. "The answer is B" (case-sensitive so
+    # the article "a" cannot false-match; option text above takes precedence)
+    m = re.search(r'\b([AB])\b', answer)
+    if m:
+        idx = ord(m.group(1)) - ord('A')
+        if idx < len(answer_options):
+            return answer_options[idx]
     if "high" in answer_lower:
         return answer_options[0]
     if "low" in answer_lower:

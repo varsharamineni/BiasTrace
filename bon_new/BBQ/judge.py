@@ -1,39 +1,39 @@
 #!/usr/bin/env python
-"""Stage 2/3: Score saved COMPAS best-of-N candidates with one or more judges.
+"""Stage 2/3: Score saved BBQ best-of-N candidates with one or more judges.
 
-Scoring ONLY — no selection, no metrics. Takes the compas_results.json from
-generate_compas_bon.py and writes each judge's verdict into every candidate
+Scoring ONLY — no selection, no metrics. Takes the bbq_*_results.json files
+from generate_bbq_bon.py and writes each judge's verdict into every candidate
 under `judge_scores[<judge_name>]` = {score, raw_score, reply, passed}.
-Selection and the accuracy/EO/EOpp comparison happen afterwards in
-compare_compas_methods.py, so judging can be re-run, extended with new
-judges, or repeated after regeneration without touching the other stages.
+Selection and the accuracy/bias comparison happen afterwards in
+compare_bbq_methods.py, so judging can be re-run, extended with new judges,
+or repeated after regeneration without touching the other stages.
 
 The generation-time judge no longer exists — the "original" judge is just a
 normal spec here (call it BiasTrace in judges.json). Files produced by the
-old joint script are still supported: any legacy per-candidate score/passed
+old joint script are still supported: legacy per-candidate score/passed
 fields are mirrored into judge_scores["BiasTrace"] automatically unless a
 judge of that name is being (re)scored.
 
 Judge specs (inline --judge, repeatable, and/or --judges_config JSON list):
     name (required), type ("llm" default | "prm"),
     prompt (required for llm), score_field (default "score"),
-    invert (default false), pass_score (required — stored in the file's
-    metadata so stage 3 knows each judge's threshold),
+    invert (default false), pass_score (required — stored in each file's
+    metadata so stage 3 knows the threshold),
     judge_on ("reasoning"|"full", default "reasoning"),
     model / temperature / top_p / max_tokens (llm),
     aggregate (mean|min|max|last) / module / class / path (prm).
 
 PRM judges score locally and sequentially (question format
 "{context} {question}", exactly like FRM_baseline/run_eval.py); LLM judges
-run concurrently. Scoring is resumable: already-scored candidates are
-skipped unless --overwrite.
+run concurrently. Resumable: already-scored candidates are skipped unless
+--overwrite.
 
 Judge credentials (LLM judges only):
     export LLM_BASE_URL="https://api.deepseek.com/v1"
     export LLM_API_KEY="..."
 
 Example:
-    python judge_compas_candidates.py --input outputs/compas_bon_run \
+    python judge_bbq_candidates.py --input outputs/bbq_bon_run \
         --judges_config bon_new/judges.json
 """
 import argparse
@@ -57,20 +57,22 @@ from openai import OpenAI
 
 LEGACY_JUDGE_NAME = "BiasTrace"   # name given to old joint-script scores
 
+FILE_RE = re.compile(r"^bbq_(.+?)_results\.json$")
+
 
 # --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
 def parse_args():
     p = argparse.ArgumentParser(
-        description="Score saved COMPAS best-of-N candidates with LLM/PRM judges "
-                    "(scoring only; run compare_compas_methods.py afterwards)"
+        description="Score saved BBQ best-of-N candidates with LLM/PRM judges "
+                    "(scoring only; run compare_bbq_methods.py afterwards)"
     )
     p.add_argument("--input", type=str, required=True,
-                   help="A compas_results.json file OR a directory containing one")
+                   help="A bbq_*_results.json file OR a directory containing them")
     p.add_argument("--output_dir", type=str, default=None,
-                   help="Where to write the annotated file (default: annotate "
-                        "in place, keeping a .bak)")
+                   help="Where to write annotated files (default: annotate in "
+                        "place, keeping a .bak of each file)")
     p.add_argument("--judge", action="append", default=[],
                    help="Inline judge spec 'name=...,prompt=...,score_field=...,"
                         "invert=true,pass_score=0[,judge_on=full][,model=...]'. "
@@ -82,7 +84,7 @@ def parse_args():
                         "for a judge name")
     # Global judge client defaults (per-judge specs can override most of these)
     p.add_argument("--judge_model", type=str, default="deepseek-v4-flash")
-    p.add_argument("--judge_temperature", type=float, default=1.0)
+    p.add_argument("--judge_temperature", type=float, default=0.0)
     p.add_argument("--judge_top_p", type=float, default=0.9)
     p.add_argument("--judge_max_tokens", type=int, default=1024)
     p.add_argument("--judge_max_workers", type=int, default=8)
@@ -91,7 +93,7 @@ def parse_args():
 
 
 # --------------------------------------------------------------------------- #
-# Judge specs
+# Judge specs (identical to the COMPAS stage-2 script)
 # --------------------------------------------------------------------------- #
 @dataclass
 class JudgeSpec:
@@ -217,7 +219,7 @@ def parse_judge_specs(args) -> List[JudgeSpec]:
 
 
 # --------------------------------------------------------------------------- #
-# Scorers (identical behaviour to the previous joint script)
+# Scorers (identical behaviour to the joint script / COMPAS stage 2)
 # --------------------------------------------------------------------------- #
 class SafeDict(dict):
     def __missing__(self, key):
@@ -337,16 +339,21 @@ class PRMScorer:
 # --------------------------------------------------------------------------- #
 # IO helpers
 # --------------------------------------------------------------------------- #
-def find_result_file(input_path: str) -> str:
+def find_result_files(input_path: str) -> List[Tuple[str, str]]:
+    """Returns [(category, path)] for bbq_*_results.json files."""
     if os.path.isfile(input_path):
-        return input_path
+        m = FILE_RE.match(os.path.basename(input_path))
+        return [(m.group(1) if m else "unknown", input_path)]
     if not os.path.isdir(input_path):
         raise SystemExit(f"--input path does not exist: {input_path}")
-    for name in ("compas_results.json", "compas_results_corrected.json"):
-        p = os.path.join(input_path, name)
-        if os.path.isfile(p):
-            return p
-    raise SystemExit(f"No compas_results.json found in {input_path}")
+    out = []
+    for f in sorted(os.listdir(input_path)):
+        m = FILE_RE.match(f)
+        if m and m.group(1) != "all_categories":
+            out.append((m.group(1), os.path.join(input_path, f)))
+    if not out:
+        raise SystemExit(f"No bbq_*_results.json files found in {input_path}")
+    return out
 
 
 def build_fill(row: Dict[str, Any], cand: Dict[str, Any], judge_on: str) -> dict:
@@ -377,127 +384,140 @@ def main():
               if any(s.type == "llm" for s in specs) else None)
     prm = PRMScorer()
 
-    path = find_result_file(args.input)
-    print(f"Result file: {path}")
+    files = find_result_files(args.input)
+    print(f"Result files: {len(files)}")
+    for cat, f in files:
+        print(f"  - [{cat}] {f}")
     print(f"Judges to run: {', '.join(f'{s.name}({s.type})' for s in specs)}")
 
-    with open(path) as f:
-        payload = json.load(f)
-    rows = payload["results"] if isinstance(payload, dict) else payload
-
-    missing = [i for i, r in enumerate(rows) if not r.get("candidates")]
-    if missing:
-        raise SystemExit(
-            f"{path}: {len(missing)} rows have no 'candidates' — regenerate with "
-            f"generate_compas_bon.py (which always stores them)."
-        )
-
-    # Backward compat: mirror old joint-script generation-time scores, unless a
-    # judge of that name is being explicitly (re)scored now.
-    spec_names = {s.name for s in specs}
-    if LEGACY_JUDGE_NAME not in spec_names:
-        mirrored = 0
-        for r in rows:
-            for cand in r["candidates"]:
-                if cand.get("score") is None and not cand.get("judge_reply"):
-                    continue
-                js = cand.setdefault("judge_scores", {})
-                if LEGACY_JUDGE_NAME not in js:
-                    js[LEGACY_JUDGE_NAME] = {
-                        "score": cand.get("score"),
-                        "raw_score": None,
-                        "reply": cand.get("judge_reply", ""),
-                        "passed": bool(cand.get("passed", False)),
-                    }
-                    mirrored += 1
-        if mirrored:
-            print(f"Mirrored legacy generation-time scores into "
-                  f"judge_scores['{LEGACY_JUDGE_NAME}'] for {mirrored} candidates")
-
-    # ---- worklist ----------------------------------------------------------- #
-    work = []
-    for r in rows:
-        for c in r["candidates"]:
-            for spec in specs:
-                existing = c.get("judge_scores", {}).get(spec.name, {})
-                if existing.get("score") is not None and not args.overwrite:
-                    continue
-                work.append((r, c, spec))
-
-    label = os.path.basename(path)
-    llm_work = [(r, c, s) for r, c, s in work if s.type == "llm"]
-    prm_work = [(r, c, s) for r, c, s in work if s.type == "prm"]
-
-    if llm_work:
-        with ThreadPoolExecutor(max_workers=args.judge_max_workers) as pool, \
-             tqdm(total=len(llm_work), desc=f"  {label} [llm]", unit="calls") as pbar:
-            futures = {
-                pool.submit(client.score_one, spec, build_fill(r, c, spec.judge_on)):
-                (c, spec) for r, c, spec in llm_work
-            }
-            for fut in as_completed(futures):
-                c, spec = futures[fut]
-                c.setdefault("judge_scores", {})[spec.name] = fut.result()
-                pbar.update(1)
-    if prm_work:
-        for r, c, spec in tqdm(prm_work, desc=f"  {label} [prm]", unit="traces"):
-            question = f"{r.get('context', '')} {r.get('question', '')}".strip()
-            trace = (c.get("reasoning") if spec.judge_on == "reasoning"
-                     else c.get("text")) or c.get("text", "")
-            c.setdefault("judge_scores", {})[spec.name] = \
-                prm.score_one(spec, question, trace)
-    if not work:
-        print(f"  {label}: all candidates already scored for these judges "
-              f"(use --overwrite to redo)")
-
-    # ---- record judge registry in metadata (stage 3 reads pass_score here) -- #
-    if isinstance(payload, dict):
-        registry = payload.setdefault("metadata", {}).setdefault("judges", {})
-        for s in specs:
-            registry[s.name] = {
-                "type": s.type,
-                "prompt": s.prompt_path or None,
-                "score_field": s.score_field if s.type == "llm" else None,
-                "invert": s.invert,
-                "pass_score": s.pass_score,
-                "judge_on": s.judge_on,
-                "model": (s.model if s.type == "llm"
-                          else f"{s.prm_module}.{s.prm_class}"),
-                "aggregate": s.aggregate if s.type == "prm" else None,
-                "sigmoid": s.sigmoid if s.type == "prm" else None,
-            }
-        registry.setdefault(LEGACY_JUDGE_NAME, {"type": "legacy", "pass_score": 0.0})
-
-    # ---- write -------------------------------------------------------------- #
     if args.output_dir:
         os.makedirs(args.output_dir, exist_ok=True)
-        out_path = os.path.join(args.output_dir, os.path.basename(path))
-    else:
-        out_path = path
-        bak = path + ".bak"
-        if not os.path.exists(bak):
-            shutil.copy2(path, bak)
-    with open(out_path, "w") as f:
-        json.dump(payload, f, indent=2)
 
-    # ---- scoring diagnostics ------------------------------------------------ #
-    total = sum(len(r["candidates"]) for r in rows)
-    print(f"\nScoring summary ({total} candidates):")
-    all_names = sorted({n for r in rows for c in r["candidates"]
-                        for n in c.get("judge_scores", {})})
-    for name in all_names:
-        scored = sum(1 for r in rows for c in r["candidates"]
-                     if c.get("judge_scores", {}).get(name, {}).get("score") is not None)
-        passed = sum(1 for r in rows for c in r["candidates"]
-                     if c.get("judge_scores", {}).get(name, {}).get("passed"))
-        print(f"  {name:<24} scored {scored}/{total} "
-              f"({100.0 * scored / total:.1f}%) | passed {passed} "
-              f"({100.0 * passed / total:.1f}%)")
+    spec_names = {s.name for s in specs}
+    grand_total = 0
+    grand_counts: Dict[str, Dict[str, int]] = {}
+
+    for category, path in files:
+        with open(path) as f:
+            payload = json.load(f)
+        rows = payload["results"] if isinstance(payload, dict) else payload
+
+        missing = [i for i, r in enumerate(rows) if not r.get("candidates")]
+        if missing:
+            raise SystemExit(
+                f"{path}: {len(missing)} rows have no 'candidates' — regenerate "
+                f"with generate_bbq_bon.py (which always stores them)."
+            )
+
+        # Backward compat: mirror old joint-script generation-time scores
+        if LEGACY_JUDGE_NAME not in spec_names:
+            mirrored = 0
+            for r in rows:
+                for cand in r["candidates"]:
+                    if cand.get("score") is None and not cand.get("judge_reply"):
+                        continue
+                    js = cand.setdefault("judge_scores", {})
+                    if LEGACY_JUDGE_NAME not in js:
+                        js[LEGACY_JUDGE_NAME] = {
+                            "score": cand.get("score"),
+                            "raw_score": None,
+                            "reply": cand.get("judge_reply", ""),
+                            "passed": bool(cand.get("passed", False)),
+                        }
+                        mirrored += 1
+            if mirrored:
+                print(f"  [{category}] mirrored legacy generation-time scores "
+                      f"into judge_scores['{LEGACY_JUDGE_NAME}'] "
+                      f"for {mirrored} candidates")
+
+        # ---- worklist ------------------------------------------------------- #
+        work = []
+        for r in rows:
+            for c in r["candidates"]:
+                for spec in specs:
+                    existing = c.get("judge_scores", {}).get(spec.name, {})
+                    if existing.get("score") is not None and not args.overwrite:
+                        continue
+                    work.append((r, c, spec))
+
+        label = os.path.basename(path)
+        llm_work = [(r, c, s) for r, c, s in work if s.type == "llm"]
+        prm_work = [(r, c, s) for r, c, s in work if s.type == "prm"]
+
+        if llm_work:
+            with ThreadPoolExecutor(max_workers=args.judge_max_workers) as pool, \
+                 tqdm(total=len(llm_work), desc=f"  {label} [llm]", unit="calls") as pbar:
+                futures = {
+                    pool.submit(client.score_one, spec, build_fill(r, c, spec.judge_on)):
+                    (c, spec) for r, c, spec in llm_work
+                }
+                for fut in as_completed(futures):
+                    c, spec = futures[fut]
+                    c.setdefault("judge_scores", {})[spec.name] = fut.result()
+                    pbar.update(1)
+        if prm_work:
+            for r, c, spec in tqdm(prm_work, desc=f"  {label} [prm]", unit="traces"):
+                question = f"{r.get('context', '')} {r.get('question', '')}".strip()
+                trace = (c.get("reasoning") if spec.judge_on == "reasoning"
+                         else c.get("text")) or c.get("text", "")
+                c.setdefault("judge_scores", {})[spec.name] = \
+                    prm.score_one(spec, question, trace)
+        if not work:
+            print(f"  {label}: all candidates already scored for these judges "
+                  f"(use --overwrite to redo)")
+
+        # ---- judge registry in metadata (stage 3 reads pass_score here) ----- #
+        if isinstance(payload, dict):
+            registry = payload.setdefault("metadata", {}).setdefault("judges", {})
+            for s in specs:
+                registry[s.name] = {
+                    "type": s.type,
+                    "prompt": s.prompt_path or None,
+                    "score_field": s.score_field if s.type == "llm" else None,
+                    "invert": s.invert,
+                    "pass_score": s.pass_score,
+                    "judge_on": s.judge_on,
+                    "model": (s.model if s.type == "llm"
+                              else f"{s.prm_module}.{s.prm_class}"),
+                    "aggregate": s.aggregate if s.type == "prm" else None,
+                    "sigmoid": s.sigmoid if s.type == "prm" else None,
+                }
+            registry.setdefault(LEGACY_JUDGE_NAME,
+                                {"type": "legacy", "pass_score": 0.0})
+
+        # ---- write ----------------------------------------------------------- #
+        if args.output_dir:
+            out_path = os.path.join(args.output_dir, os.path.basename(path))
+        else:
+            out_path = path
+            bak = path + ".bak"
+            if not os.path.exists(bak):
+                shutil.copy2(path, bak)
+        with open(out_path, "w") as f:
+            json.dump(payload, f, indent=2)
+
+        # per-file diagnostics into the grand tally
+        for r in rows:
+            for c in r["candidates"]:
+                grand_total += 1
+                for name, entry in c.get("judge_scores", {}).items():
+                    g = grand_counts.setdefault(name, {"scored": 0, "passed": 0})
+                    if entry.get("score") is not None:
+                        g["scored"] += 1
+                    if entry.get("passed"):
+                        g["passed"] += 1
+
+    print(f"\nScoring summary ({grand_total} candidates across {len(files)} files):")
+    for name in sorted(grand_counts):
+        g = grand_counts[name]
+        print(f"  {name:<24} scored {g['scored']}/{grand_total} "
+              f"({100.0 * g['scored'] / grand_total:.1f}%) | passed {g['passed']} "
+              f"({100.0 * g['passed'] / grand_total:.1f}%)")
 
     print(f"\nJudge API calls this run: {client.n_calls if client else 0}"
           + (f" | PRM traces scored: {prm.n_scored}" if prm.n_scored else ""))
-    print(f"Annotated file: {out_path}")
-    print(f"Next: compare_compas_methods.py --input {out_path}")
+    print(f"Next: compare_bbq_methods.py --input "
+          f"{args.output_dir or args.input}")
 
 
 if __name__ == "__main__":

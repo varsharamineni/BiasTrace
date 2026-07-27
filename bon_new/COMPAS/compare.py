@@ -74,6 +74,16 @@ def parse_args():
     p.add_argument("--no_pass_fallback", choices=["majority_all", "first_sample"],
                    default="majority_all",
                    help="Fallback when no candidate passes a judge")
+    p.add_argument("--weighted_temperature", "--weighted_tau",
+                   dest="weighted_temperature", type=float, nargs="+", default=[],
+                   help="Enable softmax-weighted voting over ALL candidates, "
+                        "using each judge's stored score as the reward: "
+                        "w_k = exp(r_k/T) / Σ_j exp(r_j/T), "
+                        "answer = argmax_a Σ_{k:a_k=a} w_k. One extra method "
+                        "per (judge, temperature T). T→∞ ≈ self-consistency "
+                        "majority (uniform weights); T→0 ≈ argmax-score "
+                        "best-of-N (strict optimization). Repeatable values, "
+                        "e.g. --weighted_temperature 0.05 0.5 1.0")
     return p.parse_args()
 
 
@@ -154,6 +164,67 @@ def select_for_judge(row: Dict[str, Any], judge_name: str,
     }
 
 
+def weighted_vote_for_judge(row: Dict[str, Any], judge_name: str,
+                            temperature: float,
+                            no_pass_fallback: str) -> Dict[str, Any]:
+    """Softmax-weighted vote over ALL candidates using the judge's stored
+    scores as rewards:  w_k = exp(r_k/T) / Σ_j exp(r_j/T),
+    answer = argmax_a Σ_{k: a_k = a} w_k.
+    Scores are the (possibly inverted) judge scores, so higher = better.
+    The temperature T balances self-consistency (uniform weights as T→∞)
+    against strict score optimization (argmax as T→0).
+    Candidates without a score or without a parseable answer get weight 0;
+    if none remain, the usual no-pass fallback applies."""
+    import math
+    cands = row["candidates"]
+    correct = row.get("correct_answer")
+    maj_all, _, _, _ = majority(cands)
+
+    valid = [(c, c.get("judge_scores", {}).get(judge_name, {}).get("score"))
+             for c in cands]
+    valid = [(c, s) for c, s in valid
+             if s is not None and c.get("normalized_answer")]
+
+    fallback = ""
+    weights_by_answer: Dict[str, float] = {}
+    if valid:
+        mx = max(s for _, s in valid)                 # softmax stability shift
+        exps = [math.exp((s - mx) / temperature) for _, s in valid]
+        z = sum(exps)
+        first_seen: Dict[str, int] = {}
+        for i, ((c, _), e) in enumerate(zip(valid, exps)):
+            a = c["normalized_answer"]
+            weights_by_answer[a] = weights_by_answer.get(a, 0.0) + e / z
+            first_seen.setdefault(a, i)
+        # deterministic argmax: ties -> earliest-seen answer (like majority())
+        answer = min(weights_by_answer,
+                     key=lambda a: (-weights_by_answer[a], first_seen[a]))
+    elif no_pass_fallback == "majority_all" and maj_all:
+        answer, fallback = maj_all, "majority_all"
+    else:
+        answer, fallback = cands[0].get("normalized_answer", ""), "first_sample"
+
+    return {
+        "answer": answer,
+        "pred": 1 if answer == HIGH else 0,   # Unknown counts as Low
+        "is_correct": (bool(answer) and answer == correct) if correct else None,
+        "temperature": temperature,
+        "winning_weight": (round(weights_by_answer[answer], 6)
+                           if weights_by_answer else None),
+        "answer_distribution": {a: round(w, 6)
+                                for a, w in weights_by_answer.items()},
+        # keys summarize_judge expects; for weighted voting "passed" means
+        # "carried weight" (i.e. was scored and parseable)
+        "num_passed": len(valid),
+        "num_judged": len(valid),
+        "num_unparseable": len(cands) - len(valid),
+        "fallback_used": fallback,
+        "votes": None,
+        "margin": None,
+        "changed_vs_majority_all": bool(answer) and answer != maj_all,
+    }
+
+
 # --------------------------------------------------------------------------- #
 # Fairness stats (same definitions as the analysis pipeline, in %)
 # --------------------------------------------------------------------------- #
@@ -225,6 +296,21 @@ def summarize_judge(rows: List[Dict[str, Any]], judge_name: str, best_of_n: int
         "unparseable_candidate_pct": pct(
             sum(s["num_unparseable"] for s in sels), total_cands),
     }
+
+
+def score_spread(rows, judge_name):
+    """Mean within-question std of the judge's chain scores — how much signal
+    the weighted vote / threshold has to act on. None if <2 scored chains
+    everywhere or judge absent."""
+    import statistics
+    stds = []
+    for r in rows:
+        ss = [c.get("judge_scores", {}).get(judge_name, {}).get("score")
+              for c in r.get("candidates", [])]
+        ss = [s for s in ss if s is not None]
+        if len(ss) >= 2:
+            stds.append(statistics.pstdev(ss))
+    return (sum(stds) / len(stds)) if stds else None
 
 
 def summarize_baseline(rows: List[Dict[str, Any]], name: str) -> Dict[str, Any]:
@@ -305,6 +391,15 @@ def main():
         raise SystemExit(f"--pass_score for unknown judges: {bad_overrides} "
                          f"(available: {judge_names})")
 
+    # ---- softmax-weighted voting methods: one per (judge, tau) -------------- #
+    for t in args.weighted_temperature:
+        if t <= 0:
+            raise SystemExit(f"--weighted_temperature values must be > 0 (got {t})")
+    weighted_methods = [(f"{name}@T={t:g}", name, t)
+                        for name in judge_names for t in args.weighted_temperature]
+    # every selection method that lives in judge_selections
+    selection_methods = judge_names + [m for m, _, _ in weighted_methods]
+
     have_labels = any(r.get("recid_label") is not None for r in rows)
     if not have_labels:
         print("WARNING: no recid labels in results — accuracy / EOpp / EO will "
@@ -312,7 +407,8 @@ def main():
 
     print(f"Result file: {path}")
     print(f"Judges: {', '.join(judge_names)}"
-          + (f" | threshold overrides: {overrides}" if overrides else ""))
+          + (f" | threshold overrides: {overrides}" if overrides else "")
+          + (f" | weighted-vote temperatures: {args.weighted_temperature}" if weighted_methods else ""))
 
     # ---- selection per judge + per-method row enrichment -------------------- #
     for r in rows:
@@ -321,12 +417,17 @@ def main():
                                    overrides.get(name))
             for name in judge_names
         }
+        for mname, jname, t in weighted_methods:
+            r["judge_selections"][mname] = weighted_vote_for_judge(
+                r, jname, t, args.no_pass_fallback)
         label = r.get("recid_label")
         for method, field in BASELINES.items():
             ans = r.get(field, "") or ""
             r[f"{method}_pred"] = 1 if ans == HIGH else 0
         for name in judge_names:
             r[f"filtered_{name}_pred"] = r["judge_selections"][name]["pred"]
+        for mname, _, _ in weighted_methods:
+            r[f"weighted_{mname}_pred"] = r["judge_selections"][mname]["pred"]
 
         def err(pred):
             if label is None:
@@ -339,6 +440,8 @@ def main():
             r[f"{method}_error_type"] = err(r[f"{method}_pred"])
         for name in judge_names:
             r[f"filtered_{name}_error_type"] = err(r[f"filtered_{name}_pred"])
+        for mname, _, _ in weighted_methods:
+            r[f"weighted_{mname}_error_type"] = err(r[f"weighted_{mname}_pred"])
 
     # ---- summaries ---------------------------------------------------------- #
     n = len(rows)
@@ -347,8 +450,19 @@ def main():
         "accuracy": pct(sum(1 for r in rows if r.get("oracle_is_correct")), n)
         if have_labels else None
     }
-    per_judge = {name: summarize_judge(rows, name, best_of_n) for name in judge_names}
-    agreement = judge_agreement(rows, judge_names)
+    per_judge = {name: summarize_judge(rows, name, best_of_n)
+                 for name in selection_methods}
+    for name in judge_names:      # base judges only (weighted variants share scores)
+        per_judge[name]["mean_within_question_score_std"] = score_spread(rows, name)
+    agreement = judge_agreement(rows, selection_methods)
+
+    judges_registry = {name: {**registry.get(name, {}),
+                              **({"pass_score_override": overrides[name]}
+                                 if name in overrides else {})}
+                       for name in judge_names}
+    for mname, jname, t in weighted_methods:
+        judges_registry[mname] = {"method": "softmax_weighted_vote",
+                                  "base_judge": jname, "temperature": t}
 
     stats = {
         "input": path,
@@ -356,10 +470,8 @@ def main():
         "best_of_n": best_of_n,
         "no_pass_fallback": args.no_pass_fallback,
         "labels_available": have_labels,
-        "judges": {name: {**registry.get(name, {}),
-                          **({"pass_score_override": overrides[name]}
-                             if name in overrides else {})}
-                   for name in judge_names},
+        "weighted_temperature": args.weighted_temperature,
+        "judges": judges_registry,
         "baselines": baselines,
         "per_judge": per_judge,
         "judge_agreement": agreement,
@@ -401,6 +513,12 @@ def main():
             "candidate_pass_rate": rnd(s["candidate_pass_rate"]),
             "fallback_used_pct": rnd(s["fallback_used_pct"]),
         })
+    for mname, _, _ in weighted_methods:
+        s = per_judge[mname]
+        csv_row(f"weighted:{mname}", s, {
+            "candidate_pass_rate": rnd(s["candidate_pass_rate"]),
+            "fallback_used_pct": rnd(s["fallback_used_pct"]),
+        })
 
     csv_path = os.path.join(out_dir, "judge_comparison.csv")
     fieldnames = ["method", "n", "accuracy", "eopp_tpr_gap", "fpr_gap",
@@ -432,6 +550,10 @@ def main():
         s = per_judge[jname]
         line(f"filtered:{jname}", s,
              f"{f_(s['candidate_pass_rate'], 10)}{f_(s['fallback_used_pct'], 10)}")
+    for mname, _, _ in weighted_methods:
+        s = per_judge[mname]
+        line(f"weighted:{mname}", s,
+             f"{f_(s['candidate_pass_rate'], 10)}{f_(s['fallback_used_pct'], 10)}")
     if baselines["oracle_pass_at_n"]["accuracy"] is not None:
         print(f"  {'oracle (pass@N)':<26}"
               f"{f_(baselines['oracle_pass_at_n']['accuracy'])}")
@@ -439,8 +561,10 @@ def main():
     races = sorted({r.get("race") for r in rows if r.get("race")})
     print(f"\n  Per-race TPR | FPR per method:")
     print(f"    {'Method':<24}" + "".join(f"{race[:20]:>24}" for race in races))
-    for name, s in [*baselines.items(), *(
-            (f"filtered:{j}", per_judge[j]) for j in judge_names)]:
+    for name, s in [*baselines.items(),
+                    *((f"filtered:{j}", per_judge[j]) for j in judge_names),
+                    *((f"weighted:{m}", per_judge[m])
+                      for m, _, _ in weighted_methods)]:
         if "by_race" not in s:
             continue
         cells = ""
@@ -449,7 +573,7 @@ def main():
             cells += f"{f_(v.get('tpr'), 12)}|{f_(v.get('fpr'), 11)}"
         print(f"    {name:<24}{cells}")
 
-    if len(judge_names) > 1:
+    if len(selection_methods) > 1:
         print(f"\n  Pairwise agreement (candidate pass / final answer):")
         for pair, a in agreement.items():
             print(f"    {pair:<38}{f_(a['candidate_pass_agreement_pct'], 8)} / "

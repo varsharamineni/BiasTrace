@@ -13,6 +13,7 @@ outputs/qwen3_8B_stereoset/
 outputs/wrong_traces_all.json
 
 outputs/bon_**
+outputs/BoN/***
 
 combine_BiasTrace_annotation_data.py
 merged_dataset_outputs

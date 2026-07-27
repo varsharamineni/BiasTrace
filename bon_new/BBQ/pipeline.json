@@ -1,0 +1,38 @@
+{
+  "scripts": {
+    "generate": "bon_new/BBQ/generate.py",
+    "compare": "bon_new/BBQ/compare.py",
+    "judge": "bon_new/BBQ/judge.py"
+  },
+  "data_dir": "datasets/bbq_dataset_all_cat/data",
+  "meta_file": "datasets/bbq_additional_metadata.csv",
+  "categories": ["Age", "Disability_status", "Gender_identity", "Nationality", "Physical_appearance", "Race_ethnicity", "Religion", "SES", "Sexual_orientation"],
+  "output_root": "outputs/bon_analysis_test",
+  "generation": {
+    "best_of_n": 8,
+    "seed": 42,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_length": 2048,
+    "batch_size": 32,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.9,
+    "judge_prompt": "reasoning_eval/judge_prompts/new_prompt_bias_pathways_simple.txt",
+    "judge_model": "deepseek-v4-flash",
+    "score_field": "bias_label",
+    "invert_score": true,
+    "pass_score": 0,
+    "num_samples": 10  },
+  "judges_config": "bon_new/BBQ/judge.json",
+  "judge_extra_args": [],
+  "runs": [
+    {
+      "name": "qwen3-1.7b_N8_s1",
+      "model": "Qwen/Qwen3-1.7B",
+      "generation": {
+        "seed": 1
+      }
+    }
+  ]
+}

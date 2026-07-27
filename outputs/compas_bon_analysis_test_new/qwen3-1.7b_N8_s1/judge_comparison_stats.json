@@ -1,0 +1,1686 @@
+{
+  "input": "outputs/compas_bon_analysis_test_new/qwen3-1.7b_N8_s1/compas_results.json",
+  "num_defendants": 10,
+  "best_of_n": 8,
+  "no_pass_fallback": "majority_all",
+  "labels_available": true,
+  "weighted_temperature": [
+    0.01,
+    0.2,
+    0.4,
+    0.8
+  ],
+  "judges": {
+    "fairness_prm": {
+      "type": "prm",
+      "prompt": null,
+      "score_field": null,
+      "invert": false,
+      "pass_score": 0.5,
+      "judge_on": "reasoning",
+      "model": "bias_detection.FairnessPRM",
+      "aggregate": "mean",
+      "sigmoid": true
+    },
+    "BiasTrace": {
+      "type": "llm",
+      "prompt": "reasoning_eval/judge_prompts/new_prompt_bias_pathways_simple.txt",
+      "score_field": "bias_label",
+      "invert": true,
+      "pass_score": 0.0,
+      "judge_on": "reasoning",
+      "model": "deepseek-v4-flash",
+      "aggregate": null,
+      "sigmoid": null
+    },
+    "baseline0/1": {
+      "type": "llm",
+      "prompt": "reasoning_eval/judge_prompts/llama70B_gt.txt",
+      "score_field": "bias_label",
+      "invert": true,
+      "pass_score": 0.0,
+      "judge_on": "reasoning",
+      "model": "deepseek-v4-flash",
+      "aggregate": null,
+      "sigmoid": null
+    },
+    "baseline0-5": {
+      "type": "llm",
+      "prompt": "reasoning_eval/judge_prompts/baseline.txt",
+      "score_field": "score",
+      "invert": true,
+      "pass_score": 0.0,
+      "judge_on": "reasoning",
+      "model": "deepseek-v4-flash",
+      "aggregate": null,
+      "sigmoid": null
+    },
+    "fairness_prm@T=0.01": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "fairness_prm",
+      "temperature": 0.01
+    },
+    "fairness_prm@T=0.2": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "fairness_prm",
+      "temperature": 0.2
+    },
+    "fairness_prm@T=0.4": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "fairness_prm",
+      "temperature": 0.4
+    },
+    "fairness_prm@T=0.8": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "fairness_prm",
+      "temperature": 0.8
+    },
+    "BiasTrace@T=0.01": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "BiasTrace",
+      "temperature": 0.01
+    },
+    "BiasTrace@T=0.2": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "BiasTrace",
+      "temperature": 0.2
+    },
+    "BiasTrace@T=0.4": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "BiasTrace",
+      "temperature": 0.4
+    },
+    "BiasTrace@T=0.8": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "BiasTrace",
+      "temperature": 0.8
+    },
+    "baseline0/1@T=0.01": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "baseline0/1",
+      "temperature": 0.01
+    },
+    "baseline0/1@T=0.2": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "baseline0/1",
+      "temperature": 0.2
+    },
+    "baseline0/1@T=0.4": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "baseline0/1",
+      "temperature": 0.4
+    },
+    "baseline0/1@T=0.8": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "baseline0/1",
+      "temperature": 0.8
+    },
+    "baseline0-5@T=0.01": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "baseline0-5",
+      "temperature": 0.01
+    },
+    "baseline0-5@T=0.2": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "baseline0-5",
+      "temperature": 0.2
+    },
+    "baseline0-5@T=0.4": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "baseline0-5",
+      "temperature": 0.4
+    },
+    "baseline0-5@T=0.8": {
+      "method": "softmax_weighted_vote",
+      "base_judge": "baseline0-5",
+      "temperature": 0.8
+    }
+  },
+  "baselines": {
+    "first_sample": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0
+    },
+    "majority_all": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0
+    },
+    "oracle_pass_at_n": {
+      "accuracy": 80.0
+    }
+  },
+  "per_judge": {
+    "fairness_prm": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0,
+      "mean_within_question_score_std": 0.024856049595647772
+    },
+    "BiasTrace": {
+      "n": 10,
+      "accuracy": 50.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 75.0,
+          "fpr": 100.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 25.0,
+      "fpr_gap": 25.0,
+      "eo_gap": 50.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 35.0,
+      "questions_with_a_passing_candidate": 70.0,
+      "fallback_used_pct": 30.0,
+      "changed_vs_majority_all_pct": 20.0,
+      "unparseable_candidate_pct": 0.0,
+      "mean_within_question_score_std": 0.31491130724952937
+    },
+    "baseline0/1": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 80.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0,
+      "mean_within_question_score_std": 0.2562696366210221
+    },
+    "baseline0-5": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 41.25,
+      "questions_with_a_passing_candidate": 80.0,
+      "fallback_used_pct": 20.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0,
+      "mean_within_question_score_std": 0.7115113909517622
+    },
+    "fairness_prm@T=0.01": {
+      "n": 10,
+      "accuracy": 60.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 10.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "fairness_prm@T=0.2": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "fairness_prm@T=0.4": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "fairness_prm@T=0.8": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "BiasTrace@T=0.01": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "BiasTrace@T=0.2": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "BiasTrace@T=0.4": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "BiasTrace@T=0.8": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0/1@T=0.01": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0/1@T=0.2": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0/1@T=0.4": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0/1@T=0.8": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0-5@T=0.01": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0-5@T=0.2": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0-5@T=0.4": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0-5@T=0.8": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    }
+  },
+  "judge_agreement": {
+    "fairness_prm vs BiasTrace": {
+      "candidate_pass_agreement_pct": 35.0,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 80.0
+    },
+    "fairness_prm vs baseline0/1": {
+      "candidate_pass_agreement_pct": 80.0,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0-5": {
+      "candidate_pass_agreement_pct": 41.25,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs fairness_prm@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm vs fairness_prm@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs fairness_prm@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs fairness_prm@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs BiasTrace@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace vs baseline0/1": {
+      "candidate_pass_agreement_pct": 55.0,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0-5": {
+      "candidate_pass_agreement_pct": 76.25,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs fairness_prm@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs fairness_prm@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs fairness_prm@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs fairness_prm@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs BiasTrace@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "BiasTrace vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 80.0
+    },
+    "baseline0/1 vs baseline0-5": {
+      "candidate_pass_agreement_pct": 58.75,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs fairness_prm@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "baseline0/1 vs fairness_prm@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs fairness_prm@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs fairness_prm@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs BiasTrace@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs fairness_prm@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "baseline0-5 vs fairness_prm@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs fairness_prm@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs fairness_prm@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs BiasTrace@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.01 vs fairness_prm@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs fairness_prm@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs fairness_prm@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs BiasTrace@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.01 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 90.0
+    },
+    "fairness_prm@T=0.2 vs fairness_prm@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs fairness_prm@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs BiasTrace@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.2 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs fairness_prm@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs BiasTrace@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.4 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs BiasTrace@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "fairness_prm@T=0.8 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs BiasTrace@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.01 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs BiasTrace@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.2 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs BiasTrace@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.4 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.8 vs baseline0/1@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.8 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.8 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.8 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.8 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.8 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.8 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace@T=0.8 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.01 vs baseline0/1@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.01 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.01 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.01 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.01 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.01 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.01 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.2 vs baseline0/1@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.2 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.2 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.2 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.2 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.2 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.4 vs baseline0/1@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.4 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.4 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.4 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.4 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.8 vs baseline0-5@T=0.01": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.8 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.8 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1@T=0.8 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5@T=0.01 vs baseline0-5@T=0.2": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5@T=0.01 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5@T=0.01 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5@T=0.2 vs baseline0-5@T=0.4": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5@T=0.2 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5@T=0.4 vs baseline0-5@T=0.8": {
+      "candidate_pass_agreement_pct": null,
+      "candidates_compared": 0,
+      "final_answer_agreement_pct": 100.0
+    }
+  }
+}
