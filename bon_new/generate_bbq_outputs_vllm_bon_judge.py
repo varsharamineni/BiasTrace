@@ -86,7 +86,7 @@ def parse_args():
     bon = parser.add_argument_group("best-of-n")
     bon.add_argument("--best_of_n", "-N", type=int, default=8,
                      help="Number of candidates generated per question (the N in best-of-N)")
-    bon.add_argument("--judge_model", type=str, default="deepseek-chat")
+    bon.add_argument("--judge_model", type=str, default="deepseek-v4-flash")
     bon.add_argument("--judge_prompt", type=str, required=True,
                      help="Path to judge prompt template, or a prompt name under reasoning_eval/prompts/")
     bon.add_argument("--judge_temperature", type=float, default=0.0,

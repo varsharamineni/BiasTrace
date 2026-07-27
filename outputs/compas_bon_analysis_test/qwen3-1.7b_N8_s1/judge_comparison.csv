@@ -1,0 +1,7 @@
+method,n,accuracy,eopp_tpr_gap,fpr_gap,eo_gap,dp_gap,candidate_pass_rate,fallback_used_pct
+first_sample,10,70.0,0.0,75.0,75.0,0.0,,
+majority_all,10,70.0,0.0,75.0,75.0,0.0,,
+filtered:BiasTrace,10,70.0,0.0,75.0,75.0,0.0,35.0,30.0
+filtered:baseline0/1,10,70.0,0.0,75.0,75.0,0.0,75.0,0.0
+filtered:baseline0-5,10,70.0,0.0,75.0,75.0,0.0,36.25,30.0
+filtered:fairness_prm,10,70.0,0.0,75.0,75.0,0.0,100.0,0.0

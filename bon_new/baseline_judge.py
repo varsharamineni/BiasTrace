@@ -140,7 +140,7 @@ def parse_args():
     p.add_argument("--meta_file", type=str, default="datasets/bbq_additional_metadata.csv",
                    help="Additional metadata CSV (Known_stereotyped_groups etc.)")
     # Global judge client defaults (per-judge specs can override most of these)
-    p.add_argument("--judge_model", type=str, default="deepseek-chat")
+    p.add_argument("--judge_model", type=str, default="deepseek-v4-flash")
     p.add_argument("--judge_temperature", type=float, default=0.0)
     p.add_argument("--judge_top_p", type=float, default=0.9)
     p.add_argument("--judge_max_tokens", type=int, default=1024)

@@ -1,0 +1,4 @@
+scope,method,n,accuracy,eopp_tpr_gap,fpr_gap,eo_gap,dp_gap,n_with_pass,accuracy_when_filter_applied,eo_gap_when_filter_applied,eopp_when_filter_applied
+OVERALL,first_sample,10,70.0,0.0,75.0,75.0,0.0,7,85.71,,
+OVERALL,majority_all,10,70.0,0.0,75.0,75.0,0.0,7,85.71,,
+OVERALL,filtered_majority,10,70.0,0.0,75.0,75.0,0.0,7,85.71,,

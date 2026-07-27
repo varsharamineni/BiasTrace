@@ -6,10 +6,8 @@
   },
   "data_dir": "datasets/bbq_dataset_all_cat/data",
   "meta_file": "datasets/bbq_additional_metadata.csv",
-  "categories": [
-    "SES"
-  ],
-  "output_root": "outputs/bon_analysis",
+  "categories": ["Age", "Disability_status", "Gender_identity", "Nationality", "Physical_appearance", "Race_ethnicity", "Religion", "SES", "Sexual_orientation"],
+  "output_root": "outputs/bon_analysis_test",
   "generation": {
     "best_of_n": 8,
     "seed": 42,
@@ -25,7 +23,7 @@
     "score_field": "bias_label",
     "invert_score": true,
     "pass_score": 0,
-    "num_samples": 100  },
+    "num_samples": 10  },
   "judges_config": "bon_new/judges.json",
   "judge_extra_args": [],
   "runs": [

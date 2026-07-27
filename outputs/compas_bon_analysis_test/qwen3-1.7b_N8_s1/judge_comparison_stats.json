@@ -1,0 +1,232 @@
+{
+  "input": "outputs/compas_bon_analysis_test/qwen3-1.7b_N8_s1",
+  "num_defendants": 10,
+  "best_of_n": 8,
+  "no_pass_fallback": "majority_all",
+  "labels_available": true,
+  "judges": {
+    "baseline0/1": {
+      "type": "llm",
+      "prompt": "reasoning_eval/judge_prompts/llama70B_gt.txt",
+      "score_field": "bias_label",
+      "invert": true,
+      "pass_score": 0.0,
+      "judge_on": "reasoning",
+      "model": "deepseek-v4-flash",
+      "aggregate": null
+    },
+    "baseline0-5": {
+      "type": "llm",
+      "prompt": "reasoning_eval/judge_prompts/baseline.txt",
+      "score_field": "score",
+      "invert": true,
+      "pass_score": 0.0,
+      "judge_on": "reasoning",
+      "model": "deepseek-v4-flash",
+      "aggregate": null
+    },
+    "fairness_prm": {
+      "type": "prm",
+      "prompt": null,
+      "score_field": null,
+      "invert": false,
+      "pass_score": 0.5,
+      "judge_on": "reasoning",
+      "model": "bias_detection.FairnessPRM",
+      "aggregate": "mean"
+    }
+  },
+  "baselines": {
+    "first_sample": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0
+    },
+    "majority_all": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0
+    },
+    "oracle_pass_at_n": {
+      "accuracy": 80.0
+    }
+  },
+  "per_judge": {
+    "BiasTrace": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 35.0,
+      "questions_with_a_passing_candidate": 70.0,
+      "fallback_used_pct": 30.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0/1": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 75.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "baseline0-5": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 36.25,
+      "questions_with_a_passing_candidate": 70.0,
+      "fallback_used_pct": 30.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    },
+    "fairness_prm": {
+      "n": 10,
+      "accuracy": 70.0,
+      "by_race": {
+        "African-American": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 75.0,
+          "high_risk_rate": 80.0
+        },
+        "Caucasian": {
+          "n": 5,
+          "tpr": 100.0,
+          "fpr": 0.0,
+          "high_risk_rate": 80.0
+        }
+      },
+      "eopp_tpr_gap": 0.0,
+      "fpr_gap": 75.0,
+      "eo_gap": 75.0,
+      "dp_gap": 0.0,
+      "candidate_pass_rate": 100.0,
+      "questions_with_a_passing_candidate": 100.0,
+      "fallback_used_pct": 0.0,
+      "changed_vs_majority_all_pct": 0.0,
+      "unparseable_candidate_pct": 0.0
+    }
+  },
+  "judge_agreement": {
+    "BiasTrace vs baseline0/1": {
+      "candidate_pass_agreement_pct": 57.5,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace vs baseline0-5": {
+      "candidate_pass_agreement_pct": 83.75,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    },
+    "BiasTrace vs fairness_prm": {
+      "candidate_pass_agreement_pct": 35.0,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs baseline0-5": {
+      "candidate_pass_agreement_pct": 61.25,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0/1 vs fairness_prm": {
+      "candidate_pass_agreement_pct": 75.0,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    },
+    "baseline0-5 vs fairness_prm": {
+      "candidate_pass_agreement_pct": 36.25,
+      "candidates_compared": 80,
+      "final_answer_agreement_pct": 100.0
+    }
+  },
+  "judge_api_calls_this_run": 160,
+  "prm_traces_scored_this_run": 80
+}
