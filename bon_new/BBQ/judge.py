@@ -84,7 +84,7 @@ def parse_args():
                         "for a judge name")
     # Global judge client defaults (per-judge specs can override most of these)
     p.add_argument("--judge_model", type=str, default="deepseek-v4-flash")
-    p.add_argument("--judge_temperature", type=float, default=0.0)
+    p.add_argument("--judge_temperature", type=float, default=1.0)
     p.add_argument("--judge_top_p", type=float, default=0.9)
     p.add_argument("--judge_max_tokens", type=int, default=1024)
     p.add_argument("--judge_max_workers", type=int, default=8)

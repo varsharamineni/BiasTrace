@@ -283,6 +283,28 @@ def summarize_judge(rows: List[Dict[str, Any]], judge_name: str, best_of_n: int
     pairs = [(r.get("race"), r.get("recid_label"), s["pred"])
              for r, s in zip(rows, sels)]
     total_cands = sum(len(r["candidates"]) for r in rows)
+
+    # ---- FLAG 1: "as-applied" fairness, excluding fallback defendants ------- #
+    # On defendants where no candidate passed the judge, the recorded answer is
+    # the fallback (majority_all / first_sample), NOT this method's own vote —
+    # so the full-set gaps below are a blend of ~this-method + ~fallback. The
+    # *_applied block restricts to defendants where filtering actually happened
+    # (fallback_used == ""), isolating the judge's true effect. For weighted
+    # voting there is essentially never a fallback, so applied == full.
+    applied = [(r, s) for r, s in zip(rows, sels) if not s["fallback_used"]]
+    applied_pairs = [(r.get("race"), r.get("recid_label"), s["pred"])
+                     for r, s in applied]
+    applied_fair = fairness_block(applied_pairs)
+
+    # ---- FLAG 2: how often THIS method's final answer is unparseable -------- #
+    # pred==0 lumps together "Low risk" and "Unknown/unparseable"; a method that
+    # emits more Unknowns silently gains negative (low-risk) predictions. Count
+    # selections whose chosen answer is neither option (i.e. pred forced to 0).
+    n_unparseable_answer = sum(
+        1 for s in sels
+        if s["answer"] not in (HIGH, "Low risk")
+    )
+
     return {
         "n": len(rows),
         "accuracy": accuracy_of([s["is_correct"] for s in sels]),
@@ -295,6 +317,17 @@ def summarize_judge(rows: List[Dict[str, Any]], judge_name: str, best_of_n: int
             sum(1 for s in sels if s["changed_vs_majority_all"]), len(sels)),
         "unparseable_candidate_pct": pct(
             sum(s["num_unparseable"] for s in sels), total_cands),
+        # ---- Flag 1: metrics on the filter-applied subset only ---- #
+        "n_applied": len(applied),
+        "accuracy_applied": accuracy_of([s["is_correct"] for _, s in applied]),
+        "eopp_tpr_gap_applied": applied_fair["eopp_tpr_gap"],
+        "fpr_gap_applied": applied_fair["fpr_gap"],
+        "eo_gap_applied": applied_fair["eo_gap"],
+        "dp_gap_applied": applied_fair["dp_gap"],
+        "by_race_applied": applied_fair["by_race"],
+        # ---- Flag 2: unparseable FINAL answers for this method ---- #
+        "unparseable_answer_count": n_unparseable_answer,
+        "unparseable_answer_pct": pct(n_unparseable_answer, len(rows)),
     }
 
 
@@ -316,14 +349,30 @@ def score_spread(rows, judge_name):
 def summarize_baseline(rows: List[Dict[str, Any]], name: str) -> Dict[str, Any]:
     ans_f = BASELINES[name]
     correct_flags, pairs = [], []
+    n_unparseable_answer = 0
     for r in rows:
         ans = r.get(ans_f, "") or ""
         correct = r.get("correct_answer")
         correct_flags.append((ans == correct) if correct else None)
         pairs.append((r.get("race"), r.get("recid_label"),
                       1 if ans == HIGH else 0))
-    return {"n": len(rows), "accuracy": accuracy_of(correct_flags),
-            **fairness_block(pairs)}
+        if ans not in (HIGH, "Low risk"):
+            n_unparseable_answer += 1
+    fair = fairness_block(pairs)
+    acc = accuracy_of(correct_flags)
+    # Baselines never fall back, so the "applied" view equals the full view;
+    # mirror the keys so the CSV/report can treat every method uniformly.
+    return {
+        "n": len(rows), "accuracy": acc, **fair,
+        "n_applied": len(rows), "accuracy_applied": acc,
+        "eopp_tpr_gap_applied": fair["eopp_tpr_gap"],
+        "fpr_gap_applied": fair["fpr_gap"],
+        "eo_gap_applied": fair["eo_gap"],
+        "dp_gap_applied": fair["dp_gap"],
+        "by_race_applied": fair["by_race"],
+        "unparseable_answer_count": n_unparseable_answer,
+        "unparseable_answer_pct": pct(n_unparseable_answer, len(rows)),
+    }
 
 
 def judge_agreement(rows: List[Dict[str, Any]], names: List[str]) -> Dict[str, Any]:
@@ -501,7 +550,16 @@ def main():
                "eopp_tpr_gap": rnd(summ["eopp_tpr_gap"]),
                "fpr_gap": rnd(summ["fpr_gap"]),
                "eo_gap": rnd(summ["eo_gap"]),
-               "dp_gap": rnd(summ["dp_gap"])}
+               "dp_gap": rnd(summ["dp_gap"]),
+               # Flag 1: same metrics on the filter-applied (non-fallback) subset
+               "n_applied": summ.get("n_applied"),
+               "accuracy_applied": rnd(summ.get("accuracy_applied")),
+               "eopp_tpr_gap_applied": rnd(summ.get("eopp_tpr_gap_applied")),
+               "fpr_gap_applied": rnd(summ.get("fpr_gap_applied")),
+               "eo_gap_applied": rnd(summ.get("eo_gap_applied")),
+               "dp_gap_applied": rnd(summ.get("dp_gap_applied")),
+               # Flag 2: how often this method's own answer was unparseable
+               "unparseable_answer_pct": rnd(summ.get("unparseable_answer_pct"))}
         row.update(extra or {})
         csv_rows.append(row)
 
@@ -522,7 +580,11 @@ def main():
 
     csv_path = os.path.join(out_dir, "judge_comparison.csv")
     fieldnames = ["method", "n", "accuracy", "eopp_tpr_gap", "fpr_gap",
-                  "eo_gap", "dp_gap", "candidate_pass_rate", "fallback_used_pct"]
+                  "eo_gap", "dp_gap",
+                  "n_applied", "accuracy_applied", "eopp_tpr_gap_applied",
+                  "fpr_gap_applied", "eo_gap_applied", "dp_gap_applied",
+                  "unparseable_answer_pct",
+                  "candidate_pass_rate", "fallback_used_pct"]
     with open(csv_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -557,6 +619,40 @@ def main():
     if baselines["oracle_pass_at_n"]["accuracy"] is not None:
         print(f"  {'oracle (pass@N)':<26}"
               f"{f_(baselines['oracle_pass_at_n']['accuracy'])}")
+
+    # ---- Flag 1: same table restricted to filter-applied (non-fallback) rows #
+    # For methods that fall back a lot, the row above blends this method with
+    # the fallback; this table isolates the judge's own effect. Only differs
+    # from the main table for filtered methods with fallback > 0.
+    filtered_with_fallback = [
+        j for j in judge_names
+        if per_judge[j].get("fallback_used_pct")]
+    if filtered_with_fallback:
+        print(f"\n  As-applied (excluding fallback defendants — isolates the "
+              f"judge's own effect):")
+        print(f"  {'Method':<26}{'nApp':>7}{'Acc':>9}{'EOpp':>9}{'FPRgap':>9}"
+              f"{'EO':>9}{'DPgap':>9}")
+        for jname in judge_names:
+            s = per_judge[jname]
+            print(f"  {'filtered:' + jname:<26}{s['n_applied']:>7}"
+                  f"{f_(s['accuracy_applied'])}{f_(s['eopp_tpr_gap_applied'])}"
+                  f"{f_(s['fpr_gap_applied'])}{f_(s['eo_gap_applied'])}"
+                  f"{f_(s['dp_gap_applied'])}")
+
+    # ---- Flag 2: unparseable final answers per method ---------------------- #
+    unparse = [(nm, per_judge[nm]) for nm in selection_methods
+               if per_judge[nm].get("unparseable_answer_count")]
+    unparse += [(nm, baselines[nm]) for nm in BASELINES
+                if baselines[nm].get("unparseable_answer_count")]
+    if unparse:
+        print(f"\n  Unparseable final answers (counted as pred=0 / low-risk — "
+              f"can silently shift TPR/FPR):")
+        for nm, s in unparse:
+            print(f"    {nm:<26}{s['unparseable_answer_count']:>4} / {n} "
+                  f"({f_(s['unparseable_answer_pct'], 6)})")
+    else:
+        print(f"\n  No unparseable final answers for any method "
+              f"(pred=0 means Low risk exclusively).")
 
     races = sorted({r.get("race") for r in rows if r.get("race")})
     print(f"\n  Per-race TPR | FPR per method:")

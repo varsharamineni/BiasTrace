@@ -1,0 +1,31 @@
+{
+  "scripts": {
+    "generate": "bon_new/COMPAS/generate.py",
+    "judge": "bon_new/COMPAS/judge.py",
+    "compare": "bon_new/COMPAS/compare.py"
+  },
+  "output_root": "outputs/BoN/COMPAS/",
+  "generation": {
+    "best_of_n": 8,
+    "seed": 42,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_length": 2048,
+    "batch_size": 32,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.9,
+    "sample_size": 250  },
+  "judges_config": "bon_new/COMPAS/judge.json",
+  "judge_extra_args": [],
+  "compare_extra_args": ["--judges fairness_prm BiasTrace baseline0/1 baseline0-5 --weighted_temperature 0.01 0.2 0.4 0.8"],
+  "runs": [
+    {
+      "name": "qwen3-4b_N8_s1",
+      "model": "Qwen/Qwen3-4B",
+      "generation": {
+        "seed": 1
+      }
+    }
+  ]
+}
