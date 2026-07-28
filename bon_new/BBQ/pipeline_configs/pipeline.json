@@ -18,7 +18,7 @@
     "batch_size": 32,
     "tensor_parallel_size": 1,
     "gpu_memory_utilization": 0.9},
-  "judges_config": "bon_new/BBQ/judge.json",
+  "judges_config": "bon_new/BBQ/judge_configs/judge.json",
   "judge_extra_args": [],
   "runs": [
     {

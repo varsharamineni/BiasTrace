@@ -15,7 +15,7 @@
     "batch_size": 32,
     "tensor_parallel_size": 1,
     "gpu_memory_utilization": 0.9 },
-  "judges_config": "bon_new/Bias_in_Bios/judge.json",
+  "judges_config": "bon_new/Bias_in_Bios/judge_configs/judge.json",
   "judge_extra_args": [],
   "compare_extra_args": ["--judges", "fairness_prm", "BiasTrace", "baseline0/1", "baseline0-5", "--weighted_temperature", "0.01", "0.2", "0.4", "0.8"],
   "runs": [
