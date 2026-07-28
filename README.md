@@ -172,6 +172,17 @@ done
 
 FRM baseline `reasoning_eval/FRM_baseline`
 
+## Bias Mitigation - Best of N Experiments
 
+```bash
+export LLM_API_KEY="..."             
+export LLM_BASE_URL="https://api.deepseek.com/v1"   
 
+# only if using an API-based generation script (gpt-oss, gpt-4o, ...)
+export OPENAI_API_KEY="..."          
+```
+
+```bash
+python bon_new/BBQ/run_pipeline.py --config bon_new/BBQ/pipeline_configs/pipeline.json
+```
 ---
