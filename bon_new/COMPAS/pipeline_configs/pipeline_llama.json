@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "generate": "bon_new/COMPAS/generate.py",
+    "generate": "bon_new/COMPAS/generate_llama.py",
     "judge": "bon_new/COMPAS/judge.py",
     "compare": "bon_new/COMPAS/compare.py"
   },

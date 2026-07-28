@@ -1,0 +1,30 @@
+{
+  "scripts": {
+    "generate": "bon_new/Bias_in_Bios/generate.py",
+    "judge": "bon_new/Bias_in_Bios/judge.py",
+    "compare": "bon_new/Bias_in_Bios/compare.py"
+  },
+  "output_root": "outputs/BoN/Bias_in_Bios/",
+  "generation": {
+    "best_of_n": 8,
+    "seed": 42,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_length": 2048,
+    "batch_size": 32,
+    "tensor_parallel_size": 1,
+    "gpu_memory_utilization": 0.9 },
+  "judges_config": "bon_new/Bias_in_Bios/judge.json",
+  "judge_extra_args": [],
+  "compare_extra_args": ["--judges", "fairness_prm", "BiasTrace", "baseline0/1", "baseline0-5", "--weighted_temperature", "0.01", "0.2", "0.4", "0.8"],
+  "runs": [
+    {
+      "name": "llama3.2-3b_N8_s1",
+      "model": "meta-llama/Meta-Llama-3.2-3B-Instruct",
+      "generation": {
+        "seed": 1
+      }
+    }
+  ]
+}
