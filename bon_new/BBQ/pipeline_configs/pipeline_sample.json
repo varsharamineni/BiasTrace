@@ -6,7 +6,7 @@
   },
   "data_dir": "datasets/bbq_dataset_all_cat/data",
   "meta_file": "datasets/bbq_additional_metadata.csv",
-  "categories": ["Sexual_orientation"],
+  "categories": ["Age", "Disability_status", "Gender_identity", "Nationality", "Physical_appearance", "Race_ethnicity", "Race_x_SES", "Race_x_gender", "Religion", "SES", "Sexual_orientation"],
   "output_root": "outputs/BoN/BBQ/",
   "generation": {
     "best_of_n": 8,
@@ -17,13 +17,14 @@
     "max_length": 2048,
     "batch_size": 32,
     "tensor_parallel_size": 1,
-    "gpu_memory_utilization": 0.9},
+    "gpu_memory_utilization": 0.9,
+  "num_samples": 100},
   "judges_config": "bon_new/BBQ/judge_configs/judge.json",
   "judge_extra_args": [],
   "runs": [
     {
-      "name": "qwen3-8b_N8_s1",
-      "model": "Qwen/Qwen3-8B",
+      "name": "qwen3-1.7b_N8_s1_all_cat_sample",
+      "model": "Qwen/Qwen3-1.7B",
       "generation": {
         "seed": 1
       }

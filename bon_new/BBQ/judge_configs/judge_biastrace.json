@@ -1,0 +1,7 @@
+[
+        {"name": "BiasTrace",
+       "prompt": "reasoning_eval/judge_prompts/new_prompt_bias_pathways_simple.txt",
+       "score_field": "bias_label", "invert": true, "pass_score": 0},
+        {"name": "fairness_prm", "type": "prm", "pass_score": 0.5,
+  "aggregate": "mean", "sigmoid": true, "path": "reasoning_eval/FRM_baseline"}
+    ]
