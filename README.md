@@ -11,7 +11,24 @@ from different reasoning behaviours such as overthinking, rather than from stere
 language.
 <br />
 
-## Repository Structure
+# Supplementary Material - Appendices, Data, Code 
+
+## Appendices
+
+The supplementary appendices referenced in the paper are provided in:
+
+- `appendices.pdf`
+
+## BiasTrace Dataset
+
+**Full dataset.** The complete BiasTrace dataset of annotated reasoning traces (approximately 250k annotated reasoning traces) will be released publicly upon publication.
+
+The directory contains a small representative sample of the annotated reasoning traces
+
+- `BiasTrace_ReasoningData_example.csv`
+- `BiasTrace_ReasoningData_example.parquet`
+
+## Code Repository Structure
 
 ```
 BiasTrace/
@@ -21,14 +38,6 @@ BiasTrace/
 ├── job_scripts/            # SLURM job scripts for cluster execution
 ├── outputs/                # Model outputs (reasoning traces + processed outputs + judge labels)
 ```
-
-
-## Annotated Dataset of Reasoning Traces
-
-https://huggingface.co/datasets/XXX/BiasTrace
-
-[to be released publicly upon publication]
-
 
 ## Installation
 
