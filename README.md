@@ -4,17 +4,13 @@
 
 This repository contains the supplementary materials accompanying the paper, including appendices, example data, and code used for the experiments.
 
---
-
 # Appendices
 
 The supplementary appendices referenced in the paper are provided in:
 
 - `appendices.pdf`
 
---
-
-# BiasTrace Dataset
+# BiasTrace Dataset of Annotated Reasoning Traces
 
 **Full dataset.** The complete BiasTrace dataset of annotated reasoning traces (approximately 250k annotated reasoning traces) will be released publicly upon publication.
 
@@ -22,8 +18,6 @@ The directory contains a small representative sample of the annotated reasoning 
 
 - `BiasTrace_ReasoningData_example.csv`
 - `BiasTrace_ReasoningData_example.parquet`
-
---
 
 # Codebase 
 
