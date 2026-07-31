@@ -17,7 +17,6 @@ The supplementary appendices referenced in the paper are provided in:
 The directory contains a small representative sample of the annotated reasoning traces
 
 - `BiasTrace_ReasoningData_example.csv`
-- `BiasTrace_ReasoningData_example.parquet`
 
 # Codebase 
 
