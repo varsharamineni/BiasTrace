@@ -13,8 +13,6 @@ language.
 
 ## Repository Structure
 
-[Some parts of the repository have been redacted due to file size limitations]
-
 ```
 BiasTrace/
 ├── datasets/               # Data, templates, and metadata
