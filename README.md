@@ -1,14 +1,7 @@
 
-# Supplementary Material - Appendices, Data, Code 
-## BiasTrace: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
+# BiasTrace: Linking Reasoning Behaviours to Biased Outputs in Large Language Models
 
-This repository contains the supplementary materials accompanying the paper, including appendices, example data, and code used for the experiments.
-
-# Appendices
-
-The supplementary appendices referenced in the paper are provided in:
-
-- `appendices.pdf`
+This repository contains the supplementary materials accompanying the paper, including full dataset link, example data, and code used for the experiments.
 
 # BiasTrace Dataset of Annotated Reasoning Traces
 
