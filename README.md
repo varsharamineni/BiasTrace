@@ -3,6 +3,9 @@
 
 This repository contains the supplementary materials accompanying the paper, including full dataset link, example data, and code used for the experiments.
 
+> [!WARNING]
+> **Disclaimer:** This repository contains datasets that may include stereotypical, biased, offensive, or otherwise harmful language. This content is included for research purposes and to enable the systematic evaluation of language models. The inclusion of this material does not constitute an endorsement of the views or expressions it contains.
+
 # BiasTrace Dataset of Annotated Reasoning Traces
 
 **Full dataset.** The complete BiasTrace dataset of annotated reasoning traces (approximately 250k annotated reasoning traces) will be released publicly upon publication.
