@@ -712,25 +712,17 @@
 
     <h2><span class="num">01 — Motivation</span>Beyond the final answer</h2>
 
-    <p>
-      LLMs can produce inaccurate and discriminatory inferences, posing significant risks in high-stakes applications.
-    </p>
 
     <p>
-      Existing work on bias in LLMs has largely focused on checking the model's final conclusion, or on checking for stereotypical language in intermediate reasoning steps. As a result, the different mechanisms through which models arrive at biased conclusions remain poorly understood.
+    Large Language Models (LLMs) can exhibit social biases, reflecting stereotypes and imbalances present in their training data. While significant effort has focused on measuring and mitigating bias in model outputs, these approaches largely examine the final conclusions produced by models. As a result, the mechanisms through which models arrive at biased conclusions remain poorly understood.
     </p>
-
+    
     <p>
-      A model can produce a biased conclusion while its reasoning trace reads as careful, self-correcting, and free of overtly biased language.
+    This is particularly important as LLMs increasingly rely on multi-step reasoning, which ideally could help guide models to more fair conclusions, or can also introduce and amplify bias. Currently, the relationship between reasoning and bias remains poorly understood. Existing work has largely focused on detecting stereotypical language in intermediate reasoning steps, overlooking the subtle reasoning behaviours that may implicitly lead to biased conclusions.
     </p>
-
-    <div class="question">
-      Do reasoning behaviours beyond explicitly biased language contribute to biased outputs? And which behaviours are most predictive of bias?
-    </div>
-
-    <div class="question">
-      Can reasoning behaviours be leveraged to more reliably identify reasoning traces that lead to biased outcomes?
-    </div>
+    
+    We therefore ask: <strong>which reasoning behaviours are associated with biased outputs, and how can identifying them help us better detect and mitigate bias?</strong>
+    </p>
 
     <h2><span class="num">02 — BiasTrace</span>BiasTrace: Reasoning Behaviours Annotation Scheme</h2>
 
