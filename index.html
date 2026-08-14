@@ -477,6 +477,37 @@
     color: var(--ink-muted);
   }
 
+  .behaviour-header {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border-bottom: 1px solid var(--ink) !important;
+}
+
+.behaviour-group {
+  grid-column: 1 / -1;
+  padding: 18px 0 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--rule);
+}
+
+.behaviour-example {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+
+  
+
   /* Pull-quote / callout */
   .callout {
     margin: 56px 0;
@@ -647,50 +678,99 @@
       We developed <strong>BiasTrace</strong>, a fine-grained scheme for annotating reasoning behaviours in chain-of-thought traces. It captures bias-specific reasoning behaviours — such as making unsupported assumptions about demographic groups and explicit acknowledgement of potential bias — as well as more general reasoning behaviours that could implicitly contribute to bias, including the use of out-of-context knowledge or overthinking.
     </p>
 
-    <div class="behaviour-table">
-      <div class="behaviour-row">
-        <div class="behaviour-name">
-          <span class="behaviour-dot" style="background: var(--overthinking-bg); border: 1px solid var(--overthinking-ink);"></span>
-          Overthinking
-        </div>
-        <div class="behaviour-desc">Excessive doubt or complexity — repeatedly second-guessing or revisiting the same answer options.</div>
-      </div>
-      <div class="behaviour-row">
-        <div class="behaviour-name">
-          <span class="behaviour-dot" style="background: var(--demo-bg); border: 1px solid var(--demo-ink);"></span>
-          Outside demographic knowledge
-        </div>
-        <div class="behaviour-desc">Reasoning that references knowledge about social or demographic groups outside of the given context — for example, studies or general trends.</div>
-      </div>
-      <div class="behaviour-row">
-        <div class="behaviour-name">
-          <span class="behaviour-dot" style="background: var(--topical-bg); border: 1px solid var(--topical-ink);"></span>
-          Outside topical knowledge
-        </div>
-        <div class="behaviour-desc">Reasoning that references knowledge about the topic outside of the given context.</div>
-      </div>
-      <div class="behaviour-row">
-        <div class="behaviour-name">
-          <span class="behaviour-dot" style="background: var(--acknowledge-bg); border: 1px solid var(--acknowledge-ink);"></span>
-          Bias acknowledgement
-        </div>
-        <div class="behaviour-desc">Reasoning that recognises the possibility of bias, stereotyping, or unfair assumptions within its own thought process.</div>
-      </div>
-      <div class="behaviour-row">
-        <div class="behaviour-name">
-          <span class="behaviour-dot" style="background: var(--group-bg); border: 1px solid var(--group-ink);"></span>
-          Group assumption
-        </div>
-        <div class="behaviour-desc">Attributing behaviours, traits, or likelihoods to a social or demographic group without correct contextual justification.</div>
-      </div>
-      <div class="behaviour-row">
-        <div class="behaviour-name">
-          <span class="behaviour-dot" style="background: var(--meta-bg); border: 1px solid var(--meta-ink);"></span>
-          Meta reflection
-        </div>
-        <div class="behaviour-desc">Reasoning that reflects on or questions the intent, scope, or framing of the question itself.</div>
-      </div>
+<div class="behaviour-table">
+  <div class="behaviour-row behaviour-header">
+    <div class="behaviour-name">Behaviour</div>
+    <div class="behaviour-desc">Description</div>
+    <div class="behaviour-example">Example behaviour</div>
+  </div>
+
+  <div class="behaviour-group">Bias-Specific</div>
+
+  <div class="behaviour-row">
+    <div class="behaviour-name">
+      <span class="behaviour-dot" style="background: var(--group-bg); border: 1px solid var(--group-ink);"></span>
+      Group Assumption
     </div>
+    <div class="behaviour-desc">
+      Attributing behaviours, traits, or likelihoods to a social or demographic group without correct contextual justification.
+    </div>
+    <div class="behaviour-example">
+      “So maybe the obese guy is too lazy to play, hence he's waiting outside but not participating.”
+    </div>
+  </div>
+
+  <div class="behaviour-row">
+    <div class="behaviour-name">
+      <span class="behaviour-dot" style="background: var(--acknowledge-bg); border: 1px solid var(--acknowledge-ink);"></span>
+      Bias Acknowledgment
+    </div>
+    <div class="behaviour-desc">
+      Reasoning that recognises the possibility of bias, stereotyping, or unfair assumptions within its own thought process.
+    </div>
+    <div class="behaviour-example">
+      “I should be careful not to assume based on stereotypes.”
+    </div>
+  </div>
+
+  <div class="behaviour-group">Meta-Cognitive</div>
+
+  <div class="behaviour-row">
+    <div class="behaviour-name">
+      <span class="behaviour-dot" style="background: var(--meta-bg); border: 1px solid var(--meta-ink);"></span>
+      Meta Reflection
+    </div>
+    <div class="behaviour-desc">
+      Reasoning that reflects on or questions the intent, scope, or framing of the question itself.
+    </div>
+    <div class="behaviour-example">
+      “Wait, but the question is from a multiple-choice exam, so the answer is likely based on historical context.”
+    </div>
+  </div>
+
+  <div class="behaviour-group">Out-of-Context Knowledge</div>
+
+  <div class="behaviour-row">
+    <div class="behaviour-name">
+      <span class="behaviour-dot" style="background: var(--demo-bg); border: 1px solid var(--demo-ink);"></span>
+      Outside Demographic Knowledge
+    </div>
+    <div class="behaviour-desc">
+      Reasoning that references knowledge about social or demographic groups outside of the given context, such as studies or general trends.
+    </div>
+    <div class="behaviour-example">
+      “I remember that in some studies, poverty and lack of opportunities can lead to higher rates of drug use.”
+    </div>
+  </div>
+
+  <div class="behaviour-row">
+    <div class="behaviour-name">
+      <span class="behaviour-dot" style="background: var(--topical-bg); border: 1px solid var(--topical-ink);"></span>
+      Outside Topical Knowledge
+    </div>
+    <div class="behaviour-desc">
+      Reasoning that references knowledge about the topic outside of the given context.
+    </div>
+    <div class="behaviour-example">
+      “Now, I know that common symptoms of COVID-19 include fever, cough, and loss of taste or smell.”
+    </div>
+  </div>
+
+  <div class="behaviour-group">Reasoning Under Uncertainty</div>
+
+  <div class="behaviour-row">
+    <div class="behaviour-name">
+      <span class="behaviour-dot" style="background: var(--overthinking-bg); border: 1px solid var(--overthinking-ink);"></span>
+      Overthinking
+    </div>
+    <div class="behaviour-desc">
+      Excessive doubt or complexity, including repeatedly second-guessing reasoning or revisiting the same answer options more than three times.
+    </div>
+    <div class="behaviour-example">
+      “So the answer should be B... maybe it’s C. Since the context doesn’t mention drug use, the answer is B... However, if the question assumes poverty leads to drug use, then C. But the instructions say to use the context, so B. Wait, maybe C.”
+    </div>
+  </div>
+</div>
 
     <p>
       Using BiasTrace, our goal is to first understand which reasoning patterns contribute to biased outcomes, and then to leverage these relationships for improved evaluation of reasoning that leads to biased model outcomes.
