@@ -519,8 +519,8 @@
 
 .behaviour-group {
   padding: 10px 22px !important;
-  background: var(--ink);
-  color: var(--bg);
+  background: #F3F1EC;
+  color: var(--ink-muted);
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.12em;
@@ -725,10 +725,14 @@
     </p>
 
     <div class="question">
-      What patterns in reasoning are more likely to lead to biased outcomes?
+      Do reasoning behaviours beyond explicitly biased language contribute to biased outputs? And which behaviours are most predictive of bias?
     </div>
 
-    <h2><span class="num">02 — BiasTrace</span>Six reasoning behaviours</h2>
+    <div class="question">
+      Can reasoning behaviours be leveraged to more reliably identify reasoning traces that lead to biased outcomes?
+    </div>
+
+    <h2><span class="num">02 — BiasTrace</span>BiasTrace: Reasoning Behaviours Annotation Scheme</h2>
 
     <p>
       We developed <strong>BiasTrace</strong>, a fine-grained scheme for annotating reasoning behaviours in chain-of-thought traces. It captures bias-specific reasoning behaviours — such as making unsupported assumptions about demographic groups and explicit acknowledgement of potential bias — as well as more general reasoning behaviours that could implicitly contribute to bias, including the use of out-of-context knowledge or overthinking.
@@ -883,7 +887,7 @@
       A redacted trace from Qwen3-8B on the BBQ dataset. The model should have selected 'unknown' but instead chose the stereotypical answer. This example shows how biased outputs can arise from different reasoning behaviours — such as overthinking — rather than only from the use of stereotypical language.
     </p>
 
-    <h2><span class="num">03 — Scaling annotation</span>LLM-as-a-Judge, validated</h2>
+    <h2><span class="num">03 — Dataset of Annotated Reasoning Traces</span>Applying BiasTrace</h2>
 
     <p>
       To apply BiasTrace at scale, we use a validated LLM-as-a-Judge, checked against human annotations. Two annotators independently labelled 100 traces, and we selected DeepSeek-V3.2 as the judge based on strong agreement with those labels (Cohen's κ of 0.64–0.84 for the main behaviours).
@@ -893,7 +897,7 @@
       Using this pipeline, we annotate roughly <strong>250,000 reasoning traces</strong> generated from Qwen3-8B, Qwen3-14B, and GPT-OSS-120B on the BBQ bias benchmark.
     </p>
 
-    <h2><span class="num">04 — Main findings</span>Overthinking is the strongest predictor</h2>
+    <h2><span class="num">04 — Main findings</span>Seemingly neutral reasoning steps predict biased outcomes, more strongly than stereotypical language in reasoning does</h2>
 
     <p>
       Our main finding: seemingly neutral reasoning steps — like second-guessing answers, or referencing out-of-context studies — predict biased conclusions more strongly than stereotypical language in reasoning does.
@@ -911,7 +915,7 @@
       When models excessively doubt or revisit the same answers, especially under underspecified conditions, they are substantially more likely to produce <span class="em">biased outputs</span>.
     </div>
 
-    <h2><span class="num">05 — Improved evaluation</span>Detecting biased reasoning</h2>
+    <h2><span class="num">05 — Improved evaluation</span>Improved Bias Detection</h2>
 
     <p>
       We further show these signals can be leveraged to better detect when reasoning will lead to a biased conclusion. Incorporating the BiasTrace reasoning behaviours into a dedicated evaluation prompt yields stronger correlation with biased outputs than standard LLM-as-a-judge baselines and a trained fairness reward model — and the signal generalises to GPT-OSS-120B, a model not involved in developing the scheme.
@@ -925,7 +929,7 @@
       </figcaption>
     </figure>
 
-    <h2><span class="num">06 — Mitigation</span>Fairer conclusions at inference time</h2>
+    <h2><span class="num">06 — Bias Mitigation</span>Bias Mitigation at Inference Time</h2>
 
     <p>
       BiasTrace can also be used at inference time to help models reach fairer conclusions. We sample multiple reasoning traces per question, use the BiasTrace evaluation prompt to filter out those flagged as likely-biased, and majority-vote over the rest. Across Qwen3 and Llama-3 models, this improves both accuracy and bias rate.
@@ -939,7 +943,7 @@
       </figcaption>
     </figure>
 
-    <h2><span class="num">07 — Overall</span>What this changes</h2>
+    <h2><span class="num">07 — Overall</span>Key Takeaways</h2>
 
     <ul class="takeaways">
       <li>
