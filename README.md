@@ -194,4 +194,9 @@ export OPENAI_API_KEY="..."
 ```bash
 python bon_new/BBQ/run_pipeline.py --config bon_new/BBQ/pipeline_configs/pipeline.json
 ```
+
+
+## Ground Truth Annotation Instructions 
+
+Google sheets link with details of instruction given to annotators released publicly upon publication. 
 ---
