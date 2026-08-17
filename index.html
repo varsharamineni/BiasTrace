@@ -782,8 +782,8 @@ ol.takeaways strong { font-weight: 500; }
   .prose p { font-size: 17px; }
   .inline-note { font-size: 15px; padding: 10px 14px; }
 
-  .trace { padding: 16px; }
-  .trace-body { font-size: 12.5px; line-height: 1.75; }
+  .trace { padding: 12px; }
+  .trace-body { font-size: 12px; line-height: 1.75; }
   .trace-meta { font-size: 12px; }
   .trace-meta .lbl { min-width: 68px; font-size: 12px; }
 
@@ -887,22 +887,7 @@ ol.takeaways strong { font-weight: 500; }
   <div class="label">Abstract</div>
 
   <p>
-    Large language models exhibit social biases that can produce inaccurate
-    and discriminatory inferences, posing risks in high-stakes applications.
-    While prior work has made progress in measuring and mitigating bias, it
-    largely focuses on final outputs of models, with limited understanding
-    of the mechanisms that produce biased outcomes. Recent advances in LLM
-    reasoning offer a new lens for investigating bias, yet the link between
-    reasoning and bias remains poorly understood. Existing approaches focus
-    primarily on final-answer correctness or explicitly biased language,
-    overlooking different behaviours in reasoning that can drive biased
-    outcomes. We introduce <strong>BiasTrace</strong>, an annotation
-    scheme for labelling reasoning behaviours in model-generated traces
-    and linking them to biased outcomes. Our analysis shows that biased
-    outputs often stem from subtle reasoning behaviours rather than
-    explicitly biased language, and that reasoning-level annotations
-    improve bias detection. We further show that BiasTrace behaviours can
-    be exploited for inference-time mitigation.
+    LLMs exhibit social biases that can produce inaccurate and discriminatory inferences, posing risks in high-stakes applications. While prior work has made progress in measuring and mitigating bias, it largely focuses on final outputs of models, with limited understanding of the mechanisms that produce biased outcomes. Recent advances in LLM reasoning offers a new lens for investigating bias, yet the link between reasoning and bias remains poorly understood. Existing approaches focus primarily on final answer correctness or explicitly biased language, overlooking different behaviours in reasoning that can drive biased outcomes. We introduce BiasTrace, an annotation scheme for labelling reasoning behaviours in model-generated traces and linking them to biased outcomes. BiasTrace captures bias-specific behaviours (e.g., unsupported demographic assumptions) as well as general reasoning patterns that may implicitly contribute to bias (e.g. overthinking). We apply BiasTrace to reasoning traces in bias-sensitive contexts, scaled using validated LLM-as-a-judge methods, producing a large annotated dataset. Our analysis shows that biased outputs often stem from subtle reasoning behaviours rather than explicitly biased language, and that reasoning-level annotations improve bias detection. We further show that BiasTrace behaviours can be exploited for inference-time mitigation. These findings underscore the importance of examining a broader range of reasoning patterns to better understand bias in LLMs.
   </p>
 
 </section>
@@ -935,39 +920,21 @@ ol.takeaways strong { font-weight: 500; }
     biases that reflect stereotypes and imbalances in their training
     data.<sup class="snref">1</sup> While significant effort has focused
     on measuring and mitigating bias in the outputs of models, these
-    approaches largely examine the final conclusion produced — a single
-    letter, a single choice, a single sentence. As a result, the
+    approaches largely examine the final conclusion produced. As a result, the
     mechanisms through which models arrive at biased conclusions remain
     poorly understood.
   </p>
 
-  <aside class="inline-note"><span class="num">1</span>
-    We use “bias” throughout in the technical sense of stereotype-aligned
-    outputs on the BBQ benchmark, not the broader sociological sense.
-  </aside>
-
   <p>
-    This matters more now than it did two years ago. LLMs increasingly
-    rely on multi-step reasoning, and multi-step reasoning is a
-    double-edged tool: it could guide a model to fairer conclusions, or
-    it could introduce and amplify bias along the way.<sup class="snref">2</sup>
-    Existing work has largely focused on detecting stereotypical
-    <em>language</em> inside intermediate reasoning steps, treating the
-    trace as a bag of sentences to scan for slurs and generalisations.
-    That misses the point. Reasoning is a process, not a lexicon.
-  </p>
+  This is particularly important as LLMs increasingly rely on multi-step reasoning, which ideally could help guide models to more fair conclusions, or can also introduce and amplify bias. Currently, the relationship between reasoning and bias remains poorly understood. Existing work has largely focused on detecting stereotypical language in intermediate reasoning steps, overlooking the subtle reasoning behaviours that may implicitly lead to biased conclusions.
 
-  <aside class="inline-note"><span class="num">2</span>
-    Prior work sometimes calls this a “reasoning-bias tradeoff”; we find
-    the tradeoff is less about reasoning-vs-no-reasoning and more about
-    <em>which</em> reasoning behaviours occur.
-  </aside>
+  </p>
 
   <p>
     We therefore ask:
     <em>
       which reasoning behaviours are associated with biased outputs, and
-      how can identifying them help us better detect and mitigate bias?
+      how can they be leveraged to help us better identify bias?
     </em>
   </p>
 
@@ -986,15 +953,9 @@ ol.takeaways strong { font-weight: 500; }
     The scheme captures two kinds of behaviour: <em>bias-specific</em>
     behaviours, such as making unsupported assumptions about demographic
     groups or explicitly acknowledging potential bias; and more
-    <em>general</em> reasoning behaviours, such as invoking out-of-context
-    knowledge or overthinking, that could implicitly contribute to bias
-    without ever surfacing as stereotyped language.
+    <em>general</em> reasoning behaviours, such as utilising out-of-context
+    knowledge or overthinking, that could implicitly contribute to bias.
   </p>
-
-  <aside class="inline-note"><span class="num">3</span>
-    The taxonomy emerged from close reading of ~500 traces before being
-    formalised. See §3 for how we scaled it via LLM-as-judge.
-  </aside>
 
   <p>
     Six behaviours, organised into four families:
@@ -1021,12 +982,10 @@ ol.takeaways strong { font-weight: 500; }
         Group Assumption
       </div>
       <div class="behaviour-desc">
-        Attributing behaviours, traits, or likelihoods to a social or
-        demographic group without correct contextual justification.
+        Reasoning attributes behaviours, traits, or likelihoods to a social or demographic group (e.g., gender, race, age, class, body type) without correct contextual justification.
       </div>
       <div class="behaviour-example">
-        So maybe the obese guy is too lazy to play, hence he's waiting
-        outside but not participating.
+        So maybe the obese guy is too lazy to play, hence he's waiting outside but not participating.
       </div>
     </div>
 
@@ -1037,8 +996,7 @@ ol.takeaways strong { font-weight: 500; }
         Bias Acknowledgment
       </div>
       <div class="behaviour-desc">
-        Reasoning that recognises the possibility of bias, stereotyping,
-        or unfair assumptions within its own thought process.
+        Reasoning recognises the possibility of bias, stereotyping, or unfair assumptions within its own thought process.
       </div>
       <div class="behaviour-example">
         I should be careful not to assume based on stereotypes.
@@ -1055,12 +1013,10 @@ ol.takeaways strong { font-weight: 500; }
         Meta Reflection
       </div>
       <div class="behaviour-desc">
-        Reasoning that reflects on or questions the intent, scope, or
-        framing of the question itself.
+        Reasoning reflects on or questions the intent, scope, or framing of the question.
       </div>
       <div class="behaviour-example">
-        Wait, but the question is from a multiple-choice exam, so the
-        answer is likely based on historical context.
+        Wait, but the question is from a multiple-choice exam, so the answer is likely based on historical context.
       </div>
     </div>
 
@@ -1074,13 +1030,10 @@ ol.takeaways strong { font-weight: 500; }
         Outside Demographic Knowledge
       </div>
       <div class="behaviour-desc">
-        Reasoning that references knowledge about social or demographic
-        groups outside of the given context, such as studies or general
-        trends.
+        Reasoning contains knowledge about social or demographic groups outside of the context (for example studies or general trends).
       </div>
       <div class="behaviour-example">
-        I remember that in some studies, poverty and lack of opportunities
-        can lead to higher rates of drug use.
+        I remember that in some studies, poverty and lack of opportunities can lead to higher rates of drug use.
       </div>
     </div>
 
@@ -1091,12 +1044,10 @@ ol.takeaways strong { font-weight: 500; }
         Outside Topical Knowledge
       </div>
       <div class="behaviour-desc">
-        Reasoning that references knowledge about the topic outside of
-        the given context.
+        Reasoning contains knowledge about the topic which is outside of the context.
       </div>
       <div class="behaviour-example">
-        Now, I know that common symptoms of COVID-19 include fever,
-        cough, and loss of taste or smell.
+        Now, I know that common symptoms of COVID-19 include fever, cough, and loss of taste or smell.
       </div>
     </div>
 
@@ -1110,15 +1061,10 @@ ol.takeaways strong { font-weight: 500; }
         Overthinking
       </div>
       <div class="behaviour-desc">
-        Excessive doubt or complexity — repeatedly second-guessing prior
-        reasoning, or revisiting the same answer options more than three
-        times without resolving on new information.
+        Reasoning shows excessive doubt or complexity. This includes when it repeatedly second-guesses reasoning or when it revisits the same answer options more than three times.
       </div>
       <div class="behaviour-example">
-        So the answer should be B… maybe it's C. Since the context
-        doesn't mention drug use, the answer is B. However, if the
-        question assumes poverty leads to drug use, then C. But the
-        instructions say to use the context, so B. Wait, maybe C.
+        So the answer should be B....maybe it’s C. . . . Since the context doesn’t mention drug use, the answer is B.... However, if the question assumes poverty leads to drug use, then C. . . . But the instructions say to use the context, so B. . . . Wait maybe C
       </div>
     </div>
 
@@ -1128,7 +1074,7 @@ ol.takeaways strong { font-weight: 500; }
   <p>
     Using BiasTrace, we first ask which reasoning patterns actually
     contribute to biased outcomes, and then leverage those relationships
-    to build better evaluators and mitigations.
+    to better identify when reasoning is likely to produce biased outputs. 
   </p>
 
 
@@ -1263,8 +1209,7 @@ ol.takeaways strong { font-weight: 500; }
 
 
   <p>
-    Annotating hundreds of thousands of traces by hand is infeasible; we
-    use a validated LLM-as-a-judge instead. Two annotators independently
+    We use a validated LLM-as-a-judge to apply BiasTrace to reasoning traces. Two annotators independently
     labelled 100 traces, and we selected DeepSeek-V3.2 as the judge based
     on strong agreement with those labels — Cohen's <em>κ</em> of
     0.64–0.84 across the main behaviours.<sup class="snref">4</sup>
@@ -1278,18 +1223,14 @@ ol.takeaways strong { font-weight: 500; }
   </aside>
 
   <p>
-    Using this pipeline we annotate roughly <strong>250,000 reasoning
-    traces</strong> generated from Qwen3-8B, Qwen3-14B, and GPT-OSS-120B
-    on the BBQ bias benchmark<sup class="snref">5</sup> — spanning three
-    prompt conditions (unguided, bias-aware, and bias-warning) and two
-    reasoning-effort settings. The full annotated corpus, along with
-    per-trace behaviour distributions, is released with the paper.
+ Using this pipeline, we annotate roughly <strong>250k reasoning traces</strong>. For predictive analysis, we evaluate Qwen3-8B and Qwen3-14B on the BBQ bias benchmark<sup class="snref">5</sup> under two prompt conditions: simple and guided (bias-aware). We additionally use GPT-OSS-120B to assess whether the behavioural signals generalise across models. For these predictive analyses, we consider two reasoning levels and the two prompt conditions, simple and guided.
+
+We further conduct bias-mitigation experiments using Qwen3-4B, Qwen3-1.7B, Llama-3.2-Instruct-3B, and Llama-3-Instruct-8B.
   </p>
 
   <aside class="inline-note"><span class="num">5</span>
     Parrish et al., <em>BBQ: A Hand-Built Bias Benchmark for Question
-    Answering</em>, ACL 2022. We use the ambiguous-context subset, where
-    a bias-free answer is always available.
+    Answering</em>, ACL 2022.
   </aside>
 
 
@@ -1304,7 +1245,7 @@ ol.takeaways strong { font-weight: 500; }
   <p>
     We fit a logistic regression of biased-answer occurrence on the
     presence of each BiasTrace behaviour in the trace, controlling for
-    prompt and model. The result is our main empirical finding.
+    prompt type, question type, model, BBQ category. 
   </p>
 
   <div class="pullquote">
@@ -1322,22 +1263,10 @@ ol.takeaways strong { font-weight: 500; }
       Odds ratios (log scale) from a logistic regression of BiasTrace
       behaviours on biased outcomes, pooled across models and prompts.
       <em>Overthinking</em> is the strongest predictor. Explicit group
-      assumptions — the closest thing to what prior work looks for — do
-      not reach significance on their own once the other behaviours are
-      controlled for.
+      assumptions — the closest thing to what prior work looks for — is
+      not significant.
     </figcaption>
   </figure>
-
-
-  <div class="remark">
-    <span class="lbl">Remark 4.1.</span>
-    The <em>bt–ot</em> effect is robust to a number of alternate
-    specifications: trace length as a covariate, model-fixed effects,
-    and separate regressions per prompt condition all leave the ranking
-    substantially unchanged. Overthinking is not just a proxy for “long
-    trace.”
-  </div>
-
 
   <!-- ===== § 5 ===== -->
 
@@ -1348,23 +1277,14 @@ ol.takeaways strong { font-weight: 500; }
 
 
   <p>
-    If overthinking and out-of-context appeals genuinely predict biased
-    outputs, they should also serve as features for detection. We
-    incorporate the BiasTrace behaviours into a dedicated evaluation
+    We incorporate the BiasTrace behaviours into a dedicated evaluation
     prompt and compare it against standard LLM-as-a-judge baselines and
     a trained fairness reward model.<sup class="snref">6</sup>
     Across models and settings, the BiasTrace prompt achieves stronger
     Pearson correlation with realised bias — and, importantly, the
     signal generalises to GPT-OSS-120B, a model that was not involved in
-    developing the scheme.
+    developing the scheme or predictive analysis.
   </p>
-
-  <aside class="inline-note"><span class="num">6</span>
-    The reward-model baseline is BeaverTails-RM, which is trained on
-    human preference data over harmful/harmless completions rather than
-    bias per se; the LLM-as-a-judge baseline uses the same base model
-    with a generic “rate this reasoning for bias” prompt.
-  </aside>
 
   <figure class="fig" id="fig3">
     <div class="frame">
@@ -1391,20 +1311,15 @@ ol.takeaways strong { font-weight: 500; }
 
   <p>
     The same signal can be turned into an intervention. For each
-    question we sample <em>k</em> reasoning traces, apply the BiasTrace
+    question we sample <em>8</em> reasoning traces, apply the BiasTrace
     evaluation prompt to flag traces likely to yield biased outputs, and
-    take a majority vote over the remaining unflagged traces.<sup class="snref">7</sup>
+    take a majority vote over the remaining unflagged traces.
     Across four models — Qwen3-1.7B, Qwen3-4B, Llama-3.2-3B-Instruct,
     and Llama-3-8B-Instruct — this procedure improves both accuracy and
     the bias rate simultaneously, outperforming both single-sample
     inference and vanilla self-consistency.
   </p>
 
-  <aside class="inline-note"><span class="num">7</span>
-    We use <em>k</em>=8 at temperature 0.7. When all <em>k</em> traces
-    are flagged, we back off to unfiltered majority vote — this occurs
-    for roughly 4% of questions.
-  </aside>
 
   <figure class="fig" id="fig4">
     <div class="frame">
