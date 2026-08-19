@@ -51,11 +51,9 @@
            'STIX Two Text', 'Nimbus Roman No9 L', Georgia, serif;
   --mono:  'JetBrains Mono', 'Latin Modern Mono', ui-monospace, monospace;
 
-  /* Layout */
-  --measure:      620px;   /* main column width */
-  --gutter:       48px;    /* space between main column and sidenote column */
-  --sidenote:     200px;   /* sidenote column width */
-  --page:         calc(var(--measure) + var(--gutter) + var(--sidenote));
+  /* Layout — single column, no sidenote gutter */
+  --measure:      640px;   /* main column width */
+  --page:         var(--measure);
 }
 
 * { box-sizing: border-box; }
@@ -242,26 +240,17 @@ h1.title .sub {
 
 
 /* =========================================================
-   BODY GRID (two-column: prose + sidenotes)
+   BODY (single column — sidenote column removed)
 ========================================================= */
 
 .body {
-  display: grid;
-  grid-template-columns: var(--measure) var(--sidenote);
-  column-gap: var(--gutter);
-  align-items: start;
   padding-bottom: 96px;
 }
 
 .prose {
   min-width: 0;
-}
-
-/* The sidenote column is intentionally sparse; sidenotes flow in it
-   via a stacking layout with margin offsets set inline where needed. */
-.margin {
-  min-width: 0;
-  padding-top: 0;
+  max-width: var(--measure);
+  margin: 0 auto;
 }
 
 
@@ -361,63 +350,7 @@ h2.section .titl {
 
 
 /* =========================================================
-   SIDENOTES (Tufte)
-========================================================= */
-
-/* Inline reference marker inside prose */
-sup.snref {
-  font-family: var(--serif);
-  font-size: 0.68em;
-  vertical-align: 0.55em;
-  color: var(--ink-mid);
-  margin-left: 0.1em;
-  font-variant-numeric: oldstyle-nums;
-  font-weight: 500;
-  cursor: default;
-}
-
-/* The sidenote as it appears in the right column */
-.sidenote {
-  font-family: var(--serif);
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--ink-mid);
-  padding: 0 0 24px;
-  position: relative;
-  text-align: left;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-}
-
-.sidenote .num {
-  font-variant-numeric: oldstyle-nums;
-  font-weight: 500;
-  color: var(--ink);
-  margin-right: 0.3em;
-  font-size: 0.9em;
-  vertical-align: 0.35em;
-  line-height: 0;
-}
-
-.sidenote em { font-style: italic; }
-.sidenote strong { font-weight: 500; color: var(--ink); }
-.sidenote code {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  background: var(--paper-edge);
-  padding: 1px 4px;
-  border-radius: 1px;
-}
-
-/* Sidenote wrappers with row offsets — one per sidenote, positioned
-   near the ¶ that references it. Offsets set via inline style. */
-.sn-row {
-  display: block;
-}
-
-
-/* =========================================================
-   BEHAVIOUR TABLE (restored)
+   BEHAVIOUR TABLE
 ========================================================= */
 
 .behaviour-table {
@@ -560,7 +493,7 @@ figure.fig figcaption em { font-style: italic; }
 
 
 /* =========================================================
-   ANNOTATED TRACE (restored to original visual)
+   ANNOTATED TRACE
 ========================================================= */
 
 .trace {
@@ -894,7 +827,7 @@ ol.takeaways strong { font-weight: 500; }
 
 
 /* =========================================================
-   RESPONSIVE — collapse sidenotes to inline footnotes
+   RESPONSIVE
 ========================================================= */
 
 @media (max-width: 640px) {
@@ -914,7 +847,6 @@ ol.takeaways strong { font-weight: 500; }
   h2.section .sec { font-size: 17px; }
 
   .prose p { font-size: 17px; }
-  .inline-note { font-size: 15px; padding: 10px 14px; }
 
   .trace { padding: 12px; }
   .trace-body { font-size: 12px; line-height: 1.75; }
@@ -936,10 +868,6 @@ ol.takeaways strong { font-weight: 500; }
   .pullquote { font-size: 19px; }
 }
 
-@media (min-width: 1001px) {
-  .inline-note { display: none; }
-}
-
 @media (max-width: 640px) {
   body { font-size: 16.5px; }
   .page { padding: 0 22px; }
@@ -958,7 +886,6 @@ ol.takeaways strong { font-weight: 500; }
   .trace { padding: 16px 14px; }
   .trace-body { font-size: 13.5px; }
   .trace-meta { font-size: 10.5px; }
-  .defn { padding-left: 14px; }
   .prose p { text-indent: 1em; }
   .prose .lead::first-letter { font-size: 4em; }
 }
@@ -1056,15 +983,11 @@ ol.takeaways strong { font-weight: 500; }
 
 
 <!-- =========================================================
-     BODY
+     BODY (single column)
 ========================================================= -->
 
 <div class="body">
 
-
-<!-- ============================
-     LEFT COLUMN — PROSE
-============================ -->
 
 <div class="prose">
 
@@ -1080,7 +1003,7 @@ ol.takeaways strong { font-weight: 500; }
   <p class="lead">
     <span class="runin">Large language models</span> can exhibit social
     biases that reflect stereotypes and imbalances in their training
-    data.<sup class="snref">1</sup> While significant effort has focused
+    data. While significant effort has focused
     on measuring and mitigating bias in the outputs of models, these
     approaches largely examine the final conclusion produced. As a result, the
     mechanisms through which models arrive at biased conclusions remain
@@ -1110,7 +1033,7 @@ ol.takeaways strong { font-weight: 500; }
 
   <p>
     We introduce <strong>BiasTrace</strong>, a fine-grained scheme for
-    annotating reasoning behaviours in chain-of-thought traces.<sup class="snref">3</sup>
+    annotating reasoning behaviours in chain-of-thought traces.
     The scheme captures two kinds of behaviour: <em>bias-specific</em>
     behaviours, such as making unsupported assumptions about demographic
     groups or explicitly acknowledging potential bias; and more
@@ -1225,7 +1148,7 @@ ol.takeaways strong { font-weight: 500; }
         Reasoning shows excessive doubt or complexity. This includes when it repeatedly second-guesses reasoning or when it revisits the same answer options more than three times.
       </div>
       <div class="behaviour-example">
-        So the answer should be B....maybe it’s C. . . . Since the context doesn’t mention drug use, the answer is B.... However, if the question assumes poverty leads to drug use, then C. . . . But the instructions say to use the context, so B. . . . Wait maybe C
+        So the answer should be B....maybe it's C. . . . Since the context doesn't mention drug use, the answer is B.... However, if the question assumes poverty leads to drug use, then C. . . . But the instructions say to use the context, so B. . . . Wait maybe C
       </div>
     </div>
 
@@ -1369,11 +1292,11 @@ ol.takeaways strong { font-weight: 500; }
   </h2>
 
 
-  <p> We use a validated LLM-as-a-judge to apply BiasTrace to reasoning traces. Two annotators independently labelled 100 traces, and we selected DeepSeek-V3.2 (Liu et al., 2025) as the judge based on its agreement with human annotations. It achieved strong agreement for Outside Demographic Knowledge, Group Assumption, Overthinking, and Meta Reflection (<em>κ</em> = 0.64–0.84), and moderate agreement for Bias Acknowledgement and Outside Topical Knowledge (<em>κ</em> = 0.30–0.46).<sup class="snref">4</sup> </p>
+  <p> We use a validated LLM-as-a-judge to apply BiasTrace to reasoning traces. Two annotators independently labelled 100 traces, and we selected DeepSeek-V3.2 (Liu et al., 2025) as the judge based on its agreement with human annotations. It achieved strong agreement for Outside Demographic Knowledge, Group Assumption, Overthinking, and Meta Reflection (<em>κ</em> = 0.64–0.84), and moderate agreement for Bias Acknowledgement and Outside Topical Knowledge (<em>κ</em> = 0.30–0.46). </p>
 
 
   <p>
- Using this pipeline, we annotate roughly <strong>250k reasoning traces</strong>. For predictive analysis, we evaluate Qwen3-8B and Qwen3-14B on the BBQ bias benchmark<sup class="snref">5</sup> under two prompt conditions: simple and guided (bias-aware). GPT-OSS-120B under the two prompt conditions as well as two reasoning effort levels (low and medium) is also used to assess whether the behavioural signals generalise across models.
+ Using this pipeline, we annotate roughly <strong>250k reasoning traces</strong>. For predictive analysis, we evaluate Qwen3-8B and Qwen3-14B on the BBQ bias benchmark under two prompt conditions: simple and guided (bias-aware). GPT-OSS-120B under the two prompt conditions as well as two reasoning effort levels (low and medium) is also used to assess whether the behavioural signals generalise across models.
 
 We further conduct bias-mitigation experiments using different models not used previously: Qwen3-4B, Qwen3-1.7B, Llama-3.2-Instruct-3B, and Llama-3-Instruct-8B.
   </p>
@@ -1426,7 +1349,7 @@ We further conduct bias-mitigation experiments using different models not used p
   <p>
     We incorporate the BiasTrace behaviours into a dedicated evaluation
     prompt and compare it against standard LLM-as-a-judge baselines and
-    a trained fairness reward model.<sup class="snref">6</sup>
+    a trained fairness reward model.
     Across models and settings, the BiasTrace prompt achieves stronger
     Pearson correlation with realised bias — and, importantly, the
     signal generalises to GPT-OSS-120B, a model that was not involved in
