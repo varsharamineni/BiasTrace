@@ -897,7 +897,6 @@ ol.takeaways strong { font-weight: 500; }
    RESPONSIVE — collapse sidenotes to inline footnotes
 ========================================================= */
 
-<<<<<<< HEAD
 @media (max-width: 640px) {
   body { font-size: 17px; }
   .page { padding: 0 22px; }
@@ -935,40 +934,6 @@ ol.takeaways strong { font-weight: 500; }
 
   figure.fig figcaption { font-size: 15px; }
   .pullquote { font-size: 19px; }
-=======
-@media (max-width: 1000px) {
-  :root {
-    --measure: 640px;
-    --sidenote: 0px;
-    --gutter: 0px;
-  }
-  .body {
-    grid-template-columns: 1fr;
-  }
-  .margin {
-    display: none;
-  }
-  /* Render sidenotes inline as small aside blocks after the paragraph
-     they annotate. They exist in the .prose column via a duplicate
-     structure below, hidden on desktop. */
-  .inline-note {
-    display: block;
-    margin: 6px 0 18px 24px;
-    padding: 8px 0 8px 12px;
-    border-left: 0.5px solid var(--rule);
-    font-size: 13.5px;
-    line-height: 1.55;
-    color: var(--ink-mid);
-    text-indent: 0;
-    font-style: italic;
-  }
-  .inline-note .num {
-    font-style: normal;
-    font-weight: 500;
-    margin-right: 0.35em;
-    color: var(--ink);
-  }
->>>>>>> parent of 891cd88 (make text easier to read)
 }
 
 @media (min-width: 1001px) {
@@ -1067,11 +1032,7 @@ ol.takeaways strong { font-weight: 500; }
     <span class="dot">·</span>
     v0.3
     <span class="dot">·</span>
-<<<<<<< HEAD
     <a href="https://arxiv.org/pdf/2608.14161">arxiv</a>
-=======
-    <a href="#" style="color:inherit; text-decoration: none; border-bottom: 0.5px dotted var(--ink-soft);">arxiv:2608.xxxxx</a>
->>>>>>> parent of 891cd88 (make text easier to read)
     <span class="dot">·</span>
     <a href="https://github.com/varsharamineni/BiasTrace" style="color:inherit; text-decoration: none; border-bottom: 0.5px dotted var(--ink-soft);">github</a>
   </div>
@@ -1128,14 +1089,13 @@ ol.takeaways strong { font-weight: 500; }
 
   <p>
   This is particularly important as LLMs increasingly rely on multi-step reasoning, which ideally could help guide models to more fair conclusions, or can also introduce and amplify bias. Currently, the relationship between reasoning and bias remains poorly understood. Existing work has largely focused on detecting stereotypical language in intermediate reasoning steps, overlooking the subtle reasoning behaviours that may implicitly lead to biased conclusions.
-
   </p>
 
   <p>
     We therefore ask:
     <em>
       which reasoning behaviours are associated with biased outputs, and
-      how can they be leveraged to help us better identify bias?
+      can they be leveraged to better identify bias?
     </em>
   </p>
 
@@ -1409,30 +1369,16 @@ ol.takeaways strong { font-weight: 500; }
   </h2>
 
 
-  <p>
-    We use a validated LLM-as-a-judge to apply BiasTrace to reasoning traces. Two annotators independently
-    labelled 100 traces, and we selected DeepSeek-V3.2 as the judge based
-    on strong agreement with those labels — Cohen's <em>κ</em> of
-    0.64–0.84 across the main behaviours.<sup class="snref">4</sup>
-  </p>
+  <p> We use a validated LLM-as-a-judge to apply BiasTrace to reasoning traces. Two annotators independently labelled 100 traces, and we selected DeepSeek-V3.2 (Liu et al., 2025) as the judge based on its agreement with human annotations. It achieved strong agreement for Outside Demographic Knowledge, Group Assumption, Overthinking, and Meta Reflection (<em>κ</em> = 0.64–0.84), and moderate agreement for Bias Acknowledgement and Outside Topical Knowledge (<em>κ</em> = 0.30–0.46).<sup class="snref">4</sup> </p>
 
-  <aside class="inline-note"><span class="num">4</span>
-    Agreement is highest on <em>bt–ot</em> (κ=0.84) and lowest on
-    <em>bt–mr</em> (κ=0.64), which is unsurprising: overthinking has a
-    clean surface signature, meta-reflection often shades into ordinary
-    reasoning.
-  </aside>
 
   <p>
- Using this pipeline, we annotate roughly <strong>250k reasoning traces</strong>. For predictive analysis, we evaluate Qwen3-8B and Qwen3-14B on the BBQ bias benchmark<sup class="snref">5</sup> under two prompt conditions: simple and guided (bias-aware). We additionally use GPT-OSS-120B to assess whether the behavioural signals generalise across models. For these predictive analyses, we consider two reasoning levels and the two prompt conditions, simple and guided.
+ Using this pipeline, we annotate roughly <strong>250k reasoning traces</strong>. For predictive analysis, we evaluate Qwen3-8B and Qwen3-14B on the BBQ bias benchmark<sup class="snref">5</sup> under two prompt conditions: simple and guided (bias-aware). GPT-OSS-120B under the two prompt conditions as well as two reasoning effort levels (low and medium) is also used to assess whether the behavioural signals generalise across models.
 
-We further conduct bias-mitigation experiments using Qwen3-4B, Qwen3-1.7B, Llama-3.2-Instruct-3B, and Llama-3-Instruct-8B.
+We further conduct bias-mitigation experiments using different models not used previously: Qwen3-4B, Qwen3-1.7B, Llama-3.2-Instruct-3B, and Llama-3-Instruct-8B.
   </p>
 
-  <aside class="inline-note"><span class="num">5</span>
-    Parrish et al., <em>BBQ: A Hand-Built Bias Benchmark for Question
-    Answering</em>, ACL 2022.
-  </aside>
+
 
 
   <!-- ===== § 4 ===== -->
