@@ -888,7 +888,7 @@ h1.title {
 
 <p>
   <strong>Dataset:</strong>
-  We construct a dataset of approximately <strong>250k annotated reasoning traces</strong>. The traces are generated using the BBQ bias benchmark, which covers nine demographic groups and consists of logically structured multiple-choice questions designed to evaluate social bias in both ambiguous and disambiguated contexts.
+  We construct a dataset of approximately <strong>250k annotated reasoning traces</strong>. The traces are generated using the BBQ bias benchmark  (Parrish et al., 2021), which covers nine demographic groups and consists of logically structured multiple-choice questions designed to evaluate social bias in both ambiguous and disambiguated contexts.
 </p>
 
 <p>
@@ -978,12 +978,9 @@ h1.title {
       <h2>Better bias detection using BiasTrace</h2>
     </div>
 
-    <p>We incorporate the BiasTrace behaviours into a dedicated evaluation prompt to assess whether reasoning is likely to lead to bias, and compare it against other LLM-as-a-judge prompt baselines and a trained fairness reward model for bias in reasoning. Across models and settings, the BiasTrace prompt achieves stronger Pearson correlation with model producing a biased conclusion. Importantly, the signal generalises to GPT-OSS-120B, a model that was not involved in developing the scheme or predictive analysis.</p>
-
-
 <p>
   <strong>Baselines:</strong>
-  We compare BiasTrace against three established approaches for evaluating bias in LLM reasoning. Two are LLM-as-a-judge baselines: <strong>Baseline 0–5</strong>, which assigns an ordinal bias score from 0 to 5 to each reasoning step, and <strong>Baseline 0/1</strong>, which assigns a binary bias label. We also evaluate <strong>Baseline FRM</strong>, a trained fairness reward model (Hall et al., 2025) that assigns a fairness score to each reasoning step, which is then aggregated across the trace. These baselines allow us to assess whether the structured behavioural signals captured by BiasTrace provide additional predictive and explanatory value beyond existing approaches.
+  We compare BiasTrace against three established approaches for evaluating bias in LLM reasoning. Two are LLM-as-a-judge baselines: <strong>Baseline 0–5</strong>, which assigns an ordinal bias score from 0 to 5 to each reasoning step, and <strong>Baseline 0/1</strong>, which assigns a binary bias label  (Kumar et al., 2024; Kaneko et al., 2024; Kabra et al., 2025; Rajwal et al., 2025). We also evaluate <strong>Baseline FRM</strong>, a trained fairness reward model (Hall et al., 2025) that assigns a fairness score to each reasoning step, which is then aggregated across the trace. These baselines allow us to assess whether the structured behavioural signals captured by BiasTrace provide additional predictive and explanatory value beyond existing approaches.
 </p>
 
 <p>
@@ -1058,6 +1055,40 @@ h1.title {
     <div class="takeaway"><div class="num">II</div><div class="text"><strong>Overthinking is the single strongest predictor</strong> of stereotype-aligned answers, showing that models that oscillate between options or repeatedly second-guess themselves are substantially more likely to land on the biased choice.</div></div>
     <div class="takeaway"><div class="num">III</div><div class="text"><strong>Bias-aware prompting selectively amplifies</strong> some reasoning pathways rather than uniformly suppressing bias, offering practical implications for prompt-based mitigation.</div></div>
     <div class="takeaway takeaway--last"><div class="num">V</div><div class="text">The behavioural signal is <strong>usable as an intervention</strong>, not just a diagnostic — filtered self-consistency on BiasTrace flags improves both accuracy and bias rate at inference time.</div></div>
+
+
+<section class="references">
+  <h2>References</h2>
+
+  <ol>
+    <li>
+      Rajwal, S., Garg, S., Abdel-Salam, R., &amp; Zayed, A. (2025).
+      <em>Do Biased Models Have Biased Thoughts?</em>
+      In <em>Second Conference on Language Modeling</em>.
+    </li>
+
+    <li>
+      Parrish, A., Chen, A., Nangia, N., Padmakumar, V., Phang, J.,
+      Thompson, J., Htut, P. M., &amp; Bowman, S. R. (2021).
+      <em>BBQ: A Hand-Built Bias Benchmark for Question Answering.</em>
+      arXiv preprint arXiv:2110.08193.
+    </li>
+
+    <li>
+      Hall, Z., Subbiah, M., Zollo, T. P., McKeown, K., &amp; Zemel, R. (2025).
+      <em>Guiding LLM Decision-Making with Fairness Reward Models.</em>
+      In <em>Proceedings of the Thirty-Ninth Annual Conference on Neural Information Processing Systems</em>.
+    </li>
+
+    <li>
+      Kabra, S., Jha, A., &amp; Reddy, C. K. (2025).
+      <em>Reasoning Towards Fairness: Mitigating Bias in Language Models Through Reasoning-Guided Finetuning.</em>
+      arXiv preprint arXiv:2504.05632.
+    </li>
+  </ol>
+</section>
+
+
 
 
 
