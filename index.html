@@ -985,7 +985,36 @@ h1.title {
 
 <p>
   <strong>Baselines:</strong>
-  We compare BiasTrace against three established approaches for evaluating bias in LLM reasoning. Two are LLM-as-a-judge baselines: <strong>Baseline 0–5</strong>, which assigns an ordinal bias score from 0 to 5 to each reasoning step, and <strong>Baseline 0/1</strong>, which assigns a binary bias label  (Kumar et al., 2024; Kaneko et al., 2024; Kabra et al., 2025; Rajwal et al., 2025). We also evaluate <strong>Baseline FRM</strong>, a trained fairness reward model (Hall et al., 2025) that assigns a fairness score to each reasoning step, which is then aggregated across the trace. These baselines allow us to assess whether the structured behavioural signals captured by BiasTrace provide additional predictive and explanatory value beyond existing approaches.
+  We compare BiasTrace against three established approaches for evaluating bias in LLM reasoning. Two are LLM-as-a-judge baselines: <strong>Baseline 0–5</strong>, which assigns an ordinal bias score from 0 to 5 to each reasoning step, and <strong>Baseline 0/1</strong>, which assigns a binary bias label  <a
+    class="citation"
+    href="KUMAR_PAPER_URL"
+    target="_blank"
+    rel="noopener noreferrer"
+  >(Kumar et al., 2024)</a>,
+  <a
+    class="citation"
+    href="https://arxiv.org/abs/2401.15585"
+    target="_blank"
+    rel="noopener noreferrer"
+  >(Kaneko et al., 2024)</a>,
+  <a
+    class="citation"
+    href="https://arxiv.org/abs/2504.05632"
+    target="_blank"
+    rel="noopener noreferrer"
+  >(Kabra et al., 2025)</a>,
+  and
+  <a
+    class="citation"
+    href="https://arxiv.org/abs/2508.06671"
+    target="_blank"
+    rel="noopener noreferrer"
+  >(Rajwal et al., 2025)</a>. We also evaluate <strong>Baseline FRM</strong>, a trained fairness reward model <a
+    class="citation"
+    href="https://arxiv.org/abs/2507.11344"
+    target="_blank"
+    rel="noopener noreferrer"
+  >(Hall et al., 2025)</a>. that assigns a fairness score to each reasoning step, which is then aggregated across the trace. These baselines allow us to assess whether the structured behavioural signals captured by BiasTrace provide additional predictive and explanatory value beyond existing approaches.
 </p>
 
 <p>
@@ -1094,37 +1123,6 @@ h1.title {
     We hope BiasTrace encourages greater attention to the broader range of reasoning behaviours that can contribute to biased outcomes in LLMs.
   </div>
 </div>
-
-<section class="references">
-  <h2>References</h2>
-
-  <ol>
-    <li>
-      Rajwal, S., Garg, S., Abdel-Salam, R., &amp; Zayed, A. (2025).
-      <em>Do Biased Models Have Biased Thoughts?</em>
-      In <em>Second Conference on Language Modeling</em>.
-    </li>
-
-    <li>
-      Parrish, A., Chen, A., Nangia, N., Padmakumar, V., Phang, J.,
-      Thompson, J., Htut, P. M., &amp; Bowman, S. R. (2021).
-      <em>BBQ: A Hand-Built Bias Benchmark for Question Answering.</em>
-      arXiv preprint arXiv:2110.08193.
-    </li>
-
-    <li>
-      Hall, Z., Subbiah, M., Zollo, T. P., McKeown, K., &amp; Zemel, R. (2025).
-      <em>Guiding LLM Decision-Making with Fairness Reward Models.</em>
-      In <em>Proceedings of the Thirty-Ninth Annual Conference on Neural Information Processing Systems</em>.
-    </li>
-
-    <li>
-      Kabra, S., Jha, A., &amp; Reddy, C. K. (2025).
-      <em>Reasoning Towards Fairness: Mitigating Bias in Language Models Through Reasoning-Guided Finetuning.</em>
-      arXiv preprint arXiv:2504.05632.
-    </li>
-  </ol>
-</section>
 
 
 
