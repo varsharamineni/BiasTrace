@@ -937,13 +937,13 @@ the question while providing step-by-step reasoning. The second is a guided prom
     <p>We use our annotated dataset from Qwen3-8B and Qwen3-14B to fit a logistic regression of biased-answer occurrence on the presence of each BiasTrace behaviour in the trace, controlling for prompt type, question type, model, and BBQ category.</p>
 
     <div class="pullquote">Seemingly neutral reasoning steps such as overthinking and referencing studies predict biased outputs more strongly than <em>stereotypical language</em> does.</div>
-    Overthinking is the strongest predictor among all reasoning behaviours, with its effect amplified in ambiguous contexts. Using outside demographic knowledge also increases odds of bias significantly
+    <p>Overthinking is the strongest predictor among all reasoning behaviours, with its effect amplified in ambiguous contexts. We further find that the effect cannot be attributed solely to increases in reasoning length, and further that it captures a specific reasoning behaviour, rather than being induced by prompt or context type alone. Using outside demographic knowledge also increases odds of bias significantly. </p>
     
     <div class="pullquote">Explicitly stereotypical language in reasoning is not a significant predictor of biased outcomes.</div>
-      Group assumption, which is flagged if there is stereotypical language in the reasoning, does not yield a significant coefficient.  The effect is larger for ambiguous questions, suggesting that inferring unstated group attributes in ambiguous contexts is a pathway through which biased outputs emerge. 
+    <p>Group assumption, which is flagged if there is stereotypical language in the reasoning, does not yield a significant coefficient.  The effect is larger for ambiguous questions, suggesting that inferring unstated group attributes in ambiguous contexts is a pathway through which biased outputs emerge.</p>
 
     <div class="pullquote">Guided prompt suppress some bias pathways but amplifies others.</div>
-    The guided prompt, which instructs model to be aware of bias and use only provided context, strongly reduces the odds of biased outputs, although interactions reveal that it does not uniformly suppress bias-driving behaviours: the overthinking effect is amplified under the guided prompt, while the effect of group assumption is reduced. 
+    <p>The guided prompt, which instructs model to be aware of bias and use only provided context, strongly reduces the odds of biased outputs, although interactions reveal that it does not uniformly suppress bias-driving behaviours: the overthinking effect is amplified under the guided prompt, while the effect of group assumption is reduced.</p>
 
 
     <figure id="fig2">
@@ -963,7 +963,7 @@ the question while providing step-by-step reasoning. The second is a guided prom
       <h2>Better bias detection</h2>
     </div>
 
-    <p>We incorporate the BiasTrace behaviours into a dedicated evaluation prompt to assess whether reasoning is likely to lead to bias, and compare it against standard LLM-as-a-judge baselines and a trained fairness reward model for bias in reasoning. Across models and settings, the BiasTrace prompt achieves stronger Pearson correlation with model producing a biased conclusion. Importantly, the signal generalises to GPT-OSS-120B, a model that was not involved in developing the scheme or predictive analysis.</p>
+    <p>We incorporate the BiasTrace behaviours into a dedicated evaluation prompt to assess whether reasoning is likely to lead to bias, and compare it against other LLM-as-a-judge prompt baselines and a trained fairness reward model for bias in reasoning. Across models and settings, the BiasTrace prompt achieves stronger Pearson correlation with model producing a biased conclusion. Importantly, the signal generalises to GPT-OSS-120B, a model that was not involved in developing the scheme or predictive analysis.</p>
 
     <figure id="fig3">
       <div class="num">Figure 3</div>
