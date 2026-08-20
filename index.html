@@ -804,11 +804,11 @@ h1.title {
       <h2>Beyond the final answer</h2>
     </div>
 
-    <p>Large language models can exhibit social biases that reflect stereotypes and imbalances in their training data. While significant effort has focused on measuring and mitigating bias in the outputs of models, these approaches largely examine the final conclusion produced. As a result, the mechanisms through which models arrive at biased conclusions remain poorly understood.</p>
+    <p>Large language models (LLMs) can exhibit social biases that reflect stereotypes and imbalances in their training data. While significant effort has focused on measuring and mitigating bias in the outputs of models, these approaches largely examine the final conclusion produced. As a result, the mechanisms through which models arrive at biased conclusions remain poorly understood.</p>
 
-    <p>This is particularly important as LLMs increasingly rely on multi-step reasoning, which ideally could help guide models to more fair conclusions, or can also introduce and amplify bias. Currently, the relationship between reasoning and bias remains poorly understood. Existing work has largely focused on detecting stereotypical language in intermediate reasoning steps, overlooking the broader range of reasoning behaviours that may implicitly lead to biased conclusions.</p>
+    <p>LLMs increasingly rely on multi-step reasoning, which could help guide models to more fair conclusions, or could also introduce and amplify bias. Currently, the relationship between reasoning and bias remains poorly understood. Existing work has largely focused on detecting stereotypical language in intermediate reasoning steps, overlooking the broader range of reasoning behaviours that may implicitly lead to biased conclusions.</p>
 
-    <p>We therefore ask: <em>which reasoning behaviours are associated with biased outputs, and can they be leveraged to better identify bias outcomes?</em></p>
+    <p>We therefore ask: <em>which reasoning behaviours are associated with biased outcomes, and can they be leveraged to better identify bias outcomes?</em></p>
 
 
     <!-- § 2 -->
@@ -875,21 +875,21 @@ h1.title {
 
     </div>
 
-    <p>Using BiasTrace, we first ask which reasoning patterns actually contribute to biased outcomes, and then seek to leverage those relationships to better identify when reasoning is likely to produce biased outputs.</p>
-
-
     <!-- § 3 -->
     <div class="section-block" id="s3">
       <div class="num">§ 3</div>
       <h2>Applying BiasTrace at scale</h2>
     </div>
 
-    <p>We apply BiasTrace to LLM reasoning traces for bias-sensitive contexts. We use a validated LLM-as-a-judge to apply BiasTrace to reasoning traces. Two annotators independently labelled 100 traces, and we selected DeepSeek-V3.2 (Liu et al., 2025) as the judge based on its agreement with human annotations. It achieved strong agreement for Outside Demographic Knowledge, Group Assumption, Overthinking, and Meta Reflection (<em>κ</em> = 0.64–0.84), and moderate agreement for Bias Acknowledgement and Outside Topical Knowledge (<em>κ</em> = 0.30–0.46).</p>
+    <p><strong>Annotation</strong> We apply BiasTrace to LLM reasoning traces generated in bias-sensitive contexts. We use a validated LLM-as-a-judge to apply BiasTrace to reasoning traces. Two annotators independently labelled 100 traces, and we selected DeepSeek-V3.2 (Liu et al., 2025) as the judge based on its agreement with human annotations. It achieved strong agreement for Outside Demographic Knowledge, Group Assumption, Overthinking, and Meta Reflection (<em>κ</em> = 0.64–0.84), and moderate agreement for Bias Acknowledgement and Outside Topical Knowledge (<em>κ</em> = 0.30–0.46).</p>
 
-    <p>We create a dataset of ~<strong>250k reasoning traces</strong>. For predictive analysis, we evaluate Qwen3-8B and Qwen3-14B on the BBQ bias benchmark under two prompt conditions: simple and guided (bias-aware). GPT-OSS-120B under the two prompt conditions as well as two reasoning effort levels (low and medium) is also used to assess whether the behavioural signals generalise across models. We further conduct bias-mitigation experiments using different models not used previously: Qwen3-4B, Qwen3-1.7B, Llama-3.2-Instruct-3B, and Llama-3-Instruct-8B.</p>
+    <p><strong>Models:</strong> We create a dataset of ~<strong>250k annotated reasoning traces</strong>. For predictive analysis, we evaluate Qwen3-8B and Qwen3-14B on the BBQ bias benchmark under two prompt conditions: simple and guided (bias-aware). GPT-OSS-120B under the two prompt conditions as well as two reasoning effort levels (low and medium) is also used to assess whether the behavioural signals generalise across models. We further conduct bias-mitigation experiments using different models not used previously: Qwen3-4B, Qwen3-1.7B, Llama-3.2-Instruct-3B, and Llama-3-Instruct-8B.</p>
 
-    <p>The BBQ bias dataset used is split across nine demographic groups, and consists of logically structured multiple choice questions designed to test social bias under both ambiguous and disambiguated contexts. We use two prompt templates to elicit different reasoning behaviours. The first is a simple prompt that instructs the model to answer
-the question while providing step-by-step reasoning. The second is a guided prompt that instructs the model to rely only on the provided context and to remain aware of potential biases. The final conclusion of generated by the model after reasoning is labelled as biased if it is both incorrect and follows stereotypical patterns tested by the BBQ question. </p>
+    <p><strong>Dataset:</strong> The BBQ bias dataset used is split across nine demographic groups, and consists of logically structured multiple choice questions designed to test social bias under both ambiguous and disambiguated contexts.</p>
+      
+    <p><strong>Prompts</strong>We use two prompt templates to elicit different reasoning behaviours. The first is a simple prompt that instructs the model to answer the question while providing step-by-step reasoning. The second is a guided prompt that instructs the model to rely only on the provided context and to remain aware of potential biases.</p>
+      
+    <p><strong>Biased Outcome Label</strong>The final conclusion of generated by the model after reasoning is labelled as biased if it is both incorrect and follows stereotypical patterns tested by the BBQ question. </p>
 
     <!-- Figure 1 — annotated trace -->
     <figure id="fig1">
@@ -960,7 +960,7 @@ the question while providing step-by-step reasoning. The second is a guided prom
     <!-- § 5 -->
     <div class="section-block" id="s5">
       <div class="num">§ 5</div>
-      <h2>Better bias detection</h2>
+      <h2>Better bias detection using BiasTrace</h2>
     </div>
 
     <p>We incorporate the BiasTrace behaviours into a dedicated evaluation prompt to assess whether reasoning is likely to lead to bias, and compare it against other LLM-as-a-judge prompt baselines and a trained fairness reward model for bias in reasoning. Across models and settings, the BiasTrace prompt achieves stronger Pearson correlation with model producing a biased conclusion. Importantly, the signal generalises to GPT-OSS-120B, a model that was not involved in developing the scheme or predictive analysis.</p>
@@ -975,11 +975,13 @@ the question while providing step-by-step reasoning. The second is a guided prom
       </div>
     </figure>
 
+    We further apply the BiasTrace evaluation to a downstream dataset COMPAS, see paper for details of this dataset and evaluation results. 
+
 
     <!-- § 6 -->
     <div class="section-block" id="s6">
       <div class="num">§ 6</div>
-      <h2>Inference-time mitigation</h2>
+      <h2>Inference-time bias mitigation using BiasTrace</h2>
     </div>
 
     <p>The same signal can be turned into an intervention. For each question we sample <em>8</em> reasoning traces, apply the BiasTrace evaluation prompt to flag traces likely to yield biased outputs, and take a majority vote over the remaining unflagged traces. Across four models,  Qwen3-1.7B, Qwen3-4B, Llama-3.2-3B-Instruct, and Llama-3-8B-Instruct, this procedure improves accuracy and reduces the bias rate, outperforming both single-sample inference and normal majority voting method.</p>
