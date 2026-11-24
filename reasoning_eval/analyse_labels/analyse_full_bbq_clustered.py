@@ -892,8 +892,8 @@ for outcome, model in [
     params = model.params
     conf   = model.conf_int()
     for term in params.index:
-        if not any(term.startswith(l) or term == l for l in JUDGE_LABELS_NO_BIAS):
-            continue
+        #if not any(term.startswith(l) or term == l for l in JUDGE_LABELS_NO_BIAS):
+        #    continue
         or_pt = np.exp(params[term])
         or_lo = np.exp(conf.loc[term, 0])
         or_hi = np.exp(conf.loc[term, 1])

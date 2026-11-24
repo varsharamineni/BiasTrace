@@ -240,13 +240,27 @@ rates_by_cat.to_csv(
 # 5a. Heatmap: categories x labels, with rate annotations.
 pivot = rates_by_cat.pivot(index="category", columns="label", values="rate")
 pivot = pivot.reindex(index=category_order, columns=error_cols)
+pivot = pivot.reindex(index=category_order, columns=error_cols) * 100
+
+label_names = {
+    "group_assumption": "Group Assumption",
+    "overthinking": "Overthinking",
+    "outside_topical_knowledge": "Outside Topical Knowledge",
+    "meta_reflection": "Meta Reflection",
+    "outside_demo_knowledge": "Outside Demo. knowledge",
+    "bias_acknowledgement": "Bias Acknowledgement",
+    # add the rest of your error_cols here, e.g.
+    # "some_label": "SOME LABEL",
+}
+
+pivot = pivot.rename(columns=label_names)
 
 fig, ax = plt.subplots(figsize=(max(10, 1.2 * len(error_cols)), 0.55 * len(category_order) + 2))
 sns.heatmap(
-    pivot, annot=True, fmt=".2f", cmap="viridis",
-    cbar_kws={"label": "Proportion of traces with label"}, ax=ax,
+    pivot, annot=True, fmt=".1f", cmap="Blues",
+cbar_kws={"label": "Prevalence (%)"}, ax=ax,
 )
-ax.set_title("BiasTrace label rates by BBQ category (pooled)")
+#ax.set_title("BiasTrace label rates by BBQ category")
 ax.set_xlabel("BiasTrace label")
 ax.set_ylabel("BBQ category")
 plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
