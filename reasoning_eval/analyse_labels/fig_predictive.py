@@ -27,8 +27,11 @@ import seaborn as sns
 # Config
 # ======================
 
-COEF_CSV = Path("reasoning_eval/analyse_labels/bbq_analysis_new/table_coef_stereo_mle_nb.csv")
-OUT_DIR  = Path("reasoning_eval/analyse_labels/bbq_analysis_new/publication_plot")
+# COEF_CSV = Path("reasoning_eval/analyse_labels/bbq_analysis_new/table_coef_stereo_mle_nb.csv")
+# OUT_DIR  = Path("reasoning_eval/analyse_labels/bbq_analysis_new/publication_plot")
+COEF_CSV = Path("reasoning_eval/analyse_labels/bbq_analysis_clustered/R1a_coef_stereo_cluster.csv")
+OUT_DIR  = Path("reasoning_eval/analyse_labels/bbq_analysis_clustered/publication_plot")
+
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 JUDGE_LABELS_NO_BIAS = [

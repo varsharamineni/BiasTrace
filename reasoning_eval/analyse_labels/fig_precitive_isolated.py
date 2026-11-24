@@ -14,8 +14,10 @@ mpl.rcParams["font.family"] = "DejaVu Sans"
 # Config (same as main script)
 # ======================
 
-COEF_CSV = Path("reasoning_eval/analyse_labels/bbq_analysis_new/table_coef_stereo_mle_nb.csv")
-OUT_DIR  = Path("reasoning_eval/analyse_labels/bbq_analysis_new/publication_plot")
+# COEF_CSV = Path("reasoning_eval/analyse_labels/bbq_analysis_new/table_coef_stereo_mle_nb.csv")
+# OUT_DIR  = Path("reasoning_eval/analyse_labels/bbq_analysis_new/publication_plot")
+COEF_CSV = Path("reasoning_eval/analyse_labels/bbq_analysis_clustered/R1a_coef_stereo_cluster.csv")
+OUT_DIR  = Path("reasoning_eval/analyse_labels/bbq_analysis_clustered/publication_plot")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 JUDGE_LABELS_NO_BIAS = [
@@ -137,6 +139,7 @@ plt.xticks(rotation=20, ha="right")
 n_behaviours = len(JUDGE_LABELS_NO_BIAS)
 plt.axvline(n_behaviours - 0.5, color="gray", linestyle="--", linewidth=0.8, alpha=0.6)
 
+
 sns.despine()
 plt.tight_layout()
 
@@ -203,7 +206,9 @@ plt.yticks(fontsize=14, weight="medium")
 #plt.title("Effects of Reasoning Behaviours on Biased Outcomes", fontsize=11)
 
 # Divider between behaviours and conditions
-plt.axhline(len(behaviours_df) - 0.5, color="gray", linestyle="--", linewidth=0.8, alpha=0.6)
+# plt.axhline(len(behaviours_df) - 0.5, color="gray", linestyle="--", linewidth=0.8, alpha=0.6)
+plt.axvline(1, color="gray", linestyle="--",linewidth=0.6)
+
 
 plt.gca().invert_yaxis()  # largest bars at top
 sns.despine(left=True, bottom=False)
