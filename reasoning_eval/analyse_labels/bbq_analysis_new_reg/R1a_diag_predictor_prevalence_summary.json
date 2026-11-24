@@ -1,0 +1,11 @@
+{
+  "n_behaviors_total": 5,
+  "n_behaviors_rare": 0,
+  "n_behaviors_mostly_between": 0,
+  "n_behaviors_safe": 5,
+  "rare_threshold": 0.05,
+  "within_frac_threshold": 0.25,
+  "median_within_frac_safe": 0.3923626412761807,
+  "median_se_ratio_safe": 1.0259341451726651,
+  "flagged_behaviors": []
+}

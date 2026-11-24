@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-11-24T14:31:40.438463",
+  "n_samples": 125487,
+  "n_unique_questions": 31372,
+  "random_seed": 42,
+  "n_cluster_bootstrap": 0,
+  "glmm_subsample": null,
+  "analyses": [
+    "R1a_cluster_robust_mle",
+    "R1a_se_comparison",
+    "R1f_grouped_holdout",
+    "R1g_grouped_cv",
+    "R2_evalues"
+  ],
+  "output_directory": "reasoning_eval/analyse_labels/bbq_analysis_clustered"
+}

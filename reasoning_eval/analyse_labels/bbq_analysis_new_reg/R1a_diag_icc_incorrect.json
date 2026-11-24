@@ -1,0 +1,13 @@
+{
+  "icc": 0.32555624988694964,
+  "n_obs": 125487,
+  "n_clusters": 31372,
+  "m_bar": 3.999968124442178,
+  "MSB": 1.625751138733108,
+  "MSW": 0.5547127971541954,
+  "design_effect": 1.9766583723737812,
+  "predicted_se_inflation": 1.4059368308618212,
+  "observed_median_inflation": 1.1179893578940203,
+  "observed_mean_inflation": 1.0912122618475857,
+  "match_ratio": 0.7951917421558031
+}

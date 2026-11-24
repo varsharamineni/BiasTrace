@@ -1,0 +1,45 @@
+                              Logit Regression Results                              
+====================================================================================
+Dep. Variable:     incorrect_and_stereotype   No. Observations:               125487
+Model:                                Logit   Df Residuals:                   125459
+Method:                                 MLE   Df Model:                           27
+Date:                      Sat, 19 Sep 2026   Pseudo R-squ.:                  0.5073
+Time:                              22:13:11   Log-Likelihood:                -2633.9
+converged:                             True   LL-Null:                       -5345.5
+Covariance Type:                    cluster   LLR p-value:                     0.000
+=================================================================================================================================================================
+                                                                                                    coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                                        -6.6668      0.287    -23.224      0.000      -7.229      -6.104
+C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                              -2.0874      0.487     -4.286      0.000      -3.042      -1.133
+C(ambiguous)[T.True]                                                                              0.8806      0.366      2.409      0.016       0.164       1.597
+C(model)[T.Qwen/Qwen3-8b]                                                                         0.2450      0.071      3.434      0.001       0.105       0.385
+C(category)[T.Disability_status]                                                                 -1.4476      0.205     -7.071      0.000      -1.849      -1.046
+C(category)[T.Gender_identity]                                                                   -3.3170      0.415     -7.998      0.000      -4.130      -2.504
+C(category)[T.Nationality]                                                                       -1.5759      0.239     -6.591      0.000      -2.045      -1.107
+C(category)[T.Physical_appearance]                                                                0.8695      0.200      4.340      0.000       0.477       1.262
+C(category)[T.Race_ethnicity]                                                                    -2.3892      0.292     -8.186      0.000      -2.961      -1.817
+C(category)[T.Religion]                                                                           0.0103      0.200      0.052      0.959      -0.382       0.402
+C(category)[T.SES]                                                                               -0.8174      0.125     -6.522      0.000      -1.063      -0.572
+C(category)[T.Sexual_orientation]                                                                -1.5503      0.345     -4.494      0.000      -2.226      -0.874
+C(ambiguous)[T.True]:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]          0.0956      0.478      0.200      0.842      -0.841       1.033
+group_assumption                                                                                  0.6320      0.427      1.480      0.139      -0.205       1.469
+group_assumption:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]             -0.9699      0.383     -2.531      0.011      -1.721      -0.219
+group_assumption:C(ambiguous)[T.True]                                                             1.5848      0.496      3.194      0.001       0.612       2.557
+meta_reflection                                                                                  -0.8375      0.409     -2.049      0.040      -1.639      -0.036
+meta_reflection:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]              -0.1044      0.357     -0.292      0.770      -0.804       0.595
+meta_reflection:C(ambiguous)[T.True]                                                             -0.1663      0.422     -0.394      0.693      -0.993       0.660
+outside_demo_knowledge                                                                            1.8894      0.476      3.972      0.000       0.957       2.822
+outside_demo_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]       -0.3903      0.403     -0.968      0.333      -1.180       0.400
+outside_demo_knowledge:C(ambiguous)[T.True]                                                      -0.3727      0.472     -0.789      0.430      -1.298       0.553
+outside_topical_knowledge                                                                        -0.2241      0.292     -0.767      0.443      -0.797       0.349
+outside_topical_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]    -0.5222      0.384     -1.361      0.174      -1.274       0.230
+outside_topical_knowledge:C(ambiguous)[T.True]                                                    1.0654      0.312      3.414      0.001       0.454       1.677
+overthinking                                                                                      2.0224      0.311      6.503      0.000       1.413       2.632
+overthinking:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                  2.3058      0.511      4.515      0.000       1.305       3.307
+overthinking:C(ambiguous)[T.True]                                                                 0.8521      0.334      2.554      0.011       0.198       1.506
+=================================================================================================================================================================
+
+Possibly complete quasi-separation: A fraction 0.33 of observations can be
+perfectly predicted. This might indicate that there is complete
+quasi-separation. In this case some parameters will not be identified.

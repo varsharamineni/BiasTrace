@@ -1,0 +1,45 @@
+                               GEE Regression Results                              
+===================================================================================
+Dep. Variable:                   incorrect   No. Observations:               125487
+Model:                                 GEE   No. clusters:                    31372
+Method:                        Generalized   Min. cluster size:                   3
+                      Estimating Equations   Max. cluster size:                   4
+Family:                           Binomial   Mean cluster size:                 4.0
+Dependence structure:         Exchangeable   Num. iterations:                    29
+Date:                     Sat, 19 Sep 2026   Scale:                           1.000
+Covariance type:                    robust   Time:                         22:16:22
+=================================================================================================================================================================
+                                                                                                    coef    std err          z      P>|z|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                                        -2.2919      0.047    -48.522      0.000      -2.385      -2.199
+C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                               0.9440      0.019     49.792      0.000       0.907       0.981
+C(ambiguous)[T.True]                                                                             -3.6495      0.189    -19.358      0.000      -4.019      -3.280
+C(model)[T.Qwen/Qwen3-8b]                                                                        -0.6081      0.018    -34.605      0.000      -0.643      -0.574
+C(category)[T.Disability_status]                                                                 -0.6627      0.090     -7.371      0.000      -0.839      -0.486
+C(category)[T.Gender_identity]                                                                    0.2883      0.057      5.056      0.000       0.177       0.400
+C(category)[T.Nationality]                                                                        0.0511      0.074      0.693      0.489      -0.093       0.196
+C(category)[T.Physical_appearance]                                                                0.8379      0.086      9.745      0.000       0.669       1.006
+C(category)[T.Race_ethnicity]                                                                    -0.2442      0.057     -4.267      0.000      -0.356      -0.132
+C(category)[T.Religion]                                                                           0.5789      0.082      7.089      0.000       0.419       0.739
+C(category)[T.SES]                                                                                0.3810      0.055      6.884      0.000       0.273       0.489
+C(category)[T.Sexual_orientation]                                                                 0.4932      0.092      5.333      0.000       0.312       0.674
+C(ambiguous)[T.True]:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]         -3.0961      0.270    -11.466      0.000      -3.625      -2.567
+group_assumption                                                                                 -0.0303      0.103     -0.294      0.768      -0.232       0.172
+group_assumption:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]             -0.2502      0.114     -2.203      0.028      -0.473      -0.028
+group_assumption:C(ambiguous)[T.True]                                                             2.2685      0.231      9.812      0.000       1.815       2.722
+meta_reflection                                                                                   0.3054      0.057      5.364      0.000       0.194       0.417
+meta_reflection:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]               0.0020      0.068      0.029      0.977      -0.131       0.135
+meta_reflection:C(ambiguous)[T.True]                                                             -1.2290      0.127     -9.708      0.000      -1.477      -0.981
+outside_demo_knowledge                                                                            0.6514      0.139      4.695      0.000       0.380       0.923
+outside_demo_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]       -0.2855      0.165     -1.730      0.084      -0.609       0.038
+outside_demo_knowledge:C(ambiguous)[T.True]                                                       0.8526      0.183      4.659      0.000       0.494       1.211
+outside_topical_knowledge                                                                        -0.0052      0.050     -0.103      0.918      -0.104       0.093
+outside_topical_knowledge:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]     0.1801      0.050      3.597      0.000       0.082       0.278
+outside_topical_knowledge:C(ambiguous)[T.True]                                                    0.5884      0.119      4.957      0.000       0.356       0.821
+overthinking                                                                                      0.6743      0.041     16.481      0.000       0.594       0.755
+overthinking:C(prompt_type, Treatment(reference='simple_prompt'))[T.full_prompt]                  0.1328      0.044      2.993      0.003       0.046       0.220
+overthinking:C(ambiguous)[T.True]                                                                 2.2211      0.145     15.366      0.000       1.938       2.504
+==============================================================================
+Skew:                          2.0582   Kurtosis:                       4.2658
+Centered skew:                 0.4275   Centered kurtosis:              6.7107
+==============================================================================

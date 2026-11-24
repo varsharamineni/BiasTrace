@@ -1,0 +1,42 @@
+{
+  "incorrect": {
+    "n_train": 100388,
+    "n_test": 25099,
+    "n_train_questions": 25097,
+    "n_test_questions": 6275,
+    "question_overlap": 0,
+    "accuracy": 0.897605482290131,
+    "roc_auc": 0.8547313885150725,
+    "pr_auc": 0.33082217458130303,
+    "confusion_matrix": [
+      [
+        22300,
+        331
+      ],
+      [
+        2239,
+        229
+      ]
+    ]
+  },
+  "incorrect_and_stereotype": {
+    "n_train": 100388,
+    "n_test": 25099,
+    "n_train_questions": 25097,
+    "n_test_questions": 6275,
+    "question_overlap": 0,
+    "accuracy": 0.9929877684369895,
+    "roc_auc": 0.9778645540091134,
+    "pr_auc": 0.3225868306381832,
+    "confusion_matrix": [
+      [
+        24891,
+        37
+      ],
+      [
+        139,
+        32
+      ]
+    ]
+  }
+}

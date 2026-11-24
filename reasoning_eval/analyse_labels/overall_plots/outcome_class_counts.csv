@@ -1,0 +1,5 @@
+model,prompt_type,correct,incorrect_non_stereotype,biased
+Qwen3-14B,full_prompt,26774,4564,34
+Qwen3-14B,simple_prompt,28892,2205,275
+qwen/qwen3-8b,full_prompt,28249,3059,64
+qwen/qwen3-8b,simple_prompt,29485,1359,528
