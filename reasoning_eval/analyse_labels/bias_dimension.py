@@ -253,11 +253,11 @@ label_names = {
     # "some_label": "SOME LABEL",
 }
 
-pivot = pivot.rename(columns=label_names)
+pivot_pct = pivot.rename(columns=label_names)
 
 fig, ax = plt.subplots(figsize=(max(10, 1.2 * len(error_cols)), 0.55 * len(category_order) + 2))
 sns.heatmap(
-    pivot, annot=True, fmt=".1f", cmap="Blues",
+    pivot_pct, annot=True, fmt=".1f", cmap="Blues",
 cbar_kws={"label": "Prevalence (%)"}, ax=ax,
 )
 #ax.set_title("BiasTrace label rates by BBQ category")
@@ -265,7 +265,7 @@ ax.set_xlabel("BiasTrace label")
 ax.set_ylabel("BBQ category")
 plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
 plt.tight_layout()
-plt.savefig(os.path.join(output_dir, "label_rates_by_category_heatmap.png"), dpi=150)
+plt.savefig(os.path.join(output_dir, "label_rates_by_category_heatmap.pdf"), dpi=150)
 plt.close()
 
 # 5b. Grouped bar: one bar cluster per category, coloured by label.
@@ -277,7 +277,7 @@ ax.set_xlabel("BBQ category")
 ax.legend(title="Label", bbox_to_anchor=(1.02, 1), loc="upper left", fontsize=9)
 plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
 plt.tight_layout()
-plt.savefig(os.path.join(output_dir, "label_rates_by_category_bar.png"), dpi=150, bbox_inches="tight")
+plt.savefig(os.path.join(output_dir, "label_rates_by_category_bar.pdf"), dpi=150, bbox_inches="tight")
 plt.close()
 
 # 5c. Per-label bar with error bars, so reviewers can eyeball significance
@@ -304,7 +304,7 @@ for j in range(len(error_cols), len(axes)):
 plt.suptitle("Per-label rate across BBQ categories (95% Wilson CI)", y=1.02, fontsize=13)
 plt.tight_layout()
 plt.savefig(
-    os.path.join(output_dir, "label_rates_by_category_perlabel.png"),
+    os.path.join(output_dir, "label_rates_by_category_perlabel.pdf"),
     dpi=150, bbox_inches="tight",
 )
 plt.close()
@@ -351,7 +351,7 @@ ax.set_title(
 )
 plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
 plt.tight_layout()
-plt.savefig(os.path.join(output_dir, "label_uniformity_cov.png"), dpi=150)
+plt.savefig(os.path.join(output_dir, "label_uniformity_cov.pdf"), dpi=150)
 plt.close()
 
 
@@ -415,7 +415,7 @@ for lbl in error_cols:
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
     plt.tight_layout()
     plt.savefig(
-        os.path.join(output_dir, f"label_rate_by_category_x_outcome__{lbl}.png"),
+        os.path.join(output_dir, f"label_rate_by_category_x_outcome__{lbl}.pdf"),
         dpi=150, bbox_inches="tight",
     )
     plt.close()
@@ -445,7 +445,7 @@ g.fig.suptitle(
     y=1.02, fontsize=13,
 )
 g.savefig(
-    os.path.join(output_dir, "label_rates_by_category_facets_model_prompt.png"),
+    os.path.join(output_dir, "label_rates_by_category_facets_model_prompt.pdf"),
     dpi=150, bbox_inches="tight",
 )
 plt.close("all")
@@ -484,7 +484,7 @@ for ax, amb in zip(axes, [True, False]):
 plt.suptitle("BiasTrace label rates by BBQ category × ambiguity", y=1.02, fontsize=14)
 plt.tight_layout()
 plt.savefig(
-    os.path.join(output_dir, "label_rates_by_category_x_ambiguity.png"),
+    os.path.join(output_dir, "label_rates_by_category_x_ambiguity.pdf"),
     dpi=150, bbox_inches="tight",
 )
 plt.close()
